@@ -1,0 +1,1036 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+  <meta name="360-site-verification" content="2ebfa6bfe0988ac65c00405e3012ab01" />
+
+
+
+<meta name="sogou_site_verification" content="r5H99U6ELU"/>
+ 
+
+
+
+  <meta name="baidu_union_verify" content="63d8c69bdbc435b09f0d1b064de79a19" />
+
+
+
+  <meta  baidu-gxt-verify-token="52c8363b5f7cf3520969573f8b170868" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.2"/>
+
+
+    <meta name="description" content="有故事、有担当、有思考" />
+
+
+
+  <meta name="keywords" content="jstorm,storm,大数据,实时日志," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="自由" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.2" />
+
+
+  <title> 分布式实时日志系统环境搭建（一）Jstorm 集群搭建过程/Jstorm集群一键安装部署 // 自由 </title>
+</head>
+
+<body>
+<!--[if lte IE 8]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://static.ixirong.com/picouterie.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari." style='margin-left:auto;margin-right:auto;display: block;'/></a></div> <![endif]-->
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">自由</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+     
+    
+    <!--增加“tinysou”站内搜索功能start-->
+    <form class="menu-item" ><input type="text" id="ts-search-input" class="menu-search-input"></form>
+    <script>
+    var option = {
+      engineKey: 'd4ab1eac98f4d5235098'
+    };
+    (function(w,d,t,u,n,s,e){
+      s = d.createElement(t);
+      s.src = u;
+      s.async = 1;
+      w[n] = function(r){
+        w[n].opts = r;
+      };
+      e = d.getElementsByTagName(t)[0];
+      e.parentNode.insertBefore(s, e);
+    })(window,document,'script','//tinysou-cdn.b0.upaiyun.com/ts.js','_ts');
+    _ts(option);
+    </script>
+  <!--增加“tinysou”站内搜索功能end-->
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-categories">
+        <a href="/categories">
+          <i class="menu-item-icon icon-categories"></i> <br />
+          分类
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-commonweal">
+        <a href="/404.html">
+          <i class="menu-item-icon icon-commonweal"></i> <br />
+          公益404
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              分布式实时日志系统环境搭建（一）Jstorm 集群搭建过程/Jstorm集群一键安装部署
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-05-12
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/大数据/">大数据</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/05/12/how-to-install-jstorm-cluster/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/12/how-to-install-jstorm-cluster/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <p>最近公司业务数据量越来越大，以前的基于消息队列的日志系统越来越难以满足目前的业务量，表现为消息积压，日志延迟，日志存储日期过短，所以，我们开始着手要重新设计这块，业界已经有了比较成熟的流程，即基于流式处理，采用 flume 收集日志，发送到 kafka 队列做缓冲，storm 分布式实时框架进行消费处理，短期数据落地到 hbase、mongo中，长期数据进入 hadoop 中存储。 接下来打算将这其间所遇到的问题、学习到的知识记录整理下，作为备忘，作为分享，带给需要的人。</p>
+<p>淘宝开源了许多产品组件，其中包括这鼎鼎有名的 jstorm ，也就是我们采用的分布式实时处理框架，至于为什么，请看《<a href="https://github.com/alibaba/jstorm/wiki/JStorm-vs-Storm-vs-flume-vs-S4-%E9%80%89%E5%9E%8B" target="_blank" rel="external">为什么选择Jstorm</a>》。这篇文章只介绍 Jstorm 整个集群的搭建过程，并提供一键安装部署脚本，方便其它使用的人员（搭建环境是一件头疼的事情，费时、费力）。</p>
+<p>这是 Jstorm 的介绍PPT：</p>
+<p><iframe src="//www.slideshare.net/slideshow/embed_code/key/6NiKs9odzHXrZK" width="510" height="420" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/hustjackie/jstorm-introduction096" title="Jstorm introduction-0.9.6" target="_blank">Jstorm introduction-0.9.6</a> </strong> from <strong><a href="//www.slideshare.net/hustjackie" target="_blank">longda feng</a></strong> </div></p>
+<a id="more"></a>
+<p>Jstorm 官方搭建使用过程如连接 <a href="https://github.com/alibaba/jstorm/wiki/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85" target="_blank" rel="external">https://github.com/alibaba/jstorm/wiki/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85</a> ，我整理了三个脚本：<code>安装 Jstorm 集群</code>，<code>安装 jstorm_web_ui 监控页面</code>，<code>启动zookeeper、Jstorm集群进行测试</code>。</p>
+<h1 id="说明">说明</h1><p>三个脚本是测试环境搭建使用的，三台机器：<code>192.168.9.92</code>、<code>192.168.9.93</code>、<code>192.168.9.94</code><br>如果在其他机器上面使用，必须修改脚本中相应有ip的地方 ，脚本在文章最后提供，在 <code>zip</code> 文件夹里面有完整的一份，使用的时候直接使用zip文件夹即可。</p>
+<h1 id="使用方法">使用方法</h1><p>将 <code>zip</code> 包解压到测试环境 <code>/home/work</code> 目录下，解压后，执行目录中的三个脚本，顺序执行，即可安装完毕。</p>
+<h2 id="搭建脚本如下">搭建脚本如下</h2><h3 id="Jstorm_集群安装过程_：">Jstorm 集群安装过程 ：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span><br><span class="line"></span></span><br><span class="line"><span class="comment"># author： xirong </span></span><br><span class="line"><span class="comment"># date  :  2015-02-06 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">####</span></span><br><span class="line"><span class="comment"># 此脚本为在测试环境192.168.9.92~94 三台机器上面搭建 jstorm 集群的脚本，免去一步步的安装的过程，如果换其他环境，把文中的ip修改即可</span></span><br><span class="line"><span class="comment"># 详细步骤请参考 https://github.com/alibaba/jstorm/wiki/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85</span></span><br><span class="line"><span class="comment">#	</span></span><br><span class="line"><span class="comment"># 安装目录</span></span><br><span class="line"><span class="comment"># jstorm : /opt/jstorm-0.9.6.2, zookeeper : /opt/zookeeper-3.4.6 , java : /opt/jdk1.7.0_75 </span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 注意：执行此shell脚本时候，最好使用 source jstorm_install.sh 或者 . jstorm_install.sh 强制在当前shell进程中执行，否则当前shell脚本获取不到&gt;修改的这些环境变量值 </span></span><br><span class="line"><span class="comment"># 		遇到sudo的命令时需要输入密码</span></span><br><span class="line"><span class="comment"># 脚本执行前提：</span></span><br><span class="line"><span class="comment">#		存在用户work，即存在/home/work/目录 ；</span></span><br><span class="line"><span class="comment">#       全新机器无Java</span></span><br><span class="line"><span class="comment">#		机器已经存在 Python 2.6，一般centos自带</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># 执行完脚本后需要手动操作的步骤：</span></span><br><span class="line"><span class="comment"># 1. zookeeper 集群需要每台机器标记自己身份，vim $dataDir/myid 将机器的标识填入，比如第一天机器即为1，二台为2，以此类推      </span></span><br><span class="line"><span class="comment">#### </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在64系统里执行32位程序如果出现/lib/ld-linux.so.2: bad ELF interpreter: No such file or directory</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 解决错误Failed to set locale, defaulting to C </span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"export LC_ALL=en_US.UTF-8"</span>  &gt;&gt;  /etc/profile  </span><br><span class="line"><span class="built_in">source</span> /etc/profile </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">yum install glibc.i686</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'finish pre install glibc.i686'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'start unzip all files'</span></span><br><span class="line"><span class="comment">#tar -zxf jstorm.tar.gz </span></span><br><span class="line">unzip jstorm.zip</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'finish unzip all files and start java setup'</span></span><br><span class="line"><span class="built_in">cd</span> jstorm_tar/</span><br><span class="line">tar -zxf jdk-<span class="number">7</span>u75-linux-i586.tar_0.gz -C /opt/</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'finish unzpip jdk-7u75-linux-i586.tar_0.gz &amp;&amp; start java envirenment settting '</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置java环境</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'## java configuration '</span> &gt;&gt; /etc/profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'JAVA_HOME=/opt/jdk1.7.0_75'</span> &gt;&gt; /etc/profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export PATH=$JAVA_HOME/bin:$PATH'</span> &gt;&gt; /etc/profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar'</span> &gt;&gt; /etc/profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export JAVA_HOME'</span> &gt;&gt; /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'finish java envirement setting etc/profile'</span></span><br><span class="line"><span class="comment"># 使配置生效</span></span><br><span class="line">. /etc/profile</span><br><span class="line"><span class="built_in">which</span> java</span><br><span class="line"></span><br><span class="line"><span class="comment">## 搭建zookeeper集群 </span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'start setup zookeeper ……………………'</span></span><br><span class="line">tar -zxf zookeeper-<span class="number">3.4</span>.<span class="number">6</span>.tar.gz -C /opt/ </span><br><span class="line"><span class="built_in">echo</span> <span class="string">'# zookeeper configuration '</span> &gt;&gt; /etc/profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export ZOOKEEPER_HOME=/opt/zookeeper-3.4.6'</span> &gt;&gt; /etc/profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export PATH=$ZOOKEEPER_HOME/bin:$PATH'</span> &gt;&gt; /etc/profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export CLASSPATH=$ZOOKEEPER_HOME/lib'</span> &gt;&gt; /etc/profile</span><br><span class="line"></span><br><span class="line">mkdir -p /home/work/jstorm/zookeeper_data </span><br><span class="line"><span class="comment">#cd /opt/zookeeper-3.4.6/conf/</span></span><br><span class="line">cp <span class="operator">-f</span> /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span>/conf/zoo_sample.cfg /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span>/conf/zoo_sample.cfg.bak</span><br><span class="line">mv /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span>/conf/zoo_sample.cfg /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span>/conf/zoo.cfg</span><br><span class="line"><span class="comment"># 修改zookeeper数据文件的位置</span></span><br><span class="line">sed -i.bak <span class="string">'s/dataDir=\/tmp\/zookeeper/dataDir=\/home\/work\/jstorm\/zookeeper_data\//g'</span> /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span>/conf/zoo.cfg</span><br><span class="line"><span class="comment"># 集群配置的时候需要加入三台机器的配置 ，这个就是你在搭建你自己的三台机器的ip</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'# zookeeper cluster mathines'</span> &gt;&gt; /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span>/conf/zoo.cfg</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'server.1=192.168.9.92:2888:3888'</span> &gt;&gt; /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span>/conf/zoo.cfg </span><br><span class="line"><span class="built_in">echo</span> <span class="string">'server.2=192.168.9.93:2888:3888'</span> &gt;&gt; /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span>/conf/zoo.cfg </span><br><span class="line"><span class="built_in">echo</span> <span class="string">'server.3=192.168.9.94:2888:3888'</span> &gt;&gt; /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span>/conf/zoo.cfg </span><br><span class="line"></span><br><span class="line"><span class="comment"># dataDir目录下添加标识身份 myid(这个需要手动做)</span></span><br><span class="line"><span class="comment"># vim $dataDir/myid 将机器的标识填入，比如第一天机器即为1，二台为2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使配置生效</span></span><br><span class="line">. /etc/profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'finish setup zookeeper &amp;&amp; start setup zeromq……'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装zeromq </span></span><br><span class="line"><span class="comment"># 解决错误 cannot link with -luuid, install uuid-dev</span></span><br><span class="line">yum install uuid-devel &amp;&amp; yum install libuuid-devel</span><br><span class="line"></span><br><span class="line">tar -zxf zeromq-<span class="number">2.1</span>.<span class="number">7</span>.tar.gz </span><br><span class="line"><span class="built_in">cd</span> zeromq-<span class="number">2.1</span>.<span class="number">7</span></span><br><span class="line">./configure &amp;&amp; make &amp;&amp; sudo make install &amp;&amp; sudo ldconfig </span><br><span class="line"><span class="built_in">cd</span> .. </span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'finish setup zeromq &amp;&amp; start setup jzmq ……'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装jzmq </span></span><br><span class="line">tar -zxf jzmq.tar &amp;&amp; <span class="built_in">cd</span> jzmq  &amp;&amp; ./autogen.sh &amp;&amp; ./configure &amp;&amp; make &amp;&amp; sudo make install</span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 jstrom </span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'finish setup jzmq &amp;&amp; start setup jstorm ……'</span></span><br><span class="line">mkdir /home/work/jstorm/jstorm_data </span><br><span class="line">unzip jstorm-<span class="number">0.9</span>.<span class="number">6.2</span>.zip <span class="operator">-d</span> /opt/</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export JSTORM_HOME=/opt/jstorm-0.9.6.2'</span> &gt;&gt; ~/.bashrc </span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export PATH=$PATH:$JSTORM_HOME/bin'</span> &gt;&gt; ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'after configure bashrc for jstorm'</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置$JSTORM_HOME/conf/storm.yaml</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'start configuration storm.yaml ……'</span></span><br><span class="line">sed -i <span class="string">'/localhost"$/'</span>d /opt/jstorm-<span class="number">0.9</span>.<span class="number">6.2</span>/conf/storm.yaml</span><br><span class="line">sed -i /<span class="string">'storm.zookeeper.servers:/a\     - "192.168.9.94"'</span> /opt/jstorm-<span class="number">0.9</span>.<span class="number">6.2</span>/conf/storm.yaml</span><br><span class="line">sed -i /<span class="string">'storm.zookeeper.servers:/a\     - "192.168.9.93"'</span> /opt/jstorm-<span class="number">0.9</span>.<span class="number">6.2</span>/conf/storm.yaml</span><br><span class="line">sed -i /<span class="string">'storm.zookeeper.servers:/a\     - "192.168.9.92"'</span> /opt/jstorm-<span class="number">0.9</span>.<span class="number">6.2</span>/conf/storm.yaml</span><br><span class="line">sed -i <span class="string">'s/%JSTORM_HOME%\/data/\/home\/work\/jstorm\/jstorm_data/g'</span> /opt/jstorm-<span class="number">0.9</span>.<span class="number">6.2</span>/conf/storm.yaml</span><br><span class="line">sed -i /<span class="string">'storm.zookeeper.root/a\ nimbus.host: "192.168.9.92"'</span> /opt/jstorm-<span class="number">0.9</span>.<span class="number">6.2</span>/conf/storm.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面这两句只需要在安装 jstorm_ui 和提交jar节点的机器上面执行就可以了</span></span><br><span class="line"><span class="comment">#mkdir ~/.jstorm</span></span><br><span class="line"><span class="comment">#cp -f $JSTORM_HOME/conf/storm.yaml ~/.jstorm</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'congratilations ! you have successfully install jstorm on your machine ! Enjoy it !'</span></span><br></pre></td></tr></table></figure>
+<h3 id="Jstorm_web_ui_监控搭建_：">Jstorm_web_ui 监控搭建 ：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span><br><span class="line"></span></span><br><span class="line"><span class="comment"># author： xirong </span></span><br><span class="line"><span class="comment"># date  :  2015-05-11 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#########</span></span><br><span class="line"><span class="comment"># 安装 jstorm 监控 UI 页面 （只需要在一台机器上面安装即可）</span></span><br><span class="line"><span class="comment"># 此脚本执行前需要先执行脚本 1.jstorm_cluster_install.sh</span></span><br><span class="line"><span class="comment">#########</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'start install apache-tomcat-7.0.61 '</span></span><br><span class="line">mkdir ~/.jstorm</span><br><span class="line">cp <span class="operator">-f</span> <span class="variable">$JSTORM_HOME</span>/conf/storm.yaml ~/.jstorm</span><br><span class="line"></span><br><span class="line">tar -zxf apache-tomcat-<span class="number">7.0</span>.<span class="number">61</span>.tar.gz  -C /opt/</span><br><span class="line"><span class="built_in">cd</span> /opt/apache-tomcat-<span class="number">7.0</span>.<span class="number">61</span>/webapps</span><br><span class="line">cp <span class="variable">$JSTORM_HOME</span>/jstorm-ui-<span class="number">0.9</span>.<span class="number">6.2</span>.war  ./</span><br><span class="line">mv ROOT ROOT.old</span><br><span class="line">ln <span class="operator">-s</span> jstorm-ui-<span class="number">0.9</span>.<span class="number">6.2</span> ROOT </span><br><span class="line"><span class="built_in">cd</span> ../bin</span><br><span class="line">./startup.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'congratulaions ! you have install jstorm_ui！ enjoy it ！'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果本机端口8080没有开放，那么需要开放端口号8080以供外面可以访问</span></span><br><span class="line"><span class="comment">#/sbin/iptables -I INPUT -p tcp --dport 8080 -j ACCEPT</span></span><br><span class="line"><span class="comment">#/etc/rc.d/init.d/iptables save</span></span><br><span class="line"><span class="comment">#/etc/init.d/iptables restart</span></span><br></pre></td></tr></table></figure>
+<h3 id="jstorm_集群启动_测试">jstorm 集群启动 测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span><br><span class="line"></span></span><br><span class="line"><span class="comment"># author： xirong </span></span><br><span class="line"><span class="comment"># date  :  2015-05-11 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#####</span></span><br><span class="line"><span class="comment"># 启动 jstorm脚本 </span></span><br><span class="line"><span class="comment"># 1. 先启动必须组件 zookeeper，启动前必须确定每台机器自己的myid文件</span></span><br><span class="line"><span class="comment">####</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 先启动必须组件 zookeeper，启动前必须确定每台机器自己的myid文件，不明白，查看安装地方 </span></span><br><span class="line"><span class="built_in">cd</span> /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span></span><br><span class="line">sh bin/zkServer.sh start </span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'zookeeper has started ! please see status :'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># leader or follower </span></span><br><span class="line">sh bin/zkServer.sh status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 详细命令 http://www.wangyuxiong.com/archives/51725</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动 jstorm 服务 自动脚本 $JSTORM_HOME/logs/supervisor.log检查有无错误</span></span><br><span class="line">sh /opt/jstorm-<span class="number">0.9</span>.<span class="number">6.2</span>/bin/start.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只需要在nimbus机器上面执行，如果已经ok的话，就不需要了</span></span><br><span class="line"><span class="comment"># nohup jstorm nimbus &amp;</span></span><br><span class="line"><span class="comment"># $JSTORM_HOME/logs/nimbus.log检查有无错误</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止 </span></span><br><span class="line"><span class="comment">#sh /opt/jstorm-0.9.6.2/bin/stop.sh</span></span><br></pre></td></tr></table></figure>
+<p>监控页面如下(当然这只是官方例子，证明安装部署的ok）：<br><img src="http://static.ixirong.com/pic/bigdata/jstorm_clusters.png" alt="Jstorm 集群首页"></p>
+<p><img src="http://static.ixirong.com/pic/bigdata/jstorm_topology.png" alt="topology 分析页面"></p>
+<h2 id="安装注意">安装注意</h2><ul>
+<li>java环境配置建议1.7以上  </li>
+<li>集群三台机器需要关闭防火墙，否则错误 “<code>java.net.NoRouteToHostException: 没有到主机的路由</code>”</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master shirdrn]<span class="comment"># service iptables stop  </span></span><br><span class="line">Flushing firewall rules: [  OK  ]  </span><br><span class="line">Setting chains to policy ACCEPT: filter [  OK  ]  </span><br><span class="line">Unloading iptables modules: [  OK  ]</span><br></pre></td></tr></table></figure>
+<h1 id="jstorm_常用命令">jstorm 常用命令</h1><ol>
+<li><strong>启动 nimbus</strong>  “nohup jstorm nimbus &amp; “    查看$JSTORM_HOME/logs/nimbus.log 检查错误日志</li>
+<li>启动 supervisor “nohup jstorm supervisor &amp;”    查看$JSTORM_HOME/logs/supervisor.log 检查有无错误</li>
+<li>停止  “sh $JSTORM_HOME/bin/stop.sh”</li>
+</ol>
+<h1 id="zookeeper_常用命令">zookeeper 常用命令</h1><ol>
+<li>启动ZK服务:       sh bin/zkServer.sh start</li>
+<li>查看ZK服务状态:      sh bin/zkServer.sh status</li>
+<li>停止ZK服务:       sh bin/zkServer.sh stop</li>
+<li>重启ZK服务:       sh bin/zkServer.sh restart<br>或者连接到服务器 bin/zkCli.sh -server 127.0.0.1:2181  输入help 查看操作帮助</li>
+</ol>
+<p>其它详细参考： <a href="http://www.wangyuxiong.com/archives/51725" target="_blank" rel="external">http://www.wangyuxiong.com/archives/51725</a></p>
+<h1 id="jstorm-zip_包和脚本下载">jstorm.zip 包和脚本下载</h1><p>在 <code>zip</code> 文件夹里面有完整的上述三个骄傲本，使用的时候直接下载zip文件夹即可，下载地址 ： <a href="http://pan.baidu.com/s/1c0k2TtI" target="_blank" rel="external">百度网盘</a> ，密码：<code>btcq</code> </p>
+<p>如果有什么问题，可以在右侧我的各种社交中找到我，或者在文章下面评论，我会及时答复各位。</p>
+
+      
+    </div>
+
+    <div class="post-footer">
+    
+      
+        <div class="post-tags">
+          
+            <a href="/tags/jstorm/"> #jstorm </a>
+          
+            <a href="/tags/storm/"> #storm </a>
+          
+            <a href="/tags/大数据/"> #大数据 </a>
+          
+            <a href="/tags/实时日志/"> #实时日志 </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/05/13/how-to-decide-to-bye-mac-economicaly/">购买苹果设备如何更经济实惠？</a>
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/11/plan-lately/">最近计划中的几篇文章</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2015/05/12/how-to-install-jstorm-cluster/"
+               data-title="分布式实时日志系统环境搭建（一）Jstorm 集群搭建过程/Jstorm集群一键安装部署" data-url="http://www.ixirong.com/2015/05/12/how-to-install-jstorm-cluster/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+         
+        </div>
+
+        
+        <!-- 多说热评文章-->
+        <p>热评文章</p>
+        <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+        
+      </div>
+               
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="xirong" />
+          <p class="site-author-name">xirong</p>
+        </div>
+        <p class="site-description motion-element">有故事、有担当、有思考</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="https://twitter.com/LiuXirong" target="_blank">Twitter</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/jackieliuxirong" target="_blank">微博</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://instagram.com/ixirong/" target="_blank">Instagram</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/xirong/" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://stackoverflow.com/users/1632013/xirong" target="_blank">StackOverflow</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.douban.com/people/alexliuxirong/" target="_blank">豆瓣</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.jianshu.com/users/51db946c00fa/latest_articles" target="_blank">简书</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="mailto:jackieliuxirong@gmail.com" target="_blank">MailMe</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#说明"><span class="nav-number">1.</span> <span class="nav-text">说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用方法"><span class="nav-number">2.</span> <span class="nav-text">使用方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#搭建脚本如下"><span class="nav-number">2.1.</span> <span class="nav-text">搭建脚本如下</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Jstorm_集群安装过程_："><span class="nav-number">2.1.1.</span> <span class="nav-text">Jstorm 集群安装过程 ：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Jstorm_web_ui_监控搭建_："><span class="nav-number">2.1.2.</span> <span class="nav-text">Jstorm_web_ui 监控搭建 ：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jstorm_集群启动_测试"><span class="nav-number">2.1.3.</span> <span class="nav-text">jstorm 集群启动 测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装注意"><span class="nav-number">2.2.</span> <span class="nav-text">安装注意</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jstorm_常用命令"><span class="nav-number">3.</span> <span class="nav-text">jstorm 常用命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#zookeeper_常用命令"><span class="nav-number">4.</span> <span class="nav-text">zookeeper 常用命令</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#jstorm-zip_包和脚本下载"><span class="nav-number">5.</span> <span class="nav-text">jstorm.zip 包和脚本下载</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">xirong</span>
+</div>
+
+<div class="powered-by">
+  <div style="float:left;margin-top:7px;margin-right:10px;">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254711542'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254711542%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+   鲁ICP备15013969号
+</div>
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a> 
+</div>
+
+<div class="theme-info">
+  Clone theme 
+  <a class="theme-link" href="https://github.com/xirong/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.content img').each(function () {
+        var $image = $(this);
+        var $imageWrapLink = $image.parent('a');
+
+        if ($imageWrapLink.size() < 1) {
+          $imageWrapLink = $image.wrap('<a href="' + this.getAttribute('src') + '"></a>').parent('a');
+        }
+        $imageWrapLink.addClass('fancybox');
+      });
+    });
+    $('.fancybox').fancybox({
+      helpers: {
+        overlay: {
+          locked: false
+        }
+      }
+    });
+  </script>
+
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    LogoAndMenuMotion();
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+    function LogoAndMenuMotion() {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    }
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = window.postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xirong"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?35130bce62151673e28ec769bef55e70";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  
+  <script type="text/javascript">
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-61803765-1');ga('send','pageview');
+  </script>
+
+</body>
+</html>

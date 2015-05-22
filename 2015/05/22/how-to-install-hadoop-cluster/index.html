@@ -1,0 +1,1075 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+  <meta name="360-site-verification" content="2ebfa6bfe0988ac65c00405e3012ab01" />
+
+
+
+<meta name="sogou_site_verification" content="r5H99U6ELU"/>
+ 
+
+
+
+  <meta name="baidu_union_verify" content="63d8c69bdbc435b09f0d1b064de79a19" />
+
+
+
+  <meta  baidu-gxt-verify-token="52c8363b5f7cf3520969573f8b170868" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.2"/>
+
+
+    <meta name="description" content="有故事、有担当、有思考" />
+
+
+
+  <meta name="keywords" content="hadoop,大数据,存储,日志," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="自由" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.2" />
+
+
+  <title> 分布式实时日志系统环境搭建（三） centos 6.4 下hadoop 2.5.2 集群搭建最全资料 // 自由 </title>
+</head>
+
+<body>
+<!--[if lte IE 8]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://static.ixirong.com/picouterie.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari." style='margin-left:auto;margin-right:auto;display: block;'/></a></div> <![endif]-->
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">自由</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+     
+    
+    <!--增加“tinysou”站内搜索功能start-->
+    <form class="menu-item" ><input type="text" id="ts-search-input" class="menu-search-input"></form>
+    <script>
+    var option = {
+      engineKey: 'd4ab1eac98f4d5235098'
+    };
+    (function(w,d,t,u,n,s,e){
+      s = d.createElement(t);
+      s.src = u;
+      s.async = 1;
+      w[n] = function(r){
+        w[n].opts = r;
+      };
+      e = d.getElementsByTagName(t)[0];
+      e.parentNode.insertBefore(s, e);
+    })(window,document,'script','//tinysou-cdn.b0.upaiyun.com/ts.js','_ts');
+    _ts(option);
+    </script>
+  <!--增加“tinysou”站内搜索功能end-->
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-categories">
+        <a href="/categories">
+          <i class="menu-item-icon icon-categories"></i> <br />
+          分类
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-commonweal">
+        <a href="/404.html">
+          <i class="menu-item-icon icon-commonweal"></i> <br />
+          公益404
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              分布式实时日志系统环境搭建（三） centos 6.4 下hadoop 2.5.2 集群搭建最全资料
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-05-22
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/大数据/">大数据</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/05/22/how-to-install-hadoop-cluster/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/22/how-to-install-hadoop-cluster/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <p>最近公司业务数据量越来越大，以前的基于消息队列的日志系统越来越难以满足目前的业务量，表现为消息积压，日志延迟，日志存储日期过短，所以，我们开始着手要重新设计这块，业界已经有了比较成熟的流程，即基于流式处理，采用 flume 收集日志，发送到 kafka 队列做缓冲，storm 分布式实时框架进行消费处理，短期数据落地到 hbase、mongo中，长期数据进入 hadoop 中存储。 接下来打算将这其间所遇到的问题、学习到的知识记录整理下，作为备忘，作为分享，带给需要的人。</p>
+<p>hadoop 简介，也可以去官网看介绍 </p>
+<p><iframe src="//www.slideshare.net/slideshow/embed_code/key/vI8FgtPNW7iAWv" width="510" height="420" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/sudhakara_st/hadoop-intruduction" title="Hadoop introduction , Why and What is Hadoop ?" target="_blank">Hadoop introduction , Why and What is Hadoop ?</a> </strong> from <strong><a href="//www.slideshare.net/sudhakara_st" target="_blank">Sudhakara St</a></strong> </div></p>
+<p>在搭建 hadoop 集群的过程中还是遇到很多问题的，我尽量的以初学者的口吻来写这篇文章，尽量做到详尽，当然不明白、不清楚的地方可以随时留言或找到我的联系方式与我沟通。<br><a id="more"></a></p>
+<h1 id="总体环境说明">总体环境说明</h1><p>操作系统： cenos 6.4 ，三台192.168.9.92、192.168.9.93、192.168.9.94<br>jdk版本： 1.7.0_75<br>hadoop版本： 2.5.2 （目的与hbase兼容）</p>
+<p>hadoop集群3个节点，一主两从，如下：<br>| 角色      |     ip |   用户   |<br>| :———— | ————:| :———: |<br>| master    |  192.168.9.92 | hadoop  |<br>| slave1    |  192.168.9.93 | hadoop  |<br>| slave2    |  192.168.9.94 | hadoop  |</p>
+<h1 id="设置环境变量">设置环境变量</h1><p>安装 hadoop 前需要提前配置好三台机器的 hostname，之间ssh无密码可登陆，Java环境的搭建，bashrc 的一些变量设置等，详细如下 </p>
+<h2 id="设置机器hostname别名">设置机器hostname别名</h2><p>设置别名的目的是机器间相互识别可以不用ip，配置文件中也可以不用ip，通用性上更强一些。</p>
+<p>在 master 机器上面执行下面的命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 当前ssh窗口即可生效</span></span><br><span class="line">hostname master	</span><br><span class="line"><span class="comment"># 每次重启以后均生效</span></span><br><span class="line">vi /etc/sysconfig/network	</span><br><span class="line">HOSTNAME=master</span><br></pre></td></tr></table></figure>
+<p>同样，在 slave1 、slave2 机器上面执行相同的命令，只需要更改最后一句为相应的角色名称</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HOSTNAME=slave1</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HOSTNAME=slave2</span><br></pre></td></tr></table></figure>
+<p>添加Hosts映射关系，三台机器上面分别都执行操作  <code>vi /etc/hosts</code>  添加如下内容 ，之后在每台机器上面<code>ping</code>一下，确保能够连接彼此。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">192.168</span>.<span class="number">9.92</span> master</span><br><span class="line"><span class="number">192.168</span>.<span class="number">9.93</span> slave1</span><br><span class="line"><span class="number">192.168</span>.<span class="number">9.94</span> slave2</span><br></pre></td></tr></table></figure>
+<h2 id="配置_JDK_环境">配置 JDK 环境</h2><p>下载 Java 对应的版本，地址如下<a href="http://www.oracle.com/technetwork/cn/java/javase/downloads/jdk7-downloads-1880260.html" target="_blank" rel="external">jdk-7u75-linux-i586.tar_0.gz</a>，配置环境变量即可完成java环境的配置，详情看脚本 ：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解压到 /opt/下面</span></span><br><span class="line">tar -zxf jdk-<span class="number">7</span>u75-linux-i586.tar_0.gz -C /opt/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置java环境，最好在全局 /etc/profile 配置中修改，这样所有用户均可以使用</span></span><br><span class="line">vi /etc/profile </span><br><span class="line"></span><br><span class="line">JAVA_HOME=/opt/jdk1.<span class="number">7.0</span>_75</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib/dt.jar:<span class="variable">$JAVA_HOME</span>/lib/tools.jar</span><br><span class="line"><span class="built_in">export</span> JAVA_HOME</span><br></pre></td></tr></table></figure>
+<p>使修改的配置立即生效，终端中执行<code>source /etc/profile</code>。<br>测试是否ok，执行命令<code>which java</code>，若出现<code>/opt/jdk1.7.0_75/bin/java</code> 表示已经ok 或者 <code>java -version</code> ,出现<code>java version &quot;1.7.0_75&quot;</code> 也表明ok。</p>
+<h2 id="配置集群之间SSH无密码登陆">配置集群之间SSH无密码登陆</h2><p>1、为了hadoop集群的安全与方便管理，我们要另外新建用户，并设置密码，命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建账号hadoop并赋予密码nopass.2</span></span><br><span class="line">sudo adduser hadoop &amp;&amp; sudo passwd hadoop</span><br></pre></td></tr></table></figure>
+<p>2、给hadoop账户赋予root权限 <code>vi /etc/sudoers</code> 添加如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">hadoop  ALL=(ALL)       ALL</span><br><span class="line">``` </span><br><span class="line"><span class="number">3</span>、配置集群各个节点之间的ssh无密码互信，也就是从master开始，ssh到master（localhost）、slave1和slave2上都不需要密码，反向ssh到master同样，互信设置需要在`hadoop`用户下执行命令如下：</span><br><span class="line"></span><br><span class="line">``` bash</span><br><span class="line">ssh-keygen -t dsa -P <span class="string">''</span> <span class="operator">-f</span> ~/.ssh/id_dsa </span><br><span class="line">cat  ~/.ssh/id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这步很重要，必须要授予读写的权限 r=4，w=2，x=1 </span></span><br><span class="line">chmod <span class="number">600</span> ~/.ssh/authorized_keys</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拷贝授权认证公钥</span></span><br><span class="line">scp ~/.ssh/authorized_keys hadoop@master:/home/hadoop/.ssh/</span><br><span class="line">scp ~/.ssh/authorized_keys hadoop@slave1:/home/hadoop/.ssh/</span><br><span class="line">scp ~/.ssh/authorized_keys hadoop@slave2:/home/hadoop/.ssh/</span><br></pre></td></tr></table></figure>
+<p>这样就将生成的授权秘钥拷贝到了slave1和slave2的/home/hadoop/.ssh目录下，从 master 机器 ssh到 slave1 、slave2 都不再需要密码了，同理，在slave1、slave2机器上执行上面的命令即可完成slave 到master之间的无密码登录。（其实，操作完后，slave之间也是可以无密码登录的，只是不需要而已）</p>
+<p>测试下 ，不使用密码登录即ok</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh hadoop@master </span><br><span class="line">ssh hadoop@slave1 </span><br><span class="line">ssh hadoop@slave2</span><br></pre></td></tr></table></figure>
+<h1 id="Hadoop_集群的安装">Hadoop 集群的安装</h1><p>hadoop 的安装其实很简单，解压完毕后，修改配置文件、环境变量就完成了安装，需要在每个节点都安装，为了写了一键安装部署脚本，执行<code>hadoop_install.sh</code>后即可用启动命令进行测试，尽量做到简单方便的运维，提供的脚本如往常一样再本文最后给出，下面就一步步解释下：</p>
+<p>1、 解压 <code>hadoop-2.5.2.tar.gz</code> 文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hadoop-<span class="number">2.5</span>.<span class="number">2</span>.tar.gz -C /home/hadoop/</span><br></pre></td></tr></table></figure>
+<p>2、修改环境变量<code>vi /home/hadoop/.bashrc</code> ，添加如下代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> HADOOP_HOME=<span class="variable">$HOME</span>/hadoop-<span class="number">2.5</span>.<span class="number">2</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_MAPRED_HOME=<span class="variable">$&#123;HADOOP_HOME&#125;</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_COMMON_HOME=<span class="variable">$&#123;HADOOP_HOME&#125;</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_HDFS_HOME=<span class="variable">$&#123;HADOOP_HOME&#125;</span></span><br><span class="line"><span class="built_in">export</span> YARN_HOME=<span class="variable">$&#123;HADOOP_HOME&#125;</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_CONF_DIR=<span class="variable">$&#123;HADOOP_HOME&#125;</span>/etc/hadoop</span><br><span class="line"><span class="built_in">export</span> HDFS_CONF_DIR=<span class="variable">$&#123;HADOOP_HOME&#125;</span>/etc/hadoop</span><br><span class="line"><span class="built_in">export</span> YARN_CONF_DIR=<span class="variable">$&#123;HADOOP_HOME&#125;</span>/etc/hadoop</span><br><span class="line"><span class="built_in">export</span> HADOOP_LOG_DIR=<span class="variable">$&#123;HADOOP_HOME&#125;</span>/logs</span><br><span class="line"><span class="built_in">export</span> HADOOP_PID_DIR=/var/hadoop/pids</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解决启动时候的错误</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_COMMON_LIB_NATIVE_DIR=<span class="variable">$HADOOP_HOME</span>/lib/native</span><br><span class="line"><span class="built_in">export</span> HADOOP_OPTS=<span class="string">"-Djava.library.path=<span class="variable">$HADOOP_HOME</span>/lib"</span></span><br></pre></td></tr></table></figure>
+<p>3、 修改 hadoop 文件目录中的各项配置文件 ，<a href="http://blog.csdn.net/yangjl38/article/details/7583374" target="_blank" rel="external">配置文件详细说明见</a><br>3.1、修改<code>core-site.xml</code> 配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>hdfs://master:9000<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>io.file.buffer.size<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>131072<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--hadoop运行时的临时文件的目录--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>/home/hadoop/tmp<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">description</span>&gt;</span>Abase for other temporary directories.<span class="tag">&lt;/<span class="title">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>3.2 、修改<code>hdfs-site.xml</code> ，代码如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>dfs.namenode.secondary.http-address<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>master:9001<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>dfs.namenode.name.dir<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>/home/hadoop/dfs/name<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>/home/hadoop/dfs/data<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 值不应大于datanode数量 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>2<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>dfs.webhdfs.enabled<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>true<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>备注：访问namenode的hdfs使用50070端口，访问datanode的webhdfs使用50075端口。要想不区分端口，直接使用namenode的IP和端口进行所有的webhdfs操作，就需要在所有的datanode上都设置hdfs-site.xml中的dfs.webhdfs.enabled为true。</p>
+<p>3.3 、修改<code>mapred-site.xml</code>，代码如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>mapreduce.jobhistory.address<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>master:10020<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>mapreduce.jobhistory.webapp.address<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>master:19888<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>备注：jobhistory是Hadoop自带了一个历史服务器，记录Mapreduce历史作业。默认情况下，jobhistory没有启动，可用以下命令启动：<code>$HADOOP_HOME/sbin/mr-jobhistory-daemon.sh start historyserver</code></p>
+<p>3.4、 修改<code>yarn-site.xml</code>，代码如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>yarn.nodemanager.aux-services.mapreduce.shuffle.class<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>org.apache.hadoop.mapred.ShuffleHandler<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>yarn.resourcemanager.address<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>master:8032<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>yarn.resourcemanager.scheduler.address<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>master:8030<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>yarn.resourcemanager.resource-tracker.address<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>master:8031<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>yarn.resourcemanager.admin.address<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>master:8033<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>yarn.resourcemanager.webapp.address<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>master:8088<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>3.5、 修改两个启动命令文件 <code>hadoop-env.sh</code> 和 <code>yarn-env.sh</code> ，添加 JAVA_HOME 变量 ：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/opt/jdk1.<span class="number">7.0</span>_75</span><br></pre></td></tr></table></figure>
+<p>3.6 、 修改 <code>slaves</code>配置，代码如下，添加两台slaves机器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">slave1</span><br><span class="line">slave2</span><br></pre></td></tr></table></figure>
+<p>以上就是整个安装过程，下面测试下是否安装ok </p>
+<h1 id="Hadoop_集群的测试">Hadoop 集群的测试</h1><h2 id="启动_hadoop，验证页面是否ok">启动 hadoop，验证页面是否ok</h2><p>1 、格式化磁盘，格式化hadoop使用的文件磁盘，并不是物理上的磁盘，需要在每个节点上都执行下面的命令 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> <span class="variable">$HADOOP_HOME</span>/bin/hdfs namenode –format</span><br></pre></td></tr></table></figure>
+<p>2、 启动hadoop ，注意：只需要在 master 节点上启动即可，会自动启动slave各个节点</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># start-dfs.sh 此命令启动了namenode、secondaryNamenode以及datanode</span></span><br><span class="line"><span class="comment"># start-yarn.sh 此命令启动了ResourceManager和NodeManager，相当于hadoop1中的jobtracker和TaskTracker  </span></span><br><span class="line"></span><br><span class="line"><span class="variable">$HADOOP_HOME</span>/sbin/start-dfs.sh</span><br><span class="line"><span class="variable">$HADOOP_HOME</span>/sbin/start-yarn.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用这一个命令代替 </span></span><br><span class="line"><span class="comment"># $HADOOP_HOME/sbin/start-all.sh</span></span><br></pre></td></tr></table></figure>
+<p>3、 停止 hadoop ， 注意：只需要在 master 节点上执行即可 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$HADOOP_HOME</span>/sbin/stop-all.sh</span><br><span class="line">``` </span><br><span class="line"><span class="number">4</span>、测试是否启动ok，使用java进程查看命令`jps`,终端中输入即可，看到如下内容即表示ok</span><br><span class="line"></span><br><span class="line">``` bash </span><br><span class="line"><span class="number">7692</span> ResourceManager  </span><br><span class="line"><span class="number">8428</span> JobHistoryServer  </span><br><span class="line"><span class="number">7348</span> NameNode  </span><br><span class="line"><span class="number">14874</span> Jps  </span><br><span class="line"><span class="number">7539</span> SecondaryNameNode</span><br></pre></td></tr></table></figure>
+<p>5、 HTTP效果，通过浏览器查看集群运行状态，访问 <a href="http://192.168.9.92:50070/、http://192.168.9.92:8088/、http://192.168.9.92:19888/" target="_blank" rel="external">http://192.168.9.92:50070/、http://192.168.9.92:8088/、http://192.168.9.92:19888/</a> 即可看到下图的效果</p>
+<p><img src="http://static.ixirong.com/pic/hadoop/hadoop-overview.png" alt="hadoop-overview"></p>
+<p><img src="http://static.ixirong.com/pic/hadoop/hadoop-cluster.png" alt="hadoop-cluster"></p>
+<p><img src="http://static.ixirong.com/pic/hadoop/hadoop-history.png" alt="hadoop-jobhistory"></p>
+<p>6、单独重启丢失的DataNode节点<br><strong>如果某个DataNode节点Dead（由于死机或人为原因等），可以在不重启整个Hadoop服务的情况下进行单独重启。</strong><br>方法如下：<br>在NameNode的hadoop-2.5.2/sbin目录下，执行命令启动HDFS DataNode </p>
+<pre><code>./hadoop-daemons<span class="class">.sh</span> start datanode
+./yarn-daemons<span class="class">.sh</span> start nodemanager  
+</code></pre><p>或者单独启动NameNode节点，命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./hadoop-daemon.sh start namenode  </span><br><span class="line">./yarn-daemon.sh start resourcemanager</span><br></pre></td></tr></table></figure>
+<p>上述四个命令都可以指定—config参数，后面跟hadoop的集群配置文件所在目录（即$HADOOP_HOME/etc/hadoop），大家可通过参数-h查看命令帮助信息<br><strong>注意：上面命令不会影响已经启动的hdfs或yarn服务，只会把丢失节点的服务启动起来。</strong></p>
+<h2 id="运行Hadoop自带的wordcount示例">运行Hadoop自带的wordcount示例</h2><p>1、 创建input文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/hadoop/</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"My first hadoop example. Hello Hadoop in input. "</span> &gt; input </span><br><span class="line">ls</span><br></pre></td></tr></table></figure>
+<p>2、创建用户目录，必须是 <code>/user/用户名</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$HADOOP_HOME</span>/bin/hadoop fs -mkdir -p /user/hadoop</span><br></pre></td></tr></table></figure>
+<p>3、上传文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$HADOOP_HOME</span>/bin/hadoop fs -put input /user/hadoop</span><br></pre></td></tr></table></figure>
+<p>4、 执行 wordcount 程序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$HADOOP_HOME</span>/bin/hadoop jar <span class="variable">$HADOOP_HOME</span>/share/hadoop/mapreduce/hadoop-mapreduce-examples-<span class="number">2.5</span>.<span class="number">2</span>.jar wordcount /user/hadoop/input /user/hadoop/output</span><br></pre></td></tr></table></figure>
+<p>5、验证结果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$HADOOP_HOME</span>/bin/hadoop fs -cat /user/hadoop/output/part-r-<span class="number">00000</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Hadoop  <span class="number">1</span>  </span><br><span class="line">My  <span class="number">1</span>  </span><br><span class="line">example.Hello   <span class="number">1</span>  </span><br><span class="line">first   <span class="number">1</span>  </span><br><span class="line">hadoop  <span class="number">1</span>  </span><br><span class="line"><span class="keyword">in</span>  <span class="number">1</span>  </span><br><span class="line">input.  <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="参考资料">参考资料</h2><p><a href="http://blog.csdn.net/hwwn2009/article/details/39889465" target="_blank" rel="external">http://blog.csdn.net/hwwn2009/article/details/39889465</a><br><a href="http://www.cnblogs.com/bxljoy/p/3880250.html" target="_blank" rel="external">http://www.cnblogs.com/bxljoy/p/3880250.html</a><br><a href="http://ju.outofmemory.cn/entry/29825" target="_blank" rel="external">http://ju.outofmemory.cn/entry/29825</a><br><a href="http://blog.csdn.net/tang9140/article/details/42869531" target="_blank" rel="external">http://blog.csdn.net/tang9140/article/details/42869531</a></p>
+
+      
+    </div>
+
+    <div class="post-footer">
+    
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hadoop/"> #hadoop </a>
+          
+            <a href="/tags/大数据/"> #大数据 </a>
+          
+            <a href="/tags/存储/"> #存储 </a>
+          
+            <a href="/tags/日志/"> #日志 </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/18/how-to-install-flume-ng/">分布式实时日志系统环境搭建（二） flume 集群搭建/flume ng资料</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2015/05/22/how-to-install-hadoop-cluster/"
+               data-title="分布式实时日志系统环境搭建（三） centos 6.4 下hadoop 2.5.2 集群搭建最全资料" data-url="http://www.ixirong.com/2015/05/22/how-to-install-hadoop-cluster/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+         
+        </div>
+
+        
+        <!-- 多说热评文章-->
+        <p>热评文章</p>
+        <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+        
+      </div>
+               
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="xirong" />
+          <p class="site-author-name">xirong</p>
+        </div>
+        <p class="site-description motion-element">有故事、有担当、有思考</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">20</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">33</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="https://twitter.com/LiuXirong" target="_blank">Twitter</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/jackieliuxirong" target="_blank">微博</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://instagram.com/ixirong/" target="_blank">Instagram</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/xirong/" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://stackoverflow.com/users/1632013/xirong" target="_blank">StackOverflow</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.douban.com/people/alexliuxirong/" target="_blank">豆瓣</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.jianshu.com/users/51db946c00fa/latest_articles" target="_blank">简书</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="mailto:jackieliuxirong@gmail.com" target="_blank">MailMe</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#总体环境说明"><span class="nav-number">1.</span> <span class="nav-text">总体环境说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设置环境变量"><span class="nav-number">2.</span> <span class="nav-text">设置环境变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置机器hostname别名"><span class="nav-number">2.1.</span> <span class="nav-text">设置机器hostname别名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置_JDK_环境"><span class="nav-number">2.2.</span> <span class="nav-text">配置 JDK 环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置集群之间SSH无密码登陆"><span class="nav-number">2.3.</span> <span class="nav-text">配置集群之间SSH无密码登陆</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop_集群的安装"><span class="nav-number">3.</span> <span class="nav-text">Hadoop 集群的安装</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hadoop_集群的测试"><span class="nav-number">4.</span> <span class="nav-text">Hadoop 集群的测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#启动_hadoop，验证页面是否ok"><span class="nav-number">4.1.</span> <span class="nav-text">启动 hadoop，验证页面是否ok</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行Hadoop自带的wordcount示例"><span class="nav-number">4.2.</span> <span class="nav-text">运行Hadoop自带的wordcount示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资料"><span class="nav-number">4.3.</span> <span class="nav-text">参考资料</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">xirong</span>
+</div>
+
+<div class="powered-by">
+  <div style="float:left;margin-top:7px;margin-right:10px;">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254711542'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254711542%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+   鲁ICP备15013969号
+</div>
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a> 
+</div>
+
+<div class="theme-info">
+  Clone theme 
+  <a class="theme-link" href="https://github.com/xirong/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.content img').each(function () {
+        var $image = $(this);
+        var $imageWrapLink = $image.parent('a');
+
+        if ($imageWrapLink.size() < 1) {
+          $imageWrapLink = $image.wrap('<a href="' + this.getAttribute('src') + '"></a>').parent('a');
+        }
+        $imageWrapLink.addClass('fancybox');
+      });
+    });
+    $('.fancybox').fancybox({
+      helpers: {
+        overlay: {
+          locked: false
+        }
+      }
+    });
+  </script>
+
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    LogoAndMenuMotion();
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+    function LogoAndMenuMotion() {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    }
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = window.postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xirong"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?35130bce62151673e28ec769bef55e70";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  
+  <script type="text/javascript">
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-61803765-1');ga('send','pageview');
+  </script>
+
+</body>
+</html>

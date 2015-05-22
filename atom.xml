@@ -1,0 +1,1157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[自由]]></title>
+  
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://www.ixirong.com/"/>
+  <updated>2015-05-22T15:10:22.000Z</updated>
+  <id>http://www.ixirong.com/</id>
+  
+  <author>
+    <name><![CDATA[xirong]]></name>
+    <email><![CDATA[xirong.liu@foxmail.com]]></email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[分布式实时日志系统环境搭建（三） centos 6.4 下hadoop 2.5.2 集群搭建最全资料]]></title>
+    <link href="http://www.ixirong.com/2015/05/22/how-to-install-hadoop-cluster/"/>
+    <id>http://www.ixirong.com/2015/05/22/how-to-install-hadoop-cluster/</id>
+    <published>2015-05-22T14:29:38.000Z</published>
+    <updated>2015-05-22T15:10:22.000Z</updated>
+    <content type="html"><![CDATA[<p>最近公司业务数据量越来越大，以前的基于消息队列的日志系统越来越难以满足目前的业务量，表现为消息积压，日志延迟，日志存储日期过短，所以，我们开始着手要重新设计这块，业界已经有了比较成熟的流程，即基于流式处理，采用 flume 收集日志，发送到 kafka 队列做缓冲，storm 分布式实时框架进行消费处理，短期数据落地到 hbase、mongo中，长期数据进入 hadoop 中存储。 接下来打算将这其间所遇到的问题、学习到的知识记录整理下，作为备忘，作为分享，带给需要的人。</p>
+<p>hadoop 简介，也可以去官网看介绍 </p>
+<p><iframe src="//www.slideshare.net/slideshow/embed_code/key/vI8FgtPNW7iAWv" width="510" height="420" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/sudhakara_st/hadoop-intruduction" title="Hadoop introduction , Why and What is Hadoop ?" target="_blank">Hadoop introduction , Why and What is Hadoop ?</a> </strong> from <strong><a href="//www.slideshare.net/sudhakara_st" target="_blank">Sudhakara St</a></strong> </div></p>
+<p>在搭建 hadoop 集群的过程中还是遇到很多问题的，我尽量的以初学者的口吻来写这篇文章，尽量做到详尽，当然不明白、不清楚的地方可以随时留言或找到我的联系方式与我沟通。<br><a id="more"></a></p>
+<h1 id="总体环境说明">总体环境说明</h1><p>操作系统： cenos 6.4 ，三台192.168.9.92、192.168.9.93、192.168.9.94<br>jdk版本： 1.7.0_75<br>hadoop版本： 2.5.2 （目的与hbase兼容）</p>
+<p>hadoop集群3个节点，一主两从，如下：<br>| 角色      |     ip |   用户   |<br>| :———— | ————:| :———: |<br>| master    |  192.168.9.92 | hadoop  |<br>| slave1    |  192.168.9.93 | hadoop  |<br>| slave2    |  192.168.9.94 | hadoop  |</p>
+<h1 id="设置环境变量">设置环境变量</h1><p>安装 hadoop 前需要提前配置好三台机器的 hostname，之间ssh无密码可登陆，Java环境的搭建，bashrc 的一些变量设置等，详细如下 </p>
+<h2 id="设置机器hostname别名">设置机器hostname别名</h2><p>设置别名的目的是机器间相互识别可以不用ip，配置文件中也可以不用ip，通用性上更强一些。</p>
+<p>在 master 机器上面执行下面的命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 当前ssh窗口即可生效</span></span><br><span class="line">hostname master	</span><br><span class="line"><span class="comment"># 每次重启以后均生效</span></span><br><span class="line">vi /etc/sysconfig/network	</span><br><span class="line">HOSTNAME=master</span><br></pre></td></tr></table></figure>
+<p>同样，在 slave1 、slave2 机器上面执行相同的命令，只需要更改最后一句为相应的角色名称</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HOSTNAME=slave1</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HOSTNAME=slave2</span><br></pre></td></tr></table></figure>
+<p>添加Hosts映射关系，三台机器上面分别都执行操作  <code>vi /etc/hosts</code>  添加如下内容 ，之后在每台机器上面<code>ping</code>一下，确保能够连接彼此。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">192.168</span>.<span class="number">9.92</span> master</span><br><span class="line"><span class="number">192.168</span>.<span class="number">9.93</span> slave1</span><br><span class="line"><span class="number">192.168</span>.<span class="number">9.94</span> slave2</span><br></pre></td></tr></table></figure>
+<h2 id="配置_JDK_环境">配置 JDK 环境</h2><p>下载 Java 对应的版本，地址如下<a href="http://www.oracle.com/technetwork/cn/java/javase/downloads/jdk7-downloads-1880260.html" target="_blank" rel="external">jdk-7u75-linux-i586.tar_0.gz</a>，配置环境变量即可完成java环境的配置，详情看脚本 ：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解压到 /opt/下面</span></span><br><span class="line">tar -zxf jdk-<span class="number">7</span>u75-linux-i586.tar_0.gz -C /opt/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置java环境，最好在全局 /etc/profile 配置中修改，这样所有用户均可以使用</span></span><br><span class="line">vi /etc/profile </span><br><span class="line"></span><br><span class="line">JAVA_HOME=/opt/jdk1.<span class="number">7.0</span>_75</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$JAVA_HOME</span>/lib/dt.jar:<span class="variable">$JAVA_HOME</span>/lib/tools.jar</span><br><span class="line"><span class="built_in">export</span> JAVA_HOME</span><br></pre></td></tr></table></figure>
+<p>使修改的配置立即生效，终端中执行<code>source /etc/profile</code>。<br>测试是否ok，执行命令<code>which java</code>，若出现<code>/opt/jdk1.7.0_75/bin/java</code> 表示已经ok 或者 <code>java -version</code> ,出现<code>java version &quot;1.7.0_75&quot;</code> 也表明ok。</p>
+<h2 id="配置集群之间SSH无密码登陆">配置集群之间SSH无密码登陆</h2><p>1、为了hadoop集群的安全与方便管理，我们要另外新建用户，并设置密码，命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建账号hadoop并赋予密码nopass.2</span></span><br><span class="line">sudo adduser hadoop &amp;&amp; sudo passwd hadoop</span><br></pre></td></tr></table></figure>
+<p>2、给hadoop账户赋予root权限 <code>vi /etc/sudoers</code> 添加如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">hadoop  ALL=(ALL)       ALL</span><br><span class="line">``` </span><br><span class="line"><span class="number">3</span>、配置集群各个节点之间的ssh无密码互信，也就是从master开始，ssh到master（localhost）、slave1和slave2上都不需要密码，反向ssh到master同样，互信设置需要在`hadoop`用户下执行命令如下：</span><br><span class="line"></span><br><span class="line">``` bash</span><br><span class="line">ssh-keygen -t dsa -P <span class="string">''</span> <span class="operator">-f</span> ~/.ssh/id_dsa </span><br><span class="line">cat  ~/.ssh/id_dsa.pub &gt;&gt; ~/.ssh/authorized_keys</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这步很重要，必须要授予读写的权限 r=4，w=2，x=1 </span></span><br><span class="line">chmod <span class="number">600</span> ~/.ssh/authorized_keys</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拷贝授权认证公钥</span></span><br><span class="line">scp ~/.ssh/authorized_keys hadoop@master:/home/hadoop/.ssh/</span><br><span class="line">scp ~/.ssh/authorized_keys hadoop@slave1:/home/hadoop/.ssh/</span><br><span class="line">scp ~/.ssh/authorized_keys hadoop@slave2:/home/hadoop/.ssh/</span><br></pre></td></tr></table></figure>
+<p>这样就将生成的授权秘钥拷贝到了slave1和slave2的/home/hadoop/.ssh目录下，从 master 机器 ssh到 slave1 、slave2 都不再需要密码了，同理，在slave1、slave2机器上执行上面的命令即可完成slave 到master之间的无密码登录。（其实，操作完后，slave之间也是可以无密码登录的，只是不需要而已）</p>
+<p>测试下 ，不使用密码登录即ok</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh hadoop@master </span><br><span class="line">ssh hadoop@slave1 </span><br><span class="line">ssh hadoop@slave2</span><br></pre></td></tr></table></figure>
+<h1 id="Hadoop_集群的安装">Hadoop 集群的安装</h1><p>hadoop 的安装其实很简单，解压完毕后，修改配置文件、环境变量就完成了安装，需要在每个节点都安装，为了写了一键安装部署脚本，执行<code>hadoop_install.sh</code>后即可用启动命令进行测试，尽量做到简单方便的运维，提供的脚本如往常一样再本文最后给出，下面就一步步解释下：</p>
+<p>1、 解压 <code>hadoop-2.5.2.tar.gz</code> 文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hadoop-<span class="number">2.5</span>.<span class="number">2</span>.tar.gz -C /home/hadoop/</span><br></pre></td></tr></table></figure>
+<p>2、修改环境变量<code>vi /home/hadoop/.bashrc</code> ，添加如下代码：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> HADOOP_HOME=<span class="variable">$HOME</span>/hadoop-<span class="number">2.5</span>.<span class="number">2</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_MAPRED_HOME=<span class="variable">$&#123;HADOOP_HOME&#125;</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_COMMON_HOME=<span class="variable">$&#123;HADOOP_HOME&#125;</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_HDFS_HOME=<span class="variable">$&#123;HADOOP_HOME&#125;</span></span><br><span class="line"><span class="built_in">export</span> YARN_HOME=<span class="variable">$&#123;HADOOP_HOME&#125;</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_CONF_DIR=<span class="variable">$&#123;HADOOP_HOME&#125;</span>/etc/hadoop</span><br><span class="line"><span class="built_in">export</span> HDFS_CONF_DIR=<span class="variable">$&#123;HADOOP_HOME&#125;</span>/etc/hadoop</span><br><span class="line"><span class="built_in">export</span> YARN_CONF_DIR=<span class="variable">$&#123;HADOOP_HOME&#125;</span>/etc/hadoop</span><br><span class="line"><span class="built_in">export</span> HADOOP_LOG_DIR=<span class="variable">$&#123;HADOOP_HOME&#125;</span>/logs</span><br><span class="line"><span class="built_in">export</span> HADOOP_PID_DIR=/var/hadoop/pids</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解决启动时候的错误</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_COMMON_LIB_NATIVE_DIR=<span class="variable">$HADOOP_HOME</span>/lib/native</span><br><span class="line"><span class="built_in">export</span> HADOOP_OPTS=<span class="string">"-Djava.library.path=<span class="variable">$HADOOP_HOME</span>/lib"</span></span><br></pre></td></tr></table></figure>
+<p>3、 修改 hadoop 文件目录中的各项配置文件 ，<a href="http://blog.csdn.net/yangjl38/article/details/7583374" target="_blank" rel="external">配置文件详细说明见</a><br>3.1、修改<code>core-site.xml</code> 配置</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>hdfs://master:9000<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>io.file.buffer.size<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>131072<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--hadoop运行时的临时文件的目录--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>/home/hadoop/tmp<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">description</span>&gt;</span>Abase for other temporary directories.<span class="tag">&lt;/<span class="title">description</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>3.2 、修改<code>hdfs-site.xml</code> ，代码如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>dfs.namenode.secondary.http-address<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>master:9001<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>dfs.namenode.name.dir<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>/home/hadoop/dfs/name<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>/home/hadoop/dfs/data<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 值不应大于datanode数量 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>2<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>dfs.webhdfs.enabled<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>true<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>备注：访问namenode的hdfs使用50070端口，访问datanode的webhdfs使用50075端口。要想不区分端口，直接使用namenode的IP和端口进行所有的webhdfs操作，就需要在所有的datanode上都设置hdfs-site.xml中的dfs.webhdfs.enabled为true。</p>
+<p>3.3 、修改<code>mapred-site.xml</code>，代码如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>mapreduce.jobhistory.address<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>master:10020<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>mapreduce.jobhistory.webapp.address<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>master:19888<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>备注：jobhistory是Hadoop自带了一个历史服务器，记录Mapreduce历史作业。默认情况下，jobhistory没有启动，可用以下命令启动：<code>$HADOOP_HOME/sbin/mr-jobhistory-daemon.sh start historyserver</code></p>
+<p>3.4、 修改<code>yarn-site.xml</code>，代码如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>yarn.nodemanager.aux-services.mapreduce.shuffle.class<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>org.apache.hadoop.mapred.ShuffleHandler<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>yarn.resourcemanager.address<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>master:8032<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>yarn.resourcemanager.scheduler.address<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>master:8030<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>yarn.resourcemanager.resource-tracker.address<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>master:8031<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>yarn.resourcemanager.admin.address<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>master:8033<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">name</span>&gt;</span>yarn.resourcemanager.webapp.address<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">value</span>&gt;</span>master:8088<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>3.5、 修改两个启动命令文件 <code>hadoop-env.sh</code> 和 <code>yarn-env.sh</code> ，添加 JAVA_HOME 变量 ：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/opt/jdk1.<span class="number">7.0</span>_75</span><br></pre></td></tr></table></figure>
+<p>3.6 、 修改 <code>slaves</code>配置，代码如下，添加两台slaves机器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">slave1</span><br><span class="line">slave2</span><br></pre></td></tr></table></figure>
+<p>以上就是整个安装过程，下面测试下是否安装ok </p>
+<h1 id="Hadoop_集群的测试">Hadoop 集群的测试</h1><h2 id="启动_hadoop，验证页面是否ok">启动 hadoop，验证页面是否ok</h2><p>1 、格式化磁盘，格式化hadoop使用的文件磁盘，并不是物理上的磁盘，需要在每个节点上都执行下面的命令 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> <span class="variable">$HADOOP_HOME</span>/bin/hdfs namenode –format</span><br></pre></td></tr></table></figure>
+<p>2、 启动hadoop ，注意：只需要在 master 节点上启动即可，会自动启动slave各个节点</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># start-dfs.sh 此命令启动了namenode、secondaryNamenode以及datanode</span></span><br><span class="line"><span class="comment"># start-yarn.sh 此命令启动了ResourceManager和NodeManager，相当于hadoop1中的jobtracker和TaskTracker  </span></span><br><span class="line"></span><br><span class="line"><span class="variable">$HADOOP_HOME</span>/sbin/start-dfs.sh</span><br><span class="line"><span class="variable">$HADOOP_HOME</span>/sbin/start-yarn.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者使用这一个命令代替 </span></span><br><span class="line"><span class="comment"># $HADOOP_HOME/sbin/start-all.sh</span></span><br></pre></td></tr></table></figure>
+<p>3、 停止 hadoop ， 注意：只需要在 master 节点上执行即可 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$HADOOP_HOME</span>/sbin/stop-all.sh</span><br><span class="line">``` </span><br><span class="line"><span class="number">4</span>、测试是否启动ok，使用java进程查看命令`jps`,终端中输入即可，看到如下内容即表示ok</span><br><span class="line"></span><br><span class="line">``` bash </span><br><span class="line"><span class="number">7692</span> ResourceManager  </span><br><span class="line"><span class="number">8428</span> JobHistoryServer  </span><br><span class="line"><span class="number">7348</span> NameNode  </span><br><span class="line"><span class="number">14874</span> Jps  </span><br><span class="line"><span class="number">7539</span> SecondaryNameNode</span><br></pre></td></tr></table></figure>
+<p>5、 HTTP效果，通过浏览器查看集群运行状态，访问 <a href="http://192.168.9.92:50070/、http://192.168.9.92:8088/、http://192.168.9.92:19888/" target="_blank" rel="external">http://192.168.9.92:50070/、http://192.168.9.92:8088/、http://192.168.9.92:19888/</a> 即可看到下图的效果</p>
+<p><img src="http://static.ixirong.com/pic/hadoop/hadoop-overview.png" alt="hadoop-overview"></p>
+<p><img src="http://static.ixirong.com/pic/hadoop/hadoop-cluster.png" alt="hadoop-cluster"></p>
+<p><img src="http://static.ixirong.com/pic/hadoop/hadoop-history.png" alt="hadoop-jobhistory"></p>
+<p>6、单独重启丢失的DataNode节点<br><strong>如果某个DataNode节点Dead（由于死机或人为原因等），可以在不重启整个Hadoop服务的情况下进行单独重启。</strong><br>方法如下：<br>在NameNode的hadoop-2.5.2/sbin目录下，执行命令启动HDFS DataNode </p>
+<pre><code>./hadoop-daemons<span class="class">.sh</span> start datanode
+./yarn-daemons<span class="class">.sh</span> start nodemanager  
+</code></pre><p>或者单独启动NameNode节点，命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">./hadoop-daemon.sh start namenode  </span><br><span class="line">./yarn-daemon.sh start resourcemanager</span><br></pre></td></tr></table></figure>
+<p>上述四个命令都可以指定—config参数，后面跟hadoop的集群配置文件所在目录（即$HADOOP_HOME/etc/hadoop），大家可通过参数-h查看命令帮助信息<br><strong>注意：上面命令不会影响已经启动的hdfs或yarn服务，只会把丢失节点的服务启动起来。</strong></p>
+<h2 id="运行Hadoop自带的wordcount示例">运行Hadoop自带的wordcount示例</h2><p>1、 创建input文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /home/hadoop/</span><br><span class="line"><span class="built_in">echo</span> <span class="string">"My first hadoop example. Hello Hadoop in input. "</span> &gt; input </span><br><span class="line">ls</span><br></pre></td></tr></table></figure>
+<p>2、创建用户目录，必须是 <code>/user/用户名</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$HADOOP_HOME</span>/bin/hadoop fs -mkdir -p /user/hadoop</span><br></pre></td></tr></table></figure>
+<p>3、上传文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$HADOOP_HOME</span>/bin/hadoop fs -put input /user/hadoop</span><br></pre></td></tr></table></figure>
+<p>4、 执行 wordcount 程序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$HADOOP_HOME</span>/bin/hadoop jar <span class="variable">$HADOOP_HOME</span>/share/hadoop/mapreduce/hadoop-mapreduce-examples-<span class="number">2.5</span>.<span class="number">2</span>.jar wordcount /user/hadoop/input /user/hadoop/output</span><br></pre></td></tr></table></figure>
+<p>5、验证结果</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$HADOOP_HOME</span>/bin/hadoop fs -cat /user/hadoop/output/part-r-<span class="number">00000</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Hadoop  <span class="number">1</span>  </span><br><span class="line">My  <span class="number">1</span>  </span><br><span class="line">example.Hello   <span class="number">1</span>  </span><br><span class="line">first   <span class="number">1</span>  </span><br><span class="line">hadoop  <span class="number">1</span>  </span><br><span class="line"><span class="keyword">in</span>  <span class="number">1</span>  </span><br><span class="line">input.  <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<h2 id="参考资料">参考资料</h2><p><a href="http://blog.csdn.net/hwwn2009/article/details/39889465" target="_blank" rel="external">http://blog.csdn.net/hwwn2009/article/details/39889465</a><br><a href="http://www.cnblogs.com/bxljoy/p/3880250.html" target="_blank" rel="external">http://www.cnblogs.com/bxljoy/p/3880250.html</a><br><a href="http://ju.outofmemory.cn/entry/29825" target="_blank" rel="external">http://ju.outofmemory.cn/entry/29825</a><br><a href="http://blog.csdn.net/tang9140/article/details/42869531" target="_blank" rel="external">http://blog.csdn.net/tang9140/article/details/42869531</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[详细讲解Centos 6.4 下hadoop 2.5.2 分布式集群搭建过程，hadoop 2.5.2 配置文件详细解读]]>
+    
+    </summary>
+    
+      <category term="hadoop" scheme="http://www.ixirong.com/tags/hadoop/"/>
+    
+      <category term="大数据" scheme="http://www.ixirong.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+      <category term="存储" scheme="http://www.ixirong.com/tags/%E5%AD%98%E5%82%A8/"/>
+    
+      <category term="日志" scheme="http://www.ixirong.com/tags/%E6%97%A5%E5%BF%97/"/>
+    
+      <category term="大数据" scheme="http://www.ixirong.com/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[分布式实时日志系统环境搭建（二） flume 集群搭建/flume ng资料]]></title>
+    <link href="http://www.ixirong.com/2015/05/18/how-to-install-flume-ng/"/>
+    <id>http://www.ixirong.com/2015/05/18/how-to-install-flume-ng/</id>
+    <published>2015-05-18T08:35:01.000Z</published>
+    <updated>2015-05-21T14:29:41.000Z</updated>
+    <content type="html"><![CDATA[<p>最近公司业务数据量越来越大，以前的基于消息队列的日志系统越来越难以满足目前的业务量，表现为消息积压，日志延迟，日志存储日期过短，所以，我们开始着手要重新设计这块，业界已经有了比较成熟的流程，即基于流式处理，采用 flume 收集日志，发送到 kafka 队列做缓冲，storm 分布式实时框架进行消费处理，短期数据落地到 hbase、mongo中，长期数据进入 hadoop 中存储。 接下来打算将这其间所遇到的问题、学习到的知识记录整理下，作为备忘，作为分享，带给需要的人。</p>
+<p>学习flume ng的过程中还是遇到一些障碍的，可是在搜索引擎搜到的所有的flume的资料都是以前的<code>flume og</code>（flume orign generation），而这个不是我们要用的，我们要使用 <code>flume ng</code>（flume next generation），所以你要搜资料最好搜索 <code>flume ng</code> 来查找，详细看一下这两个版本的区别：<a id="more"></a><br> <a href="http://www.ibm.com/developerworks/cn/data/library/bd-1404flumerevolution/index.html" target="_blank" rel="external">Flume NG：Flume 发展史上的第一次革命</a><br> 讲的非常详细，包括 两代的变化，安装配置等，可以仔细阅读下。</p>
+<p>关于使用 flume ng 来收集日志，美团网有两篇不错的文章，可以参考：<br><a href="http://tech.meituan.com/mt-log-system-arch.html" target="_blank" rel="external">基于Flume的美团日志收集系统(一)  架构和设计</a><br><a href="http://tech.meituan.com/mt-log-system-optimization.html" target="_blank" rel="external">基于Flume的美团日志收集系统(二)  改进和优化</a></p>
+<p>关于学习 flume-ng ，<a href="http://flume.apache.org/FlumeUserGuide.html" target="_blank" rel="external">官方用户文档</a> 是最好的资料，阅读英文还有些困难的情况下，<a href="http://weibo.com/chenzhijun" target="_blank" rel="external">@javachen</a> 写的这篇文章，讲清楚了文档中大部分场景，xirong 极为推荐，<a href="http://blog.javachen.com/2014/07/22/flume-ng.html" target="_blank" rel="external">Flume-ng 的原理和使用</a> </p>
+<p>阅读完上面的文章对 flume 有了一些概念后，可以看一下这篇 PPT，来自于 yahoo 的工程师分享：</p>
+<p><iframe src="//www.slideshare.net/slideshow/embed_code/key/IJuqQSXomm3EeG" width="595" height="485" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/ydn/flume-hug" title="Feb 2013 HUG: Large Scale Data Ingest Using Apache Flume" target="_blank">Feb 2013 HUG: Large Scale Data Ingest Using Apache Flume</a> </strong> from <strong><a href="//www.slideshare.net/ydn" target="_blank">Yahoo! Developer Network</a></strong> </div></p>
+<h1 id="flume-ng_集群搭脚本">flume-ng 集群搭脚本</h1><p>flume-ng 的搭建还是很简单的，如下脚本所示，每台机器上执行以下就ok了，重要的是根据自己生产环境机器的不同所做的配置，在 javachen 的文章中有详细的讲述配置的地方，可以进行相关阅读。 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span><br><span class="line"></span></span><br><span class="line"><span class="comment"># author： xirong </span></span><br><span class="line"><span class="comment"># date  :  2015-02-06 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#####  搭建 flume 集群的脚本</span></span><br><span class="line"><span class="comment">#	注意：</span></span><br><span class="line"><span class="comment">#   1. 需要 jdk7 环境，如果没有 Java 环境，请配置</span></span><br><span class="line"><span class="comment">#   2. 有 /home/work 目录，否则无法安装</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment">####</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 压缩文件解压</span></span><br><span class="line">tar -zxf apache-flume-<span class="number">1.5</span>.<span class="number">2</span>-bin.tar.gz -C /home/work/flume_cluster/</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置flume环境</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'## flume configuration '</span> &gt;&gt; /etc/profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export FLUME_HOME=/home/work/flume_cluster/apache-flume-1.5.2-bin'</span> &gt;&gt; /etc/profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export PATH=.:$PATH::$FLUME_HOME/bin'</span> &gt;&gt; /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加Java 环境变量</span></span><br><span class="line">\cp <span class="operator">-f</span> <span class="variable">$FLUME_HOME</span>/conf/flume-env.sh.template <span class="variable">$FLUME_HOME</span>/conf/flume-env.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'JAVA_HOME=/opt/jdk1.7.0_75/'</span> &gt;&gt; <span class="variable">$FLUME_HOME</span>/conf/flume-env.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'confgratulations! fluem has been installed and flume-env.sh has been set!'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 测试是否成功 </span></span><br><span class="line">flume-ng version</span><br><span class="line"></span><br><span class="line"><span class="comment">## Flume 1.5.2</span></span><br><span class="line"><span class="comment">## Source code repository: https://git-wip-us.apache.org/repos/asf/flume.git</span></span><br><span class="line"><span class="comment">## Revision: 229442aa6835ee0faa17e3034bcab42754c460f5</span></span><br><span class="line"><span class="comment">## Compiled by hshreedharan on Wed Nov 12 12:51:22 PST 2014</span></span><br><span class="line"><span class="comment">## From source with checksum 837f81bd1e304a65fcaf8e5f692b3f18</span></span><br></pre></td></tr></table></figure>
+<p>如之前 Jstorm的搭建一样，提供一键安装的脚本，zip包中包含所需要的文件，<a href="http://pan.baidu.com/s/1gdpMOM3" target="_blank" rel="external">百度网盘</a> ，密码为 <code>usfc</code> ，欢迎下载体验。<br>如有任何问题，请留言或者在右侧找到我的联系方式，联系我</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近公司业务数据量越来越大，以前的基于消息队列的日志系统越来越难以满足目前的业务量，表现为消息积压，日志延迟，日志存储日期过短，所以，我们开始着手要重新设计这块，业界已经有了比较成熟的流程，即基于流式处理，采用 flume 收集日志，发送到 kafka 队列做缓冲，storm 分布式实时框架进行消费处理，短期数据落地到 hbase、mongo中，长期数据进入 hadoop 中存储。 接下来打算将这其间所遇到的问题、学习到的知识记录整理下，作为备忘，作为分享，带给需要的人。</p>
+<p>学习flume ng的过程中还是遇到一些障碍的，可是在搜索引擎搜到的所有的flume的资料都是以前的<code>flume og</code>（flume orign generation），而这个不是我们要用的，我们要使用 <code>flume ng</code>（flume next generation），所以你要搜资料最好搜索 <code>flume ng</code> 来查找，详细看一下这两个版本的区别：]]>
+    
+    </summary>
+    
+      <category term="分布式" scheme="http://www.ixirong.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+      <category term="大数据" scheme="http://www.ixirong.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+      <category term="存储" scheme="http://www.ixirong.com/tags/%E5%AD%98%E5%82%A8/"/>
+    
+      <category term="实时日志" scheme="http://www.ixirong.com/tags/%E5%AE%9E%E6%97%B6%E6%97%A5%E5%BF%97/"/>
+    
+      <category term="大数据" scheme="http://www.ixirong.com/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[使用 github Pages 服务建立 ixirong.com 独立博客全过程]]></title>
+    <link href="http://www.ixirong.com/2015/05/17/how-to-build-ixirong-blog/"/>
+    <id>http://www.ixirong.com/2015/05/17/how-to-build-ixirong-blog/</id>
+    <published>2015-05-17T14:22:55.000Z</published>
+    <updated>2015-05-19T01:07:31.000Z</updated>
+    <content type="html"><![CDATA[<p>你是否有这样子的需求，只是想简单的写写文章，记录下自己的学习心得、成长经历等，都是些文字内容，不需要配置使用数据库、不想购买服务器自己搭建站点，只是想安安静静的用比较舒服的方式来写篇文章。 <code>静态博客</code>就是为此而生的，不用配置服务器、不用数据库、访问速度相当快、没有不安全漏洞的说法，最重要的，对于一个经常使用 <code>markdown</code>来写文章的人来说，她完美支持！</p>
+<blockquote>
+<p>GithubPages ,the Websites for you and your projects. Hosted directly from your GitHub repository. Just edit, push, and your changes are live.</p>
+</blockquote>
+<p>上面简单的一句话，就说明了 GithubPages 的本质：托管在github上面的个人站点页面，使用 <code>markdown</code> 来写文章，简单、易用，不用在乎太多的排版工作，而且<strong>免费</strong>。</p>
+<p>说完了这两个概念，就可以说一说 <code>ixirong.com</code> 整个站点的建立过程了，总结为使用hexo搭建博客，托管在 githubpages（国外） 和 gitcafe（国内） 上，监控使用阿里云+360云监控（两个托管商服务还是很稳定的），统计流量采用老牌 CNZZ 数据专家，站长工具采用百度站长，也参考google站长。详细如下：</p>
+<h1 id="域名申请">域名申请</h1><p>域名我选择了国外的服务商 Godaddy，详情请参考 <a href="http://godaddy.idcspy.com/domain-regist" target="_blank" rel="external">如何在Godaddy申请域名？</a>，当然你也可以选择<a href="http://www.net.cn/" target="_blank" rel="external">万网</a>、<a href="http://www.xinnet.com/" target="_blank" rel="external">新网</a>、<a href="http://www.west263.com" target="_blank" rel="external">西部数码</a>或者新生高傲的<a href="http://www.google.com/intl/zh-CN/registry/" target="_blank" rel="external">google域名注册服务</a>。</p>
+<h1 id="域名备案">域名备案</h1><p>采用 github Pages 服务，是<strong>不需要备案</strong>的，当如果你想使用七牛的自定义域名、CDN服务、站长助手的一些高级功能使用，是需要有备案的，详情请参考我的另一篇单独博客<a href="http://ixirong.com/2015/04/15/how-blog-record-by-aliyun/" target="_blank" rel="external"> 个人godaddy域名备案解决方案</a>。</p>
+<h1 id="域名解析">域名解析</h1><p>采用顶尖老牌服务 dnspod ，稳定、高效、实时生效，详细方法请参考<a href="https://support.dnspod.cn/Kb/showarticle/tsid/42/" target="_blank" rel="external">Godaddy注册商域名修改DNS解析方法</a>，如有任何疑问，可以查看<a href="https://support.dnspod.cn/Support/support" target="_blank" rel="external">帮助中心</a>。</p>
+<p><img src="http://static.ixirong.com/pic/github/dnspod.png" alt="ixirong.com 的 dns 解析设置图"></p>
+<h1 id="hexo_写博客">hexo 写博客</h1><p>hexo是由Node.js驱动的一款快速、简单且功能强大的博客框架，它和jekyll相比，更快，更轻量，命令更简单（而且jekyll很多缺点）。网友已经写过这方面的好多文章了，当时我主要参考的如下，当然你也可以google搜索下使用方法</p>
+<p>2015-05-19 更新，如果你嫌下面的文章太长了，有没有一篇完整的、详细的介绍，很高兴，<a href="http://weibo.com/207775270" target="_blank" rel="external">@cnFeat</a>就是这样子一个人，详情见文章：<br><a href="http://www.jianshu.com/p/05289a4bc8b2" target="_blank" rel="external">如何搭建一个独立博客——简明Github Pages与Hexo教程</a></p>
+<ul>
+<li><a href="http://yangjian.me/workspace/building-blog-with-hexo/" target="_blank" rel="external">使用hexo搭建博客</a></li>
+<li><a href="http://ibruce.info/2013/11/22/hexo-your-blog/" target="_blank" rel="external">hexo你的博客</a></li>
+<li><a href="http://zipperary.com/2013/05/28/hexo-guide-1/" target="_blank" rel="external">hexo系列教程：（一）hexo介绍</a></li>
+<li><a href="http://zipperary.com/2013/05/28/hexo-guide-2/" target="_blank" rel="external">hexo系列教程：（二）搭建hexo博客</a></li>
+<li><a href="http://zipperary.com/2013/05/28/hexo-guide-3/" target="_blank" rel="external">hexo系列教程：（三）hexo博客的配置、使用</a></li>
+<li><a href="http://zipperary.com/2013/05/28/hexo-guide-4/" target="_blank" rel="external">hexo系列教程：（四）hexo博客的优化技巧</a></li>
+<li><a href="http://zipperary.com/2013/05/28/hexo-guide-5/" target="_blank" rel="external">hexo系列教程：（五）hexo博客的优化技巧续</a></li>
+<li>汇总优化技巧 <a href="http://lukang.me/2014/optimization-of-hexo.html" target="_blank" rel="external">Hexo 优化与定制(一)</a></li>
+<li>hexo 搭建博客同时使用 GitHub 和 GitCafe 两个服务商，国内访问 GitCafe，国外访问GitHub，<a href="http://ppting.me/2015/02/08/gitcafe/" target="_blank" rel="external">设置方法参见博客</a></li>
+</ul>
+<h1 id="图床静态资源">图床静态资源</h1><p>云存储这东西，目前存在很多七牛云、又拍云、阿里云、腾讯云都可以用来做图片存储，ixirong.com 选择的是七牛，为什么？靠，免费啊~  当然，七牛的精力一直在做这块，还是很不错的，注册七牛云，建立个空间，上传图片，点击图片链接就可以访问了，把这些图片链接放到你的博客中使用到的地方就ok了。默认的七牛域名比较长，已经备案的域名可以申请自定义，比如<code>ixirong.com</code> 的自定义为 <code>static.ixirong.com</code>域名，你可以看看下面这张图：<br><img src="http://static.ixirong.com/pic/github/static.ixirong.png" alt="static.ixirong.com测试"></p>
+<h1 id="站点统计、监控、站长助手">站点统计、监控、站长助手</h1><p>使用<a href="http://zhanzhang.baidu.com/site/index" target="_blank" rel="external">百度站长工具</a>来进行百度分享、百度统计、SEO优化等的调整，使用<a href="">google站长工具</a>主要是分析国外流量来源，使用<a href="http://tongji.cnzz.com/main.php?c=site&amp;a=show&amp;from=login" target="_blank" rel="external">cnzz数据专家</a>进行全方位的统计分析工作。</p>
+<p>网站的监控采用<a href="http://console.aliyun.com/jiankong/" target="_blank" rel="external">阿里云</a>和<a href="http://jk.cloud.360.cn/Console" target="_blank" rel="external">360监控</a>，基本上覆盖了全国地区的检测点，两者都有免费的报警短信（1000条/月），小站点足够使用了 如下图：<br><img src="http://static.ixirong.com/pic/github/aliyunmonitor.png" alt="360cloudmonitor"></p>
+<p><img src="http://static.ixirong.com/pic/github/360cloudmonitor.png" alt="aliyunmonitor"></p>
+<p>到此，基本上<code>ixirong.com</code> 建站的整个过程就完了，当然还在不断的摸索中前进，如果你有什么好的想法，请留言或者右侧找到我的联系方式，跟我联系，如果你有什么问题，同样联系我，我会第一时间答复你，共同进步，共同成长！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[我想写个博客，托管在 github 上面，很cool，怎么操作呢？什么是静态博客？什么是 GitHub Pages服务？为什么使用hexo？hexo怎么建立静态博客站点？完全免费可以搭建个人博客吗？我平常喜欢使用 markdown 来写东西，写博客的时候可以用吗？ wordpress 建立网站功能越来越多，但很麻烦，有没有省事的方法？]]>
+    
+    </summary>
+    
+      <category term="github pages" scheme="http://www.ixirong.com/tags/github-pages/"/>
+    
+      <category term="hexo" scheme="http://www.ixirong.com/tags/hexo/"/>
+    
+      <category term="网站建设" scheme="http://www.ixirong.com/tags/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE/"/>
+    
+      <category term="网站建设" scheme="http://www.ixirong.com/categories/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[购买苹果设备如何更经济实惠？]]></title>
+    <link href="http://www.ixirong.com/2015/05/13/how-to-decide-to-bye-mac-economicaly/"/>
+    <id>http://www.ixirong.com/2015/05/13/how-to-decide-to-bye-mac-economicaly/</id>
+    <published>2015-05-13T13:59:26.000Z</published>
+    <updated>2015-05-13T15:05:25.000Z</updated>
+    <content type="html"><![CDATA[<p>如今自己周围越来越多的人开始使用 mac 设备，xirong 的设备为 <code>macbook pro 13 英寸: 2.7 GHz Retina 显示屏</code>，自己使用了将近9个月的时间，的确从效率上讲要比 windows 高效些，移动办公时间长、无线网络随时连接，盖上盖子就可以拿着走，这都是比较平常的，还有就是对于程序员来讲，UNIX 内核的系统天生接近服务器端的王者 linux ，bash 命令基本上也是通用的，在 Linux 下尝试的很多开发工具在 MAC 下都可以很酷的完成，MAC 的界面比 windows 帅气，命令行终端又比 linux 更好用，最为一名开发者，使用 mac 来作为自己的利器，是很推荐的。</p>
+<a id="more"></a>
+<h1 id="怎么购买更省钱？">怎么购买更省钱？</h1><p>那么，怎么样购买mac呢？有些人可能说，这还用讲，大陆官网上购买不就得了，安心、方便，购买后，2~3天就能到货，是啊，如果你不心疼钱，这篇文章以下就不用看了，直接去大陆官网下单就得了。 官网上的价钱还是有些贵的 ，毕竟很多关税在里面，都需要我们自己来垫付，我其实很推荐去找一些代购的，现实生活中如果你有同事朋友刚好去香港，那么让他稍给你吧，港版的要比大陆的便宜的多，如果这两点你都没有，那么万能的淘宝是可以解决问题的，很多卖的很高的代购是不错的，值得信赖的。 xirong 的 MAC 就是从淘宝上一个比较不错的卖家那里购买的，而且 xirong 的好多同事也是这样买的。<br>先看一下价钱的对比，如下两张图足以说明问题：（xirong 的机器大陆官网 <code>RMB 10,788</code> ，而 xirong 真正花费 <code>RMB 8700</code> 左右，节省了2000多大洋）<br><img src="http://static.ixirong.com/pic/mac13macbookpro.png" alt="大陆官网13寸价格"><br><img src="http://static.ixirong.com/pic/mac15macbookpro.png" alt="大陆官网15寸价格"></p>
+<p>再来对比下 xirong 选择的代购店的价格：<br><img src="http://static.ixirong.com/pic/macmacbookpro-hk.png" alt="香港行货价格"></p>
+<h1 id="有什么问题？">有什么问题？</h1><p>那么，问题来了，价格上这么有优势，靠谱吗？是不是正版？水货机器吧？质量用的住吗？能保修吗？港版吧？港版是不是质量差？港版不能在大陆保修吧？港版在大陆能用吗？语言不支持吧？<br>xirong 当时购买机器的时候有很多的疑问，稍微列了下，大概是上面这些，我当时疯狂的在网络上面找过资料，完了后，周围同事购买的机器又进行了验证，所以下面的结论个人认为还是靠谱的，有我个人和同事的机器证明，结论性几点如下：</p>
+<p>1、水货和行货，只是发行地点不一样，都是正品，发行在美国的，成为美版行货，发行在大陆的，成为大陆行货，发行在香港的，成为港版，对于iPhone、ipad、mac等苹果电子产品的亚太区，均来自大陆富士康代工，品质一模一样；<br>2、关于价钱优势 因为 <code>苹果不同地区销售策略不同</code>  <code>关税不同，比如港货就无关税，大陆需要缴纳很多关税</code>；<br>3、关于保修  大陆行货、港行、澳行都是在大陆直营店可以保修一年 ，其它美版、欧版、日版都无法保修；<br>4、购买时注意是否原封？是否激活？配件是否更换？ 基本上销量好的淘宝卖家不会更换配件，成本太大，具体可以看 知乎讨论<a href="http://www.zhihu.com/question/21990032/answer/21216931?group_id=190479020" target="_blank" rel="external">为什么淘宝上 iPad Air 港版价格比香港实体店还要低？利润在哪？</a></p>
+<h1 id="一句话总结，简单明了">一句话总结，简单明了</h1><p>在大陆购买苹果的电子产品iMac、ipad、iPhone、mac、iPod等，如果香港的行货在功能上完全和大陆版一样，那么我极力推荐你购买港行，即使在苹果香港官网也比大陆的便宜不少，当然你若是真土豪，不用在乎这些，你也不会阅读到这里了 :smile:<br>再次郑重声明，本文不是软文，不是广告，xirong 只是发自真心的想帮助那些有这些考虑的人，你可以百度、google去搜索这家店，xirong 选择的香港代购店为 <a href="http://appled.cc/" target="_blank" rel="external">小闷的水果店</a>，详细的自己登录阅读吧，好了，我只能帮到这里了，如果有什么疑问，可以给我评论，或者在右侧的联系方式中找到我，跟我沟通。</p>
+<p><strong>ps:</strong> 知名网站 www.ipc.me 异次元软件世界旗下的网站也写过一篇文章，推荐大家购买港版iPhone6的文章，可以看看 <a href="http://www.ipc.me/iphone-6-wang-luo-jie-xi.html" target="_blank" rel="external">http://www.ipc.me/iphone-6-wang-luo-jie-xi.html</a></p>
+<p>下面的文章为当时整理的详细资料，贴在此处，感兴趣的可以继续阅读下：</p>
+<h2 id="关于水货和行货，以下引用来自百度百科：">关于水货和行货，以下引用来自百度百科：</h2><p>什么叫水货呢？</p>
+<blockquote>
+<p>指在某国家或地区没有经过原生产厂家所指定的销售代理而进行销售的产品。水货并不是假货的意思。</p>
+</blockquote>
+<p>什么是行货？</p>
+<blockquote>
+<p>行货是相对于水货而言的。行货指经过合法的报关手续等正规渠道进入国内市场的境外商品。行货能在国内市场享受到售后服务及质量保证。</p>
+</blockquote>
+<p>字面解释很像绕口，感觉很难理解的样子。其实甩掉水货就是Y货这种先入为主的错误概念，理解这个东西就容易多了，就拿iPhone 来举例吧，比如你到中国大陆正规授权商店购买的苹果手机，因为有苹果公司中国大陆正规授权和信息产业部的入网的许可等相关手续，在中国大陆，那就可以叫做是大陆行货。<br>比如你在美国正品授权店购买的苹果手机，因为有苹果公司美国正规授权和相关手续，在美国，那叫美国行货。<br>比如你在香港正品授权店购买的苹果手机，因为有苹果公司香港地区正规授权和相关手续，在香港地区，那叫香港行货。<br>以此类推 你就知道什么叫做行货了。</p>
+<p>那么水货就更容易理解<br>你把美国的行货，香港的行货，英国的行货，日本的行货，新加坡的行货非正常报关纳税放到中国大陆地区出售，那就变成了香港水货，英国水货，日本水货了.就这么简单。那有人就问了，如果我在中国买个大陆行货手机，我拿到美国去卖那怎么算。那就叫中国水货。<br>换句话说，不管是美版，港版，英版，日版，新加坡版，在中国大陆地区都叫水货，造成这个名称上区别的原因仅仅是是销售地不同而已，造成价格差的原因是由于销售地定价策略和所在国家税率等综合的因素，所以请各位以后不要觉得水货就是歪货。<br>如果遇到某种说水货就是歪货的朋友给你介绍，你就可以直接过滤掉他的意见。</p>
+<h2 id="水货和行货的区别：">水货和行货的区别：</h2><p>很多朋友会问，水货和行货价格除了价格差别，其他东西有没有什么差别呢？<br>就苹果产品机器本身而言，不存在任何区别。<br>几乎全世界的苹果产品都是中国富士康生产组装的，所以工艺技术和审核标准都是苹果出的，不存在哪的比哪的好。<br>目前苹果每款在售产品都集成几乎全球所有语言，Mac/iPad/iPhone/iPad/ITV<br>所以你在中国，英国，美国，法国，德国，意大利，日本，韩国等等有语言文字的国家买到的苹果都能找到对应的语言<br>唯一不同的就是各国充电器插头的规格不一样，这个可以可以通过一个几块钱的转换器解决这个就忽略了</p>
+<h2 id="怎么保修呢？">怎么保修呢？</h2><p>把重点放到保修上面吧这个可能是唯一的区别。说这个之前要介绍苹果专卖店的类型，通俗的说分为两种：<br>苹果直营店：就是苹果公司自己开的店，隶属于苹果公司的销售机构。老板儿是苹果公司，目前大陆地区只有上海,北京和深圳地区、成都有直营店；<br>苹果授权店：苹果把销售授权给地区某个经销商，属于授权店。老板是私人，目前几乎所有市级城市都有，区别在于老板不同，直营店很大，授权店很多，卖的东西都是绝对的正品，价格统一按照苹果的官方标准出售。</p>
+<p>就这么简单，那么联系到保修售后上来讲，你买的大陆行货的机器，在大陆你无疑可以到任意一个苹果直营和授权商店或者苹果指定售后点都会受理,其他国家版本的水货那确是那是不保修的。但是港澳版的水货机器，其实直营店是可以保修的。<br>当然前提条件一定要是有的<br>1． 通过产品序列号查询你的设备是没有过保修日期的<br>2．此款产品在你所在国家地区是在售产品，比如在iPhone5没上市之前，你拿iPhone5去直营店，别人是没办法为你保修的<br>3．第三点是最关键的，也是很多人不知道的，你必须要在官网用apple id预约保修。<br>以上水货、行货我说的保修范围，都建立在：<br>非人为损坏 拆机 , 摔绊，进水，跌落等摔坏都不能进入保修范围的。<br>额外再说一点，几乎所以苹果的硬件问题都不是修，而是从新给你换一个新的主机。<br>再次,以上所说的水货行货以及保修都建立在你所买到的产品是正品上，山寨货或者翻新机器肯定不在以上的行列.</p>
+<h2 id="到底怎么区分机器是否翻新或者山寨机呢?">到底怎么区分机器是否翻新或者山寨机呢?</h2><p>区分山寨机很简单的，你只要确定你的机器拿到以后是否可以跟苹果官方同步管理软件itunes连接，就可以看出是否是山寨机。<br>区分是否是翻新机也很简单的，在这里我们就会提到一个关键字</p>
+<p>序列号<br>苹果产品出厂都自带全球唯一的序列号，这个序列号就像是苹果的身份证，它可以在苹果系统的，设置-通用-关于本机 里面找得到，<br>因为苹果系统是苹果公司独有而且封闭的系统，所以这个号码是除了苹果公司，无法伪造的.所以是值得相信的<br>从这个序列号可以查到关于你的设备的很多信息，比如出厂日期还有销售地以及激活日期。这些信息都可以作为验证你的机器是否是翻新机的重要佐证。</p>
+<p>怎么查询序列号？<br>1、你可以通过官方网站www.apple.com.cn点击技术支持，然后点击联系apple支持，再点击检查你的保修期限 的连接 输入序列号。即可查询到之前我所说的相关信息<br>2、你还可以通过苹果官方售后热线 400-627-273 通过直接告知他序列号的方式查询。第二种方式更灵活</p>
+<h2 id="什么叫全新原封呢？">什么叫全新原封呢？</h2><p>全新，很容易理解啦，原封需要解释下，在苹果原厂包装盒外面有一层塑料薄膜，拆掉它才能打开苹果的包装。所以从专卖店里买到的没有拆开的肯定是原封的。对应原封的词语就是 拆封，或者后封<br>下面切入一下水货的来源，用香港水货为例。正规从香港或者美国购买数码产品在入境时候都需要报关的，<br>报关就会有关税。所以很多水客会采取拆分机器和包装，分别过境这样就会避免关税，然后到深圳以后再从新组装，所以避免了关税，但是机器就拆封了。拆封就是这个意思了。<br>后封就是某些商家为了达到迷惑消费者的感觉，就自己买个塑封机来从新塑封上。<br>至于如何区分原封和后封，这个我们下次结合图再说</p>
+<h2 id="未激活是什么意思？">未激活是什么意思？</h2><p>每一个全新的苹果产品拿到手，都必须要经历连接网络或者itunes 激活的过程，跟苹果公司数据库交换信息才能开机使用，这样才能让你查询序列号序列号的状态。如果未激活是那么这个产品的相关信息就没有显示，激活后就会马上显示。<br>所以未激活的设备很大程度上可以可以证明这个机器是全新的。<br>综上所述，选择机器的时候肯定首选是全新原封未激活,因为可以肯定出厂到你手上都是一个原生出厂状态。那你也大可放心了，一般这种机器都是通过正规报关，或者其他比分拆过关更为复杂的方式，所以价格肯定会稍微高一些。也没有什么水分可言<br>如果选择拆封的或者后封的，你就要稍微留心一点，因为人肉过关的方式难免会发生机器一些磕碰和磨花，还有苹果配件原装的和仿的价格差距也很大，有一些不良商家会偷换数据线耳机或充电器。所以这里面水分就会更大一些<br>再者会有一些商家会把一些使用过几天样机，或者客户买两天退掉的机器装好卖给你，虽然东西不是翻新二手的但是心里肯定也难免不舒服。</p>
+<h2 id="越狱是什么意思？">越狱是什么意思？</h2><p>作为苹果来讲，它既是硬件提供商，也是软件提供商，所以他既出售设备，也出售软件。<br>所以你购买了苹果产品并不代表你能使用它的所有软件程序，他的软件有付费的和免费的。<br>在知识产权保护法律相对不健全的中国大陆，越狱就比较盛行了。<br>越狱就是通过软件技术手段免费的使用收费的程序。</p>
+<p>有几个误区是你必须知晓的</p>
+<ol>
+<li>越狱会对机器造成损坏。 （只是软件技术手段不会对手机造成任何的损坏的）</li>
+<li>越狱以后官方是不会保修的。 （如果机器出现硬件问题你可以从返回出厂设置再拿去保修就可以了）</li>
+<li>任何机器都可以越狱（苹果会不断的更新固件防止越狱，所以隔一段时间苹果就会出一个新的固件，刚出的最新固件一般都不能越狱，越狱好的机器其实只要你不升级就没关系）</li>
+</ol>
+<p>终上所述，越狱是百利无一害的，越狱以后可以修改系统的字体，和一些个性符号 主题，便捷的下载铃声和一些软件程序。<br>补充：越狱后不良的操作习惯会降低系统安全性，以及沉积程序垃圾导致占用系统存储空间和导致系统变慢不稳定.</p>
+<p>目前已经有相关软件可以替代越狱,做到免费下载收费的程序。比如，快用苹果助手，pp助手、同步助手等等之类的软件都可以。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>如今自己周围越来越多的人开始使用 mac 设备，xirong 的设备为 <code>macbook pro 13 英寸: 2.7 GHz Retina 显示屏</code>，自己使用了将近9个月的时间，的确从效率上讲要比 windows 高效些，移动办公时间长、无线网络随时连接，盖上盖子就可以拿着走，这都是比较平常的，还有就是对于程序员来讲，UNIX 内核的系统天生接近服务器端的王者 linux ，bash 命令基本上也是通用的，在 Linux 下尝试的很多开发工具在 MAC 下都可以很酷的完成，MAC 的界面比 windows 帅气，命令行终端又比 linux 更好用，最为一名开发者，使用 mac 来作为自己的利器，是很推荐的。</p>]]>
+    
+    </summary>
+    
+      <category term="mac" scheme="http://www.ixirong.com/tags/mac/"/>
+    
+      <category term="设备" scheme="http://www.ixirong.com/categories/%E8%AE%BE%E5%A4%87/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[分布式实时日志系统环境搭建（一）Jstorm 集群搭建过程/Jstorm集群一键安装部署]]></title>
+    <link href="http://www.ixirong.com/2015/05/12/how-to-install-jstorm-cluster/"/>
+    <id>http://www.ixirong.com/2015/05/12/how-to-install-jstorm-cluster/</id>
+    <published>2015-05-12T10:43:38.000Z</published>
+    <updated>2015-05-19T11:20:09.000Z</updated>
+    <content type="html"><![CDATA[<p>最近公司业务数据量越来越大，以前的基于消息队列的日志系统越来越难以满足目前的业务量，表现为消息积压，日志延迟，日志存储日期过短，所以，我们开始着手要重新设计这块，业界已经有了比较成熟的流程，即基于流式处理，采用 flume 收集日志，发送到 kafka 队列做缓冲，storm 分布式实时框架进行消费处理，短期数据落地到 hbase、mongo中，长期数据进入 hadoop 中存储。 接下来打算将这其间所遇到的问题、学习到的知识记录整理下，作为备忘，作为分享，带给需要的人。</p>
+<p>淘宝开源了许多产品组件，其中包括这鼎鼎有名的 jstorm ，也就是我们采用的分布式实时处理框架，至于为什么，请看《<a href="https://github.com/alibaba/jstorm/wiki/JStorm-vs-Storm-vs-flume-vs-S4-%E9%80%89%E5%9E%8B" target="_blank" rel="external">为什么选择Jstorm</a>》。这篇文章只介绍 Jstorm 整个集群的搭建过程，并提供一键安装部署脚本，方便其它使用的人员（搭建环境是一件头疼的事情，费时、费力）。</p>
+<p>这是 Jstorm 的介绍PPT：</p>
+<p><iframe src="//www.slideshare.net/slideshow/embed_code/key/6NiKs9odzHXrZK" width="510" height="420" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/hustjackie/jstorm-introduction096" title="Jstorm introduction-0.9.6" target="_blank">Jstorm introduction-0.9.6</a> </strong> from <strong><a href="//www.slideshare.net/hustjackie" target="_blank">longda feng</a></strong> </div></p>
+<a id="more"></a>
+<p>Jstorm 官方搭建使用过程如连接 <a href="https://github.com/alibaba/jstorm/wiki/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85" target="_blank" rel="external">https://github.com/alibaba/jstorm/wiki/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85</a> ，我整理了三个脚本：<code>安装 Jstorm 集群</code>，<code>安装 jstorm_web_ui 监控页面</code>，<code>启动zookeeper、Jstorm集群进行测试</code>。</p>
+<h1 id="说明">说明</h1><p>三个脚本是测试环境搭建使用的，三台机器：<code>192.168.9.92</code>、<code>192.168.9.93</code>、<code>192.168.9.94</code><br>如果在其他机器上面使用，必须修改脚本中相应有ip的地方 ，脚本在文章最后提供，在 <code>zip</code> 文件夹里面有完整的一份，使用的时候直接使用zip文件夹即可。</p>
+<h1 id="使用方法">使用方法</h1><p>将 <code>zip</code> 包解压到测试环境 <code>/home/work</code> 目录下，解压后，执行目录中的三个脚本，顺序执行，即可安装完毕。</p>
+<h2 id="搭建脚本如下">搭建脚本如下</h2><h3 id="Jstorm_集群安装过程_：">Jstorm 集群安装过程 ：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span><br><span class="line"></span></span><br><span class="line"><span class="comment"># author： xirong </span></span><br><span class="line"><span class="comment"># date  :  2015-02-06 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">####</span></span><br><span class="line"><span class="comment"># 此脚本为在测试环境192.168.9.92~94 三台机器上面搭建 jstorm 集群的脚本，免去一步步的安装的过程，如果换其他环境，把文中的ip修改即可</span></span><br><span class="line"><span class="comment"># 详细步骤请参考 https://github.com/alibaba/jstorm/wiki/%E5%A6%82%E4%BD%95%E5%AE%89%E8%A3%85</span></span><br><span class="line"><span class="comment">#	</span></span><br><span class="line"><span class="comment"># 安装目录</span></span><br><span class="line"><span class="comment"># jstorm : /opt/jstorm-0.9.6.2, zookeeper : /opt/zookeeper-3.4.6 , java : /opt/jdk1.7.0_75 </span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># 注意：执行此shell脚本时候，最好使用 source jstorm_install.sh 或者 . jstorm_install.sh 强制在当前shell进程中执行，否则当前shell脚本获取不到&gt;修改的这些环境变量值 </span></span><br><span class="line"><span class="comment"># 		遇到sudo的命令时需要输入密码</span></span><br><span class="line"><span class="comment"># 脚本执行前提：</span></span><br><span class="line"><span class="comment">#		存在用户work，即存在/home/work/目录 ；</span></span><br><span class="line"><span class="comment">#       全新机器无Java</span></span><br><span class="line"><span class="comment">#		机器已经存在 Python 2.6，一般centos自带</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment"># 执行完脚本后需要手动操作的步骤：</span></span><br><span class="line"><span class="comment"># 1. zookeeper 集群需要每台机器标记自己身份，vim $dataDir/myid 将机器的标识填入，比如第一天机器即为1，二台为2，以此类推      </span></span><br><span class="line"><span class="comment">#### </span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 在64系统里执行32位程序如果出现/lib/ld-linux.so.2: bad ELF interpreter: No such file or directory</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 解决错误Failed to set locale, defaulting to C </span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">"export LC_ALL=en_US.UTF-8"</span>  &gt;&gt;  /etc/profile  </span><br><span class="line"><span class="built_in">source</span> /etc/profile </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">yum install glibc.i686</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'finish pre install glibc.i686'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'start unzip all files'</span></span><br><span class="line"><span class="comment">#tar -zxf jstorm.tar.gz </span></span><br><span class="line">unzip jstorm.zip</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'finish unzip all files and start java setup'</span></span><br><span class="line"><span class="built_in">cd</span> jstorm_tar/</span><br><span class="line">tar -zxf jdk-<span class="number">7</span>u75-linux-i586.tar_0.gz -C /opt/</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'finish unzpip jdk-7u75-linux-i586.tar_0.gz &amp;&amp; start java envirenment settting '</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置java环境</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'## java configuration '</span> &gt;&gt; /etc/profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'JAVA_HOME=/opt/jdk1.7.0_75'</span> &gt;&gt; /etc/profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export PATH=$JAVA_HOME/bin:$PATH'</span> &gt;&gt; /etc/profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar'</span> &gt;&gt; /etc/profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export JAVA_HOME'</span> &gt;&gt; /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'finish java envirement setting etc/profile'</span></span><br><span class="line"><span class="comment"># 使配置生效</span></span><br><span class="line">. /etc/profile</span><br><span class="line"><span class="built_in">which</span> java</span><br><span class="line"></span><br><span class="line"><span class="comment">## 搭建zookeeper集群 </span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'start setup zookeeper ……………………'</span></span><br><span class="line">tar -zxf zookeeper-<span class="number">3.4</span>.<span class="number">6</span>.tar.gz -C /opt/ </span><br><span class="line"><span class="built_in">echo</span> <span class="string">'# zookeeper configuration '</span> &gt;&gt; /etc/profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export ZOOKEEPER_HOME=/opt/zookeeper-3.4.6'</span> &gt;&gt; /etc/profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export PATH=$ZOOKEEPER_HOME/bin:$PATH'</span> &gt;&gt; /etc/profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export CLASSPATH=$ZOOKEEPER_HOME/lib'</span> &gt;&gt; /etc/profile</span><br><span class="line"></span><br><span class="line">mkdir -p /home/work/jstorm/zookeeper_data </span><br><span class="line"><span class="comment">#cd /opt/zookeeper-3.4.6/conf/</span></span><br><span class="line">cp <span class="operator">-f</span> /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span>/conf/zoo_sample.cfg /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span>/conf/zoo_sample.cfg.bak</span><br><span class="line">mv /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span>/conf/zoo_sample.cfg /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span>/conf/zoo.cfg</span><br><span class="line"><span class="comment"># 修改zookeeper数据文件的位置</span></span><br><span class="line">sed -i.bak <span class="string">'s/dataDir=\/tmp\/zookeeper/dataDir=\/home\/work\/jstorm\/zookeeper_data\//g'</span> /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span>/conf/zoo.cfg</span><br><span class="line"><span class="comment"># 集群配置的时候需要加入三台机器的配置 ，这个就是你在搭建你自己的三台机器的ip</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'# zookeeper cluster mathines'</span> &gt;&gt; /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span>/conf/zoo.cfg</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'server.1=192.168.9.92:2888:3888'</span> &gt;&gt; /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span>/conf/zoo.cfg </span><br><span class="line"><span class="built_in">echo</span> <span class="string">'server.2=192.168.9.93:2888:3888'</span> &gt;&gt; /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span>/conf/zoo.cfg </span><br><span class="line"><span class="built_in">echo</span> <span class="string">'server.3=192.168.9.94:2888:3888'</span> &gt;&gt; /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span>/conf/zoo.cfg </span><br><span class="line"></span><br><span class="line"><span class="comment"># dataDir目录下添加标识身份 myid(这个需要手动做)</span></span><br><span class="line"><span class="comment"># vim $dataDir/myid 将机器的标识填入，比如第一天机器即为1，二台为2</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使配置生效</span></span><br><span class="line">. /etc/profile</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'finish setup zookeeper &amp;&amp; start setup zeromq……'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装zeromq </span></span><br><span class="line"><span class="comment"># 解决错误 cannot link with -luuid, install uuid-dev</span></span><br><span class="line">yum install uuid-devel &amp;&amp; yum install libuuid-devel</span><br><span class="line"></span><br><span class="line">tar -zxf zeromq-<span class="number">2.1</span>.<span class="number">7</span>.tar.gz </span><br><span class="line"><span class="built_in">cd</span> zeromq-<span class="number">2.1</span>.<span class="number">7</span></span><br><span class="line">./configure &amp;&amp; make &amp;&amp; sudo make install &amp;&amp; sudo ldconfig </span><br><span class="line"><span class="built_in">cd</span> .. </span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'finish setup zeromq &amp;&amp; start setup jzmq ……'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装jzmq </span></span><br><span class="line">tar -zxf jzmq.tar &amp;&amp; <span class="built_in">cd</span> jzmq  &amp;&amp; ./autogen.sh &amp;&amp; ./configure &amp;&amp; make &amp;&amp; sudo make install</span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 jstrom </span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'finish setup jzmq &amp;&amp; start setup jstorm ……'</span></span><br><span class="line">mkdir /home/work/jstorm/jstorm_data </span><br><span class="line">unzip jstorm-<span class="number">0.9</span>.<span class="number">6.2</span>.zip <span class="operator">-d</span> /opt/</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export JSTORM_HOME=/opt/jstorm-0.9.6.2'</span> &gt;&gt; ~/.bashrc </span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export PATH=$PATH:$JSTORM_HOME/bin'</span> &gt;&gt; ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'after configure bashrc for jstorm'</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置$JSTORM_HOME/conf/storm.yaml</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'start configuration storm.yaml ……'</span></span><br><span class="line">sed -i <span class="string">'/localhost"$/'</span>d /opt/jstorm-<span class="number">0.9</span>.<span class="number">6.2</span>/conf/storm.yaml</span><br><span class="line">sed -i /<span class="string">'storm.zookeeper.servers:/a\     - "192.168.9.94"'</span> /opt/jstorm-<span class="number">0.9</span>.<span class="number">6.2</span>/conf/storm.yaml</span><br><span class="line">sed -i /<span class="string">'storm.zookeeper.servers:/a\     - "192.168.9.93"'</span> /opt/jstorm-<span class="number">0.9</span>.<span class="number">6.2</span>/conf/storm.yaml</span><br><span class="line">sed -i /<span class="string">'storm.zookeeper.servers:/a\     - "192.168.9.92"'</span> /opt/jstorm-<span class="number">0.9</span>.<span class="number">6.2</span>/conf/storm.yaml</span><br><span class="line">sed -i <span class="string">'s/%JSTORM_HOME%\/data/\/home\/work\/jstorm\/jstorm_data/g'</span> /opt/jstorm-<span class="number">0.9</span>.<span class="number">6.2</span>/conf/storm.yaml</span><br><span class="line">sed -i /<span class="string">'storm.zookeeper.root/a\ nimbus.host: "192.168.9.92"'</span> /opt/jstorm-<span class="number">0.9</span>.<span class="number">6.2</span>/conf/storm.yaml</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下面这两句只需要在安装 jstorm_ui 和提交jar节点的机器上面执行就可以了</span></span><br><span class="line"><span class="comment">#mkdir ~/.jstorm</span></span><br><span class="line"><span class="comment">#cp -f $JSTORM_HOME/conf/storm.yaml ~/.jstorm</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'congratilations ! you have successfully install jstorm on your machine ! Enjoy it !'</span></span><br></pre></td></tr></table></figure>
+<h3 id="Jstorm_web_ui_监控搭建_：">Jstorm_web_ui 监控搭建 ：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span><br><span class="line"></span></span><br><span class="line"><span class="comment"># author： xirong </span></span><br><span class="line"><span class="comment"># date  :  2015-05-11 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#########</span></span><br><span class="line"><span class="comment"># 安装 jstorm 监控 UI 页面 （只需要在一台机器上面安装即可）</span></span><br><span class="line"><span class="comment"># 此脚本执行前需要先执行脚本 1.jstorm_cluster_install.sh</span></span><br><span class="line"><span class="comment">#########</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'start install apache-tomcat-7.0.61 '</span></span><br><span class="line">mkdir ~/.jstorm</span><br><span class="line">cp <span class="operator">-f</span> <span class="variable">$JSTORM_HOME</span>/conf/storm.yaml ~/.jstorm</span><br><span class="line"></span><br><span class="line">tar -zxf apache-tomcat-<span class="number">7.0</span>.<span class="number">61</span>.tar.gz  -C /opt/</span><br><span class="line"><span class="built_in">cd</span> /opt/apache-tomcat-<span class="number">7.0</span>.<span class="number">61</span>/webapps</span><br><span class="line">cp <span class="variable">$JSTORM_HOME</span>/jstorm-ui-<span class="number">0.9</span>.<span class="number">6.2</span>.war  ./</span><br><span class="line">mv ROOT ROOT.old</span><br><span class="line">ln <span class="operator">-s</span> jstorm-ui-<span class="number">0.9</span>.<span class="number">6.2</span> ROOT </span><br><span class="line"><span class="built_in">cd</span> ../bin</span><br><span class="line">./startup.sh</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'congratulaions ! you have install jstorm_ui！ enjoy it ！'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 如果本机端口8080没有开放，那么需要开放端口号8080以供外面可以访问</span></span><br><span class="line"><span class="comment">#/sbin/iptables -I INPUT -p tcp --dport 8080 -j ACCEPT</span></span><br><span class="line"><span class="comment">#/etc/rc.d/init.d/iptables save</span></span><br><span class="line"><span class="comment">#/etc/init.d/iptables restart</span></span><br></pre></td></tr></table></figure>
+<h3 id="jstorm_集群启动_测试">jstorm 集群启动 测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span><br><span class="line"></span></span><br><span class="line"><span class="comment"># author： xirong </span></span><br><span class="line"><span class="comment"># date  :  2015-05-11 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#####</span></span><br><span class="line"><span class="comment"># 启动 jstorm脚本 </span></span><br><span class="line"><span class="comment"># 1. 先启动必须组件 zookeeper，启动前必须确定每台机器自己的myid文件</span></span><br><span class="line"><span class="comment">####</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 先启动必须组件 zookeeper，启动前必须确定每台机器自己的myid文件，不明白，查看安装地方 </span></span><br><span class="line"><span class="built_in">cd</span> /opt/zookeeper-<span class="number">3.4</span>.<span class="number">6</span></span><br><span class="line">sh bin/zkServer.sh start </span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'zookeeper has started ! please see status :'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># leader or follower </span></span><br><span class="line">sh bin/zkServer.sh status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 详细命令 http://www.wangyuxiong.com/archives/51725</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动 jstorm 服务 自动脚本 $JSTORM_HOME/logs/supervisor.log检查有无错误</span></span><br><span class="line">sh /opt/jstorm-<span class="number">0.9</span>.<span class="number">6.2</span>/bin/start.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 只需要在nimbus机器上面执行，如果已经ok的话，就不需要了</span></span><br><span class="line"><span class="comment"># nohup jstorm nimbus &amp;</span></span><br><span class="line"><span class="comment"># $JSTORM_HOME/logs/nimbus.log检查有无错误</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 停止 </span></span><br><span class="line"><span class="comment">#sh /opt/jstorm-0.9.6.2/bin/stop.sh</span></span><br></pre></td></tr></table></figure>
+<p>监控页面如下(当然这只是官方例子，证明安装部署的ok）：<br><img src="http://static.ixirong.com/pic/bigdata/jstorm_clusters.png" alt="Jstorm 集群首页"></p>
+<p><img src="http://static.ixirong.com/pic/bigdata/jstorm_topology.png" alt="topology 分析页面"></p>
+<h2 id="安装注意">安装注意</h2><ul>
+<li>java环境配置建议1.7以上  </li>
+<li>集群三台机器需要关闭防火墙，否则错误 “<code>java.net.NoRouteToHostException: 没有到主机的路由</code>”</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master shirdrn]<span class="comment"># service iptables stop  </span></span><br><span class="line">Flushing firewall rules: [  OK  ]  </span><br><span class="line">Setting chains to policy ACCEPT: filter [  OK  ]  </span><br><span class="line">Unloading iptables modules: [  OK  ]</span><br></pre></td></tr></table></figure>
+<h1 id="jstorm_常用命令">jstorm 常用命令</h1><ol>
+<li><strong>启动 nimbus</strong>  “nohup jstorm nimbus &amp; “    查看$JSTORM_HOME/logs/nimbus.log 检查错误日志</li>
+<li>启动 supervisor “nohup jstorm supervisor &amp;”    查看$JSTORM_HOME/logs/supervisor.log 检查有无错误</li>
+<li>停止  “sh $JSTORM_HOME/bin/stop.sh”</li>
+</ol>
+<h1 id="zookeeper_常用命令">zookeeper 常用命令</h1><ol>
+<li>启动ZK服务:       sh bin/zkServer.sh start</li>
+<li>查看ZK服务状态:      sh bin/zkServer.sh status</li>
+<li>停止ZK服务:       sh bin/zkServer.sh stop</li>
+<li>重启ZK服务:       sh bin/zkServer.sh restart<br>或者连接到服务器 bin/zkCli.sh -server 127.0.0.1:2181  输入help 查看操作帮助</li>
+</ol>
+<p>其它详细参考： <a href="http://www.wangyuxiong.com/archives/51725" target="_blank" rel="external">http://www.wangyuxiong.com/archives/51725</a></p>
+<h1 id="jstorm-zip_包和脚本下载">jstorm.zip 包和脚本下载</h1><p>在 <code>zip</code> 文件夹里面有完整的上述三个骄傲本，使用的时候直接下载zip文件夹即可，下载地址 ： <a href="http://pan.baidu.com/s/1c0k2TtI" target="_blank" rel="external">百度网盘</a> ，密码：<code>btcq</code> </p>
+<p>如果有什么问题，可以在右侧我的各种社交中找到我，或者在文章下面评论，我会及时答复各位。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近公司业务数据量越来越大，以前的基于消息队列的日志系统越来越难以满足目前的业务量，表现为消息积压，日志延迟，日志存储日期过短，所以，我们开始着手要重新设计这块，业界已经有了比较成熟的流程，即基于流式处理，采用 flume 收集日志，发送到 kafka 队列做缓冲，storm 分布式实时框架进行消费处理，短期数据落地到 hbase、mongo中，长期数据进入 hadoop 中存储。 接下来打算将这其间所遇到的问题、学习到的知识记录整理下，作为备忘，作为分享，带给需要的人。</p>
+<p>淘宝开源了许多产品组件，其中包括这鼎鼎有名的 jstorm ，也就是我们采用的分布式实时处理框架，至于为什么，请看《<a href="https://github.com/alibaba/jstorm/wiki/JStorm-vs-Storm-vs-flume-vs-S4-%E9%80%89%E5%9E%8B">为什么选择Jstorm</a>》。这篇文章只介绍 Jstorm 整个集群的搭建过程，并提供一键安装部署脚本，方便其它使用的人员（搭建环境是一件头疼的事情，费时、费力）。</p>
+<p>这是 Jstorm 的介绍PPT：</p>
+<p><iframe src="//www.slideshare.net/slideshow/embed_code/key/6NiKs9odzHXrZK" width="510" height="420" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/hustjackie/jstorm-introduction096" title="Jstorm introduction-0.9.6" target="_blank">Jstorm introduction-0.9.6</a> </strong> from <strong><a href="//www.slideshare.net/hustjackie" target="_blank">longda feng</a></strong> </div></p>]]>
+    
+    </summary>
+    
+      <category term="jstorm" scheme="http://www.ixirong.com/tags/jstorm/"/>
+    
+      <category term="storm" scheme="http://www.ixirong.com/tags/storm/"/>
+    
+      <category term="大数据" scheme="http://www.ixirong.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+      <category term="实时日志" scheme="http://www.ixirong.com/tags/%E5%AE%9E%E6%97%B6%E6%97%A5%E5%BF%97/"/>
+    
+      <category term="大数据" scheme="http://www.ixirong.com/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[最近计划中的几篇文章]]></title>
+    <link href="http://www.ixirong.com/2015/05/11/plan-lately/"/>
+    <id>http://www.ixirong.com/2015/05/11/plan-lately/</id>
+    <published>2015-05-11T14:41:46.000Z</published>
+    <updated>2015-05-19T02:04:24.000Z</updated>
+    <content type="html"><![CDATA[<p>近期时间安排的不是太合理，导致全线开工很多事情，有些忙不过来，本打算好要写的几篇文章也一直没有动笔，先把这几篇文章记录下来，后续尽量每天一篇发上来。</p>
+<ul>
+<li>ixirong.com 的建站流程，包括使用的方案、网站的监控、域名申请机备案等  2015-05-17 已经完成，详细请看<a href="http://www.ixirong.com/2015/05/17/how-to-build-ixirong-blog/" target="_blank" rel="external">使用 github Pages 服务建立 ixirong.com 独立博客全过程</a></li>
+<li>大型网站的进化流程的 xmind 分享，阅读完毕后，我进行了思维导图的整理，觉得对人应该是有些帮助的，可以看看</li>
+<li>intellig idea 开发工具使用技巧，自从转到Java平台，从使用上也有了些心得，分享出来</li>
+<li>最近在做的实时日志统计，打算写个系列，作为自己工作的总结，也给需要的朋友们一个可以阅读学习的东西  2015-05-12 已经开始整理，查看请搜索<strong>分布式实时日志系统环境搭建</strong></li>
+<li>mac iosx 系统效率提升工具集合，一些自己正在使用的，的确有明显效率提升的工具集合</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>近期时间安排的不是太合理，导致全线开工很多事情，有些忙不过来，本打算好要写的几篇文章也一直没有动笔，先把这几篇文章记录下来，后续尽量每天一篇发上来。</p>
+<ul>
+<li>ixirong.com 的建站流程，包括使用的方案、网站的监控、域名申请机备案等  2015-05]]>
+    </summary>
+    
+      <category term="写作" scheme="http://www.ixirong.com/tags/%E5%86%99%E4%BD%9C/"/>
+    
+      <category term="计划" scheme="http://www.ixirong.com/tags/%E8%AE%A1%E5%88%92/"/>
+    
+      <category term="计划" scheme="http://www.ixirong.com/categories/%E8%AE%A1%E5%88%92/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[邀请众好友参与2015腾讯益行家古长城公益挑战赛]]></title>
+    <link href="http://www.ixirong.com/2015/05/05/yxj2015/"/>
+    <id>http://www.ixirong.com/2015/05/05/yxj2015/</id>
+    <published>2015-05-05T15:13:07.000Z</published>
+    <updated>2015-05-06T14:42:16.000Z</updated>
+    <content type="html"><![CDATA[<p>最近开始慢慢去尝试自己想到的东西，比如 <code>公益</code> 就是其中的一件，这两天在挑选月捐活动的时候看到了“<strong>2015腾讯益行家古长城公益挑战塞</strong>”的活动，感觉挺好，号召大家一起来做公益这件事，虽然1元钱在你的手中是那么的渺小，不值得一提，可这些小小的资金汇聚起来就是巨大的力量，能帮助那些需要帮助的人，可以参见我的一篇文章《<a href="http://ixirong.com/2015/04/30/why-paticipate-in-commonweal/" target="_blank" rel="external">为什么要参与公益事业？</a>》<br><a id="more"></a></p>
+<p>我发起的参与地址：用微信扫一扫，献出你的一份爱心，手机端直接长按下图的二维码，选择“识别图中的二维码”即可参与活动<br><img src="http://static.ixirong.com/pic/gy/gyx2015.jpg" alt="公益2015"> </p>
+<p>2015腾讯益行家古长城公益挑战赛官方网站：<a href="http://gongyi.qq.com/zt2015/2015yxj/index.htm" target="_blank" rel="external">http://gongyi.qq.com/zt2015/2015yxj/index.htm</a></p>
+<p>备注：本次活动支持需要<code>微信支付</code></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近开始慢慢去尝试自己想到的东西，比如 <code>公益</code> 就是其中的一件，这两天在挑选月捐活动的时候看到了“<strong>2015腾讯益行家古长城公益挑战塞</strong>”的活动，感觉挺好，号召大家一起来做公益这件事，虽然1元钱在你的手中是那么的渺小，不值得一提，可这些小小的资金汇聚起来就是巨大的力量，能帮助那些需要帮助的人，可以参见我的一篇文章《<a href="http://ixirong.com/2015/04/30/why-paticipate-in-commonweal/">为什么要参与公益事业？</a>》<br>]]>
+    
+    </summary>
+    
+      <category term="公益" scheme="http://www.ixirong.com/tags/%E5%85%AC%E7%9B%8A/"/>
+    
+      <category term="徒步" scheme="http://www.ixirong.com/tags/%E5%BE%92%E6%AD%A5/"/>
+    
+      <category term="公益" scheme="http://www.ixirong.com/categories/%E5%85%AC%E7%9B%8A/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[我为什么开始参与公益活动？]]></title>
+    <link href="http://www.ixirong.com/2015/04/30/why-paticipate-in-commonweal/"/>
+    <id>http://www.ixirong.com/2015/04/30/why-paticipate-in-commonweal/</id>
+    <published>2015-04-30T14:24:43.000Z</published>
+    <updated>2015-05-06T01:57:01.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="公益是什么">公益是什么</h2><blockquote>
+<p>公益是个人或组织自愿通过做好事、行善举而提供给社会公众的公共产品。在这里，做好事、行善举是对个人或组织行为的价值判断；行动的结果是向非特定的社会成员提供公益产品。</p>
+<p>公益活动是现代社会条件下的产物，是公民参与精神的表征。公益活动要生产出有利于提升公共安全、有利于增加社会福利的公共产品。在组织公益活动时，要遵循公德、符合公意，努力形成参与者多赢共益的良好氛围。因而，公益活动至少应包含公民、公共、公德、公意和共益等五个要素。</p>
+</blockquote>
+<h2 id="为什么参与">为什么参与</h2><p>在我长大的过程中，有无数的人帮助过我，那个时候我就想着将来一定要回报他人，帮助更多需要帮助的人，这可以说是我想法的雏形。以前，在电视上看到哪个明星又捐钱了，我嗤之以鼻，总感觉是在作秀，是在为自己名声宣传，随着年龄的增长，慢慢的理解了成龙的那句话 “一开始做慈善真的有宣传的成分，别人都在做，自己不做不好，可是做着做着就发现这是一个值得一生做下去的使命，尽力帮助那些需要帮助的人”，人的思想是在成长的，有些东西真的只有在一些经历后才能理解体会。<br><a id="more"></a><br>列几条相信的东西：</p>
+<ol>
+<li>助人即助己。 这个东西不是指的我帮助了他，将来有一天他用什么什么来回报我，给我带来多少收益，有时候我帮助的人根本不知道我的存在，怎么来的回报？</li>
+</ol>
+<ul>
+<li>在于心境的改变。当我用虽然微薄的力量帮助了一个人，看到他的成长，他的快乐，我会发自内心的心情愉悦，满足感，成就感。我知道我不是一个自私冷漠的人，我有对社会的责任感，我自己不断努力的奋斗不仅仅为了自己、家人，通过参与公益活动，还为这个社会做出了一点点的努力，努力让这个世界更美好！</li>
+<li>在于自我的成长。那些需要帮助的人并不可怜，反而可敬，他们身上有种力量，与周遭的环境抗争，与自身的病魔抗争，不屈不挠，自强不息，这深深的感染着我，与他们相比，我这么优越的环境有什么理由不去努力，不去奋斗？</li>
+<li>在于为改变社会大环境贡献一份力量。别人需要帮助，你去帮助他们，当你需要帮助的时候，有人来帮助你，大家互助互爱，互相尊重，这不是你向往中的生活么？社会的每个阶层，每个派别，每一个人，只要他的公益心灵被激发，就会对社会有益，进而产生互动，这需要每个已经开始做的人去影响别人，引领别人。</li>
+</ul>
+<h2 id="有哪些可以信赖的公益机构">有哪些可以信赖的公益机构</h2><ul>
+<li><a href="http://gongyi.qq.com/" target="_blank" rel="external">腾讯公益</a> 这是我目前正在参与的组织，活动多，腾讯大平台可信赖，有每月捐助、一次性捐助、公益活动等。</li>
+<li><a href="http://gongyi.taobao.com/" target="_blank" rel="external">淘宝公益</a> 像购物一样支持公益事业，许多实时性质的活动</li>
+<li><a href="http://www.pubchn.com/" target="_blank" rel="external">公益中国</a> 综合性公益网站，成立近10年，宣传公益思想，呼吁社会和谐与和平</li>
+<li><a href="http://hope.huanqiu.com/" target="_blank" rel="external">环球公益</a> 走出国门，世界性质的公益组织</li>
+<li><a href="http://www.unicef.cn/cn/" target="_blank" rel="external">联合国儿童基金会</a> 旨在帮助世界各地的儿童</li>
+<li><a href="http://www.gtfoundation.cn/" target="_blank" rel="external">环球时报公益基金会</a> </li>
+<li><a href="http://www.alijijinhui.org/" target="_blank" rel="external">阿里巴巴公益基金会</a></li>
+<li><a href="http://www.onefoundation.cn/" target="_blank" rel="external">壹基金</a></li>
+<li>刚开始做，正在不断研究中，持续更新……</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h2 id="公益是什么">公益是什么</h2><blockquote>
+<p>公益是个人或组织自愿通过做好事、行善举而提供给社会公众的公共产品。在这里，做好事、行善举是对个人或组织行为的价值判断；行动的结果是向非特定的社会成员提供公益产品。</p>
+<p>公益活动是现代社会条件下的产物，是公民参与精神的表征。公益活动要生产出有利于提升公共安全、有利于增加社会福利的公共产品。在组织公益活动时，要遵循公德、符合公意，努力形成参与者多赢共益的良好氛围。因而，公益活动至少应包含公民、公共、公德、公意和共益等五个要素。</p>
+</blockquote>
+<h2 id="为什么参与">为什么参与</h2><p>在我长大的过程中，有无数的人帮助过我，那个时候我就想着将来一定要回报他人，帮助更多需要帮助的人，这可以说是我想法的雏形。以前，在电视上看到哪个明星又捐钱了，我嗤之以鼻，总感觉是在作秀，是在为自己名声宣传，随着年龄的增长，慢慢的理解了成龙的那句话 “一开始做慈善真的有宣传的成分，别人都在做，自己不做不好，可是做着做着就发现这是一个值得一生做下去的使命，尽力帮助那些需要帮助的人”，人的思想是在成长的，有些东西真的只有在一些经历后才能理解体会。<br>]]>
+    
+    </summary>
+    
+      <category term="公益" scheme="http://www.ixirong.com/tags/%E5%85%AC%E7%9B%8A/"/>
+    
+      <category term="爱心" scheme="http://www.ixirong.com/tags/%E7%88%B1%E5%BF%83/"/>
+    
+      <category term="公益" scheme="http://www.ixirong.com/categories/%E5%85%AC%E7%9B%8A/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[增强你的bash，提高命令效率之终极利器oh-my-zsh]]></title>
+    <link href="http://www.ixirong.com/2015/04/27/strong-bash-use-oh-my-zsh/"/>
+    <id>http://www.ixirong.com/2015/04/27/strong-bash-use-oh-my-zsh/</id>
+    <published>2015-04-27T10:28:55.000Z</published>
+    <updated>2015-05-05T13:26:22.000Z</updated>
+    <content type="html"><![CDATA[<p>当我知道了zsh，并体验了5分钟的时候，我决定将<code>zsh</code>作为我的默认 shell 终端。从这里你可能也就知道了<code>zsh</code>是 shell 的一种，当然还包括目前估计是你默认的<code>bash</code> ，输入下面的命令，就能看到你的系统中提供了多少的 shell  ：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/shells</span><br></pre></td></tr></table></figure>
+<p>前人已经有好多使用<code>zsh</code>的，所以这类的文章也很多，包括怎么安装、使用技巧等等，请看：<br><a id="more"></a></p>
+<ul>
+<li><a href="http://macshuo.com/?p=676" target="_blank" rel="external">池建强-终极 Shell</a></li>
+<li><a href="http://lostjs.com/2012/09/27/zsh/" target="_blank" rel="external">使用 zsh 的九个理由</a></li>
+</ul>
+<p>我所使用的几个 plugin 如下 ：</p>
+<ul>
+<li>autojump </li>
+<li>git </li>
+<li>colored-man</li>
+<li>colorize</li>
+<li>copydir</li>
+<li>command-not-found</li>
+<li>history</li>
+<li>sublime</li>
+<li>brew </li>
+<li><a href="https://github.com/robbyrussell/oh-my-zsh/wiki/Plugins-Overview" target="_blank" rel="external">挑选你自己的 plugin……</a></li>
+</ul>
+<p>使用方法很简单，在<code>~/.zshrc</code>文件的plugin下面添加上你想要的插件名称就ok</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plugins=(git autojump colored-man colorize copydir <span class="built_in">history</span> sublime <span class="built_in">command</span>-not-found)</span><br></pre></td></tr></table></figure>
+<p>如果你想要定制化你自己的<code>zsh</code>，访问官网 <a href="http://ohmyz.sh/" target="_blank" rel="external">http://ohmyz.sh/</a> ，上面有你需要的 plugin、theme，有意思的还有T恤……</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>当我知道了zsh，并体验了5分钟的时候，我决定将<code>zsh</code>作为我的默认 shell 终端。从这里你可能也就知道了<code>zsh</code>是 shell 的一种，当然还包括目前估计是你默认的<code>bash</code> ，输入下面的命令，就能看到你的系统中提供了多少的 shell  ：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/shells</span><br></pre></td></tr></table></figure>
+<p>前人已经有好多使用<code>zsh</code>的，所以这类的文章也很多，包括怎么安装、使用技巧等等，请看：<br>]]>
+    
+    </summary>
+    
+      <category term="shell" scheme="http://www.ixirong.com/tags/shell/"/>
+    
+      <category term="效率" scheme="http://www.ixirong.com/tags/%E6%95%88%E7%8E%87/"/>
+    
+      <category term="终端" scheme="http://www.ixirong.com/tags/%E7%BB%88%E7%AB%AF/"/>
+    
+      <category term="工具" scheme="http://www.ixirong.com/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Application_end事件触发机制及全局global.asax文件说明]]></title>
+    <link href="http://www.ixirong.com/2015/04/20/about-application-end/"/>
+    <id>http://www.ixirong.com/2015/04/20/about-application-end/</id>
+    <published>2015-04-20T06:13:04.000Z</published>
+    <updated>2015-04-26T08:14:33.000Z</updated>
+    <content type="html"><![CDATA[<p>Application_End事件在HttpApplication 类的最后一个实例被销毁时被触发，在一个应用程序的生命周期内它只被触发一次，那么在什么情况下会导致该事件的触发呢？</p>
+<h2 id="Application_End_事件触发时间/机制">Application_End 事件触发时间/机制</h2><ol>
+<li>回收应用程序池会导致站点重启，记录的原因是如下：</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#12288; HostingEnvironment initiated shutdown HostingEnvironment caused shutdown</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<ol>
+<li>修改应用程序池回收规则会导致重启，记录的重启原因如下：</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HostingEnvironment initiated shutdown HostingEnvironment caused shutdown</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>在IIS中修改站点的名字，不会导致重启。</p>
+</li>
+<li><p>修改站点根目录的配置文件web.config，在配置文件注释中添加几个空格会导致重启，记录的重启原因如下，但是修改子目录的web.config文件不一定会导致马上重启。</p>
+</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONFIG change HostingEnvironment initiated shutdown</span><br></pre></td></tr></table></figure>
+<ol>
+<li>修改aspx、master文件不一定会导致重启；但是每修改一次都会导致一次重新编译，重新编译次数达到15次之后会导致站点重启，重启原因如下：</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Recompilation limit of 15 reached HostingEnvironment initiated shutdown</span><br></pre></td></tr></table></figure>
+<p>15次后重启这个数字可以在web.config中做配置，修改compilation的numRecompilesBeforeAppRestart属性值即可。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">compilation</span> <span class="attribute">debug</span>=<span class="value">"false"</span> <span class="attribute">numRecompilesBeforeAppRestart</span>=<span class="value">"15"</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>删除bin目录下的pdb文件，会导致重启，记录的重启原因是：</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Change Notification for critical directories.</span><br></pre></td></tr></table></figure>
+<p>在bin目录下新建一个空的文件夹，会导致站点重启，重启原因是：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Directory rename change notification for &#39;D:\projects\TestWebApp\TestWeb&#39;.T estWeb dir change or directory rename</span><br></pre></td></tr></table></figure>
+<p>在bin目录下删除空文件夹，会导致站点重启，记录原因是：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Directory rename change notification for &#39;D:\projects\TestWebApp\TestWeb&#39;.T estWeb dir change or directory rename</span><br></pre></td></tr></table></figure>
+<ol>
+<li>修改Global.asax文件会导致站点重启，即使加几个空格也会重启，记录的重启原因是：</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Change in GLOBAL.ASAX HostingEnvironment initiated shutdown</span><br></pre></td></tr></table></figure>
+<ol>
+<li>对App_Code目录做修改会导致站点重启，在站点根目录下添加一个名字为App_Code的文件夹，会导致重启，记录的重启原因是：</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Change Notification for critical directories. App_Code dir change or directory rename</span><br></pre></td></tr></table></figure>
+<p>删除App_Code文件夹会导致站点重启，记录的重启原因是：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#12288;&#12288;File Change Notification Error in D:\projects\TestWebApp\TestWeb\app_code Change Notification for critical directories.App_Code dir change or directory rename</span><br></pre></td></tr></table></figure>
+<p>在App_Code文件夹下面新建或者删除一个cs文件，会导致站点重启，记录的原因是：</p>
+<pre><code>Change Notification <span class="keyword">for</span> critical <span class="built_in">directories</span>. App_Code dir change <span class="operator">or</span> <span class="built_in">directory</span> <span class="built_in">rename</span>
+</code></pre><ol>
+<li>对关键路径的修改都会导致站点重启，关键路径包括：<br>　 bin, App_Code, Web References,App_Browsers,App_GlobalResources,App_LocalResources</li>
+</ol>
+<p>总结三方面：一方面是IIS配置发生变化；另一方面是asp.net相关文件配置文件,global文件，aspx，ascx,master等类型的文件发生变法；第三个方面是关键路径bin，app_Code, Web References,App_Browsers,App_GlobalResources,App_LocalResources发生变化。（<a href="http://www.51testing.com/html/97/n-243197.html" target="_blank" rel="external">参考</a>）</p>
+<h3 id="在事件中记录站点重启的原因">在事件中记录站点重启的原因</h3><p>在站点执行Application_End事件中添加记录方法。在Global.asax.cs文件中添加如下代码即可：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">Application_End</span><span class="params">()</span></span><br><span class="line">   </span>&#123;</span><br><span class="line">      <span class="keyword">try</span>&#123;</span><br><span class="line">           HttpRuntime runtime = (HttpRuntime)<span class="keyword">typeof</span>(System.Web.HttpRuntime).InvokeMember(<span class="string">"_theRuntime"</span>,</span><br><span class="line">                                    BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.GetField, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">           <span class="keyword">if</span> (runtime == <span class="keyword">null</span>)</span><br><span class="line">                       <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">string</span> shutDownMessage = (<span class="keyword">string</span>)runtime.GetType().InvokeMember(<span class="string">"_shutDownMessage"</span>,</span><br><span class="line">                       BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField, <span class="keyword">null</span>, runtime, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">string</span> shutDownStack = (<span class="keyword">string</span>)runtime.GetType().InvokeMember(<span class="string">"_shutDownStack"</span>,</span><br><span class="line">                       BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField, <span class="keyword">null</span>, runtime, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">           <span class="comment">// 记录日志到本地文件</span></span><br><span class="line">           WebLog.ChannelLog.ApplicationLogger.Error(<span class="string">"MvcApplicationEnd事件触发："</span> + shutDownMessage, <span class="keyword">new</span> Exception(shutDownStack));</span><br><span class="line">       &#125;</span><br><span class="line">       <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">       &#123;</span><br><span class="line">           WebLog.ChannelLog.ApplicationLogger.Error(<span class="string">"MvcApplicationEnd事件触发异常"</span>, ex);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Global-asax_文件介绍">Global.asax 文件介绍</h2><p>有时候叫做 ASP.NET 应用程序文件，提供了一种在一个中心位置响应应用程序级或模块级事件的方法。你可以使用这个文件实现应用程序安全性以及其它一些任务。</p>
+<p>Global.asax 位于应用程序根目录下。虽然 Visual Studio .NET 会自动插入这个文件到所有的 ASP.NET 项目中，但是它实际上是一个可选文件。删除它不会出问题——当然是在你没有使用它的情况下。.asax 文件扩展名指出它是一个应用程序文件，而不是一个使用 aspx 的 ASP.NET 文件。</p>
+<p>Global.asax 文件被配置为任何（通过 URL 的）直接 HTTP 请求都被自动拒绝，所以用户不能下载或查看其内容。ASP.NET 页面框架能够自动识别出对Global.asax 文件所做的任何更改。在 Global.asax 被更改后ASP.NET 页面框架会重新启动应用程序，包括关闭所有的浏览器会话，去除所有状态信息，并重新启动应用程序域。</p>
+<p>Global.asax 文件继承自HttpApplication 类，它维护一个HttpApplication 对象池，并在需要时将对象池中的对象分配给应用程序。Global.asax 文件包含以下事件：</p>
+<ul>
+<li>Application_Init：在应用程序被实例化或第一次被调用时，该事件被触发。对于所有的HttpApplication 对象实例，它都会被调用。</li>
+<li>Application_Disposed：在应用程序被销毁之前触发。这是清除以前所用资源的理想位置。</li>
+<li>Application_Error：当应用程序中遇到一个未处理的异常时，该事件被触发。</li>
+<li>Application_Start：在HttpApplication 类的第一个实例被创建时，该事件被触发。它允许你创建可以由所有HttpApplication 实例访问的对象。</li>
+<li>Application_End：在HttpApplication 类的最后一个实例被销毁时，该事件被触发。在一个应用程序的生命周期内它只被触发一次。</li>
+<li>Application_BeginRequest：在接收到一个应用程序请求时触发。对于一个请求来说，它是第一个被触发的事件，请求一般是用户输入的一个页面请求（URL）。</li>
+<li>Application_EndRequest：针对应用程序请求的最后一个事件。</li>
+<li>Application_PreRequestHandlerExecute：在 ASP.NET 页面框架开始执行诸如页面或 Web 服务之类的事件处理程序之前，该事件被触发。</li>
+<li>Application_PostRequestHandlerExecute：在 ASP.NET 页面框架结束执行一个事件处理程序时，该事件被触发。</li>
+<li>Applcation_PreSendRequestHeaders：在 ASP.NET 页面框架发送 HTTP 头给请求客户（浏览器）时，该事件被触发。</li>
+<li>Application_PreSendContent：在 ASP.NET 页面框架发送内容给请求客户（浏览器）时，该事件被触发。</li>
+<li>Application_AcquireRequestState：在 ASP.NET 页面框架得到与当前请求相关的当前状态（Session 状态）时，该事件被触发。</li>
+<li>Application_ReleaseRequestState：在 ASP.NET 页面框架执行完所有的事件处理程序时，该事件被触发。这将导致所有的状态模块保存它们当前的状态数据。</li>
+<li>Application_ResolveRequestCache：在 ASP.NET 页面框架完成一个授权请求时，该事件被触发。它允许缓存模块从缓存中为请求提供服务，从而绕过事件处理程序的执行。</li>
+<li>Application_UpdateRequestCache：在 ASP.NET 页面框架完成事件处理程序的执行时，该事件被触发，从而使缓存模块存储响应数据，以供响应后续的请求时使用。</li>
+<li>Application_AuthenticateRequest：在安全模块建立起当前用户的有效的身份时，该事件被触发。在这个时候，用户的凭据将会被验证。</li>
+<li>Application_AuthorizeRequest：当安全模块确认一个用户可以访问资源之后，该事件被触发。</li>
+<li>Session_Start：在一个新用户访问应用程序 Web 站点时，该事件被触发。</li>
+<li>Session_End：在一个用户的会话超时、结束或他们离开应用程序 Web 站点时，该事件被触发。</li>
+</ul>
+<p>这个事件列表看起来好像多得吓人，但是在不同环境下这些事件可能会非常有用。使用这些事件的一个关键问题是知道它们被触发的顺序。Application_Init 和Application_Start 事件在应用程序第一次启动时被触发一次。相似地，Application_Disposed 和 Application_End 事件在应用程序终止时被触发一次。此外，基于会话的事件（Session_Start 和 Session_End）只在用户进入和离开站点时被使用。其余的事件则处理应用程序请求，这些事件被触发的顺序是：</p>
+<ul>
+<li><p>Application_BeginRequest</p>
+</li>
+<li><p>Application_AuthenticateRequest</p>
+</li>
+<li><p>Application_AuthorizeRequest</p>
+</li>
+<li><p>Application_ResolveRequestCache</p>
+</li>
+<li><p>Application_AcquireRequestState</p>
+</li>
+<li><p>Application_PreRequestHandlerExecute</p>
+</li>
+<li><p>Application_PreSendRequestHeaders</p>
+</li>
+<li><p>Application_PreSendRequestContent</p>
+</li>
+<li><p>&lt;&lt;执行代码&gt;&gt;</p>
+</li>
+<li><p>Application_PostRequestHandlerExecute</p>
+</li>
+<li><p>Application_ReleaseRequestState</p>
+</li>
+<li><p>Application_UpdateRequestCache</p>
+</li>
+<li><p>Application_EndRequest</p>
+</li>
+</ul>
+<p>这些事件常被用于安全性方面。下面这个 C# 的例子演示了不同的Global.asax 事件，该例使用Application_Authenticate 事件来完成通过 cookie 的基于表单（form）的身份验证。此外，Application_Start 事件填充一个应用程序变量，而Session_Start 填充一个会话变量。Application_Error 事件显示一个简单的消息用以说明发生的错误。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protected void Application_Start(Object sender, EventArgs e) &#123;&#10;&#9;Application[&#34;Title&#34;] = &#34;Builder.com Sample&#34;;&#10;&#125;&#10;&#10;protected void Session_Start(Object sender, EventArgs e) &#123;&#10;&#9;Session[&#34;startValue&#34;] = 0;&#10;&#125;&#10;&#10;protected void Application_AuthenticateRequest(Object sender, EventArgs e) &#123;&#10;&#9;// Extract the forms authentication cookie&#10;&#9;string cookieName = FormsAuthentication.FormsCookieName;&#10;&#9;HttpCookie authCookie = Context.Request.Cookies[cookieName];&#10;&#9;if(null == authCookie) &#123;&#10;&#9;&#9;// There is no authentication cookie.&#10;&#9;&#9;return;&#10;&#9;&#125;&#10;&#9;FormsAuthenticationTicket authTicket = null;&#10;&#9;try &#123;&#10;&#9;&#9;authTicket = FormsAuthentication.Decrypt(authCookie.Value);&#10;&#9;&#125; catch(Exception ex) &#123;&#10;&#9;&#9;// Log exception details (omitted for simplicity)&#10;&#9;return;&#10;&#9;&#125;&#10;&#9;if (null == authTicket) &#123;&#10;&#9;&#9;// Cookie failed to decrypt.&#10;&#9;&#9;return;&#10;&#9;&#125;&#10;&#9;// When the ticket was created, the UserData property was assigned&#10;&#9;// a pipe delimited string of role names.&#10;&#9;string[2] roles&#10;&#9;roles[0] = &#34;One&#34;&#10;&#9;roles[1] = &#34;Two&#34;&#10;&#9;// Create an Identity object&#10;&#9;FormsIdentity id = new FormsIdentity( authTicket );&#10;&#9;// This principal will flow throughout the request.&#10;&#9;GenericPrincipal principal = new GenericPrincipal(id, roles);&#10;&#9;// Attach the new principal object to the current HttpContext object&#10;&#9;Context.User = principal;&#10;&#125;&#10;&#10;protected void Application_Error(Object sender, EventArgs e) &#123;&#10;&#9;Response.Write(&#34;Error encountered.&#34;);&#10;&#125;</span><br></pre></td></tr></table></figure>
+<p>这个例子只是很简单地使用了一些Global.asax 文件中的事件；重要的是要意识到这些事件是与整个应用程序相关的。这样，所有放在其中的方法都会通过应用程序的代码被提供，这就是它的名字为Global 的原因(<a href="http://www.cnblogs.com/I-am-Betty/archive/2010/09/06/1819558.html" target="_blank" rel="external">参考</a>)</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Application_End事件在HttpApplication 类的最后一个实例被销毁时被触发，在一个应用程序的生命周期内它只被触发一次，那么在什么情况下会导致该事件的触发呢？</p>
+<h2 id="Application_End_事件触发时间/机制">Application_End 事件触发时间/机制</h2><ol>
+<li>回收应用程序池会导致站点重启，记录的原因是如下：</li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#12288; HostingEnvironment initiated shutdown HostingEnvironment caused shutdown</span><br></pre></td></tr></table></figure>]]>
+    
+    </summary>
+    
+      <category term="net" scheme="http://www.ixirong.com/tags/net/"/>
+    
+      <category term="net" scheme="http://www.ixirong.com/categories/net/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[个人godaddy域名备案解决方案]]></title>
+    <link href="http://www.ixirong.com/2015/04/15/how-blog-record-by-aliyun/"/>
+    <id>http://www.ixirong.com/2015/04/15/how-blog-record-by-aliyun/</id>
+    <published>2015-04-15T02:29:21.000Z</published>
+    <updated>2015-05-01T03:17:58.000Z</updated>
+    <content type="html"><![CDATA[<p>Godaddy申请的域名怎么样备案？不在国内申请的域名能不能备案？为什么一定要备案？自己就写个个人博客，不备案不行吗？这几个问题是当我开始运营独立博客的时候，遇到的困惑，我在网络上疯狂的找资料，却没有发现有一篇文章能够清楚的说明些问题，当然如果你已经很熟悉<code>备案</code>的整个事情，那么这篇文章不适合你看，没必要浪费你的时间！</p>
+<h1 id="什么是备案？">什么是备案？</h1><p>来自百度百科的解释 <a href="http://baike.baidu.com/view/33319.htm" target="_blank" rel="external">http://baike.baidu.com/view/33319.htm</a></p>
+<blockquote>
+<p>网站备案是指向主管机关报告事由存案以备查考。行政法角度看备案，实践中主要是《立法法》和《法规规章备案条例》的规定。<strong>网站备案的目的就是为了防止在网上从事非法的网站经营活动，打击不良互联网信息的传播</strong>，如果网站不备案的话，很有可能被查处以后关停。</p>
+</blockquote>
+<a id="more"></a>
+<p>网站备案、ICP备案、域名备案和空间备案这四个名词本质是讲是<strong>一样</strong>的，即为<strong>网站申请ICP备案号</strong>，不管你的域名是什么，在哪里注册，空间是什么，服务商在哪里。但这并不意味着你建立个个人博客站点就一定需要备案！</p>
+<h2 id="哪些情况需要备案">哪些情况需要备案</h2><ol>
+<li>在国内申请的域名，如万网等服务商</li>
+<li>凡是在中国大陆境内购买服务器的用户需备案，即你的网站空间在国内。</li>
+</ol>
+<p>如果你像我一样，域名ixirong.com申请自国外服务商，如 <a href="http://www.godaddy.com" target="_blank" rel="external">Godaddy</a> ，网站内容托管在国外服务商，如github或者买的国外的虚拟主机，那么<strong>你不需要备案</strong>！！这也就意味着，如果你想搭建个博客站点，还不想捣鼓这麻烦的备案流程，那么你唯一的做法就是，<strong>在国外服务商申请域名+购买国外的空间</strong>（或者使用国外免费的空间如github托管静态站点），常见的国外域名服务商如<a href="">Godaddy</a>等</p>
+<h2 id="备案流程">备案流程</h2><p>备案有两种方式，一种是自己去下载资料按照步骤一步步操作（很麻烦），另一种（推荐）找个国内的服务商，如阿里云、腾讯云等，都提供了备案的流程，按照操作来做就很简单。</p>
+<p>第一种介绍：<a href="http://beian.vhostgo.com/wen.asp" target="_blank" rel="external">互联网非经营性网站 ICP 备案系统</a>，按照这个流程来即可。<br>第二种也是整篇文章的主旨重点，详细如下：</p>
+<h3 id="Godaddy注册域名托管国外github服务商如何备案？">Godaddy注册域名托管国外github服务商如何备案？</h3><p>ixirong.com 注册自国外域名厂商 <a href="">godaddy</a> ，文章内容使用 <a href="http://hexo.io" target="_blank" rel="external">hexo</a>博客系统生成静态文件托管到 <a href="https://github.com/" target="_blank" rel="external">Github</a>上面，个人认为很Geek，而且免费的！<br>可是当文章越来越多，静态资源如图片、下载文件等需要放到专业的存储上，ixirong.com 采用的是国内的<a href="https://portal.qiniu.com/signup?code=3lkd3gonyuhjm" target="_blank" rel="external">七牛云存储</a>，有免费的策略，当流量越来越大的时候，想使用一些CDN服务，如阿里云、腾讯云CDN、七牛CDN，可是这些厂商<strong>自定义域名，要求域名必须备案</strong>，这也就是这篇文章的由来，说说我的解决方案：</p>
+<ul>
+<li>ixirong.com 域名注册自Godaddy，内容部署到Github上，上面已经讲过，DNS解析选择DNSPod，这样整个网站访问就ok了，具体参考<a href="https://support.dnspod.cn/Kb/showarticle/tsid/42/" target="_blank" rel="external">Godaddy注册商域名修改DNS地址</a></li>
+<li>申请 <a href="http://www.net.cn/hosting/free/?spm=5334.734987.6.1.J2A9Cq" target="_blank" rel="external">万网免费虚拟主机</a> ，部署自己的博客程序内容</li>
+<li>依托 <a href="http://beian.aliyun.com/?spm=5334.1600347.1.23.P4msho" target="_blank" rel="external">万网的备案系统</a> ，按照步骤一步步操作，申请备案。</li>
+</ul>
+<p>阿里云的这个备案的流程很清楚详细，我就是按照这个流程来进行备案的<a href="http://help.aliyun.com/knowledge_detail.htm?knowledgeId=5974952" target="_blank" rel="external">http://help.aliyun.com/knowledge_detail.htm?knowledgeId=5974952</a> ，写这篇文章的时候，备案正在过程中，不过这样子是ok的，可以搞定！ <strong>整个备案过程没有花费一分钱</strong>，感谢这些伟大的互联网公司。</p>
+<p>虽然国外注册的域名+国外的服务商<strong>不需要备案</strong>，如果要有我这样子的需求，还是得备案下，这就是我的解决方案，仅供参考!</p>
+<p>2015-04-30 更新<br>整个备案过程ok，ixirong.com 已经备案，备案号可参考页脚，整个过程从04-15日提交申请到04-27日批准，12天，不到两周工作日，还算顺利。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>Godaddy申请的域名怎么样备案？不在国内申请的域名能不能备案？为什么一定要备案？自己就写个个人博客，不备案不行吗？这几个问题是当我开始运营独立博客的时候，遇到的困惑，我在网络上疯狂的找资料，却没有发现有一篇文章能够清楚的说明些问题，当然如果你已经很熟悉<code>备案</code>的整个事情，那么这篇文章不适合你看，没必要浪费你的时间！</p>
+<h1 id="什么是备案？">什么是备案？</h1><p>来自百度百科的解释 <a href="http://baike.baidu.com/view/33319.htm">http://baike.baidu.com/view/33319.htm</a></p>
+<blockquote>
+<p>网站备案是指向主管机关报告事由存案以备查考。行政法角度看备案，实践中主要是《立法法》和《法规规章备案条例》的规定。<strong>网站备案的目的就是为了防止在网上从事非法的网站经营活动，打击不良互联网信息的传播</strong>，如果网站不备案的话，很有可能被查处以后关停。</p>
+</blockquote>]]>
+    
+    </summary>
+    
+      <category term="网站建设" scheme="http://www.ixirong.com/tags/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE/"/>
+    
+      <category term="阿里云" scheme="http://www.ixirong.com/tags/%E9%98%BF%E9%87%8C%E4%BA%91/"/>
+    
+      <category term="网站建设" scheme="http://www.ixirong.com/categories/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[mac新手入门指南及常用工具及java编程环境搭建]]></title>
+    <link href="http://www.ixirong.com/2015/03/19/the-beginner-of-mac/"/>
+    <id>http://www.ixirong.com/2015/03/19/the-beginner-of-mac/</id>
+    <published>2015-03-19T12:45:17.000Z</published>
+    <updated>2015-05-04T07:32:40.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="OSX_系统介绍">OSX 系统介绍</h1><p>OSX 是苹果公司为Mac系列产品开发的专属操作系统，基于 UNIX 系统，处处体现着简洁的宗旨。从 PC 过渡到 Mac，建议先了解 OS X 系统，你就会知道OS X 比 Windows 先进了多少，高度的安全，简单易用，操作方便，让你在 Magic TracPad 触控板和 Magic Mouse 触控鼠标上尽情Mouti-touch。建议先看看张宁博写的《Mac操作说明 完全指南》来了解OS X，非常详细，这本书能让初学者在一天之内对OS X了如指掌，百度网盘：<a href="http://pan.baidu.com/share/link?shareid=3590577445&amp;uk=19629232" target="_blank" rel="external">http://pan.baidu.com/share/link?shareid=3590577445&amp;uk=19629232</a></p>
+<p>在我们常用的 window 系统上，你已经习惯了使用 office 来办公处理，射手来看电影，winzip 来压缩解压缩文件，ps 进行图片处理等等，那么在 mac 下面，要进行同样的操作，应该使用什么样子的软件呢？ 威锋网进行了汇总《<a href="http://bbs.feng.com/read-htm-tid-6690354.html" target="_blank" rel="external">OSX 常用装机软件</a>》，新手值得看看 ！</p>
+<h1 id="mac_下常用网站、资料推荐，高效率方式方法推荐">mac 下常用网站、资料推荐，高效率方式方法推荐</h1><ul>
+<li>知乎上的讨论，一些可以提高工作效率的软件 <strong><a href="http://www.zhihu.com/question/19550256" target="_blank" rel="external">OS X 平台上有哪些值得推荐的常用软件？</a></strong>  </li>
+<li>异次元软件世界上的一篇文章 《<a href="http://www.iplaysoft.com/100-mac-freeware.html" target="_blank" rel="external">Mac用户必备！100多款免费实用的苹果Mac软件大搜集</a>》，可以经常关注下网站上面的 <a href="http://www.iplaysoft.com/os/mac-platform" target="_blank" rel="external">mac 标签</a> 下面的文章内容</li>
+<li><a href="https://github.com/hzlzh/Best-App" target="_blank" rel="external">github 上罗列出来的 mac系统中优秀的付费、免费App、使用技巧等 </a></li>
+<li><p>重点来了，去哪里下载 mac 上的软件，免费的直接在 AppStore 下载就行了，可很多很贵很贵的收费软件去哪里下呢？ 我经常去了三个比较正规、资源多的网站 <a href="http://soft.macx.cn/index.html" target="_blank" rel="external">MacX 软件下载</a>、<a href="http://www.macappbox.com/" target="_blank" rel="external">苹果盒子软件下载</a>、<a href="http://www.0daydown.com/category/software/mac" target="_blank" rel="external">0DayDown MacOSX 频道</a> 可以下载许多和谐的软件，<strong>不过，如果你资金足够，还请多多支持正版！！</strong></p>
+</li>
+<li><p><a href="https://support.apple.com/zh-cn/HT201236" target="_blank" rel="external">mac 系统上常用的快捷键</a> ，基本上 mac 上所有的软件快捷键都遵循统一的协议，比如 ‘cmd + h’ 为隐藏当前窗口等，熟悉这些快捷键，能够提高工作效率  </p>
+</li>
+<li>色彩画你的 <a href="http://www.vpsee.com/2013/09/use-the-solarized-color-theme-on-mac-os-x-terminal/" target="_blank" rel="external">mac 终端</a>，自定义终端的背景色，看起来更舒服，更好的效率</li>
+<li><a href="http://macshuo.com/?p=676" target="_blank" rel="external">终极 shell</a> ，迟建强老师写的一篇终端高效指南，感兴趣的可以阅读下</li>
+</ul>
+<p><img src="http://static.ixirong.com/pic/terminal/custom-vim-intelig.png" alt="我的终端背景"></p>
+<h1 id="mac_下编程_Java_环境搭建_jdk1-7_+sdk1-7+maven_+tomcat">mac 下编程 Java 环境搭建 jdk1.7 +sdk1.7+maven +tomcat</h1><p>（文章主要目的是新入手mac的人对mac下的目录结果不了解，网络上也很少有这样子的文章，新人对mac下Java环境的搭建会浪费很多时间。如有不当的地方，请指正或者修改下）</p>
+<h2 id="环境依赖：">环境依赖：</h2><ol>
+<li>开发工具 <a href="https://www.jetbrains.com/idea/" target="_blank" rel="external">idea 14</a> 破解工具见<a href="http://pan.baidu.com/s/1sjDeLvn" target="_blank" rel="external">百度网盘</a>或者 <a href="https://www.eclipse.org/downloads/" target="_blank" rel="external">eclipes</a> </li>
+<li>下载mac版专用的jdk*.dmg文件双击即可安装，地址如下：jdk7 <a href="https://jdk7.java.net/download.html" target="_blank" rel="external">https://jdk7.java.net/download.html</a> (<a href="https://jdk8.java.net/download.html" target="_blank" rel="external">jdk8下载地址</a>）</li>
+<li>下载sdk7  java-ee-sdk7 <a href="http://www.oracle.com/technetwork/java/javaee/downloads/index.html" target="_blank" rel="external">http://www.oracle.com/technetwork/java/javaee/downloads/index.html</a> (<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="external">java-se-sdk8</a>)</li>
+</ol>
+<ul>
+<li>备注：<a href="http://blog.csdn.net/dreamcatchergo/article/details/8108467" target="_blank" rel="external">SDK、JDK、JRE、JVM等之间的区别与联系</a></li>
+</ul>
+<ol>
+<li>下载 maven <a href="http://maven.apache.org/download.cgi" target="_blank" rel="external">http://maven.apache.org/download.cgi</a> 和 tomcat <a href="http://tomcat.apache.org/" target="_blank" rel="external">http://tomcat.apache.org/</a> （注意版本对应jdk7对应tomcat7，jdk8对应tomcat8）  </li>
+</ol>
+<h2 id="安装过程：">安装过程：</h2><ol>
+<li>先安装 jdk (自带了jre 就没有必要安装了),才能安装 sdk，mac 中 jdk1.7 的默认位置：/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home，如果不在这里使用 which java 命令查看下安装到了哪里</li>
+<li>安装 sdk7 </li>
+</ol>
+<p>错误解决<br>安装sdk错误：This program requires DISPLAY environment variable<br>解决： vim ~/.bash_profile  添加 export DISPLAY=:0 即可</p>
+<h2 id="环境配置Java+maven+tomcat环境">环境配置Java+maven+tomcat环境</h2><ol>
+<li>配置JAVA_HOME:<br>用户目录下 vim ~/.bash_profile（如果没有这个文件可以自己创建一个），MAVEN_HOME 和 JAVA_HOME 都是你的安装目录，如果不知道安装到了哪里，使用which命令查看，例如 “which java ”</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MAVEN_HOME=/Users/taoyutong/Documents/apache-maven-<span class="number">3.0</span>.<span class="number">5</span></span><br><span class="line">JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.<span class="number">7.0</span>_40.jdk/Contents/Home</span><br><span class="line">PATH=<span class="variable">$MAVEN_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line">PAHT=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PAHT</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> MAVEN_HOME</span><br><span class="line"><span class="built_in">export</span> JAVA_HOME</span><br><span class="line"><span class="built_in">export</span> PATH</span><br></pre></td></tr></table></figure>
+<p>保存退出即可。<br>立即生效需要执行：$ source .bash_profile（这是文件名）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mac下的配置文件</span></span><br><span class="line">./etc/profile 文件   全局共有配置，无论哪个用户登录，都会读取此文件</span><br><span class="line">/etc/bashrc    （一般在这个文件中添加系统级环境变量）全局（公有）配置，bash shell执行时，不管是何种方式，都会读取此文件。</span><br><span class="line">~/.bash_profile  （一般在这个文件中添加用户级环境变量）</span><br></pre></td></tr></table></figure>
+<ol>
+<li>配置Tomcat：<br>进入用户目录，编辑.bash_profile</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br><span class="line"><span class="comment"># 增加如下：</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/usr/<span class="built_in">local</span>/apache-tomcat-<span class="number">8.0</span>.<span class="number">9</span>/bin</span><br><span class="line"><span class="comment"># 设置startup.sh文件的权限</span></span><br><span class="line">chmod <span class="number">755</span> /usr/<span class="built_in">local</span>/apache-tomcat-<span class="number">8.0</span>.<span class="number">9</span>/bin/*.sh</span><br></pre></td></tr></table></figure>
+<p>测试：</p>
+<ul>
+<li>启动tomcat<br>sh startup.sh</li>
+<li>测试<br>可以使用：<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a> ，看到tomcat的默认页面即可</li>
+<li>停止tomcat<br>sh shutdown.sh</li>
+</ul>
+<p>这步可以不用，这是用来给tomcat添加管理员使用的<br>vim /usr/local/apache-tomcat-7.0.55/conf/tomcat-users.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">role</span> <span class="attribute">rolename</span>=<span class="value">"admin-gui"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">role</span> <span class="attribute">rolename</span>=<span class="value">"admin-script"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">role</span> <span class="attribute">rolename</span>=<span class="value">"manager-gui"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">role</span> <span class="attribute">rolename</span>=<span class="value">"manager-script"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">role</span> <span class="attribute">rolename</span>=<span class="value">"manager-jmx"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">role</span> <span class="attribute">rolename</span>=<span class="value">"manager-status"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">user</span> <span class="attribute">username</span>=<span class="value">"admin"</span> <span class="attribute">password</span>=<span class="value">"admin"</span> <span class="attribute">roles</span>=<span class="value">"manager-gui,manager-script,manager-jmx,manager-status,admin-script,admin-gui"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>配置maven<br>解压下载的zip包 apache-maven-3.2.5-bin.tar.gz 到一个目录，比如 /usr/local/ ，将里面包含setting.xml备份下，使用网站专用的setting.xml来替换；maven 最重要的需要把setting.xml文件配置对，比较关键的是使用的用户目录，mac默认是 ~/.m2 文件，对应的需要将 网站专用setting.xml文件复制到 ~/.m2/下；<br>关于maven的setting.xml文件有两个，一个是maven安装目录下的，是全局的配置，这台机器上的所有用户都使用，另一个是 ~/.m2/下的，这个是用户级别的配置：</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile </span><br><span class="line">MAVEN_HOME=/Users/taoyutong/Documents/apache-maven-<span class="number">3.0</span>.<span class="number">5</span></span><br><span class="line">PATH=<span class="variable">$MAVEN_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> MAVEN_HOME</span><br><span class="line"><span class="built_in">export</span> PATH</span><br></pre></td></tr></table></figure>
+<p>保存退出即可。<br>立即生效需要执行：$ source ~/.bash_profile（这是文件名）</p>
+<p>IDE中setting中关于tomcat和maven的设置，去关注下，如果需要修改就修改下，否则可能会有问题；</p>
+<p>到这里，整个Java环境就配置问了，可以建立项目来测试下，参考下：<br>IntelliJ IDEA 12 创建 Maven 管理的 Java Web项目  <a href="http://blog.csdn.net/zht666/article/details/8673609" target="_blank" rel="external">http://blog.csdn.net/zht666/article/details/8673609</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[还记得刚买 mac book pro 的时候，啥都不会用，网上到处找资料，去查看怎么使用，mac常用快捷键、mac常用软件、mac java 环境搭建等等，中间走了不少弯路，也积累了不少资料，特此分享给大家，方便新手最好的mac入门指南！]]>
+    
+    </summary>
+    
+      <category term="Java" scheme="http://www.ixirong.com/tags/Java/"/>
+    
+      <category term="mac" scheme="http://www.ixirong.com/tags/mac/"/>
+    
+      <category term="设备" scheme="http://www.ixirong.com/categories/%E8%AE%BE%E5%A4%87/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[fastdfs 环境搭建使用及最佳实践]]></title>
+    <link href="http://www.ixirong.com/2015/03/16/something-about-fastdfs/"/>
+    <id>http://www.ixirong.com/2015/03/16/something-about-fastdfs/</id>
+    <published>2015-03-16T05:49:16.000Z</published>
+    <updated>2015-05-13T15:09:16.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="一、分布式文件系统_FastDFS_架构解析">一、分布式文件系统 FastDFS 架构解析</h1><p>FastDFS是为互联网应用量身定做的一套分布式文件存储系统，非常适合用来存储用户图片、视频、文档等文件，许多大型互联网公司包括几个大的云网盘都在使用，感兴趣的可以了解下。</p>
+<p>FastDFS 项目地址 ：<a href="http://code.google.com/p/fastdfs/" target="_blank" rel="external">http://code.google.com/p/fastdfs/</a><br>分布式文件系统FastDFS架构剖析 : <a href="http://blog.csdn.net/MONKEY_D_MENG/article/details/6038133" target="_blank" rel="external">http://blog.csdn.net/MONKEY_D_MENG/article/details/6038133</a><br>作者余庆对 fdfs 做的介绍PPT <a href="http://static.ixirong.com/doc/FastDFS介绍_余庆.ppt" target="_blank" rel="external">FastDFS介绍_余庆.ppt</a></p>
+<h1 id="二、安装配置过程">二、安装配置过程</h1><h2 id="1-_概述">1. 概述</h2><p>包位置：/home/tester/fdfs/FastDFS/</p>
+<p>192.168.9.92  nginx模块 ，tracker ，storage<br>192.168.9.93  storage<br>192.168.9.94  storage</p>
+<a id="more"></a>
+<h2 id="2-_搭建">2. 搭建</h2><p>FastDFS安装过程详解，利用<a href="http://static.ixirong.com/doc/install.sh" target="_blank" rel="external">install.sh（下载地址）</a>一键安装，自己手动配置conf文件，不想使用一键脚本的，可以参考此文章<a href="http://blog.csdn.net/monkey_d_meng/article/details/6038995" target="_blank" rel="external">fdfs 安装手册</a><br>配置文件详细说明 storage.conf tracker.conf nginx.conf等 <a href="http://bbs.chinaunix.net/thread-1941456-1-1.html" target="_blank" rel="external">http://bbs.chinaunix.net/thread-1941456-1-1.html</a></p>
+<p>storage.conf配置如下，其它默认即可~ </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">group_name=group1 </span><br><span class="line">bind_addr=192.168.9.92（93.94）</span><br><span class="line">base_path=/home/work/fdfs_data/storage #存放日志路径</span><br><span class="line">store_path0=/home/work/fdfs_data/sdata #上传文件路径</span><br><span class="line">tracker_server=192.168.9.92:22122  #tracker服务器地址</span><br></pre></td></tr></table></figure>
+<p>tracker.conf配置如下 </p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bind_addr=192.168.9.94</span><br><span class="line">base_path=/home/work/fdfs_data/tracker</span><br></pre></td></tr></table></figure>
+<p>/usr/local/nginx/conf/nginx.conf 配置访问规则<br>port:8080 当然你的可以默认使用80端口</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">location ~* /M00/.*\.(gif|jpg|jpeg|png|bmp|swf)$ &#123;   # 这个地方只是过滤了图片的访问</span><br><span class="line">alias /home/work/fdfs_data/sdata/data;  # 注意这个地方一定要有自动创建的data目录，否则找不到文件</span><br><span class="line">ngx_fastdfs_module;</span><br><span class="line">expires 30d;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># /etc/fdfs/mod_fast  fastdfs nginx module模块使用的配置</span><br><span class="line"></span><br><span class="line">base_path=/home/work/fdfs_data/nginxmodule</span><br><span class="line">store_path0=/home/work/fdfs_data/sdata</span><br><span class="line">group_name=group1</span><br><span class="line">url_have_group_name = true</span><br></pre></td></tr></table></figure>
+<p>/ect/fdfs/client.conf 中日志base路径  /home/work/fdfs_data/client 这个在测试的使用，不测试，没什么用处</p>
+<h2 id="3-_测试">3. 测试</h2><p>启动测试前，开放端口号cenos6.4开放8080端口给浏览器访问 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/sbin/iptables -I INPUT -p tcp --dport <span class="number">80</span> -j ACCEPT</span><br><span class="line">/sbin/iptables -I INPUT -p tcp --dport <span class="number">22</span> -j ACCEPT</span><br><span class="line">/sbin/iptables -I INPUT -p tcp --dport <span class="number">3306</span> -j ACCEPT</span><br><span class="line"><span class="comment">#然后保存：</span></span><br><span class="line">/etc/rc.d/init.d/iptables save</span><br><span class="line"><span class="comment">#重启防火墙以便改动生效:(或者直接重启系统)</span></span><br><span class="line">/etc/init.d/iptables restart</span><br></pre></td></tr></table></figure>
+<p>见到下面的输出说明就ok了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">service iptables restart</span><br><span class="line">iptables：清除防火墙规则： [确定]</span><br><span class="line">iptables：将链设置为政策 ACCEPT：filter [确定]</span><br><span class="line">iptables：正在卸载模块： [确定]</span><br><span class="line">iptables：应用防火墙规则： [确定]</span><br></pre></td></tr></table></figure>
+<h3 id="fdfs启动、重启、开机启动，nginx启动、stop_重启">fdfs启动、重启、开机启动，nginx启动、stop 重启</h3><p>注意：启动的时候如果不指定conf，那么默认使用 /etc/fdfs/下的所有conf文件，这个一般没有处理！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#bin执行位置 /usr/local/bin/</span></span><br><span class="line"><span class="comment">#配置文件：/etc/fdfs/</span></span><br><span class="line"><span class="comment"># 启动Tracker服务:（位置是安装位置）</span></span><br><span class="line">/usr/<span class="built_in">local</span>/bin/fdfs_trackerd /etc/fdfs/tracker.conf </span><br><span class="line">/usr/<span class="built_in">local</span>/bin/stop.sh /usr/<span class="built_in">local</span>/bin/fdfs_trackerd </span><br><span class="line"></span><br><span class="line"><span class="comment"># 启动storage服务：（位置是安装位置）</span></span><br><span class="line">/usr/<span class="built_in">local</span>/bin/fdfs_storaged  /etc/fdfs/storage.conf</span><br><span class="line">/usr/<span class="built_in">local</span>/bin/stop.sh /usr/<span class="built_in">local</span>/bin/fdfs_storaged</span><br><span class="line"></span><br><span class="line"><span class="comment">#启动nginx服务：（所有都一样） /usr/local/nginx/sbin/nginx  http://zachary-guo.iteye.com/blog/1358312</span></span><br><span class="line"><span class="comment"># -t 参数将检查配置文件的语法是否正确，默认会检查 /usr/local/nginx/conf/nginx.conf 文件。  </span></span><br><span class="line"> /usr/<span class="built_in">local</span>/nginx/sbin/nginx -t  </span><br><span class="line"><span class="comment"># 如果要对指定的配置文件进行语法检查，可以继续添加 -c 参数  </span></span><br><span class="line">/usr/<span class="built_in">local</span>/nginx/sbin/nginx -t -c /home/a/b/c/my-nginx.conf  </span><br><span class="line"> <span class="built_in">kill</span> -HUP 【Nginx主进程号】  </span><br><span class="line"></span><br><span class="line"><span class="comment"># 三个端口都在监听说明启动成功</span></span><br><span class="line">netstat -ntl |grep -E <span class="string">'22122|23000|80|8080'</span></span><br></pre></td></tr></table></figure>
+<p>测试：<br>/usr/local/bin/fdfs_test /etc/fdfs/storage.conf upload /home/xirong/fdfs_test_files/1111.jpg </p>
+<p>从其它浏览器上访问 <a href="http://192.168.9.92:8080/group1/M00/00/00/wKgJXFUCoa-APWY1AABdrZgsqUU351.jpg" target="_blank" rel="external">http://192.168.9.92:8080/group1/M00/00/00/wKgJXFUCoa-APWY1AABdrZgsqUU351.jpg</a> 即ok</p>
+<h1 id="三、fdfs_客户端调用实例及_API_Doc_说明">三、fdfs 客户端调用实例及 API Doc 说明</h1><p>网上有个哥们写了个入门教程，直接搬过来了，入门可以看看，如下：<br><a href="http://blog.csdn.net/poechant/article/details/6977407" target="_blank" rel="external">FastDFS的配置、部署与API使用解读——（1）入门使用教程</a><br><a href="http://blog.csdn.net/poechant/article/details/6987403" target="_blank" rel="external">FastDFS的配置、部署与API使用解读——（2）Java API：根据InputStream、文件名、文件长度上传文件</a><br><a href="http://blog.csdn.net/poechant/article/details/6987427" target="_blank" rel="external">FastDFS的配置、部署与API使用解读——（3）Java API：根据InputStream、文件名、文件长度，采用IO流直接转换的方式上传文件</a><br><a href="http://blog.csdn.net/poechant/article/details/6987501" target="_blank" rel="external">FastDFS的配置、部署与API使用解读——（4）设置FastDFS配置参数的两种方式</a><br><a href="http://blog.csdn.net/poechant/article/details/6995697" target="_blank" rel="external">FastDFS的配置、部署与API使用解读——（5）FastDFS配置详解之Tracker配置</a><br><a href="http://blog.csdn.net/poechant/article/details/6996047" target="_blank" rel="external">FastDFS的配置、部署与API使用解读——（6）FastDFS配置详解之Storage配置</a><br><a href="http://blog.csdn.net/poechant/article/details/7036594" target="_blank" rel="external">FastDFS的配置、部署与API使用解读——（7）关于FastDFS的Nginx的一些Q&amp;A汇总</a><br><a href="http://blog.csdn.net/poechant/article/details/7209313" target="_blank" rel="external">FastDFS的配置、部署与API使用解读——（8）FastDFS多种文件上传接口详解</a></p>
+<p>fastdfs 提供的API（支持JAVA,C,PHP,PYTHON接口）</p>
+<ul>
+<li>upload：上传普通文件，包括主文件</li>
+<li>upload_appender：上传appender文件，后续可以对其进行append、modify和truncate操作</li>
+<li>upload_slave：上传从文件</li>
+<li>download：下载文件</li>
+<li>delete：删除文件</li>
+<li>append：在appender文件后追加内容</li>
+<li>modify：appender文件修改</li>
+<li>set_metadata：设置文件附加属性</li>
+<li>get_metadata：获取文件附加属性</li>
+</ul>
+<p>上面具体每个方法的参数以及使用请查看 api 文档，下载地址如下：<a href="https://code.google.com/p/fastdfs/downloads/list" target="_blank" rel="external">google code</a> 、 <a href="http://static.ixirong.com/doc/FastDFS_Java_Doc_v1.21.tar.gz" target="_blank" rel="external">七牛云</a></p>
+<h1 id="四、fdfs_常见问题及最佳实践">四、fdfs 常见问题及最佳实践</h1><p>fastdfs 运维常见问题汇总 <a href="http://bbs.chinaunix.net/thread-1920470-1-1.html" target="_blank" rel="external">http://bbs.chinaunix.net/thread-1920470-1-1.html</a></p>
+<h2 id="最佳实践">最佳实践</h2><ul>
+<li><p>推荐的FastDFS部署方案<br>文件上传和删除等操作：使用 FastDFS client API，目前提供了C、PHP extension 和 Java 的 client API<br>文件下载采用 HTTP 方式：使用 nginx 或者 apache 扩展模块，不推荐使用 FastDFS 内置的 web server<br>不要做 RAID，直接挂载单盘，每个硬盘作为一个 mount point</p>
+</li>
+<li><p>最大并发连接数设置<br>参数名：max_connections<br>缺省值：256<br>说明：FastDFS 采用预先分配好 buffer 队列的做法，分配的内存大小为： max_connections * buff_size，因此配置的连接数越大，消耗的内存越多。不建议配置得过大，以避免无谓的内存开销。</p>
+</li>
+<li><p>工作线程数设置<br>参数名： work_threads<br>缺省值：4<br>说明：为了避免CPU上下文切换的开销，以及不必要的资源消耗，不建议将本参数设置得过大。为了发挥出多个CPU的效能，系统中的线程数总和，应等于CPU总数。</p>
+<p>  对于tracker server，公式为：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">work_threads + <span class="number">1</span> = CPU数</span><br></pre></td></tr></table></figure>
+<p>  对于storage，公式为：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">work_threads + <span class="number">1</span> + (disk_reader_threads  + disk_writer_threads) * store_path_count  = CPU数</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>storage目录数设置<br>参数名：subdir_count_per_path<br>缺省值：256<br>说明：FastDFS 采用二级目录的做法，目录会在 FastDFS 初始化时自动创建。存储海量小文件，打开了trunk存储方式的情况下，建议将本参数适当改小，比如设置为32，此时存放文件的目录数为 32 <em> 32 = 1024。假如trunk文件大小采用缺省值64MB，磁盘空间为2TB，那么每个目录下存放的trunk文件数均值为：2TB / (1024 </em> 64MB) = 32个</p>
+</li>
+<li><p>storage磁盘读写线程设置<br>disk_rw_separated：磁盘读写是否分离<br>disk_reader_threads：单个磁盘读线程数<br>disk_writer_threads：单个磁盘写线程数<br>如果磁盘读写混合，单个磁盘读写线程数为读线程数和写线程数之后<br>对于单盘挂载方式，磁盘读写线程分别设置为1即可<br>如果磁盘做了RAID，那么需要酌情加大读写线程数，这样才能最大程度地发挥磁盘性能</p>
+</li>
+<li><p>storage同步延迟相关设置<br>sync_binlog_buff_interval：将 binlog buffer 写入磁盘的时间间隔，取值大于 0，缺省值为 60s<br>sync_wait_msec：如果没有需要同步的文件，对 binlog 进行轮询的时间间隔，取值大于0，缺省值为 100ms<br>sync_interval：同步完一个文件后，休眠的毫秒数，缺省值为 0<br>为了缩短文件同步时间，可以将上述 3 个参数适当调小即可</p>
+</li>
+</ul>
+<p>fastdfs V3 新增加的合并存储介绍 ：<a href="http://www.open-open.com/doc/view/ab5701d57e5b49a8b6255df1ae7d5a97" target="_blank" rel="external">http://www.open-open.com/doc/view/ab5701d57e5b49a8b6255df1ae7d5a97</a></p>
+<p><strong>最后，如果你想也想学习下，那么就从搭建环境 + demo 案例开始吧，参考作者<a href="http://static.ixirong.com/doc/storage/分布式文件系统fastDFS使用_余庆+java_client_1.24+client_demo_余庆.zip" target="_blank" rel="external">余庆写的demo案例</a></strong></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="一、分布式文件系统_FastDFS_架构解析">一、分布式文件系统 FastDFS 架构解析</h1><p>FastDFS是为互联网应用量身定做的一套分布式文件存储系统，非常适合用来存储用户图片、视频、文档等文件，许多大型互联网公司包括几个大的云网盘都在使用，感兴趣的可以了解下。</p>
+<p>FastDFS 项目地址 ：<a href="http://code.google.com/p/fastdfs/">http://code.google.com/p/fastdfs/</a><br>分布式文件系统FastDFS架构剖析 : <a href="http://blog.csdn.net/MONKEY_D_MENG/article/details/6038133">http://blog.csdn.net/MONKEY_D_MENG/article/details/6038133</a><br>作者余庆对 fdfs 做的介绍PPT <a href="http://static.ixirong.com/doc/FastDFS介绍_余庆.ppt">FastDFS介绍_余庆.ppt</a></p>
+<h1 id="二、安装配置过程">二、安装配置过程</h1><h2 id="1-_概述">1. 概述</h2><p>包位置：/home/tester/fdfs/FastDFS/</p>
+<p>192.168.9.92  nginx模块 ，tracker ，storage<br>192.168.9.93  storage<br>192.168.9.94  storage</p>]]>
+    
+    </summary>
+    
+      <category term="分布式" scheme="http://www.ixirong.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+      <category term="存储" scheme="http://www.ixirong.com/tags/%E5%AD%98%E5%82%A8/"/>
+    
+      <category term="存储" scheme="http://www.ixirong.com/categories/%E5%AD%98%E5%82%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[数据存储解决方案汇总]]></title>
+    <link href="http://www.ixirong.com/2015/01/31/storage-lib/"/>
+    <id>http://www.ixirong.com/2015/01/31/storage-lib/</id>
+    <published>2015-01-31T08:23:59.000Z</published>
+    <updated>2015-04-09T14:47:17.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="Nosql">Nosql</h3><p>几篇比较细致的文章</p>
+<ol>
+<li><a href="http://blog.nosqlfan.com/html/332.html" target="_blank" rel="external">NoSQL数据库笔谈v2</a></li>
+<li><a href="http://blog.nosqlfan.com/html/2171.html" target="_blank" rel="external">NoSQL生态系统</a></li>
+</ol>
+<ul>
+<li>hbase </li>
+<li>mongodb</li>
+<li>redis</li>
+<li>memorycached</li>
+<li>fastdfs </li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h3 id="Nosql">Nosql</h3><p>几篇比较细致的文章</p>
+<ol>
+<li><a href="http://blog.nosqlfan.com/html/332.html" target="_blank" rel="external">NoSQL数据库笔]]>
+    </summary>
+    
+      <category term="分布式" scheme="http://www.ixirong.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+      <category term="存储" scheme="http://www.ixirong.com/tags/%E5%AD%98%E5%82%A8/"/>
+    
+      <category term="存储" scheme="http://www.ixirong.com/categories/%E5%AD%98%E5%82%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[一步步学习mongodb资料汇总]]></title>
+    <link href="http://www.ixirong.com/2015/01/31/mongodb-librarys/"/>
+    <id>http://www.ixirong.com/2015/01/31/mongodb-librarys/</id>
+    <published>2015-01-31T06:49:08.000Z</published>
+    <updated>2015-04-09T14:14:50.000Z</updated>
+    <content type="html"><![CDATA[<h3 id="一步步学习">一步步学习</h3><ul>
+<li><a href="https://github.com/geminiyellow/the-little-mongodb-book/blob/master/zh-cn/mongodb.markdown" target="_blank" rel="external">the little mongdb book</a>从头到尾的小例子<h3 id="mongodb设计思想">mongodb设计思想</h3></li>
+<li><a href="http://blog.nosqlfan.com/html/3548.html" target="_blank" rel="external">NoSqlFan中MongoDB资料汇总专题</a> 里面包含的东西很多，值得参考！不过里面的PPT和视频可能需要翻墙才可以看的！</li>
+<li><a href="http://blog.nosqlfan.com/html/1743.html" target="_blank" rel="external">MongoDB源码研究系列文章</a></li>
+</ul>
+<h3 id="mongodb的安装部署">mongodb的安装部署</h3><ul>
+<li><a href="http://robomongo.org/" target="_blank" rel="external">开源MongoDB图形化数据库管理工具</a> ，支持Mac、window、Linux三种平台；</li>
+<li><a href="http://docs.mongodb.org/manual/tutorial/install-mongodb-on-linux/?_ga=1.86192664.1251376469.1422283120" target="_blank" rel="external">单机mongo安装方法</a> </li>
+<li><a href="http://blog.jobbole.com/72610/" target="_blank" rel="external">搭建高可用MongoDB集群（一）：配置MongoDB</a></li>
+<li><a href="http://blog.jobbole.com/72624/" target="_blank" rel="external">搭建高可用MongoDB集群（二）： 副本集</a></li>
+<li><a href="http://blog.jobbole.com/72636/" target="_blank" rel="external">搭建高可用MongoDB集群（三）：深入副本集内部机制</a></li>
+<li><a href="http://blog.jobbole.com/72643/" target="_blank" rel="external">搭建高可用MongoDB集群（四）：分片</a></li>
+</ul>
+<h3 id="mongodb实践+优化">mongodb实践+优化</h3><ul>
+<li><a href="http://blog.nosqlfan.com/html/4061.html" target="_blank" rel="external">Dex – MongoDB索引优化工具</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[初步学习mongodb收集了一些学习资料，均来自网络上的文章，方便以后回顾！]]>
+    
+    </summary>
+    
+      <category term="分布式" scheme="http://www.ixirong.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+      <category term="存储" scheme="http://www.ixirong.com/tags/%E5%AD%98%E5%82%A8/"/>
+    
+      <category term="存储" scheme="http://www.ixirong.com/categories/%E5%AD%98%E5%82%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[大型网站架构方案系列文章]]></title>
+    <link href="http://www.ixirong.com/2015/01/30/web-arch-pages/"/>
+    <id>http://www.ixirong.com/2015/01/30/web-arch-pages/</id>
+    <published>2015-01-30T02:25:45.000Z</published>
+    <updated>2015-04-15T14:13:45.000Z</updated>
+    <content type="html"><![CDATA[<p>最近在网络上面研读了许多网站架构相关的文章，整理了些资料，汇总在下面，有这方面需要的可以看看：</p>
+<ul>
+<li><p>关于大型网站技术演进的思考 </p>
+<ul>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4237704.html" target="_blank" rel="external">大型网站技术演进-存储的瓶颈（1）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4240419.html" target="_blank" rel="external">大型网站技术演进-存储的瓶颈（2）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4251714.html" target="_blank" rel="external">大型网站技术演进-存储的瓶颈（3）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4262983.html" target="_blank" rel="external">大型网站技术演进-存储的瓶颈（4）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4265853.html" target="_blank" rel="external">大型网站技术演进-存储的瓶颈（5）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4271353.html" target="_blank" rel="external">大型网站技术演进-存储的瓶颈（6）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4279946.html" target="_blank" rel="external">大型网站技术演进-存储的瓶颈（7）</a><a id="more"></a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4280337.html" target="_blank" rel="external">大型网站技术演进-存储的瓶颈终篇（8）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4282789.html" target="_blank" rel="external">大型网站技术演进-网站静态化处理—总述（1）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4285085.html" target="_blank" rel="external">大型网站技术演进-网站静态化处理—动静整合方案（2）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4287011.html" target="_blank" rel="external">大型网站技术演进-网站静态化处理—动静分离策略（3）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4289298.html" target="_blank" rel="external">大型网站技术演进-网站静态化处理—缓存（4）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4291003.html" target="_blank" rel="external">大型网站技术演进-网站静态化处理—CSI（5）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4300441.html" target="_blank" rel="external">大型网站技术演进-网站静态化处理—前后端分离-上（6）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4304526.html" target="_blank" rel="external">大型网站技术演进-网站静态化处理—前后端分离-中（7）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4307203.html" target="_blank" rel="external">大型网站技术演进-网站静态化处理—前后端分离-下（8）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4307739.html" target="_blank" rel="external">大型网站技术演进-网站静态化处理—满足静态化的前后端分离（9）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4309976.html" target="_blank" rel="external">大型网站技术演进-网站静态化处理—网站静态化处理—反向代理（10）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4314387.html" target="_blank" rel="external">大型网站技术演进-网站静态化处理—web前端优化（11）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/3950466.html" target="_blank" rel="external">关于如何提高Web服务端并发效率的异步编程技术</a> 通俗的介绍 io 阻塞和异步模型</li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/3955170.html" target="_blank" rel="external">关于Web开发里并发、同步、异步以及事件驱动编程的相关技术</a></li>
+</ul>
+</li>
+<li><p><a href="http://blog.csdn.net/kongqz/article/details/6695417" target="_blank" rel="external">分布式缓存Memcached一致性hash算法简介</a></p>
+</li>
+<li><a href="http://www.infoq.com/cn/articles/yupoo-partition-database" target="_blank" rel="external">又拍网架构中的分库设计</a></li>
+<li><a href="http://blog.yufeng.info/archives/2349" target="_blank" rel="external">低成本和高性能MySQL云数据的架构探索</a></li>
+<li><a href="http://www.cnblogs.com/heyuquan/p/global-guid-identity-maxId.html" target="_blank" rel="external">如何在高并发分布式系统中生成全局唯一Id</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>最近在网络上面研读了许多网站架构相关的文章，整理了些资料，汇总在下面，有这方面需要的可以看看：</p>
+<ul>
+<li><p>关于大型网站技术演进的思考 </p>
+<ul>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4237704.html">大型网站技术演进-存储的瓶颈（1）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4240419.html">大型网站技术演进-存储的瓶颈（2）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4251714.html">大型网站技术演进-存储的瓶颈（3）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4262983.html">大型网站技术演进-存储的瓶颈（4）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4265853.html">大型网站技术演进-存储的瓶颈（5）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4271353.html">大型网站技术演进-存储的瓶颈（6）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4279946.html">大型网站技术演进-存储的瓶颈（7）</a>]]>
+    
+    </summary>
+    
+      <category term="架构" scheme="http://www.ixirong.com/tags/%E6%9E%B6%E6%9E%84/"/>
+    
+      <category term="网站" scheme="http://www.ixirong.com/tags/%E7%BD%91%E7%AB%99/"/>
+    
+      <category term="网络资料" scheme="http://www.ixirong.com/categories/%E7%BD%91%E7%BB%9C%E8%B5%84%E6%96%99/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[科学上网神器shadowsocks使用方法及资料汇总]]></title>
+    <link href="http://www.ixirong.com/2015/01/19/shadowsocks-md/"/>
+    <id>http://www.ixirong.com/2015/01/19/shadowsocks-md/</id>
+    <published>2015-01-19T14:44:54.000Z</published>
+    <updated>2015-05-21T15:16:41.000Z</updated>
+    <content type="html"><![CDATA[<p>感谢万能的互联网，使我们这一代，如果你想，那么你就可以知晓世界上任何的事情！搜索引擎的出现使得搜索知识比以往要容易的多，你只要知道一个概念就能找出相应的所有的知识；社交网络的出现使得你跟你喜欢的明星的交谈就在一个留言上，不像以前那样，平凡的人是根本没有渠道去做这些事情的；从以前网络的虚假到现在慢慢的越来越真实，一个 ID 在网络上就代表着真实世界中的一个人，你可以与你真实世界中的想法一样当然也可以完全不一样，但这都不能阻碍你成为<code>个性、有着独立思想、见解的人</code>，可是生活在天朝，由于种种原因，好多国外世界的资源你是无法看到的，你不能享受你应该得到的这些（xirong 认为每一个个体都有相同的权利去享受互联网带给生活中的改变），这是很令人愤恨的 ！！ 如果不能去看到更多的风景，去尝试生命更多的可能，拥有年轻心态的你怎么会甘心？</p>
+<blockquote>
+<p>Across the Great Firewall, you can reach every corner in the world.</p>
+</blockquote>
+<h2 id="什么是shadowsocks？">什么是shadowsocks？</h2><blockquote>
+<p>A secure socks5 proxy , designed to protect your Internet traffic.<br>Shadowsocks 轻量级科学上网姿势，改变您的生活体验！</p>
+</blockquote>
+<p>   做完一个码农，经常需要搜索技术文章，如果不能够使用 google ，那么你的生活是很痛苦的，很多资料根本搜索不到的，所以你应该知道<strong>代理</strong>，通过代理可以绕过gwf（<a href="http://zh.wikipedia.org/wiki/%E9%98%B2%E7%81%AB%E9%95%BF%E5%9F%8E" target="_blank" rel="external">见识下强大的GFW</a>），从而去享受不被控制的生活，<a href="http://cokebar.info/archives/236" target="_blank" rel="external">科学上网</a>的方式很多，我们最常见的就是vpn，一把屠龙宝刀，像很多的老牌vpn厂商（<a href="http://www.greenjsq.info/" target="_blank" rel="external">green vpn</a>、<a href="http://ytvpn.com/" target="_blank" rel="external">云梯</a>，更多查看靠谱<a href="http://vpntuijian.com/" target="_blank" rel="external">vpn推荐网</a>)，而shadowsocks就是一把瑞士军刀，锋利小巧快速简单，适应各种场景，适应各种客户端平台，window、mac、linux、ios、android使用简单。</p>
+<h2 id="为什么要用shadowsocks？">为什么要用shadowsocks？</h2><ul>
+<li><p>配置简单：只需一次输入服务器ip地址、端口号、加密方式，随时即可轻松代理</p>
+</li>
+<li><p>跨平台：window、mac、Linux、ios、android安装客户端，一样轻松</p>
+</li>
+<li><p>与vpn差异</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:right">vpn</th>
+<th style="text-align:center">shadowsocks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:right">简单，一键翻墙</td>
+<td style="text-align:center">简单，一键翻墙</td>
+</tr>
+<tr>
+<td style="text-align:right">全局，代理浏览器、各种app、所有走网络的都经过vpn服务器</td>
+<td style="text-align:center">只有浏览器（可以手动设置代理其他app）</td>
+</tr>
+<tr>
+<td style="text-align:right">免费、收费服务商很多</td>
+<td style="text-align:center">免费、收费服务商很多</td>
+</tr>
+<tr>
+<td style="text-align:right">速度可以</td>
+<td style="text-align:center">速度很快，香港、新加坡几十毫秒</td>
+</tr>
+<tr>
+<td style="text-align:right">平台性稍差，有些做的也不错了，总体跨平台性差</td>
+<td style="text-align:center">支持各平台客户端，跨平台性强</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>vpn使用过程中最痛苦的莫过于，公司使用vpn、内网某些资源无法访问，需要频繁切换vpn代理</li>
+<li>shadowsocks凭借维护的pac文件自动识别是否是别gfw过滤域名，是的话走代理，否则不走代理，这点很方便，不需要你去关注，你只需要想着该google时就google</li>
+<li>其他方式比如修改host，一段时间后就被和谐了，很不稳定；GoAgent也是，不稳定，需要频繁部署代理，其实某些时候你只是想要google些资料，却因如何可以用google浪费大量时间。<ul>
+<li><strong>PS</strong>汇总这些详细方法，见<a href="https://drive.google.com/folderview?id=0B3jQIp1ENRcfUU5xZUVRWUdXRVU&amp;usp=sharing" target="_blank" rel="external">Google Drive</a>，也可参考<a href="https://code.google.com/p/smartladder/" target="_blank" rel="external">smartladder</a>。</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>安全系数高，抗封锁能力强，<a href="https://plus.google.com/u/0/109790703964908675921/posts/TtWFAQmSMVE" target="_blank" rel="external">why</a>？ <a href="http://vc2tea.com/whats-shadowsocks/" target="_blank" rel="external">白话shadowsocks原理</a></li>
+</ul>
+<h2 id="怎么使用？">怎么使用？</h2><ul>
+<li>跨平台支持window、mac、Android、ios、wp <a href="https://shadowsocks.com/client.html" target="_blank" rel="external">客户端下载地址</a></li>
+<li>简单的不同平台安装说明<a href="http://ttt.tt/150/" target="_blank" rel="external">使用方法</a><ul>
+<li>mac最新的客户端已经可以不用Proxy SwitchySharp这个插件了，默认可以根据pac文件代理所有浏览器的访问，很是方便。</li>
+<li>还是不会用？google搜索<a href="https://www.google.com.hk/search?q=shadowsocks+%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95&amp;oq=shadowsocks+%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95&amp;aqs=chrome..69i57j0j69i61.6446j0j7&amp;sourceid=chrome&amp;es_sm=119&amp;ie=UTF-8&amp;gws_rd=cr,ssl" target="_blank" rel="external">shadowsocks使用方法</a></li>
+<li>手把手教会你使用ss，列举几篇使用方法介绍文章 <a href="http://ttt.tt/150/" target="_blank" rel="external">通天塔介绍chrome+mac下使用</a>、<a href="http://www.jianshu.com/p/a04327bcb9a9" target="_blank" rel="external">简书介绍window使用</a>、<a href="http://shadowsocks.info/shadowsocks-ios-mac-osx/" target="_blank" rel="external">ios系统使用方法</a></li>
+</ul>
+</li>
+<li>几个常见工具<a href="https://milooo.net/download.html" target="_blank" rel="external">下载地址</a>，包括Autoproxy.pac文件、proxy switchsharp、ios openvpn配置等。</li>
+</ul>
+<h2 id="账号资源">账号资源</h2><p>shadowsocks 客户端是很强大、稳定、快速的，跨平台，省去很多麻烦，但这依赖与稳定的服服务端，你可以自己购买vps ，搭建shadowsocks的服务器端，只需要vps的钱即可，shadowsocks服务端开源免费，可以去<a href="https://github.com/shadowsocks/shadowsocks" target="_blank" rel="external">github</a>下载搭建，参考<a href="http://www.atgfw.org/2015/01/shadowsocks.html" target="_blank" rel="external">搭建教程</a>，也可以购买市场上许多服务商提供的服务，相比自己搭建，还得需要去关心服务器的稳定性， xirong 更推荐使用经济的代理服务商，便宜省事，当然，你也可以到网上到处搜寻免费的 shadowsocks账号，这也是可以的。</p>
+<p><strong>强烈推荐付费购买，省时间、省精力，不用去网上找各种不稳定的免费账号，便宜不贵。</strong></p>
+<ul>
+<li><a href="https://shadowsocks.com/" target="_blank" rel="external">shadowsocks官网</a> 由shadowsocks作者 <a href="https://twitter.com/clowwindy" target="_blank" rel="external">@clowwindy</a>参与，线路优质，技术成熟。多平台，多线路支持。有年付有普通版的99元，与高大上的399元高级版套餐可选，美国，新加坡，台湾，日本等各国线路可以选择。</li>
+<li><a href="http://www.fyzhuji.com/aff.php?aff=531" target="_blank" rel="external">枫叶主机</a> <strong>本人正在使用的付费服务</strong>,目前提供美国，日本，香港，大陆中专、新加坡、台湾等数十条的shadowsocks收费账号，服务稳定，套餐形式以流量为单位，如分40G，60G，150G/每月流量;分别年付价格是50元，80元，120元。适合流量不是很大，要求线路质量高的朋友，价格真心便宜。而且某些公司许多端口被封，需要使用特定的端口，枫叶主机高级套餐支持自定义shadowsocks服务端端口，省去了公司不能使用的烦恼。</li>
+<li>其他，据网络资源推荐，不知道效果：<ol>
+<li><a href="http://my.ssh91.net/" target="_blank" rel="external">SSH91</a> 美国，日本，香港，新加坡一号通的shadowsocks账号，季付30元，年付98元，同时不定期提供18元的美国普及年付账号．选择性更多。</li>
+<li>UUDaili 免费的SSH与vpn一月1G流量,注册后可以免费送2个月使用。目前有美国，新加坡，日本的线路，美国为主，价格便宜。</li>
+<li>PGfastss、shadowcheap 等，其他的自行发掘吧。</li>
+</ol>
+</li>
+</ul>
+<p><strong>免费账号网站推荐</strong></p>
+<ol>
+<li><a href="http://pvg.v2ex.com/go/shadowsocks" target="_blank" rel="external">V2EX</a> shadowsocks区经常有人会分享自己的账号，也有些使用方法、心得的讨论，可以常去关注下。</li>
+<li><a href="http://shadowsocks.net/" target="_blank" rel="external">Shadowsocks公益组织</a> 一个由民间团体发起的，旨在分享Shadowsocks帐号的平台，你可以在该平台上分享你的ShadowSocks帐号，也可以在该平台上获取免费的帐号。（貌似最近网站上不去了）</li>
+<li><a href="http://shadowsocks.info/" target="_blank" rel="external">shadowsocks info</a> 分享shadowsock相关各种知识的网站，比较基础，也有干货！</li>
+</ol>
+<p>介绍了这么些，如果您想体验下 shadowsocks，那么尽情的使用免费账号吧，如果您感觉到了免费账号的不稳定给您带来的不方便，那么推荐使用付费服务，每年只需要支付一笔很少的费用，即可享受畅快的网络，将精力放在如何利用不受阻的网络来解决自己的问题上面，岂不是更有意义？ 在这里还是推荐下我使用的 <code><a href="http://www.fyzhuji.com/aff.php?aff=531" target="_blank" rel="external">枫叶主机</a></code> 速度快、服务稳定，高级套餐支持自定义端口，使用 <code><a href="http://www.fyzhuji.com/aff.php?aff=531" target="_blank" rel="external">xirong 的推广链接</a></code> 购买可以享受 <code>10%</code> 的折扣，稳定、快速，你值得拥有！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[shadowsocks是另一种翻墙工具，速度快，安全高，跨平台包括 mac OSX shadowsocks、windows shadowsocks、android shadowsocks、ios shadowsocks等，众多服务提供商，包括shadowsocks免费账号、shadowsocks付费账号，shadowsocks的使用方法是怎么样的呢？Mac下怎么使用shadowsocks？shadowsocks windows下怎么安装使用？安卓平台怎么使用shadowsocks？]]>
+    
+    </summary>
+    
+      <category term="代理" scheme="http://www.ixirong.com/tags/%E4%BB%A3%E7%90%86/"/>
+    
+      <category term="工具" scheme="http://www.ixirong.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="翻墙" scheme="http://www.ixirong.com/tags/%E7%BF%BB%E5%A2%99/"/>
+    
+      <category term="工具" scheme="http://www.ixirong.com/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[PrlSF文件系统格式化]]></title>
+    <link href="http://www.ixirong.com/2014/12/08/what-to-do-with-PrlSF/"/>
+    <id>http://www.ixirong.com/2014/12/08/what-to-do-with-PrlSF/</id>
+    <published>2014-12-08T14:09:14.000Z</published>
+    <updated>2015-04-15T14:14:48.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="FrlSF文件系统">FrlSF文件系统</h1><p> 目前网络上没有关于这个格式的介绍，其实这是mac上面的一种格式，只有mac系统能认出来，所以在window、Linux上，这个格式的磁盘就是一块费盘，无法识别的！<br> 自从被美女同事格式化掉500G移动硬盘后，我的硬盘基本上好久没有动了，伤心啊~ 好多数据就这么丢了，不过还好，后来重要的文件都恢复回来了，想知道怎么操作的么？联系我吧~ 免费教你怎么搞回被格式化掉的数据！<br> 后来需要把机械硬盘弄到自己以前的pc上面，重装系统的时候，发现杯具了，启动界面卡在了f2、f12那样子的主板界面，连bios也进不了~ 尼玛，这是个什么情况，主板坏了？不应该啊，之前好好的用着，遂卸掉该硬盘换ssd的，可以进入，那么断定是机械硬盘除了问题，插到mac上查看，可以啊，正常访问，便想着在虚拟机的win7中格式化下，这才发现，这块盘是无法格式化的 <strong>FrlSF文件系统</strong> ，这是什么文件系统？google了好久均无资料，遂打开mac下的磁盘工具，查看 <strong>原来是mac下的日志文件系统</strong>，想起来了，当初美女同事用的是<strong>Boot Camp助理</strong>来格式化掉的磁盘，那么肯定是格式化成了mac下默认的！</p>
+<p> 知道了原因，就好办了，格式化回来，方法如下：</p>
+<ol>
+<li>打开mac下的<strong>磁盘工具</strong>，找到显示的磁盘；</li>
+<li>选择抹掉-格式选-抹掉，等待几秒，ok搞定！</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[什么是 frlsf 文件系统？frlsf 系统怎么格式化？你的U盘是不是不晓得怎么回事就变成了 frlsf 系统，还不知所措？]]>
+    
+    </summary>
+    
+      <category term="mac" scheme="http://www.ixirong.com/tags/mac/"/>
+    
+      <category term="文件系统" scheme="http://www.ixirong.com/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/"/>
+    
+      <category term="硬盘" scheme="http://www.ixirong.com/tags/%E7%A1%AC%E7%9B%98/"/>
+    
+      <category term="系统" scheme="http://www.ixirong.com/categories/%E7%B3%BB%E7%BB%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[git入门指南使用资料汇总及文章推荐]]></title>
+    <link href="http://www.ixirong.com/2014/11/19/the-way-to-learn-git/"/>
+    <id>http://www.ixirong.com/2014/11/19/the-way-to-learn-git/</id>
+    <published>2014-11-19T05:43:34.000Z</published>
+    <updated>2015-05-04T07:45:44.000Z</updated>
+    <content type="html"><![CDATA[<h2 id="什么是git？">什么是git？</h2><blockquote>
+<p>Git is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.</p>
+</blockquote>
+<p><a href="http://zh.wikipedia.org/wiki/Git" target="_blank" rel="external">git维基百科</a>上详细介绍了git的资料，包括git的创建、使用以及一些草考资料，已经挺全了，记住一点，最高效的学习方式就是<strong>读文档</strong>，找官方文档去阅读学习是最快的掌握git的方法。</p>
+<p>既然是分布式版本管理，那么和我们平常使用的svn有什么区别？</p>
+<ol>
+<li>分布式 vs 集中管理 （多份版本库 vs 一份版本库，设想下版本服务器挂了？）</li>
+<li>无需网络，随时随地进行版本控制，在没有网络的情况下你想回退到某个版本svn基本没戏；</li>
+<li>分支的新建、合并非常方便、快速，没有任何成本，基本不耗时，svn的版本基本上等同于又复制了一份代码；</li>
+</ol>
+<p><strong>stackoverflow</strong> 上关于svn和git的区别的讨论，说的很详细，请参考 <a href="http://stackoverflow.com/questions/871/why-is-git-better-than-subversion" target="_blank" rel="external">Why is Git better than Subversion?</a><br><strong>github</strong> 上通过版本库结构、历史、子项目（submudle）的不同来对比两者，请参考 <a href="https://help.github.com/articles/what-are-the-differences-between-svn-and-git/" target="_blank" rel="external">What are the differences between SVN and Git?</a></p>
+<h2 id="git_安装">git 安装</h2><p> 《pro git》一书中已经写明白了<a href="http://git-scm.com/book/zh/v1/%E8%B5%B7%E6%AD%A5-%E5%AE%89%E8%A3%85-Git" target="_blank" rel="external">各个平台上怎么安装git</a>,如果感觉晦涩，就看这个<a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/00137396287703354d8c6c01c904c7d9ff056ae23da865a000" target="_blank" rel="external">廖雪峰安装git</a></p>
+<h2 id="git_初使用">git 初使用</h2><ul>
+<li><p>对于已经熟悉svn的用户可以直接查看此文档 <a href="http://git.or.cz/course/svn.html" target="_blank" rel="external">Git - SVN Crash Course</a>，通过对比两个工具对同样的操作采取不同的命令来快速认识git的一些常用命令</p>
+</li>
+<li><p>对于一个新手来说，我不需要知道git的原理，不需要知道git那么多的命令，我只想用git完成一次仓库的从初始化、commit、push、branch、tag等一个流程，越简单越好，图文教程，以window下使用git为例，一步步走完整个流程，推荐 <a href="http://blog.jobbole.com/78960/" target="_blank" rel="external">手把手教你使用Git</a></p>
+</li>
+<li><p>比较全面讲述的git的系列文章 <a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="external">号称史上最浅显易懂的Git教程！</a></p>
+</li>
+<li><p>看完上面的几步内容，想你习对git基本上可以使用了，要掌握还得多多练习，熟能生巧，你是不是想去看看关于git的全部内容 ，<a href="http://git-scm.com/book/zh/v1" target="_blank" rel="external">官方中文电子版书籍</a>即可满足你，当然你可以查看最新<a href="http://git-scm.com/book/en/v2" target="_blank" rel="external">V2版英文</a>或者下载epub pdf等本地阅读；</p>
+</li>
+</ul>
+<h2 id="git_分支、tag">git 分支、tag</h2><p>git 最帅气的就是对分支的处理，方便快速，你只需要一个简单的<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch branch-name</span><br></pre></td></tr></table></figure></p>
+<p>就能开出一个叫branch-name的分支，毫秒钟搞定，但也正是因为方便，如果使用不合理就会造成<strong>分支混乱，分不清脉络</strong>， 推荐看一下阮一峰写的文章 <a href="http://www.ruanyifeng.com/blog/2012/07/git.html" target="_blank" rel="external">Git分支管理策略</a> ，最原始的文章就是这篇老外写的<a href="http://nvie.com/posts/a-successful-git-branching-model/" target="_blank" rel="external">A successful Git branching model</a>。</p>
+<p><img src="http://static.ixirong.com/pic/git/git-branchs-messy.webp" alt="杂乱的分支"></p>
+<h2 id="git_常见命令">git 常见命令</h2><p>一个比较好的汇总了git的一些基本命令的pdf，可以经常看看，或者当成命令手册，推荐 <a href="http://www.cheat-sheets.org/saved-copy/git-cheat-sheet.pdf" target="_blank" rel="external">Git Cheat Sheet</a> ，还有一张图片 <a href="http://www.cnblogs.com/1-2-3/archive/2010/07/18/git-commands.html" target="_blank" rel="external">Git常用命令</a> 也不错；最近我整理了一份xmind的导图，将<strong>这两份</strong>资料都放到了画布里面，<a href="http://pan.baidu.com/s/1gdCH7xh" target="_blank" rel="external">百度网盘</a>存储了，不断更新，有需要的可以下载，预览图片如下：</p>
+<p><img src="http://static.ixirong.com/pic/git/git-xmind.webp" alt="Git常用xmind导图整理"></p>
+<p>最强大的<strong>命令手册</strong>还得属于终端，<em> man git </em> 或者 <em> man git 命令 </em> 或者 <em> git —help </em> 或者 <em> git 命令 —help </em>，在这里可以找到任何你想要的。</p>
+<h2 id="git_书籍资料">git 书籍资料</h2><p>-《<a href="http://git-scm.com/book/zh/v1" target="_blank" rel="external">Pro Git</a>》 作者Scott Chacon是github的员工，git的布道者，这本书被誉为git学习圣经，中间有好多插图描述的浅显易懂，挺适合详细学习下的，最新英文第二版《<a href="http://git-scm.com/book/en/v2" target="_blank" rel="external">pro git (Editon 2)</a>》；</p>
+<p>-《<a href="http://gitbook.liuhui998.com/" target="_blank" rel="external">Git Community Book</a>》汇聚了Git社区的很多精华,  并对git的对象模型原理等做了解释，可以深入的了解下git原理；</p>
+<p>2015-01-22 增加</p>
+<ul>
+<li>推荐的工作流程 <a href="http://documentup.com/skwp/git-workflows-book" target="_blank" rel="external">git workflow</a> </li>
+</ul>
+<p>2015-04-05 增加 git flow 工具</p>
+<ul>
+<li><a href="https://github.com/nvie/gitflow" target="_blank" rel="external">git flow 工具</a></li>
+<li><a href="http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html" target="_blank" rel="external">git flow 中文备忘清单</a></li>
+<li>一个很有意思的学习 git 的小游戏 <a href="http://pcottle.github.io/learnGitBranching/" target="_blank" rel="external">http://pcottle.github.io/learnGitBranching/</a> </li>
+<li><a href="http://marklodato.github.io/visual-git-guide/index-zh-cn.html" target="_blank" rel="external">图解 git</a> 将书籍中很多<code>术语</code>用图片的方式进行讲解，很容易就懂了 </li>
+<li><a href="http://backlogtool.com/git-guide/cn/" target="_blank" rel="external">图文并茂-猴子都能懂的git入门教程</a> 全面，生动形象，图文并茂，简单易懂，强烈推荐！</li>
+</ul>
+<p>关于日常中使用git来版本管理的流程写的很不错的一本书，日常工作模式、流程怎样更合理的工作！<br><strong> 最后，当你开始使用git的时候，学会用终端，比如你想看关于branch，那么大胆的时候 <em>git branch —help </em> 查看相应的命令！ </strong></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[这是一篇git学习资料汇总的文章，自己刚刚接触git版本管理时，到处搜索寻找好的学习方案，也收集了不少资料，试图用自己的语言整理下来，方便刚刚学习git的人，有个比较好的学习模式！]]>
+    
+    </summary>
+    
+      <category term="分布式" scheme="http://www.ixirong.com/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+      <category term="版本控制" scheme="http://www.ixirong.com/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/"/>
+    
+      <category term="git" scheme="http://www.ixirong.com/categories/git/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[idea/eclipse远程调试服务器方法]]></title>
+    <link href="http://www.ixirong.com/2014/11/15/idea-eclipse-remote-debug/"/>
+    <id>http://www.ixirong.com/2014/11/15/idea-eclipse-remote-debug/</id>
+    <published>2014-11-15T13:32:48.000Z</published>
+    <updated>2015-05-04T07:51:07.000Z</updated>
+    <content type="html"><![CDATA[<p>用到服务器调试的起因是在项目中遇到了<strong>乱码问题</strong>部分内容乱码，可是本地环境是好的，无法复现，所以排除不了问题在哪里，不知道到底是什么原因，不知道配置在哪里，配置了好多地方都不生效，最后咨询亚洲，远程调试，查看在action中返回的字符集中文下就是乱码的; 定位在编译时候的问题；</p>
+<p>调试过程：</p>
+<ol>
+<li>服务器tocat停止 <strong> sh stop_tomcat.sh </strong> 即可，注意一定要是全路径才行；</li>
+<li><p><strong> tomcat/bin/catalina.sh </strong> 中在头部加入下面代码，连接方式有两种，为dt_shmem和dt_socket，分别表示本机调试和远程调试。</p>
+<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> -x CATALINA_OPTS=<span class="string">"-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000"</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动tomcat <strong> sh start_tomcat.sh </strong> ,终端中查看状态 <code>tail -fn 200 catalina.out.2014-11-05.out</code><br>出现 <strong> Listening for transport dt_socket at address: 8000 </strong> 即表示ok的；</p>
+</li>
+<li>idea设置，调试为远程，端口号修改8000，host为远程机器ip，启动调试，选择remote即可；</li>
+<li>访问efc.corp.elong.com ，本机idea加断点，即可了。</li>
+</ol>
+<p>eclipse 同理，可以查看 <a href="http://www.ibm.com/developerworks/cn/opensource/os-eclipse-javadebug/" target="_blank" rel="external">使用eclispe远程调试Java程序</a></p>
+<p> <img src="http://static.ixirong.com/pic/java/intelljidea-remote-debug.webp" alt="调试图片如下"></p>
+<p>本文用到的参数含义：<br><strong>-Xdebug</strong><br>启用调试特性。<br><strong>-Xrunjdwp:<sub-options></sub-options></strong><br>在目标 VM 中加载 JDWP 实现。它通过传输和 JDWP 协议与独立的调试器应用程序通信。下面介绍一些特定的子选项。<br>从 Java V5 开始，您可以使用 -agentlib:jdwp 选项，而不是 -Xdebug 和 -Xrunjdwp。但如果连接到 V5 以前的 VM，只能选择 -Xdebug 和 <strong>-Xrunjdwp</strong><br>下面简单描述 -Xrunjdwp 子选项。<br><strong>transport</strong><br>这里通常使用套接字传输。但是在 Windows 平台上也可以使用共享内存传输。<br><strong>server</strong><br>如果值为 y，目标应用程序监听将要连接的调试器应用程序。否则，它将连接到特定地址上的调试器应用程序。<br><strong>address</strong><br>这是连接的传输地址。如果服务器为 n，将尝试连接到该地址上的调试器应用程序。否则，将在这个端口监听连接。<br><strong>suspend</strong><br>如果值为 y，目标 VM 将暂停，直到调试器应用程序进行连接。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[怎么样利用intellij idea远程调试tomcat服务器？]]>
+    
+    </summary>
+    
+      <category term="idea" scheme="http://www.ixirong.com/tags/idea/"/>
+    
+      <category term="java" scheme="http://www.ixirong.com/tags/java/"/>
+    
+      <category term="工具" scheme="http://www.ixirong.com/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+      <category term="java" scheme="http://www.ixirong.com/categories/java/"/>
+    
+  </entry>
+  
+</feed>
