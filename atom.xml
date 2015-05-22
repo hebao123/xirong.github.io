@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.ixirong.com/"/>
-  <updated>2015-05-22T15:10:22.000Z</updated>
+  <updated>2015-05-22T17:13:09.000Z</updated>
   <id>http://www.ixirong.com/</id>
   
   <author>
@@ -15,11 +15,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[分布式实时日志系统环境搭建（三） centos 6.4 下hadoop 2.5.2 集群搭建最全资料]]></title>
+    <title><![CDATA[分布式实时日志系统（三） 环境搭建之centos 6.4下hadoop 2.5.2完全分布式集群搭建最全资料]]></title>
     <link href="http://www.ixirong.com/2015/05/22/how-to-install-hadoop-cluster/"/>
     <id>http://www.ixirong.com/2015/05/22/how-to-install-hadoop-cluster/</id>
     <published>2015-05-22T14:29:38.000Z</published>
-    <updated>2015-05-22T15:10:22.000Z</updated>
+    <updated>2015-05-22T17:13:09.000Z</updated>
     <content type="html"><![CDATA[<p>最近公司业务数据量越来越大，以前的基于消息队列的日志系统越来越难以满足目前的业务量，表现为消息积压，日志延迟，日志存储日期过短，所以，我们开始着手要重新设计这块，业界已经有了比较成熟的流程，即基于流式处理，采用 flume 收集日志，发送到 kafka 队列做缓冲，storm 分布式实时框架进行消费处理，短期数据落地到 hbase、mongo中，长期数据进入 hadoop 中存储。 接下来打算将这其间所遇到的问题、学习到的知识记录整理下，作为备忘，作为分享，带给需要的人。</p>
 <p>hadoop 简介，也可以去官网看介绍 </p>
 <p><iframe src="//www.slideshare.net/slideshow/embed_code/key/vI8FgtPNW7iAWv" width="510" height="420" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/sudhakara_st/hadoop-intruduction" title="Hadoop introduction , Why and What is Hadoop ?" target="_blank">Hadoop introduction , Why and What is Hadoop ?</a> </strong> from <strong><a href="//www.slideshare.net/sudhakara_st" target="_blank">Sudhakara St</a></strong> </div></p>
@@ -45,7 +45,7 @@
 <p>这样就将生成的授权秘钥拷贝到了slave1和slave2的/home/hadoop/.ssh目录下，从 master 机器 ssh到 slave1 、slave2 都不再需要密码了，同理，在slave1、slave2机器上执行上面的命令即可完成slave 到master之间的无密码登录。（其实，操作完后，slave之间也是可以无密码登录的，只是不需要而已）</p>
 <p>测试下 ，不使用密码登录即ok</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh hadoop@master </span><br><span class="line">ssh hadoop@slave1 </span><br><span class="line">ssh hadoop@slave2</span><br></pre></td></tr></table></figure>
-<h1 id="Hadoop_集群的安装">Hadoop 集群的安装</h1><p>hadoop 的安装其实很简单，解压完毕后，修改配置文件、环境变量就完成了安装，需要在每个节点都安装，为了写了一键安装部署脚本，执行<code>hadoop_install.sh</code>后即可用启动命令进行测试，尽量做到简单方便的运维，提供的脚本如往常一样再本文最后给出，下面就一步步解释下：</p>
+<h1 id="Hadoop_集群的安装">Hadoop 集群的安装</h1><p>hadoop 下载地址 ：<a href="https://hadoop.apache.org/releases.html" target="_blank" rel="external">https://hadoop.apache.org/releases.html</a><br>hadoop 的安装其实很简单，解压完毕后，修改配置文件、环境变量就完成了安装，需要在每个节点都安装，为了写了一键安装部署脚本，执行<code>hadoop_install.sh</code>后即可用启动命令进行测试，尽量做到简单方便的运维，提供的脚本如往常一样再本文最后给出，下面就一步步解释下：</p>
 <p>1、 解压 <code>hadoop-2.5.2.tar.gz</code> 文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hadoop-<span class="number">2.5</span>.<span class="number">2</span>.tar.gz -C /home/hadoop/</span><br></pre></td></tr></table></figure>
 <p>2、修改环境变量<code>vi /home/hadoop/.bashrc</code> ，添加如下代码：</p>
@@ -95,7 +95,7 @@
 <h2 id="参考资料">参考资料</h2><p><a href="http://blog.csdn.net/hwwn2009/article/details/39889465" target="_blank" rel="external">http://blog.csdn.net/hwwn2009/article/details/39889465</a><br><a href="http://www.cnblogs.com/bxljoy/p/3880250.html" target="_blank" rel="external">http://www.cnblogs.com/bxljoy/p/3880250.html</a><br><a href="http://ju.outofmemory.cn/entry/29825" target="_blank" rel="external">http://ju.outofmemory.cn/entry/29825</a><br><a href="http://blog.csdn.net/tang9140/article/details/42869531" target="_blank" rel="external">http://blog.csdn.net/tang9140/article/details/42869531</a></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[详细讲解Centos 6.4 下hadoop 2.5.2 分布式集群搭建过程，hadoop 2.5.2 配置文件详细解读]]>
+    <![CDATA[本文详细讲解Centos 6.4 下hadoop 2.5.2 完全分布式集群搭建全过程，hadoop 2.5.2 配置文件详细解读。简单那介绍下，Hadoop 实现了一个分布式文件系统（Hadoop Distributed File System），简称HDFS。HDFS有高容错性的特点，并且设计用来部署在低廉的（low-cost）硬件上；而且它提供高吞吐量（high throughput）来访问应用程序的数据，适合那些有着超大数据集（large data set）的应用程序。]]>
     
     </summary>
     
@@ -112,11 +112,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[分布式实时日志系统环境搭建（二） flume 集群搭建/flume ng资料]]></title>
+    <title><![CDATA[分布式实时日志系统（二） 环境搭建之 flume 集群搭建/flume ng资料]]></title>
     <link href="http://www.ixirong.com/2015/05/18/how-to-install-flume-ng/"/>
     <id>http://www.ixirong.com/2015/05/18/how-to-install-flume-ng/</id>
     <published>2015-05-18T08:35:01.000Z</published>
-    <updated>2015-05-21T14:29:41.000Z</updated>
+    <updated>2015-05-22T17:11:51.000Z</updated>
     <content type="html"><![CDATA[<p>最近公司业务数据量越来越大，以前的基于消息队列的日志系统越来越难以满足目前的业务量，表现为消息积压，日志延迟，日志存储日期过短，所以，我们开始着手要重新设计这块，业界已经有了比较成熟的流程，即基于流式处理，采用 flume 收集日志，发送到 kafka 队列做缓冲，storm 分布式实时框架进行消费处理，短期数据落地到 hbase、mongo中，长期数据进入 hadoop 中存储。 接下来打算将这其间所遇到的问题、学习到的知识记录整理下，作为备忘，作为分享，带给需要的人。</p>
 <p>学习flume ng的过程中还是遇到一些障碍的，可是在搜索引擎搜到的所有的flume的资料都是以前的<code>flume og</code>（flume orign generation），而这个不是我们要用的，我们要使用 <code>flume ng</code>（flume next generation），所以你要搜资料最好搜索 <code>flume ng</code> 来查找，详细看一下这两个版本的区别：<a id="more"></a><br> <a href="http://www.ibm.com/developerworks/cn/data/library/bd-1404flumerevolution/index.html" target="_blank" rel="external">Flume NG：Flume 发展史上的第一次革命</a><br> 讲的非常详细，包括 两代的变化，安装配置等，可以仔细阅读下。</p>
 <p>关于使用 flume ng 来收集日志，美团网有两篇不错的文章，可以参考：<br><a href="http://tech.meituan.com/mt-log-system-arch.html" target="_blank" rel="external">基于Flume的美团日志收集系统(一)  架构和设计</a><br><a href="http://tech.meituan.com/mt-log-system-optimization.html" target="_blank" rel="external">基于Flume的美团日志收集系统(二)  改进和优化</a></p>
@@ -250,11 +250,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[分布式实时日志系统环境搭建（一）Jstorm 集群搭建过程/Jstorm集群一键安装部署]]></title>
+    <title><![CDATA[分布式实时日志系统（一）环境搭建之 Jstorm 集群搭建过程/Jstorm集群一键安装部署]]></title>
     <link href="http://www.ixirong.com/2015/05/12/how-to-install-jstorm-cluster/"/>
     <id>http://www.ixirong.com/2015/05/12/how-to-install-jstorm-cluster/</id>
     <published>2015-05-12T10:43:38.000Z</published>
-    <updated>2015-05-19T11:20:09.000Z</updated>
+    <updated>2015-05-22T17:12:13.000Z</updated>
     <content type="html"><![CDATA[<p>最近公司业务数据量越来越大，以前的基于消息队列的日志系统越来越难以满足目前的业务量，表现为消息积压，日志延迟，日志存储日期过短，所以，我们开始着手要重新设计这块，业界已经有了比较成熟的流程，即基于流式处理，采用 flume 收集日志，发送到 kafka 队列做缓冲，storm 分布式实时框架进行消费处理，短期数据落地到 hbase、mongo中，长期数据进入 hadoop 中存储。 接下来打算将这其间所遇到的问题、学习到的知识记录整理下，作为备忘，作为分享，带给需要的人。</p>
 <p>淘宝开源了许多产品组件，其中包括这鼎鼎有名的 jstorm ，也就是我们采用的分布式实时处理框架，至于为什么，请看《<a href="https://github.com/alibaba/jstorm/wiki/JStorm-vs-Storm-vs-flume-vs-S4-%E9%80%89%E5%9E%8B" target="_blank" rel="external">为什么选择Jstorm</a>》。这篇文章只介绍 Jstorm 整个集群的搭建过程，并提供一键安装部署脚本，方便其它使用的人员（搭建环境是一件头疼的事情，费时、费力）。</p>
 <p>这是 Jstorm 的介绍PPT：</p>

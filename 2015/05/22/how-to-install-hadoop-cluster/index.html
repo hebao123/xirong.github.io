@@ -48,7 +48,7 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.2" />
 
 
-  <title> 分布式实时日志系统环境搭建（三） centos 6.4 下hadoop 2.5.2 集群搭建最全资料 // 自由 </title>
+  <title> 分布式实时日志系统（三） 环境搭建之centos 6.4下hadoop 2.5.2完全分布式集群搭建最全资料 // 自由 </title>
 </head>
 
 <body>
@@ -156,7 +156,7 @@
           
           
             
-              分布式实时日志系统环境搭建（三） centos 6.4 下hadoop 2.5.2 集群搭建最全资料
+              分布式实时日志系统（三） 环境搭建之centos 6.4下hadoop 2.5.2完全分布式集群搭建最全资料
             
           
         </h1>
@@ -224,7 +224,7 @@
 <p>这样就将生成的授权秘钥拷贝到了slave1和slave2的/home/hadoop/.ssh目录下，从 master 机器 ssh到 slave1 、slave2 都不再需要密码了，同理，在slave1、slave2机器上执行上面的命令即可完成slave 到master之间的无密码登录。（其实，操作完后，slave之间也是可以无密码登录的，只是不需要而已）</p>
 <p>测试下 ，不使用密码登录即ok</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ssh hadoop@master </span><br><span class="line">ssh hadoop@slave1 </span><br><span class="line">ssh hadoop@slave2</span><br></pre></td></tr></table></figure>
-<h1 id="Hadoop_集群的安装">Hadoop 集群的安装</h1><p>hadoop 的安装其实很简单，解压完毕后，修改配置文件、环境变量就完成了安装，需要在每个节点都安装，为了写了一键安装部署脚本，执行<code>hadoop_install.sh</code>后即可用启动命令进行测试，尽量做到简单方便的运维，提供的脚本如往常一样再本文最后给出，下面就一步步解释下：</p>
+<h1 id="Hadoop_集群的安装">Hadoop 集群的安装</h1><p>hadoop 下载地址 ：<a href="https://hadoop.apache.org/releases.html" target="_blank" rel="external">https://hadoop.apache.org/releases.html</a><br>hadoop 的安装其实很简单，解压完毕后，修改配置文件、环境变量就完成了安装，需要在每个节点都安装，为了写了一键安装部署脚本，执行<code>hadoop_install.sh</code>后即可用启动命令进行测试，尽量做到简单方便的运维，提供的脚本如往常一样再本文最后给出，下面就一步步解释下：</p>
 <p>1、 解压 <code>hadoop-2.5.2.tar.gz</code> 文件</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hadoop-<span class="number">2.5</span>.<span class="number">2</span>.tar.gz -C /home/hadoop/</span><br></pre></td></tr></table></figure>
 <p>2、修改环境变量<code>vi /home/hadoop/.bashrc</code> ，添加如下代码：</p>
@@ -278,6 +278,40 @@
 
     <div class="post-footer">
     
+    <! -- 添加捐赠图标 -->
+    
+
+<div class ="post-donate">
+  <div id="donate_board" class="donate_bar center">
+    <a id="btn_donate" class="btn_donate" href="javascript:;" title="Donate 打赏"></a>
+    <span class="donate_txt">
+       &uarr;<br>
+       Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
+    </span>
+    <br>
+  </div>  
+  <div id="donate_guide" class="donate_bar center hidden">
+    <a href="http://static.ixirong.com/pic/donate/alipay1.webp" title="支付宝打赏" class="fancybox" rel="article0" style="float:left;margin-left:25%;margin-right:2px;">
+      <img src="http://static.ixirong.com/pic/donate/alipay1.webp" title="支付宝打赏" height="164px" width="164px">
+    </a> 
+
+    <a href="http://static.ixirong.com/pic/donate/wechat.png" title="微信打赏" class="fancybox" rel="article0">
+      <img src="http://static.ixirong.com/pic/donate/wechat.png" title="微信打赏" height="164px" width="164px">
+    </a>
+    
+  </div>
+  <script type="text/javascript">
+    document.getElementById('btn_donate').onclick = function(){
+      $('#donate_board').addClass('hidden');
+      $('#donate_guide').removeClass('hidden');
+    }
+  </script>
+</div>
+
+    
+    <! -- 添加捐赠图标 -->
+
+
       
         <div class="post-tags">
           
@@ -300,7 +334,7 @@
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/05/18/how-to-install-flume-ng/">分布式实时日志系统环境搭建（二） flume 集群搭建/flume ng资料</a>
+              <a href="/2015/05/18/how-to-install-flume-ng/">分布式实时日志系统（二） 环境搭建之 flume 集群搭建/flume ng资料</a>
             
           </div>
         </div>
@@ -317,7 +351,7 @@
       <div class="comments" id="comments">
         
           <div class="ds-thread" data-thread-key="2015/05/22/how-to-install-hadoop-cluster/"
-               data-title="分布式实时日志系统环境搭建（三） centos 6.4 下hadoop 2.5.2 集群搭建最全资料" data-url="http://www.ixirong.com/2015/05/22/how-to-install-hadoop-cluster/">
+               data-title="分布式实时日志系统（三） 环境搭建之centos 6.4下hadoop 2.5.2完全分布式集群搭建最全资料" data-url="http://www.ixirong.com/2015/05/22/how-to-install-hadoop-cluster/">
           </div>
         
       </div>
