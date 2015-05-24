@@ -37,7 +37,7 @@
 
 
 
-  <meta name="keywords" content="写作,计划," />
+  <meta name="keywords" content="hexo,打赏," />
 
 
 
@@ -48,7 +48,7 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.2" />
 
 
-  <title> 最近计划中的几篇文章 // 自由 </title>
+  <title> hexo 静态博客上线文章打赏功能，支持支付宝、微信支付捐赠 // 自由 </title>
 </head>
 
 <body>
@@ -156,7 +156,7 @@
           
           
             
-              最近计划中的几篇文章
+              hexo 静态博客上线文章打赏功能，支持支付宝、微信支付捐赠
             
           
         </h1>
@@ -164,14 +164,14 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2015-05-11
+          发表于 2015-05-24
         </span>
 
         
           <span class="post-category">
             &nbsp; | &nbsp; 分类于
             
-              <a href="/categories/计划/">计划</a>
+              <a href="/categories/网站建设/">网站建设</a>
 
               
               
@@ -184,8 +184,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/05/11/plan-lately/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/11/plan-lately/"></span>
+            <a href="/2015/05/24/hexo-blog-donate/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/24/hexo-blog-donate/"></span>
             </a>
           </span>
           
@@ -199,14 +199,11 @@
       
 
       
-        <p>近期时间安排的不是太合理，导致全线开工很多事情，有些忙不过来，本打算好要写的几篇文章也一直没有动笔，先把这几篇文章记录下来，后续尽量每天一篇发上来。</p>
-<ul>
-<li>ixirong.com 的建站流程，包括使用的方案、网站的监控、域名申请机备案等  2015-05-17 已经完成，详细请看<a href="http://www.ixirong.com/2015/05/17/how-to-build-ixirong-blog/" target="_blank" rel="external">使用 github Pages 服务建立 ixirong.com 独立博客全过程</a></li>
-<li>大型网站的进化流程的 xmind 分享，阅读完毕后，我进行了思维导图的整理，觉得对人应该是有些帮助的，可以看看</li>
-<li>intellig idea 开发工具使用技巧，自从转到Java平台，从使用上也有了些心得，分享出来</li>
-<li>最近在做的实时日志统计，打算写个系列，作为自己工作的总结，也给需要的朋友们一个可以阅读学习的东西  2015-05-12 已经开始整理，查看请搜索<strong>分布式实时日志系统环境搭建</strong></li>
-<li>mac iosx 系统效率提升工具集合，一些自己正在使用的，的确有明显效率提升的工具集合</li>
-</ul>
+        <p>目前微信公众号(需要开发)、微博、简书（部分文章）都有了“赏”的功能，说白了，就是你的文章对阅读者有一定的帮助，阅读者愿意支付一定的费用来支持作者继续写作，写出好文章，这也代表着内容付费时代的慢慢到来，当然这对于作者来说也是一定的鼓励，同样也是要求，你必须写出靠谱的文章，让人感到值得付出金钱的文章，读者才会心甘情愿的给你打赏。<br>下面就说一说，hexo 框架下的文章如何来支持此功能，我使用的主题 <a href="https://github.com/xirong/hexo-theme-next" target="_blank" rel="external">NexT</a> ，当然是xirong 定制过的版本，已经支持了此功能，如果你也是用 hexo ，并且感觉 next 主题还不错，你可以直接fork下来，直接使用即可。那么这个功能是怎么开发出来的呢，如果我是其他的博客，我该怎么样做才可以支持打赏的功能？<br>其实只需要在你文章的你想要出现赏功能的位置，添加如下代码即可：<br><a id="more"></a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">!</span> <span class="attribute">--</span> 添加捐赠图标 <span class="attribute">--</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span> =<span class="value">"post-donate"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"donate_board"</span> <span class="attribute">class</span>=<span class="value">"donate_bar center"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">a</span> <span class="attribute">id</span>=<span class="value">"btn_donate"</span> <span class="attribute">class</span>=<span class="value">"btn_donate"</span> <span class="attribute">href</span>=<span class="value">"javascript:;"</span> <span class="attribute">title</span>=<span class="value">"Donate 打赏"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"donate_txt"</span>&gt;</span></span><br><span class="line">           &amp;uarr;<span class="tag">&lt;<span class="title">br</span>&gt;</span></span><br><span class="line">           Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！</span><br><span class="line">           &#123;% endif %&#125;          </span><br><span class="line">        <span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">br</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="title">div</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">&lt;!-- 支付宝打赏图案 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"donate_guide"</span> <span class="attribute">class</span>=<span class="value">"donate_bar center hidden"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://static.ixirong.com/pic/donate/alipay1.webp"</span> <span class="attribute">title</span>=<span class="value">"支付宝打赏"</span> <span class="attribute">class</span>=<span class="value">"fancybox"</span> <span class="attribute">rel</span>=<span class="value">"article0"</span>       <span class="attribute">style</span>=<span class="value">"float:left;margin-left:25%;margin-right:2px;"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"http://static.ixirong.com/pic/donate/alipay1.webp"</span> <span class="attribute">title</span>=<span class="value">"支付宝打赏"</span> <span class="attribute">height</span>=<span class="value">"164px"</span> <span class="attribute">width</span>=<span class="value">"164px"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="title">a</span>&gt;</span> </span><br><span class="line">      <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 微信打赏图案 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"donate_guide"</span> <span class="attribute">class</span>=<span class="value">"donate_bar center hidden"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://static.ixirong.com/pic/donate/wechat.png"</span> <span class="attribute">title</span>=<span class="value">"支付宝打赏"</span> <span class="attribute">class</span>=<span class="value">"fancybox"</span> <span class="attribute">rel</span>=<span class="value">"article0"</span>  &gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"http://static.ixirong.com/pic/donate/wechat.png"</span> <span class="attribute">title</span>=<span class="value">"支付宝打赏"</span> <span class="attribute">height</span>=<span class="value">"164px"</span> <span class="attribute">width</span>=<span class="value">"164px"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="title">a</span>&gt;</span> </span><br><span class="line">      <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">      <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">        <span class="built_in">document</span>.getElementById(<span class="string">'btn_donate'</span>).onclick = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">          $(<span class="string">'#donate_board'</span>).addClass(<span class="string">'hidden'</span>);</span><br><span class="line">          $(<span class="string">'#donate_guide'</span>).removeClass(<span class="string">'hidden'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">!</span> <span class="attribute">--</span> 添加捐赠图标 <span class="attribute">--</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我把两个打赏的地方简化出来，你只需要将支付宝、微信的打赏图片替换成你自己的就ok了，这段代码，随便放到任何的博客文章中都是ok的，NeXT 的主题进行了单独的定制化，详情参考 github wiki 说明 <a href="https://github.com/xirong/hexo-theme-next/wiki/%E5%A2%9E%E5%8A%A0%E5%8D%9A%E5%AE%A2%E6%89%93%E8%B5%8F%E5%8A%9F%E8%83%BD" target="_blank" rel="external">增加博客打赏功能</a>。 </p>
+<p>文章参考： <a href="http://icehe.me/2015/03/04/Donate%20%E6%89%93%E8%B5%8F/" target="_blank" rel="external">http://icehe.me/2015/03/04/Donate%20%E6%89%93%E8%B5%8F/</a></p>
+<p>如果有任何疑问，请留言或者找到我的联系方式进行联系我，希望文章对你有所帮助 ！ 😄 </p>
 
       
     </div>
@@ -260,9 +257,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/写作/"> #写作 </a>
+            <a href="/tags/hexo/"> #hexo </a>
           
-            <a href="/tags/计划/"> #计划 </a>
+            <a href="/tags/打赏/"> #打赏 </a>
           
         </div>
       
@@ -271,13 +268,11 @@
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2015/05/12/how-to-install-jstorm-cluster/">分布式实时日志系统（一）环境搭建之 Jstorm 集群搭建过程/Jstorm集群一键安装部署</a>
-            
           </div>
 
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2015/05/05/yxj2015/">邀请众好友参与2015腾讯益行家古长城公益挑战赛</a>
+              <a href="/2015/05/22/how-to-install-hadoop-cluster/">分布式实时日志系统（三） 环境搭建之centos 6.4下hadoop 2.5.2完全分布式集群搭建最全资料</a>
             
           </div>
         </div>
@@ -293,8 +288,8 @@
     
       <div class="comments" id="comments">
         
-          <div class="ds-thread" data-thread-key="2015/05/11/plan-lately/"
-               data-title="最近计划中的几篇文章" data-url="http://www.ixirong.com/2015/05/11/plan-lately/">
+          <div class="ds-thread" data-thread-key="2015/05/24/hexo-blog-donate/"
+               data-title="hexo 静态博客上线文章打赏功能，支持支付宝、微信支付捐赠" data-url="http://www.ixirong.com/2015/05/24/hexo-blog-donate/">
           </div>
         
       </div>

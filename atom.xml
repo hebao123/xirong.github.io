@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.ixirong.com/"/>
-  <updated>2015-05-22T17:13:09.000Z</updated>
+  <updated>2015-05-24T09:54:47.000Z</updated>
   <id>http://www.ixirong.com/</id>
   
   <author>
@@ -13,6 +13,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[hexo 静态博客上线文章打赏功能，支持支付宝、微信支付捐赠]]></title>
+    <link href="http://www.ixirong.com/2015/05/24/hexo-blog-donate/"/>
+    <id>http://www.ixirong.com/2015/05/24/hexo-blog-donate/</id>
+    <published>2015-05-24T09:17:50.000Z</published>
+    <updated>2015-05-24T09:54:47.000Z</updated>
+    <content type="html"><![CDATA[<p>目前微信公众号(需要开发)、微博、简书（部分文章）都有了“赏”的功能，说白了，就是你的文章对阅读者有一定的帮助，阅读者愿意支付一定的费用来支持作者继续写作，写出好文章，这也代表着内容付费时代的慢慢到来，当然这对于作者来说也是一定的鼓励，同样也是要求，你必须写出靠谱的文章，让人感到值得付出金钱的文章，读者才会心甘情愿的给你打赏。<br>下面就说一说，hexo 框架下的文章如何来支持此功能，我使用的主题 <a href="https://github.com/xirong/hexo-theme-next" target="_blank" rel="external">NexT</a> ，当然是xirong 定制过的版本，已经支持了此功能，如果你也是用 hexo ，并且感觉 next 主题还不错，你可以直接fork下来，直接使用即可。那么这个功能是怎么开发出来的呢，如果我是其他的博客，我该怎么样做才可以支持打赏的功能？<br>其实只需要在你文章的你想要出现赏功能的位置，添加如下代码即可：<br><a id="more"></a></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">!</span> <span class="attribute">--</span> 添加捐赠图标 <span class="attribute">--</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span> =<span class="value">"post-donate"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"donate_board"</span> <span class="attribute">class</span>=<span class="value">"donate_bar center"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">a</span> <span class="attribute">id</span>=<span class="value">"btn_donate"</span> <span class="attribute">class</span>=<span class="value">"btn_donate"</span> <span class="attribute">href</span>=<span class="value">"javascript:;"</span> <span class="attribute">title</span>=<span class="value">"Donate 打赏"</span>&gt;</span><span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">span</span> <span class="attribute">class</span>=<span class="value">"donate_txt"</span>&gt;</span></span><br><span class="line">           &amp;uarr;<span class="tag">&lt;<span class="title">br</span>&gt;</span></span><br><span class="line">           Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！</span><br><span class="line">           &#123;% endif %&#125;          </span><br><span class="line">        <span class="tag">&lt;/<span class="title">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">br</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="title">div</span>&gt;</span>  </span><br><span class="line">  </span><br><span class="line">    <span class="comment">&lt;!-- 支付宝打赏图案 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"donate_guide"</span> <span class="attribute">class</span>=<span class="value">"donate_bar center hidden"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://static.ixirong.com/pic/donate/alipay1.webp"</span> <span class="attribute">title</span>=<span class="value">"支付宝打赏"</span> <span class="attribute">class</span>=<span class="value">"fancybox"</span> <span class="attribute">rel</span>=<span class="value">"article0"</span>       <span class="attribute">style</span>=<span class="value">"float:left;margin-left:25%;margin-right:2px;"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"http://static.ixirong.com/pic/donate/alipay1.webp"</span> <span class="attribute">title</span>=<span class="value">"支付宝打赏"</span> <span class="attribute">height</span>=<span class="value">"164px"</span> <span class="attribute">width</span>=<span class="value">"164px"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="title">a</span>&gt;</span> </span><br><span class="line">      <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 微信打赏图案 --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"donate_guide"</span> <span class="attribute">class</span>=<span class="value">"donate_bar center hidden"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">"http://static.ixirong.com/pic/donate/wechat.png"</span> <span class="attribute">title</span>=<span class="value">"支付宝打赏"</span> <span class="attribute">class</span>=<span class="value">"fancybox"</span> <span class="attribute">rel</span>=<span class="value">"article0"</span>  &gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"http://static.ixirong.com/pic/donate/wechat.png"</span> <span class="attribute">title</span>=<span class="value">"支付宝打赏"</span> <span class="attribute">height</span>=<span class="value">"164px"</span> <span class="attribute">width</span>=<span class="value">"164px"</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="title">a</span>&gt;</span> </span><br><span class="line">      <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">      <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">        <span class="built_in">document</span>.getElementById(<span class="string">'btn_donate'</span>).onclick = <span class="function"><span class="keyword">function</span><span class="params">()</span></span>&#123;</span><br><span class="line">          $(<span class="string">'#donate_board'</span>).addClass(<span class="string">'hidden'</span>);</span><br><span class="line">          $(<span class="string">'#donate_guide'</span>).removeClass(<span class="string">'hidden'</span>);</span><br><span class="line">        &#125;</span><br><span class="line">      </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">!</span> <span class="attribute">--</span> 添加捐赠图标 <span class="attribute">--</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我把两个打赏的地方简化出来，你只需要将支付宝、微信的打赏图片替换成你自己的就ok了，这段代码，随便放到任何的博客文章中都是ok的，NeXT 的主题进行了单独的定制化，详情参考 github wiki 说明 <a href="https://github.com/xirong/hexo-theme-next/wiki/%E5%A2%9E%E5%8A%A0%E5%8D%9A%E5%AE%A2%E6%89%93%E8%B5%8F%E5%8A%9F%E8%83%BD" target="_blank" rel="external">增加博客打赏功能</a>。 </p>
+<p>文章参考： <a href="http://icehe.me/2015/03/04/Donate%20%E6%89%93%E8%B5%8F/" target="_blank" rel="external">http://icehe.me/2015/03/04/Donate%20%E6%89%93%E8%B5%8F/</a></p>
+<p>如果有任何疑问，请留言或者找到我的联系方式进行联系我，希望文章对你有所帮助 ！ 😄 </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>目前微信公众号(需要开发)、微博、简书（部分文章）都有了“赏”的功能，说白了，就是你的文章对阅读者有一定的帮助，阅读者愿意支付一定的费用来支持作者继续写作，写出好文章，这也代表着内容付费时代的慢慢到来，当然这对于作者来说也是一定的鼓励，同样也是要求，你必须写出靠谱的文章，让人感到值得付出金钱的文章，读者才会心甘情愿的给你打赏。<br>下面就说一说，hexo 框架下的文章如何来支持此功能，我使用的主题 <a href="https://github.com/xirong/hexo-theme-next">NexT</a> ，当然是xirong 定制过的版本，已经支持了此功能，如果你也是用 hexo ，并且感觉 next 主题还不错，你可以直接fork下来，直接使用即可。那么这个功能是怎么开发出来的呢，如果我是其他的博客，我该怎么样做才可以支持打赏的功能？<br>其实只需要在你文章的你想要出现赏功能的位置，添加如下代码即可：<br>]]>
+    
+    </summary>
+    
+      <category term="hexo" scheme="http://www.ixirong.com/tags/hexo/"/>
+    
+      <category term="打赏" scheme="http://www.ixirong.com/tags/%E6%89%93%E8%B5%8F/"/>
+    
+      <category term="网站建设" scheme="http://www.ixirong.com/categories/%E7%BD%91%E7%AB%99%E5%BB%BA%E8%AE%BE/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[分布式实时日志系统（三） 环境搭建之centos 6.4下hadoop 2.5.2完全分布式集群搭建最全资料]]></title>
@@ -1114,43 +1139,6 @@
       <category term="版本控制" scheme="http://www.ixirong.com/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/"/>
     
       <category term="git" scheme="http://www.ixirong.com/categories/git/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[idea/eclipse远程调试服务器方法]]></title>
-    <link href="http://www.ixirong.com/2014/11/15/idea-eclipse-remote-debug/"/>
-    <id>http://www.ixirong.com/2014/11/15/idea-eclipse-remote-debug/</id>
-    <published>2014-11-15T13:32:48.000Z</published>
-    <updated>2015-05-04T07:51:07.000Z</updated>
-    <content type="html"><![CDATA[<p>用到服务器调试的起因是在项目中遇到了<strong>乱码问题</strong>部分内容乱码，可是本地环境是好的，无法复现，所以排除不了问题在哪里，不知道到底是什么原因，不知道配置在哪里，配置了好多地方都不生效，最后咨询亚洲，远程调试，查看在action中返回的字符集中文下就是乱码的; 定位在编译时候的问题；</p>
-<p>调试过程：</p>
-<ol>
-<li>服务器tocat停止 <strong> sh stop_tomcat.sh </strong> 即可，注意一定要是全路径才行；</li>
-<li><p><strong> tomcat/bin/catalina.sh </strong> 中在头部加入下面代码，连接方式有两种，为dt_shmem和dt_socket，分别表示本机调试和远程调试。</p>
-<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> -x CATALINA_OPTS=<span class="string">"-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000"</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动tomcat <strong> sh start_tomcat.sh </strong> ,终端中查看状态 <code>tail -fn 200 catalina.out.2014-11-05.out</code><br>出现 <strong> Listening for transport dt_socket at address: 8000 </strong> 即表示ok的；</p>
-</li>
-<li>idea设置，调试为远程，端口号修改8000，host为远程机器ip，启动调试，选择remote即可；</li>
-<li>访问efc.corp.elong.com ，本机idea加断点，即可了。</li>
-</ol>
-<p>eclipse 同理，可以查看 <a href="http://www.ibm.com/developerworks/cn/opensource/os-eclipse-javadebug/" target="_blank" rel="external">使用eclispe远程调试Java程序</a></p>
-<p> <img src="http://static.ixirong.com/pic/java/intelljidea-remote-debug.webp" alt="调试图片如下"></p>
-<p>本文用到的参数含义：<br><strong>-Xdebug</strong><br>启用调试特性。<br><strong>-Xrunjdwp:<sub-options></sub-options></strong><br>在目标 VM 中加载 JDWP 实现。它通过传输和 JDWP 协议与独立的调试器应用程序通信。下面介绍一些特定的子选项。<br>从 Java V5 开始，您可以使用 -agentlib:jdwp 选项，而不是 -Xdebug 和 -Xrunjdwp。但如果连接到 V5 以前的 VM，只能选择 -Xdebug 和 <strong>-Xrunjdwp</strong><br>下面简单描述 -Xrunjdwp 子选项。<br><strong>transport</strong><br>这里通常使用套接字传输。但是在 Windows 平台上也可以使用共享内存传输。<br><strong>server</strong><br>如果值为 y，目标应用程序监听将要连接的调试器应用程序。否则，它将连接到特定地址上的调试器应用程序。<br><strong>address</strong><br>这是连接的传输地址。如果服务器为 n，将尝试连接到该地址上的调试器应用程序。否则，将在这个端口监听连接。<br><strong>suspend</strong><br>如果值为 y，目标 VM 将暂停，直到调试器应用程序进行连接。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[怎么样利用intellij idea远程调试tomcat服务器？]]>
-    
-    </summary>
-    
-      <category term="idea" scheme="http://www.ixirong.com/tags/idea/"/>
-    
-      <category term="java" scheme="http://www.ixirong.com/tags/java/"/>
-    
-      <category term="工具" scheme="http://www.ixirong.com/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-      <category term="java" scheme="http://www.ixirong.com/categories/java/"/>
     
   </entry>
   
