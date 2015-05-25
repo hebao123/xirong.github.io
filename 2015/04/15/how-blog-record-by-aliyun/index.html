@@ -200,20 +200,20 @@
 
       
         <p>Godaddy申请的域名怎么样备案？不在国内申请的域名能不能备案？为什么一定要备案？自己就写个个人博客，不备案不行吗？这几个问题是当我开始运营独立博客的时候，遇到的困惑，我在网络上疯狂的找资料，却没有发现有一篇文章能够清楚的说明些问题，当然如果你已经很熟悉<code>备案</code>的整个事情，那么这篇文章不适合你看，没必要浪费你的时间！</p>
-<h1 id="什么是备案？">什么是备案？</h1><p>来自百度百科的解释 <a href="http://baike.baidu.com/view/33319.htm" target="_blank" rel="external">http://baike.baidu.com/view/33319.htm</a></p>
+<h1 id="一、什么是备案？">一、什么是备案？</h1><p>来自百度百科的解释 <a href="http://baike.baidu.com/view/33319.htm" target="_blank" rel="external">http://baike.baidu.com/view/33319.htm</a></p>
 <blockquote>
 <p>网站备案是指向主管机关报告事由存案以备查考。行政法角度看备案，实践中主要是《立法法》和《法规规章备案条例》的规定。<strong>网站备案的目的就是为了防止在网上从事非法的网站经营活动，打击不良互联网信息的传播</strong>，如果网站不备案的话，很有可能被查处以后关停。</p>
 </blockquote>
 <a id="more"></a>
 <p>网站备案、ICP备案、域名备案和空间备案这四个名词本质是讲是<strong>一样</strong>的，即为<strong>网站申请ICP备案号</strong>，不管你的域名是什么，在哪里注册，空间是什么，服务商在哪里。但这并不意味着你建立个个人博客站点就一定需要备案！</p>
-<h2 id="哪些情况需要备案">哪些情况需要备案</h2><ol>
+<h2 id="1-1_哪些情况需要备案">1.1 哪些情况需要备案</h2><ol>
 <li>在国内申请的域名，如万网等服务商</li>
 <li>凡是在中国大陆境内购买服务器的用户需备案，即你的网站空间在国内。</li>
 </ol>
 <p>如果你像我一样，域名ixirong.com申请自国外服务商，如 <a href="http://www.godaddy.com" target="_blank" rel="external">Godaddy</a> ，网站内容托管在国外服务商，如github或者买的国外的虚拟主机，那么<strong>你不需要备案</strong>！！这也就意味着，如果你想搭建个博客站点，还不想捣鼓这麻烦的备案流程，那么你唯一的做法就是，<strong>在国外服务商申请域名+购买国外的空间</strong>（或者使用国外免费的空间如github托管静态站点），常见的国外域名服务商如<a href="">Godaddy</a>等</p>
-<h2 id="备案流程">备案流程</h2><p>备案有两种方式，一种是自己去下载资料按照步骤一步步操作（很麻烦），另一种（推荐）找个国内的服务商，如阿里云、腾讯云等，都提供了备案的流程，按照操作来做就很简单。</p>
+<h2 id="1-2_备案流程">1.2 备案流程</h2><p>备案有两种方式，一种是自己去下载资料按照步骤一步步操作（很麻烦），另一种（推荐）找个国内的服务商，如阿里云、腾讯云等，都提供了备案的流程，按照操作来做就很简单。</p>
 <p>第一种介绍：<a href="http://beian.vhostgo.com/wen.asp" target="_blank" rel="external">互联网非经营性网站 ICP 备案系统</a>，按照这个流程来即可。<br>第二种也是整篇文章的主旨重点，详细如下：</p>
-<h3 id="Godaddy注册域名托管国外github服务商如何备案？">Godaddy注册域名托管国外github服务商如何备案？</h3><p>ixirong.com 注册自国外域名厂商 <a href="">godaddy</a> ，文章内容使用 <a href="http://hexo.io" target="_blank" rel="external">hexo</a>博客系统生成静态文件托管到 <a href="https://github.com/" target="_blank" rel="external">Github</a>上面，个人认为很Geek，而且免费的！<br>可是当文章越来越多，静态资源如图片、下载文件等需要放到专业的存储上，ixirong.com 采用的是国内的<a href="https://portal.qiniu.com/signup?code=3lkd3gonyuhjm" target="_blank" rel="external">七牛云存储</a>，有免费的策略，当流量越来越大的时候，想使用一些CDN服务，如阿里云、腾讯云CDN、七牛CDN，可是这些厂商<strong>自定义域名，要求域名必须备案</strong>，这也就是这篇文章的由来，说说我的解决方案：</p>
+<h3 id="1-2-1_Godaddy注册域名托管国外github服务商如何备案？">1.2.1 Godaddy注册域名托管国外github服务商如何备案？</h3><p>ixirong.com 注册自国外域名厂商 <a href="">godaddy</a> ，文章内容使用 <a href="http://hexo.io" target="_blank" rel="external">hexo</a>博客系统生成静态文件托管到 <a href="https://github.com/" target="_blank" rel="external">Github</a>上面，个人认为很Geek，而且免费的！<br>可是当文章越来越多，静态资源如图片、下载文件等需要放到专业的存储上，ixirong.com 采用的是国内的<a href="https://portal.qiniu.com/signup?code=3lkd3gonyuhjm" target="_blank" rel="external">七牛云存储</a>，有免费的策略，当流量越来越大的时候，想使用一些CDN服务，如阿里云、腾讯云CDN、七牛CDN，可是这些厂商<strong>自定义域名，要求域名必须备案</strong>，这也就是这篇文章的由来，说说我的解决方案：</p>
 <ul>
 <li>ixirong.com 域名注册自Godaddy，内容部署到Github上，上面已经讲过，DNS解析选择DNSPod，这样整个网站访问就ok了，具体参考<a href="https://support.dnspod.cn/Kb/showarticle/tsid/42/" target="_blank" rel="external">Godaddy注册商域名修改DNS地址</a></li>
 <li>申请 <a href="http://www.net.cn/hosting/free/?spm=5334.734987.6.1.J2A9Cq" target="_blank" rel="external">万网免费虚拟主机</a> ，部署自己的博客程序内容</li>
@@ -446,7 +446,7 @@
           <div class="post-toc">
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是备案？"><span class="nav-number">1.</span> <span class="nav-text">什么是备案？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#哪些情况需要备案"><span class="nav-number">1.1.</span> <span class="nav-text">哪些情况需要备案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#备案流程"><span class="nav-number">1.2.</span> <span class="nav-text">备案流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Godaddy注册域名托管国外github服务商如何备案？"><span class="nav-number">1.2.1.</span> <span class="nav-text">Godaddy注册域名托管国外github服务商如何备案？</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、什么是备案？"><span class="nav-text">一、什么是备案？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1_哪些情况需要备案"><span class="nav-text">1.1 哪些情况需要备案</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2_备案流程"><span class="nav-text">1.2 备案流程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-1_Godaddy注册域名托管国外github服务商如何备案？"><span class="nav-text">1.2.1 Godaddy注册域名托管国外github服务商如何备案？</span></a></li></ol></li></ol></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
