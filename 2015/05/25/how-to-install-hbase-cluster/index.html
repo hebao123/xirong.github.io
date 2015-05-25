@@ -1,0 +1,1137 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+  <meta name="360-site-verification" content="2ebfa6bfe0988ac65c00405e3012ab01" />
+
+
+
+<meta name="sogou_site_verification" content="r5H99U6ELU"/>
+ 
+
+
+
+  <meta name="baidu_union_verify" content="63d8c69bdbc435b09f0d1b064de79a19" />
+
+
+
+  <meta  baidu-gxt-verify-token="52c8363b5f7cf3520969573f8b170868" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.2"/>
+
+
+    <meta name="description" content="有故事、有担当、有思考" />
+
+
+
+  <meta name="keywords" content="hbase,nosql,分布式,大数据," />
+
+
+
+  <link rel="alternate" href="/atom.xml" title="自由" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.2" />
+
+
+  <title> 分布式实时日志系统（四） 环境搭建之centos 6.4下hbase 1.0.1 分布式集群搭建 // 自由 </title>
+</head>
+
+<body>
+<!--[if lte IE 8]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://static.ixirong.com/picouterie.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari." style='margin-left:auto;margin-right:auto;display: block;'/></a></div> <![endif]-->
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">自由</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+     
+    
+    <!--增加“tinysou”站内搜索功能start-->
+    <form class="menu-item" ><input type="text" id="ts-search-input" class="menu-search-input"></form>
+    <script>
+    var option = {
+      engineKey: 'd4ab1eac98f4d5235098'
+    };
+    (function(w,d,t,u,n,s,e){
+      s = d.createElement(t);
+      s.src = u;
+      s.async = 1;
+      w[n] = function(r){
+        w[n].opts = r;
+      };
+      e = d.getElementsByTagName(t)[0];
+      e.parentNode.insertBefore(s, e);
+    })(window,document,'script','//tinysou-cdn.b0.upaiyun.com/ts.js','_ts');
+    _ts(option);
+    </script>
+  <!--增加“tinysou”站内搜索功能end-->
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-categories">
+        <a href="/categories">
+          <i class="menu-item-icon icon-categories"></i> <br />
+          分类
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-commonweal">
+        <a href="/404.html">
+          <i class="menu-item-icon icon-commonweal"></i> <br />
+          公益404
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              分布式实时日志系统（四） 环境搭建之centos 6.4下hbase 1.0.1 分布式集群搭建
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-05-25
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/nosql/">nosql</a>
+
+              
+              
+                ， 
+              
+
+            
+              <a href="/categories/nosql/大数据/">大数据</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/05/25/how-to-install-hbase-cluster/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/25/how-to-install-hbase-cluster/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <h1 id="一、hbase简介">一、hbase简介</h1><blockquote>
+<p>HBase是一个开源的非关系型分布式数据库（NoSQL），它参考了谷歌的BigTable建模，实现的编程语言为 Java。它是Apache软件基金会的Hadoop项目的一部分，运行于HDFS文件系统之上，为 Hadoop 提供类似于BigTable 规模的服务。因此，它可以容错地存储海量稀疏的数据。<br>HBase在列上实现了BigTable论文提到的压缩算法、内存操作和布隆过滤器。HBase的表能够作为MapReduce任务的输入和输出，可以通过Java API来存取数据，也可以通过REST、Avro或者Thrift的API来访问。</p>
+</blockquote>
+<p>以上来自 维基百科 。</p>
+<p>参考文档<br><a href="http://hbase.apache.org/book.html" target="_blank" rel="external">Apache HBase ™ Reference Guide</a><br><a href="http://abloz.com/hbase/book.html" target="_blank" rel="external">HBase 官方文档中文版</a></p>
+<a id="more"></a>
+<p><iframe src="//www.slideshare.net/slideshow/embed_code/key/oyxDfFL44ItphE" width="510" height="420" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/enissoz/hbase-and-hdfs-understanding-filesystem-usage" title="HBase and HDFS: Understanding FileSystem Usage in HBase" target="_blank">HBase and HDFS: Understanding FileSystem Usage in HBase</a> </strong> from <strong><a href="//www.slideshare.net/enissoz" target="_blank">enissoz</a></strong> </div></p>
+<h1 id="二、整体环境说明">二、整体环境说明</h1><p>hbase的存储为 HDFS，所以运行hbase是需要hadoop环境的，hadoop 集群搭建过程参考之前文章 <a href="http://ixirong.com/2015/05/22/how-to-install-hadoop-cluster/" target="_blank" rel="external">http://ixirong.com/2015/05/22/how-to-install-hadoop-cluster/</a></p>
+<p>操作系统： cenos 6.4 ，三台192.168.9.92、192.168.9.93、192.168.9.94<br>jdk版本： 1.7.0_75<br>hadoop版本： 2.5.2 （目的与hbase兼容）</p>
+<p>hbase 集群3个节点，一主两从，如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">角色</th>
+<th style="text-align:right">ip</th>
+<th style="text-align:center">运行进程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">master</td>
+<td style="text-align:right">192.168.9.92</td>
+<td style="text-align:center">JobHistoryServer，ResourceManager，NameNode，NodeManager，DataNode，Main，<strong>HMaster</strong></td>
+</tr>
+<tr>
+<td style="text-align:left">slave1</td>
+<td style="text-align:right">192.168.9.93</td>
+<td style="text-align:center">NodeManager，DataNode，<strong>HRegionServer</strong></td>
+</tr>
+<tr>
+<td style="text-align:left">slave2</td>
+<td style="text-align:right">192.168.9.94</td>
+<td style="text-align:center">NodeManager，DataNode，<strong>HRegionServer</strong></td>
+</tr>
+</tbody>
+</table>
+<p>hbase 的部署完全支持单机和伪分布式，如果没有机器可以按照这两种方式来部署，详情参考：<a href="http://blog.csdn.net/andie_guo/article/details/44086389" target="_blank" rel="external">http://blog.csdn.net/andie_guo/article/details/44086389</a></p>
+<h1 id="三、分布式集群搭建">三、分布式集群搭建</h1><p>hbase 集群的搭建如同hadoop一样，并不困难，解压完文件、修改环境变量、修改启动时候的配置文件，启动测试就ok了，下面一步步来说明，最后提供一键安装部署脚本。<br>hbase 版本的下载参考官网 <a href="http://mirrors.cnnic.cn/apache/hbase/" target="_blank" rel="external">http://mirrors.cnnic.cn/apache/hbase/</a> ，本文使用的版本为<code>1.1.0.1/                22-May-2015 02:20    -</code>。</p>
+<h2 id="3-1_安装_hbase">3.1 安装 hbase</h2><p>将下载下来的文件<code>hbase-1.0.1-bin.tar.gz</code>，解压到 <code>/home/hadoop/</code>目录下面 ，命令如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf hbase-<span class="number">1.0</span>.<span class="number">1</span>-bin.tar.gz -C /home/hadoop</span><br><span class="line">mv hbase-<span class="number">1.0</span>.<span class="number">1</span> hbase <span class="comment"># 重命名</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-2_配置环境变量">3.2 配置环境变量</h2><p>第一步操作后会存在<code>/home/hadoop/hbase</code>这个目录，下面需要修改环境变量<code>vim /etc/profile</code>，添加如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span>  PATH=<span class="variable">$PATH</span>:/home/hadoop/hbase/bin</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使本次修改生效</span></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
+<h2 id="3-3_hbase配置文件修改">3.3 hbase配置文件修改</h2><p>hbase 相关的配置主要包括<code>hbase-env.sh</code>、<code>hbase-site.xml</code>、<code>regionservers</code>三个文件，都在 <code>/home/haoop/hbase/conf</code>目录下面：</p>
+<h3 id="3-3-1_修改_hbase-env-sh">3.3.1 修改 hbase-env.sh</h3><p>主要是 JAVA_HOME、HADOOP_HOME、日志等的位置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> JAVA_HOME=/opt/jdk1.<span class="number">7.0</span>_75</span><br><span class="line"><span class="built_in">export</span> HBASE_CLASSPATH=/home/hadoop/hbase/conf</span><br><span class="line"><span class="comment"># 此配置信息，设置由hbase自己管理zookeeper，不需要单独的zookeeper。</span></span><br><span class="line"><span class="built_in">export</span> HBASE_MANAGES_ZK=<span class="literal">true</span></span><br><span class="line"><span class="built_in">export</span> HBASE_HOME=/home/hadoop/hbase</span><br><span class="line"><span class="built_in">export</span> HADOOP_HOME=/home/hadoop/hadoop-<span class="number">2.5</span>.<span class="number">2</span></span><br><span class="line"><span class="comment">#Hbase日志目录</span></span><br><span class="line"><span class="built_in">export</span> HBASE_LOG_DIR=/home/hadoop/hbase/logs</span><br></pre></td></tr></table></figure>
+<h3 id="3-3-2_修改_hbase-site-xml">3.3.2 修改 hbase-site.xml</h3><p>xml 包含了几个关键的属性</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">属性</th>
+<th style="text-align:right">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">hbase.rootdir</td>
+<td style="text-align:right">hbase数据存储目录，/tmp/hbase-${user.name},这意味着每次重启系统都会丢失数据。注意：需要和hadoop的core-site.xml中的文件保持一致</td>
+</tr>
+<tr>
+<td style="text-align:left">hbase.cluster.distributed</td>
+<td style="text-align:right">是否分布式，单击和伪分布式需要设置为 false</td>
+</tr>
+<tr>
+<td style="text-align:left">hbase.master</td>
+<td style="text-align:right">指定master机器</td>
+</tr>
+<tr>
+<td style="text-align:left">hbase.zookeeper.quorum</td>
+<td style="text-align:right">zk集群机器，多个英文逗号隔开，注意：必须是基数</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">configuration</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.rootdir<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">value</span>&gt;</span>hdfs://master:9000/hbase<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.cluster.distributed<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">value</span>&gt;</span>true<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.master<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">value</span>&gt;</span>master:60000<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">name</span>&gt;</span>hbase.zookeeper.quorum<span class="tag">&lt;/<span class="title">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">value</span>&gt;</span>master,slave1,slave2<span class="tag">&lt;/<span class="title">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-3-3_修改regionservers">3.3.3 修改regionservers</h2><p>添加HRegionServer的机器，目前为slave1和slave2两台，如下 <code>vim /home/hadoop/hbase/conf/regionservers</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">slave1</span><br><span class="line">slave2</span><br></pre></td></tr></table></figure>
+<p>上面这几步，需要在每台机器上面都执行下，执行完毕后，hbase集群就算搭建完了，因为机器一多，执行这些命令很是烦人，所以提供一键安装部署脚本，<code>hbase_tar.zip</code>文件请访问<a href="http://pan.baidu.com/s/1jGJ3lcU" target="_blank" rel="external">百度网盘</a>，密码为<code>2a4g</code>，脚本如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="shebang">#!/bin/bash</span><br><span class="line"></span></span><br><span class="line"><span class="comment"># author： xirong </span></span><br><span class="line"><span class="comment"># date  :  2015-05-11 </span></span><br><span class="line"></span><br><span class="line"><span class="comment">#####</span></span><br><span class="line"><span class="comment"># hbase 的数据存储在hdfs中，所以依赖hadoop的环境，安装配置hbase环境需要搭建好的hadoop环境</span></span><br><span class="line"><span class="comment"># </span></span><br><span class="line"><span class="comment">####</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 解压文件</span></span><br><span class="line"><span class="comment"># unzip hbase.zip -d /home/hadoop/</span></span><br><span class="line"><span class="comment"># 赋予权限</span></span><br><span class="line">sudo chown -R hadoop:hadoop /home/hadoop/hbase</span><br><span class="line"></span><br><span class="line">sudo sed -i <span class="string">'$ a # hbase configuration'</span> /etc/profile</span><br><span class="line">sudo sed -i <span class="string">'$ a export  PATH=$PATH:/home/hadoop/hbase/bin'</span> /etc/profile</span><br><span class="line"></span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br><span class="line">hbase version </span><br><span class="line"><span class="built_in">echo</span> <span class="string">'congratilations ,hbase has been installed on your machine!'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'start change hbase-env.sh configuration ……'</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'# 添加环境变量'</span> &gt;&gt; /home/hadoop/hbase/conf/hbase-env.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export JAVA_HOME=/opt/jdk1.7.0_75'</span>   &gt;&gt; /home/hadoop/hbase/conf/hbase-env.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export HBASE_CLASSPATH=/home/hadoop/hbase/conf'</span>   &gt;&gt; /home/hadoop/hbase/conf/hbase-env.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export HBASE_MANAGES_ZK=true'</span>   &gt;&gt; /home/hadoop/hbase/conf/hbase-env.sh     </span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export HBASE_HOME=/home/hadoop/hbase'</span>   &gt;&gt; /home/hadoop/hbase/conf/hbase-env.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export HADOOP_HOME=/home/hadoop/hadoop-2.5.2'</span>   &gt;&gt; /home/hadoop/hbase/conf/hbase-env.sh</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'export HBASE_LOG_DIR=/home/hadoop/hbase/logs'</span>   &gt;&gt; /home/hadoop/hbase/conf/hbase-env.sh</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'finish hbase-env.sh and start change hbase-site.xml configuration ……'</span></span><br><span class="line">\cp <span class="operator">-f</span>  /home/hadoop/hbase/conf/hbase-site.xml /home/hadoop/hbase/conf/hbase-site.xml.bak</span><br><span class="line"></span><br><span class="line">sed -i <span class="string">'/&lt;\/configuration&gt;/d'</span> /home/hadoop/hbase/conf/hbase-site.xml</span><br><span class="line"></span><br><span class="line">sed -i <span class="string">'$ a &lt;property&gt;'</span> /home/hadoop/hbase/conf/hbase-site.xml</span><br><span class="line">sed -i <span class="string">'$ a 	&lt;name&gt;hbase.rootdir&lt;\/name&gt;'</span> /home/hadoop/hbase/conf/hbase-site.xml	</span><br><span class="line">sed -i <span class="string">'$ a 	&lt;value&gt;hdfs:\/\/master:9000\/hbase&lt;\/value&gt;'</span> /home/hadoop/hbase/conf/hbase-site.xml</span><br><span class="line">sed -i <span class="string">'$ a &lt;\/property&gt;'</span> /home/hadoop/hbase/conf/hbase-site.xml</span><br><span class="line"></span><br><span class="line">sed -i <span class="string">'$ a &lt;property&gt;'</span> /home/hadoop/hbase/conf/hbase-site.xml</span><br><span class="line">sed -i <span class="string">'$ a 	&lt;name&gt;hbase.cluster.distributed&lt;\/name&gt;'</span> /home/hadoop/hbase/conf/hbase-site.xml	</span><br><span class="line">sed -i <span class="string">'$ a 	&lt;value&gt;true&lt;\/value&gt;'</span> /home/hadoop/hbase/conf/hbase-site.xml</span><br><span class="line">sed -i <span class="string">'$ a &lt;\/property&gt;'</span> /home/hadoop/hbase/conf/hbase-site.xml</span><br><span class="line"></span><br><span class="line">sed -i <span class="string">'$ a &lt;property&gt;'</span> /home/hadoop/hbase/conf/hbase-site.xml</span><br><span class="line">sed -i <span class="string">'$ a 	&lt;name&gt;hbase.master&lt;\/name&gt;'</span> /home/hadoop/hbase/conf/hbase-site.xml	</span><br><span class="line">sed -i <span class="string">'$ a 	&lt;value&gt;master:60000&lt;\/value&gt;'</span> /home/hadoop/hbase/conf/hbase-site.xml</span><br><span class="line">sed -i <span class="string">'$ a &lt;\/property&gt;'</span> /home/hadoop/hbase/conf/hbase-site.xml</span><br><span class="line"></span><br><span class="line">sed -i <span class="string">'$ a &lt;property&gt;'</span> /home/hadoop/hbase/conf/hbase-site.xml</span><br><span class="line">sed -i <span class="string">'$ a 	&lt;name&gt;hbase.zookeeper.quorum&lt;\/name&gt;'</span> /home/hadoop/hbase/conf/hbase-site.xml	</span><br><span class="line">sed -i <span class="string">'$ a 	&lt;value&gt;master,slave1,slave2&lt;\/value&gt;'</span> /home/hadoop/hbase/conf/hbase-site.xml</span><br><span class="line">sed -i <span class="string">'$ a &lt;\/property&gt;'</span> /home/hadoop/hbase/conf/hbase-site.xml</span><br><span class="line"></span><br><span class="line">sed -i <span class="string">'$ a &lt;\/configuration&gt;'</span> /home/hadoop/hbase/conf/hbase-site.xml </span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'finish hbase-site.xml configuration and start change regionservers ……'</span></span><br><span class="line">\cp <span class="operator">-f</span>  /home/hadoop/hbase/conf/regionservers /home/hadoop/hbase/conf/regionservers.bak</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'slave1'</span> &gt;&gt; /home/hadoop/hbase/conf/regionservers</span><br><span class="line"><span class="built_in">echo</span> <span class="string">'slave2'</span> &gt;&gt; /home/hadoop/hbase/conf/regionservers</span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="string">'congratilations ,all conf has been changed ! enjoy hbase !'</span></span><br></pre></td></tr></table></figure>
+<h1 id="四、hbase集群测试">四、hbase集群测试</h1><p>集群中所有节点完成上述HBase部署之后，即可启动HBase集群。启动顺序：hadoop-&gt; hbase，如果使用自己安装的zookeeper启动顺序是：hadoop-&gt; zookeeper-&gt; hbase<br>停止顺序：hbase-&gt; zookeeper-&gt; hadoop。<br>hadoop 启动方法：<code>$HADOOP_HOME/bin/start_all.sh</code> ，jps 命令后看到hadoop的几个进程说明就是ok的，<a href="http://ixirong.com/2015/05/22/how-to-install-hadoop-cluster/" target="_blank" rel="external">详情参考</a><br>zk 启动方法： <code>sh $ZOOKEEPER_HOME/bin/zkServer.sh start</code>, 启动后可以查看 zk的状态 <code>sh $ZOOKEEPER_HOME/bin/zkServer.sh status</code> ，发现 leader或者Fowler，就说明是ok的，<a href="http://ixirong.com/2015/05/12/how-to-install-jstorm-cluster/" target="_blank" rel="external">详情参考</a></p>
+<p>hbase启动方法如下，执行<code>jps</code>Java进程查看命令后，出现下面的情况就证明是ok的</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># master上启动，注意：只需要在master机器上面执行 start-hbase.sh就行，会自动启动slave1和slave2</span></span><br><span class="line">[hadoop@master bin]$ start-hbase.sh</span><br><span class="line">slave1: starting zookeeper, logging to /home/hadoop/hbase/logs/hbase-hadoop-zookeeper-slave1.out</span><br><span class="line">slave2: starting zookeeper, logging to /home/hadoop/hbase/logs/hbase-hadoop-zookeeper-slave2.out</span><br><span class="line">master: starting zookeeper, logging to /home/hadoop/hbase/logs/hbase-hadoop-zookeeper-master.out</span><br><span class="line">starting master, logging to /home/hadoop/hbase/logs/hbase-hadoop-master-master.out</span><br><span class="line">slave2: starting regionserver, logging to /home/hadoop/hbase/logs/hbase-hadoop-regionserver-slave2.out</span><br><span class="line">slave1: starting regionserver, logging to /home/hadoop/hbase/logs/hbase-hadoop-regionserver-slave1.out</span><br><span class="line">localhost: starting regionserver, logging to /home/hadoop/hbase/logs/hbase-hadoop-regionserver-master.out</span><br><span class="line">[hadoop@master bin]$ jps</span><br><span class="line"><span class="number">23598</span> HQuorumPeer</span><br><span class="line"><span class="number">19655</span> JobHistoryServer</span><br><span class="line"><span class="number">10397</span> ResourceManager</span><br><span class="line"><span class="number">17688</span> DataNode</span><br><span class="line"><span class="number">23651</span> HMaster</span><br><span class="line"><span class="number">23814</span> Jps</span><br><span class="line"><span class="number">18141</span> NodeManager</span><br><span class="line"><span class="number">17597</span> NameNode</span><br><span class="line"></span><br><span class="line"><span class="comment"># slave1 验证</span></span><br><span class="line">[hadoop@slave1 ~]$ jps</span><br><span class="line"><span class="number">680</span> Jps</span><br><span class="line"><span class="number">538</span> HRegionServer</span><br><span class="line"><span class="number">14727</span> DataNode</span><br><span class="line"><span class="number">14856</span> NodeManager</span><br><span class="line"></span><br><span class="line"><span class="comment"># slave2 验证 </span></span><br><span class="line">[hadoop@slave2 ~]$ jps</span><br><span class="line"><span class="number">375</span> Jps</span><br><span class="line"><span class="number">14555</span> NodeManager</span><br><span class="line"><span class="number">32664</span> HRegionServer</span><br><span class="line"><span class="number">14424</span> DataNode</span><br></pre></td></tr></table></figure>
+<h1 id="五、hbase_shell_操作">五、hbase shell 操作</h1><p>hbase提供的shell脚本就如果MySQL的一样，简单、强大，如下面例子中的几个：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[hadoop@master bin]$ hbase shell</span><br><span class="line">SLF4J: Class path contains multiple SLF4J bindings.</span><br><span class="line">SLF4J: Found binding <span class="keyword">in</span> [jar:file:/home/hadoop/hbase/lib/slf4j-log4j12-<span class="number">1.7</span>.<span class="number">7</span>.jar!/org/slf4j/impl/StaticLoggerBinder.class]</span><br><span class="line">SLF4J: Found binding <span class="keyword">in</span> [jar:file:/home/hadoop/hadoop-<span class="number">2.5</span>.<span class="number">2</span>/share/hadoop/common/lib/slf4j-log4j12-<span class="number">1.7</span>.<span class="number">5</span>.jar!/org/slf4j/impl/StaticLoggerBinder.class]</span><br><span class="line">SLF4J: See http://www.slf4j.org/codes.html<span class="comment">#multiple_bindings for an explanation.</span></span><br><span class="line">SLF4J: Actual binding is of <span class="built_in">type</span> [org.slf4j.impl.Log4jLoggerFactory]</span><br><span class="line"><span class="number">2015</span>-<span class="number">05</span>-<span class="number">25</span> <span class="number">15</span>:<span class="number">53</span>:<span class="number">06</span>,<span class="number">988</span> WARN  [main] util.NativeCodeLoader: Unable to load native-hadoop library <span class="keyword">for</span> your platform... using <span class="built_in">builtin</span>-java classes <span class="built_in">where</span> applicable</span><br><span class="line">HBase Shell; enter <span class="string">'help&lt;RETURN&gt;'</span> <span class="keyword">for</span> list of supported commands.</span><br><span class="line">Type <span class="string">"exit&lt;RETURN&gt;"</span> to leave the HBase Shell</span><br><span class="line">Version <span class="number">1.0</span>.<span class="number">1</span>, r66a93c09df3b12ff7b86c39bc8475c60e15af82d, Fri Apr <span class="number">17</span> <span class="number">22</span>:<span class="number">14</span>:<span class="number">06</span> PDT <span class="number">2015</span></span><br><span class="line"></span><br><span class="line">hbase(main):<span class="number">002</span>:<span class="number">0</span>&gt; status</span><br><span class="line"><span class="number">2</span> servers, <span class="number">0</span> dead, <span class="number">1.0000</span> average load</span><br><span class="line"></span><br><span class="line">hbase(main):<span class="number">005</span>:<span class="number">0</span>&gt; list</span><br><span class="line">TABLE</span><br><span class="line"><span class="number">0</span> row(s) <span class="keyword">in</span> <span class="number">0.3430</span> seconds</span><br></pre></td></tr></table></figure>
+<p>这部分操作请参考如下文章，个人认为写的通俗易懂，还很全面，适合入门体验<br><a href="http://blog.csdn.net/andie_guo/article/details/44086445" target="_blank" rel="external">【HBase基础教程】3、HBase Shell DDL操作</a><br><a href="http://blog.csdn.net/andie_guo/article/details/44086461" target="_blank" rel="external">【HBase基础教程】4、HBase Shell DML操作</a><br><a href="http://www.cnblogs.com/ggjucheng/p/3379607.html" target="_blank" rel="external"> HBase shell的基本用法</a></p>
+
+      
+    </div>
+
+    <div class="post-footer">
+    
+    <! -- 添加捐赠图标 -->
+
+    
+
+    <div class ="post-donate">
+      <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="Donate 打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+           
+            Enjoy it ? Donate me !  欣赏此文？求鼓励，求支持！
+                     
+        </span>
+        <br>
+      </div>  
+  
+      <div id="donate_guide" class="donate_bar center hidden">
+        
+          <a href="http://static.ixirong.com/pic/donate/alipay1.webp" title="支付宝打赏" class="fancybox" rel="article0"       style="float:left;margin-left:25%;margin-right:2px;">
+          <img src="http://static.ixirong.com/pic/donate/alipay1.webp" title="支付宝打赏" height="164px" width="164px">
+          </a> 
+          
+
+      
+       <a href="http://static.ixirong.com/pic/donate/wechat.png" title="微信打赏" class="fancybox" rel="article0">
+         <img src="http://static.ixirong.com/pic/donate/wechat.png" title="微信打赏" height="164px" width="164px">
+       </a>
+      
+    
+      </div>
+  
+      <script type="text/javascript">
+        document.getElementById('btn_donate').onclick = function(){
+          $('#donate_board').addClass('hidden');
+          $('#donate_guide').removeClass('hidden');
+        }
+      </script>
+    </div>
+
+    
+
+<! -- 添加捐赠图标 -->
+
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hbase/"> #hbase </a>
+          
+            <a href="/tags/nosql/"> #nosql </a>
+          
+            <a href="/tags/分布式/"> #分布式 </a>
+          
+            <a href="/tags/大数据/"> #大数据 </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/05/24/hexo-blog-donate/">hexo 静态博客上线文章打赏功能，支持支付宝、微信支付捐赠</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    
+      <div class="comments" id="comments">
+        
+          <div class="ds-thread" data-thread-key="2015/05/25/how-to-install-hbase-cluster/"
+               data-title="分布式实时日志系统（四） 环境搭建之centos 6.4下hbase 1.0.1 分布式集群搭建" data-url="http://www.ixirong.com/2015/05/25/how-to-install-hbase-cluster/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+         
+        </div>
+
+        
+        <!-- 多说热评文章-->
+        <p>热评文章</p>
+        <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+        
+      </div>
+               
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/images/default_avatar.jpg" alt="xirong" />
+          <p class="site-author-name">xirong</p>
+        </div>
+        <p class="site-description motion-element">有故事、有担当、有思考</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">22</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+              <a href="https://twitter.com/LiuXirong" target="_blank">Twitter</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/jackieliuxirong" target="_blank">微博</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://instagram.com/ixirong/" target="_blank">Instagram</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/xirong/" target="_blank">GitHub</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://stackoverflow.com/users/1632013/xirong" target="_blank">StackOverflow</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.douban.com/people/alexliuxirong/" target="_blank">豆瓣</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.jianshu.com/users/51db946c00fa/latest_articles" target="_blank">简书</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="mailto:jackieliuxirong@gmail.com" target="_blank">MailMe</a>
+            </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一、hbase简介"><span class="nav-text">一、hbase简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二、整体环境说明"><span class="nav-text">二、整体环境说明</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、分布式集群搭建"><span class="nav-text">三、分布式集群搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1_安装_hbase"><span class="nav-text">3.1 安装 hbase</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2_配置环境变量"><span class="nav-text">3.2 配置环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3_hbase配置文件修改"><span class="nav-text">3.3 hbase配置文件修改</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1_修改_hbase-env-sh"><span class="nav-text">3.3.1 修改 hbase-env.sh</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-2_修改_hbase-site-xml"><span class="nav-text">3.3.2 修改 hbase-site.xml</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-3_修改regionservers"><span class="nav-text">3.3.3 修改regionservers</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#四、hbase集群测试"><span class="nav-text">四、hbase集群测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#五、hbase_shell_操作"><span class="nav-text">五、hbase shell 操作</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+
+    </div>
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">xirong</span>
+</div>
+
+<div class="powered-by">
+  <div style="float:left;margin-top:7px;margin-right:10px;">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254711542'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254711542%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+   鲁ICP备15013969号
+</div>
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a> 
+</div>
+
+<div class="theme-info">
+  Clone theme 
+  <a class="theme-link" href="https://github.com/xirong/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.content img').each(function () {
+        var $image = $(this);
+        var $imageWrapLink = $image.parent('a');
+
+        if ($imageWrapLink.size() < 1) {
+          $imageWrapLink = $image.wrap('<a href="' + this.getAttribute('src') + '"></a>').parent('a');
+        }
+        $imageWrapLink.addClass('fancybox');
+      });
+    });
+    $('.fancybox').fancybox({
+      helpers: {
+        overlay: {
+          locked: false
+        }
+      }
+    });
+  </script>
+
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    LogoAndMenuMotion();
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+    function LogoAndMenuMotion() {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    }
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = window.postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xirong"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"1","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"16"},"slide":{"type":"slide","bdImg":"3","bdPos":"left","bdTop":"250"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?35130bce62151673e28ec769bef55e70";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+  
+  <script type="text/javascript">
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-61803765-1');ga('send','pageview');
+  </script>
+
+</body>
+</html>

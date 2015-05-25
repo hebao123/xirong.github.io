@@ -204,7 +204,37 @@
 <p><iframe src="//www.slideshare.net/slideshow/embed_code/key/vI8FgtPNW7iAWv" width="510" height="420" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/sudhakara_st/hadoop-intruduction" title="Hadoop introduction , Why and What is Hadoop ?" target="_blank">Hadoop introduction , Why and What is Hadoop ?</a> </strong> from <strong><a href="//www.slideshare.net/sudhakara_st" target="_blank">Sudhakara St</a></strong> </div></p>
 <p>在搭建 hadoop 集群的过程中还是遇到很多问题的，我尽量的以初学者的口吻来写这篇文章，尽量做到详尽，当然不明白、不清楚的地方可以随时留言或找到我的联系方式与我沟通。<br><a id="more"></a></p>
 <h1 id="一、总体环境说明">一、总体环境说明</h1><p>操作系统： cenos 6.4 ，三台192.168.9.92、192.168.9.93、192.168.9.94<br>jdk版本： 1.7.0_75<br>hadoop版本： 2.5.2 （目的与hbase兼容）</p>
-<p>hadoop集群3个节点，一主两从，如下：<br>| 角色      |     ip |   用户   |<br>| :———— | ————:| :———: |<br>| master    |  192.168.9.92 | hadoop  |<br>| slave1    |  192.168.9.93 | hadoop  |<br>| slave2    |  192.168.9.94 | hadoop  |</p>
+<p>hadoop集群3个节点，一主两从，如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">角色</th>
+<th style="text-align:right">ip</th>
+<th style="text-align:right">用户</th>
+<th style="text-align:center">运行进程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">master</td>
+<td style="text-align:right">192.168.9.92</td>
+<td style="text-align:right">hadoop</td>
+<td style="text-align:center">JobHistoryServer，ResourceManager，NameNode，NodeManager，DataNode，Main</td>
+</tr>
+<tr>
+<td style="text-align:left">slave1</td>
+<td style="text-align:right">192.168.9.93</td>
+<td style="text-align:right">hadoop</td>
+<td style="text-align:center">NodeManager，DataNode</td>
+</tr>
+<tr>
+<td style="text-align:left">slave2</td>
+<td style="text-align:right">192.168.9.94</td>
+<td style="text-align:right">hadoop</td>
+<td style="text-align:center">NodeManager，DataNode</td>
+</tr>
+</tbody>
+</table>
 <h1 id="二、设置环境变量">二、设置环境变量</h1><p>安装 hadoop 前需要提前配置好三台机器的 hostname，之间ssh无密码可登陆，Java环境的搭建，bashrc 的一些变量设置等，详细如下 </p>
 <h2 id="2-1_设置机器hostname别名">2.1 设置机器hostname别名</h2><p>设置别名的目的是机器间相互识别可以不用ip，配置文件中也可以不用ip，通用性上更强一些。</p>
 <p>在 master 机器上面执行下面的命令：</p>
@@ -415,21 +445,21 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">21</span>
+              <span class="site-state-item-count">22</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">12</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-count">36</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
