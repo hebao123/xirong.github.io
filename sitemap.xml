@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.ixirong.com/2015/05/18/how-to-install-flume-ng/</loc>
+    <lastmod>2015-05-26T09:05:48.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.ixirong.com/2015/05/22/how-to-install-hadoop-cluster/</loc>
     <lastmod>2015-05-25T11:04:31.000Z</lastmod>
   </url>
@@ -39,11 +44,6 @@
   <url>
     <loc>http://www.ixirong.com/2015/05/12/how-to-install-jstorm-cluster/</loc>
     <lastmod>2015-05-25T06:50:46.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.ixirong.com/2015/05/18/how-to-install-flume-ng/</loc>
-    <lastmod>2015-05-25T06:47:37.000Z</lastmod>
   </url>
   
   <url>
