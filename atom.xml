@@ -1051,7 +1051,7 @@
     <link href="http://www.ixirong.com/2015/01/19/shadowsocks-md/"/>
     <id>http://www.ixirong.com/2015/01/19/shadowsocks-md/</id>
     <published>2015-01-19T14:44:54.000Z</published>
-    <updated>2015-05-25T06:20:04.000Z</updated>
+    <updated>2015-05-27T03:05:28.000Z</updated>
     <content type="html"><![CDATA[<p>感谢万能的互联网，使我们这一代，如果你想，那么你就可以知晓世界上任何的事情！搜索引擎的出现使得搜索知识比以往要容易的多，你只要知道一个概念就能找出相应的所有的知识；社交网络的出现使得你跟你喜欢的明星的交谈就在一个留言上，不像以前那样，平凡的人是根本没有渠道去做这些事情的；从以前网络的虚假到现在慢慢的越来越真实，一个 ID 在网络上就代表着真实世界中的一个人，你可以与你真实世界中的想法一样当然也可以完全不一样，但这都不能阻碍你成为<code>个性、有着独立思想、见解的人</code>，可是生活在天朝，由于种种原因，好多国外世界的资源你是无法看到的，你不能享受你应该得到的这些（xirong 认为每一个个体都有相同的权利去享受互联网带给生活中的改变），这是很令人愤恨的 ！！ 如果不能去看到更多的风景，去尝试生命更多的可能，拥有年轻心态的你怎么会甘心？</p>
 <blockquote>
 <p>Across the Great Firewall, you can reach every corner in the world.</p>
@@ -1113,7 +1113,7 @@
 <ul>
 <li>安全系数高，抗封锁能力强，<a href="https://plus.google.com/u/0/109790703964908675921/posts/TtWFAQmSMVE" target="_blank" rel="external">为什么呢？</a>？ </li>
 </ul>
-<h2 id="怎么使用？">怎么使用？</h2><ul>
+<h2 id="客户端怎么使用？">客户端怎么使用？</h2><ul>
 <li>跨平台支持window、mac、Android、ios、wp <a href="https://shadowsocks.com/client.html" target="_blank" rel="external">客户端下载地址</a></li>
 <li>简单的不同平台安装说明<ul>
 <li>手把手教会你使用ss，列举几篇使用方法介绍文章 <a href="http://ttt.tt/150/" target="_blank" rel="external">通天塔介绍 MAC OSX 系统下使用方法</a>、<a href="http://www.jianshu.com/p/a04327bcb9a9" target="_blank" rel="external">简书介绍 windows 平台使用</a>、<a href="http://shadowsocks.info/shadowsocks-ios-mac-osx/" target="_blank" rel="external">IOS 系统使用方法</a>、<a href="http://www.uudaili.org/android_shadowsocks.html" target="_blank" rel="external">安卓Android平台使用方法</a>，另外，mac 最新的客户端已经可以不用Proxy SwitchySharp这个插件了，安装最新版的MAC客户端，默认可以根据pac文件代理所有浏览器的访问，很是方便。 </li>
@@ -1122,10 +1122,10 @@
 </li>
 <li>几个常见工具<a href="https://milooo.net/download.html" target="_blank" rel="external">下载地址</a>，包括Autoproxy.pac文件、proxy switchsharp、ios openvpn配置等。</li>
 </ul>
-<h2 id="账号资源">账号资源</h2><p>shadowsocks 客户端是很强大、稳定、快速的，跨平台，省去很多麻烦，但这依赖与稳定的服服务端，你可以自己购买vps ，搭建shadowsocks的服务器端，只需要vps的钱即可，shadowsocks服务端开源免费，可以去<a href="https://github.com/shadowsocks/shadowsocks" target="_blank" rel="external">github</a>下载搭建，参考<a href="http://www.atgfw.org/2015/01/shadowsocks.html" target="_blank" rel="external">搭建教程</a>，也可以购买市场上许多服务商提供的服务，相比自己搭建，还得需要去关心服务器的稳定性， xirong 更推荐使用经济的代理服务商，便宜省事，当然，你也可以到网上到处搜寻免费的 shadowsocks账号，这也是可以的。</p>
+<h2 id="账号资源">账号资源</h2><p>shadowsocks 客户端是很强大、稳定、快速的，跨平台，省去很多麻烦，但这依赖与稳定的服服务端，你可以自己购买vps ，搭建shadowsocks的服务器端，只需要vps的钱即可，shadowsocks 服务端开源免费（还是得感谢shadowsocks作者 <a href="https://twitter.com/clowwindy" target="_blank" rel="external">@clowwindy</a>的无私奉献），可以去<a href="https://github.com/shadowsocks/shadowsocks" target="_blank" rel="external">github</a>下载搭建，参考<a href="http://www.atgfw.org/2015/01/shadowsocks.html" target="_blank" rel="external">搭建教程</a>，也可以购买市场上许多服务商提供的服务，相比自己搭建，还得需要去关心服务器的稳定性， xirong 更推荐使用经济的代理服务商，便宜省事，当然，你也可以到网上到处搜寻免费的 shadowsocks账号，这也是可以的。</p>
 <p><strong>强烈推荐付费购买，省时间、省精力，不用去网上找各种不稳定的免费账号，便宜不贵。</strong></p>
 <ul>
-<li><a href="https://shadowsocks.com/" target="_blank" rel="external">shadowsocks官网</a> 由shadowsocks作者 <a href="https://twitter.com/clowwindy" target="_blank" rel="external">@clowwindy</a>参与，线路优质，技术成熟。多平台，多线路支持。有年付有普通版的99元，与高大上的399元高级版套餐可选，美国，新加坡，台湾，日本等各国线路可以选择。</li>
+<li><a href="https://shadowsocks.com/" target="_blank" rel="external">shadowsocks.com</a> 线路优质，技术成熟,多线路支持。有年付有普通版的99元，也有高大上的399元高级版套餐可选，美国，新加坡，台湾，日本等各国线路可以选择。</li>
 <li><a href="http://www.fyzhuji.com/aff.php?aff=531" target="_blank" rel="external">枫叶主机</a> <strong>本人正在使用的付费服务</strong>,目前提供美国，日本，香港，大陆中专、新加坡、台湾等数十条的shadowsocks收费账号，服务稳定，套餐形式以流量为单位，如分40G，60G，150G/每月流量;分别年付价格是50元，80元，120元。适合流量不是很大，要求线路质量高的朋友，价格真心便宜。而且某些公司许多端口被封，需要使用特定的端口，枫叶主机高级套餐支持自定义shadowsocks服务端端口，省去了公司不能使用的烦恼。</li>
 <li>其他，据网络资源推荐，不知道效果：<ol>
 <li><a href="http://my.ssh91.net/" target="_blank" rel="external">SSH91</a> 美国，日本，香港，新加坡一号通的shadowsocks账号，季付30元，年付98元，同时不定期提供18元的美国普及年付账号．选择性更多。</li>
