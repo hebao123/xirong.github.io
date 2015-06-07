@@ -2,6 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.ixirong.com/2015/06/07/git-and-github-repo/</loc>
+    <lastmod>2015-06-07T11:29:19.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.ixirong.com/2015/01/19/shadowsocks-md/</loc>
+    <lastmod>2015-06-07T06:51:31.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.ixirong.com/about/index.html</loc>
     <lastmod>2015-06-05T09:57:45.000Z</lastmod>
   </url>
@@ -24,11 +34,6 @@
   <url>
     <loc>http://www.ixirong.com/2014/11/19/the-way-to-learn-git/</loc>
     <lastmod>2015-06-03T03:22:08.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.ixirong.com/2015/01/19/shadowsocks-md/</loc>
-    <lastmod>2015-06-02T02:38:54.000Z</lastmod>
   </url>
   
   <url>
