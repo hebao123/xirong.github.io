@@ -2,8 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.ixirong.com/2015/03/19/the-beginner-of-mac/</loc>
+    <lastmod>2015-06-09T14:25:07.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.ixirong.com/2015/06/08/how-to-use-mac-efficiently/</loc>
-    <lastmod>2015-06-08T15:06:34.000Z</lastmod>
+    <lastmod>2015-06-09T06:27:23.000Z</lastmod>
   </url>
   
   <url>
@@ -69,11 +74,6 @@
   <url>
     <loc>http://www.ixirong.com/2015/05/12/how-to-install-jstorm-cluster/</loc>
     <lastmod>2015-05-25T06:50:46.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.ixirong.com/2015/03/19/the-beginner-of-mac/</loc>
-    <lastmod>2015-05-25T06:44:47.000Z</lastmod>
   </url>
   
   <url>
