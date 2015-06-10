@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.ixirong.com/2015/05/25/how-to-install-hbase-cluster/</loc>
+    <lastmod>2015-06-10T10:18:13.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.ixirong.com/2015/03/19/the-beginner-of-mac/</loc>
     <lastmod>2015-06-09T14:25:07.000Z</lastmod>
   </url>
@@ -24,11 +29,6 @@
   <url>
     <loc>http://www.ixirong.com/about/index.html</loc>
     <lastmod>2015-06-05T09:57:45.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.ixirong.com/2015/05/25/how-to-install-hbase-cluster/</loc>
-    <lastmod>2015-06-04T13:52:55.000Z</lastmod>
   </url>
   
   <url>
