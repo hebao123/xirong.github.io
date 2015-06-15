@@ -2,6 +2,21 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.ixirong.com/2015/06/14/git-workflow-tutorial/</loc>
+    <lastmod>2015-06-15T05:48:52.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.ixirong.com/2015/06/07/git-and-github-repo/</loc>
+    <lastmod>2015-06-14T11:18:20.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.ixirong.com/about/index.html</loc>
+    <lastmod>2015-06-14T09:42:40.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.ixirong.com/2015/05/25/how-to-install-hbase-cluster/</loc>
     <lastmod>2015-06-10T10:18:13.000Z</lastmod>
   </url>
@@ -17,18 +32,8 @@
   </url>
   
   <url>
-    <loc>http://www.ixirong.com/2015/06/07/git-and-github-repo/</loc>
-    <lastmod>2015-06-07T11:29:19.000Z</lastmod>
-  </url>
-  
-  <url>
     <loc>http://www.ixirong.com/2015/01/19/shadowsocks-md/</loc>
     <lastmod>2015-06-07T06:51:31.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.ixirong.com/about/index.html</loc>
-    <lastmod>2015-06-05T09:57:45.000Z</lastmod>
   </url>
   
   <url>
