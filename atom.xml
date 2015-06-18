@@ -461,7 +461,7 @@
     <link href="http://www.ixirong.com/2015/05/25/how-to-install-hbase-cluster/"/>
     <id>http://www.ixirong.com/2015/05/25/how-to-install-hbase-cluster/</id>
     <published>2015-05-25T12:43:09.000Z</published>
-    <updated>2015-06-10T10:18:13.000Z</updated>
+    <updated>2015-06-18T03:01:40.000Z</updated>
     <content type="html"><![CDATA[<h1 id="&#x4E00;hbase&#x7B80;&#x4ECB;">&#x4E00;&#x3001;hbase&#x7B80;&#x4ECB;</h1><blockquote>
 <p>HBase&#x662F;&#x4E00;&#x4E2A;&#x5F00;&#x6E90;&#x7684;&#x975E;&#x5173;&#x7CFB;&#x578B;&#x5206;&#x5E03;&#x5F0F;&#x6570;&#x636E;&#x5E93;&#xFF08;NoSQL&#xFF09;&#xFF0C;&#x5B83;&#x53C2;&#x8003;&#x4E86;&#x8C37;&#x6B4C;&#x7684;BigTable&#x5EFA;&#x6A21;&#xFF0C;&#x5B9E;&#x73B0;&#x7684;&#x7F16;&#x7A0B;&#x8BED;&#x8A00;&#x4E3A; Java&#x3002;&#x5B83;&#x662F;Apache&#x8F6F;&#x4EF6;&#x57FA;&#x91D1;&#x4F1A;&#x7684;Hadoop&#x9879;&#x76EE;&#x7684;&#x4E00;&#x90E8;&#x5206;&#xFF0C;&#x8FD0;&#x884C;&#x4E8E;HDFS&#x6587;&#x4EF6;&#x7CFB;&#x7EDF;&#x4E4B;&#x4E0A;&#xFF0C;&#x4E3A; Hadoop &#x63D0;&#x4F9B;&#x7C7B;&#x4F3C;&#x4E8E;BigTable &#x89C4;&#x6A21;&#x7684;&#x670D;&#x52A1;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x5BB9;&#x9519;&#x5730;&#x5B58;&#x50A8;&#x6D77;&#x91CF;&#x7A00;&#x758F;&#x7684;&#x6570;&#x636E;&#x3002;<br>HBase&#x5728;&#x5217;&#x4E0A;&#x5B9E;&#x73B0;&#x4E86;BigTable&#x8BBA;&#x6587;&#x63D0;&#x5230;&#x7684;&#x538B;&#x7F29;&#x7B97;&#x6CD5;&#x3001;&#x5185;&#x5B58;&#x64CD;&#x4F5C;&#x548C;&#x5E03;&#x9686;&#x8FC7;&#x6EE4;&#x5668;&#x3002;HBase&#x7684;&#x8868;&#x80FD;&#x591F;&#x4F5C;&#x4E3A;MapReduce&#x4EFB;&#x52A1;&#x7684;&#x8F93;&#x5165;&#x548C;&#x8F93;&#x51FA;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;Java API&#x6765;&#x5B58;&#x53D6;&#x6570;&#x636E;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;REST&#x3001;Avro&#x6216;&#x8005;Thrift&#x7684;API&#x6765;&#x8BBF;&#x95EE;&#x3002;</p>
 </blockquote>
@@ -563,9 +563,9 @@
     
       <category term="大数据" scheme="http://www.ixirong.com/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
-      <category term="nosql" scheme="http://www.ixirong.com/categories/nosql/"/>
+      <category term="日志" scheme="http://www.ixirong.com/tags/%E6%97%A5%E5%BF%97/"/>
     
-      <category term="大数据" scheme="http://www.ixirong.com/categories/nosql/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
+      <category term="大数据" scheme="http://www.ixirong.com/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/"/>
     
   </entry>
   
@@ -599,7 +599,7 @@
     <link href="http://www.ixirong.com/2015/05/22/how-to-install-hadoop-cluster/"/>
     <id>http://www.ixirong.com/2015/05/22/how-to-install-hadoop-cluster/</id>
     <published>2015-05-22T14:29:38.000Z</published>
-    <updated>2015-05-25T11:04:31.000Z</updated>
+    <updated>2015-06-18T03:02:21.000Z</updated>
     <content type="html"><![CDATA[<p>&#x6700;&#x8FD1;&#x516C;&#x53F8;&#x4E1A;&#x52A1;&#x6570;&#x636E;&#x91CF;&#x8D8A;&#x6765;&#x8D8A;&#x5927;&#xFF0C;&#x4EE5;&#x524D;&#x7684;&#x57FA;&#x4E8E;&#x6D88;&#x606F;&#x961F;&#x5217;&#x7684;&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;&#x8D8A;&#x6765;&#x8D8A;&#x96BE;&#x4EE5;&#x6EE1;&#x8DB3;&#x76EE;&#x524D;&#x7684;&#x4E1A;&#x52A1;&#x91CF;&#xFF0C;&#x8868;&#x73B0;&#x4E3A;&#x6D88;&#x606F;&#x79EF;&#x538B;&#xFF0C;&#x65E5;&#x5FD7;&#x5EF6;&#x8FDF;&#xFF0C;&#x65E5;&#x5FD7;&#x5B58;&#x50A8;&#x65E5;&#x671F;&#x8FC7;&#x77ED;&#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x6211;&#x4EEC;&#x5F00;&#x59CB;&#x7740;&#x624B;&#x8981;&#x91CD;&#x65B0;&#x8BBE;&#x8BA1;&#x8FD9;&#x5757;&#xFF0C;&#x4E1A;&#x754C;&#x5DF2;&#x7ECF;&#x6709;&#x4E86;&#x6BD4;&#x8F83;&#x6210;&#x719F;&#x7684;&#x6D41;&#x7A0B;&#xFF0C;&#x5373;&#x57FA;&#x4E8E;&#x6D41;&#x5F0F;&#x5904;&#x7406;&#xFF0C;&#x91C7;&#x7528; flume &#x6536;&#x96C6;&#x65E5;&#x5FD7;&#xFF0C;&#x53D1;&#x9001;&#x5230; kafka &#x961F;&#x5217;&#x505A;&#x7F13;&#x51B2;&#xFF0C;storm &#x5206;&#x5E03;&#x5F0F;&#x5B9E;&#x65F6;&#x6846;&#x67B6;&#x8FDB;&#x884C;&#x6D88;&#x8D39;&#x5904;&#x7406;&#xFF0C;&#x77ED;&#x671F;&#x6570;&#x636E;&#x843D;&#x5730;&#x5230; hbase&#x3001;mongo&#x4E2D;&#xFF0C;&#x957F;&#x671F;&#x6570;&#x636E;&#x8FDB;&#x5165; hadoop &#x4E2D;&#x5B58;&#x50A8;&#x3002; &#x63A5;&#x4E0B;&#x6765;&#x6253;&#x7B97;&#x5C06;&#x8FD9;&#x5176;&#x95F4;&#x6240;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;&#x3001;&#x5B66;&#x4E60;&#x5230;&#x7684;&#x77E5;&#x8BC6;&#x8BB0;&#x5F55;&#x6574;&#x7406;&#x4E0B;&#xFF0C;&#x4F5C;&#x4E3A;&#x5907;&#x5FD8;&#xFF0C;&#x4F5C;&#x4E3A;&#x5206;&#x4EAB;&#xFF0C;&#x5E26;&#x7ED9;&#x9700;&#x8981;&#x7684;&#x4EBA;&#x3002;</p>
 <p>hadoop &#x7B80;&#x4ECB;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x53BB;&#x5B98;&#x7F51;&#x770B;&#x4ECB;&#x7ECD; </p>
 <p><iframe src="//www.slideshare.net/slideshow/embed_code/key/vI8FgtPNW7iAWv" width="510" height="420" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/sudhakara_st/hadoop-intruduction" title="Hadoop introduction , Why and What is Hadoop ?" target="_blank">Hadoop introduction , Why and What is Hadoop ?</a> </strong> from <strong><a href="//www.slideshare.net/sudhakara_st" target="_blank">Sudhakara St</a></strong> </div></p>
@@ -866,7 +866,7 @@
     <link href="http://www.ixirong.com/2015/05/12/how-to-install-jstorm-cluster/"/>
     <id>http://www.ixirong.com/2015/05/12/how-to-install-jstorm-cluster/</id>
     <published>2015-05-12T10:43:38.000Z</published>
-    <updated>2015-05-25T06:50:46.000Z</updated>
+    <updated>2015-06-15T10:55:25.000Z</updated>
     <content type="html"><![CDATA[<p>&#x6700;&#x8FD1;&#x516C;&#x53F8;&#x4E1A;&#x52A1;&#x6570;&#x636E;&#x91CF;&#x8D8A;&#x6765;&#x8D8A;&#x5927;&#xFF0C;&#x4EE5;&#x524D;&#x7684;&#x57FA;&#x4E8E;&#x6D88;&#x606F;&#x961F;&#x5217;&#x7684;&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;&#x8D8A;&#x6765;&#x8D8A;&#x96BE;&#x4EE5;&#x6EE1;&#x8DB3;&#x76EE;&#x524D;&#x7684;&#x4E1A;&#x52A1;&#x91CF;&#xFF0C;&#x8868;&#x73B0;&#x4E3A;&#x6D88;&#x606F;&#x79EF;&#x538B;&#xFF0C;&#x65E5;&#x5FD7;&#x5EF6;&#x8FDF;&#xFF0C;&#x65E5;&#x5FD7;&#x5B58;&#x50A8;&#x65E5;&#x671F;&#x8FC7;&#x77ED;&#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x6211;&#x4EEC;&#x5F00;&#x59CB;&#x7740;&#x624B;&#x8981;&#x91CD;&#x65B0;&#x8BBE;&#x8BA1;&#x8FD9;&#x5757;&#xFF0C;&#x4E1A;&#x754C;&#x5DF2;&#x7ECF;&#x6709;&#x4E86;&#x6BD4;&#x8F83;&#x6210;&#x719F;&#x7684;&#x6D41;&#x7A0B;&#xFF0C;&#x5373;&#x57FA;&#x4E8E;&#x6D41;&#x5F0F;&#x5904;&#x7406;&#xFF0C;&#x91C7;&#x7528; flume &#x6536;&#x96C6;&#x65E5;&#x5FD7;&#xFF0C;&#x53D1;&#x9001;&#x5230; kafka &#x961F;&#x5217;&#x505A;&#x7F13;&#x51B2;&#xFF0C;storm &#x5206;&#x5E03;&#x5F0F;&#x5B9E;&#x65F6;&#x6846;&#x67B6;&#x8FDB;&#x884C;&#x6D88;&#x8D39;&#x5904;&#x7406;&#xFF0C;&#x77ED;&#x671F;&#x6570;&#x636E;&#x843D;&#x5730;&#x5230; hbase&#x3001;mongo&#x4E2D;&#xFF0C;&#x957F;&#x671F;&#x6570;&#x636E;&#x8FDB;&#x5165; hadoop &#x4E2D;&#x5B58;&#x50A8;&#x3002; &#x63A5;&#x4E0B;&#x6765;&#x6253;&#x7B97;&#x5C06;&#x8FD9;&#x5176;&#x95F4;&#x6240;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;&#x3001;&#x5B66;&#x4E60;&#x5230;&#x7684;&#x77E5;&#x8BC6;&#x8BB0;&#x5F55;&#x6574;&#x7406;&#x4E0B;&#xFF0C;&#x4F5C;&#x4E3A;&#x5907;&#x5FD8;&#xFF0C;&#x4F5C;&#x4E3A;&#x5206;&#x4EAB;&#xFF0C;&#x5E26;&#x7ED9;&#x9700;&#x8981;&#x7684;&#x4EBA;&#x3002;</p>
 <p>&#x6DD8;&#x5B9D;&#x5F00;&#x6E90;&#x4E86;&#x8BB8;&#x591A;&#x4EA7;&#x54C1;&#x7EC4;&#x4EF6;&#xFF0C;&#x5176;&#x4E2D;&#x5305;&#x62EC;&#x8FD9;&#x9F0E;&#x9F0E;&#x6709;&#x540D;&#x7684; jstorm &#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x6211;&#x4EEC;&#x91C7;&#x7528;&#x7684;&#x5206;&#x5E03;&#x5F0F;&#x5B9E;&#x65F6;&#x5904;&#x7406;&#x6846;&#x67B6;&#xFF0C;&#x81F3;&#x4E8E;&#x4E3A;&#x4EC0;&#x4E48;&#xFF0C;&#x8BF7;&#x770B;&#x300A;<a href="https://github.com/alibaba/jstorm/wiki/JStorm-vs-Storm-vs-flume-vs-S4-%E9%80%89%E5%9E%8B" target="_blank" rel="external">&#x4E3A;&#x4EC0;&#x4E48;&#x9009;&#x62E9;Jstorm</a>&#x300B;&#x3002;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x53EA;&#x4ECB;&#x7ECD; Jstorm &#x6574;&#x4E2A;&#x96C6;&#x7FA4;&#x7684;&#x642D;&#x5EFA;&#x8FC7;&#x7A0B;&#xFF0C;&#x5E76;&#x63D0;&#x4F9B;&#x4E00;&#x952E;&#x5B89;&#x88C5;&#x90E8;&#x7F72;&#x811A;&#x672C;&#xFF0C;&#x65B9;&#x4FBF;&#x5176;&#x5B83;&#x4F7F;&#x7528;&#x7684;&#x4EBA;&#x5458;&#xFF08;&#x642D;&#x5EFA;&#x73AF;&#x5883;&#x662F;&#x4E00;&#x4EF6;&#x5934;&#x75BC;&#x7684;&#x4E8B;&#x60C5;&#xFF0C;&#x8D39;&#x65F6;&#x3001;&#x8D39;&#x529B;&#xFF09;&#x3002;</p>
 <p>&#x8FD9;&#x662F; Jstorm &#x7684;&#x4ECB;&#x7ECD;PPT&#xFF1A;</p>
@@ -890,6 +890,7 @@
 <li>&#x542F;&#x52A8; supervisor &#x201C;nohup jstorm supervisor &amp;&#x201D;    &#x67E5;&#x770B;$JSTORM_HOME/logs/supervisor.log &#x68C0;&#x67E5;&#x6709;&#x65E0;&#x9519;&#x8BEF;</li>
 <li>&#x505C;&#x6B62;  &#x201C;sh $JSTORM_HOME/bin/stop.sh&#x201D;</li>
 </ol>
+<p>&#x5B8C;&#x6574;&#x547D;&#x4EE4;&#x5217;&#x8868;&#x540C;storm&#x4E00;&#x6837;&#xFF0C;&#x5305;&#x62EC;jar&#x3001;kill&#x3001;activate&#x3001;deactivate&#x3001;rebalance&#x3001;repl&#x3001;classpath&#x3001;localconfvalue&#x3001;remoteconfvalue&#x3001;nimbus&#x3001;supervisor&#x3001;ui&#x3001;drpc&#x7B49;&#xFF0C;&#x8BE6;&#x7EC6;&#x89C1;&#xFF1A;<a href="https://github.com/techdocscn/storm/blob/master/source/documentation/Command-line-client.md" target="_blank" rel="external">https://github.com/techdocscn/storm/blob/master/source/documentation/Command-line-client.md</a></p>
 <h1 id="&#x56DB;zookeeper-&#x5E38;&#x7528;&#x547D;&#x4EE4;">&#x56DB;&#x3001;zookeeper &#x5E38;&#x7528;&#x547D;&#x4EE4;</h1><ol>
 <li>&#x542F;&#x52A8;ZK&#x670D;&#x52A1;:       sh bin/zkServer.sh start</li>
 <li>&#x67E5;&#x770B;ZK&#x670D;&#x52A1;&#x72B6;&#x6001;:      sh bin/zkServer.sh status</li>
@@ -1434,7 +1435,7 @@ protected void Application_Error(Object sender, EventArgs e) {
     <link href="http://www.ixirong.com/2015/01/31/mongodb-librarys/"/>
     <id>http://www.ixirong.com/2015/01/31/mongodb-librarys/</id>
     <published>2015-01-31T06:49:08.000Z</published>
-    <updated>2015-04-09T14:14:50.000Z</updated>
+    <updated>2015-06-18T03:02:04.000Z</updated>
     <content type="html"><![CDATA[<h3 id="&#x4E00;&#x6B65;&#x6B65;&#x5B66;&#x4E60;">&#x4E00;&#x6B65;&#x6B65;&#x5B66;&#x4E60;</h3><ul>
 <li><a href="https://github.com/geminiyellow/the-little-mongodb-book/blob/master/zh-cn/mongodb.markdown" target="_blank" rel="external">the little mongdb book</a>&#x4ECE;&#x5934;&#x5230;&#x5C3E;&#x7684;&#x5C0F;&#x4F8B;&#x5B50;<h3 id="mongodb&#x8BBE;&#x8BA1;&#x601D;&#x60F3;">mongodb&#x8BBE;&#x8BA1;&#x601D;&#x60F3;</h3></li>
 <li><a href="http://blog.nosqlfan.com/html/3548.html" target="_blank" rel="external">NoSqlFan&#x4E2D;MongoDB&#x8D44;&#x6599;&#x6C47;&#x603B;&#x4E13;&#x9898;</a> &#x91CC;&#x9762;&#x5305;&#x542B;&#x7684;&#x4E1C;&#x897F;&#x5F88;&#x591A;&#xFF0C;&#x503C;&#x5F97;&#x53C2;&#x8003;&#xFF01;&#x4E0D;&#x8FC7;&#x91CC;&#x9762;&#x7684;PPT&#x548C;&#x89C6;&#x9891;&#x53EF;&#x80FD;&#x9700;&#x8981;&#x7FFB;&#x5899;&#x624D;&#x53EF;&#x4EE5;&#x770B;&#x7684;&#xFF01;</li>
