@@ -85,6 +85,13 @@
   function escapeSelector (selector) {
     return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
   }
+  
+  function displaySidebar () {
+    setTimeout(function () {
+      $('.sidebar-toggle').trigger('click');
+    }, 800);
+  }
+
 </script>
 
 
@@ -461,7 +468,7 @@
 
       
         
-          <p>个人在学习git工作流的过程中，从原有的 SVN 模式很难完全理解git的协作模式，直到有一天我看到了下面的文章，好多遗留在心中的困惑迎刃而解：</p>
+          <p>个人在学习git工作流的过程中，从原有的 SVN 模式很难完全理解git的协作模式，直到有一天我看到了下面的文章，好多遗留在心中的困惑迎刃而解。于是我将这部分资料进行整理放到了github上，欢迎star查看最新更新内容： <a href="https://github.com/xirong/my-git/blob/master/git-workflow-tutorial.md">https://github.com/xirong/my-git/blob/master/git-workflow-tutorial.md</a></p>
 <ul>
 <li>我们以使用SVN的工作流来使用git有什么不妥？</li>
 <li>git 方便的branch在哪里，团队多人如何协作？冲突了怎么办？如何进行发布控制？</li>
@@ -1424,6 +1431,13 @@
   function escapeSelector (selector) {
     return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
   }
+  
+  function displaySidebar () {
+    setTimeout(function () {
+      $('.sidebar-toggle').trigger('click');
+    }, 800);
+  }
+
 </script>
  -->
   
@@ -1460,7 +1474,7 @@
     var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
 
     LogoAndMenuMotion();
-    sidebatToggleMotion();
+    sidebarToggleMotion();
     postsListMotion();
     backToTopMotion();    
 
@@ -1536,7 +1550,7 @@
       $('.post').velocity('transition.slideDownIn', postMotionOptions);
     }
 
-    function sidebatToggleMotion () {
+    function sidebarToggleMotion () {
       sidebarToggle.on('click', function () {
         isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
         isSidebarVisible = !isSidebarVisible;
@@ -1563,6 +1577,15 @@
 
 
   
+
+   <script type="text/javascript">
+    var HEXO_SIDEBAR_CONFIGURATION = 'hide';
+    $(document).ready(function () {
+      if (HEXO_SIDEBAR_CONFIGURATION === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
 
   
 

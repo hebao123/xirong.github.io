@@ -83,6 +83,13 @@
   function escapeSelector (selector) {
     return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
   }
+  
+  function displaySidebar () {
+    setTimeout(function () {
+      $('.sidebar-toggle').trigger('click');
+    }, 800);
+  }
+
 </script>
 
 
@@ -253,7 +260,7 @@
       
 
       
-        <p>&#x4E2A;&#x4EBA;&#x5728;&#x5B66;&#x4E60;git&#x5DE5;&#x4F5C;&#x6D41;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x4ECE;&#x539F;&#x6709;&#x7684; SVN &#x6A21;&#x5F0F;&#x5F88;&#x96BE;&#x5B8C;&#x5168;&#x7406;&#x89E3;git&#x7684;&#x534F;&#x4F5C;&#x6A21;&#x5F0F;&#xFF0C;&#x76F4;&#x5230;&#x6709;&#x4E00;&#x5929;&#x6211;&#x770B;&#x5230;&#x4E86;&#x4E0B;&#x9762;&#x7684;&#x6587;&#x7AE0;&#xFF0C;&#x597D;&#x591A;&#x9057;&#x7559;&#x5728;&#x5FC3;&#x4E2D;&#x7684;&#x56F0;&#x60D1;&#x8FCE;&#x5203;&#x800C;&#x89E3;&#xFF1A;</p>
+        <p>&#x4E2A;&#x4EBA;&#x5728;&#x5B66;&#x4E60;git&#x5DE5;&#x4F5C;&#x6D41;&#x7684;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x4ECE;&#x539F;&#x6709;&#x7684; SVN &#x6A21;&#x5F0F;&#x5F88;&#x96BE;&#x5B8C;&#x5168;&#x7406;&#x89E3;git&#x7684;&#x534F;&#x4F5C;&#x6A21;&#x5F0F;&#xFF0C;&#x76F4;&#x5230;&#x6709;&#x4E00;&#x5929;&#x6211;&#x770B;&#x5230;&#x4E86;&#x4E0B;&#x9762;&#x7684;&#x6587;&#x7AE0;&#xFF0C;&#x597D;&#x591A;&#x9057;&#x7559;&#x5728;&#x5FC3;&#x4E2D;&#x7684;&#x56F0;&#x60D1;&#x8FCE;&#x5203;&#x800C;&#x89E3;&#x3002;&#x4E8E;&#x662F;&#x6211;&#x5C06;&#x8FD9;&#x90E8;&#x5206;&#x8D44;&#x6599;&#x8FDB;&#x884C;&#x6574;&#x7406;&#x653E;&#x5230;&#x4E86;github&#x4E0A;&#xFF0C;&#x6B22;&#x8FCE;star&#x67E5;&#x770B;&#x6700;&#x65B0;&#x66F4;&#x65B0;&#x5185;&#x5BB9;&#xFF1A; <a href="https://github.com/xirong/my-git/blob/master/git-workflow-tutorial.md" target="_blank" rel="external">https://github.com/xirong/my-git/blob/master/git-workflow-tutorial.md</a></p>
 <ul>
 <li>&#x6211;&#x4EEC;&#x4EE5;&#x4F7F;&#x7528;SVN&#x7684;&#x5DE5;&#x4F5C;&#x6D41;&#x6765;&#x4F7F;&#x7528;git&#x6709;&#x4EC0;&#x4E48;&#x4E0D;&#x59A5;&#xFF1F;</li>
 <li>git &#x65B9;&#x4FBF;&#x7684;branch&#x5728;&#x54EA;&#x91CC;&#xFF0C;&#x56E2;&#x961F;&#x591A;&#x4EBA;&#x5982;&#x4F55;&#x534F;&#x4F5C;&#xFF1F;&#x51B2;&#x7A81;&#x4E86;&#x600E;&#x4E48;&#x529E;&#xFF1F;&#x5982;&#x4F55;&#x8FDB;&#x884C;&#x53D1;&#x5E03;&#x63A7;&#x5236;&#xFF1F;</li>
@@ -878,6 +885,13 @@
   function escapeSelector (selector) {
     return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
   }
+  
+  function displaySidebar () {
+    setTimeout(function () {
+      $('.sidebar-toggle').trigger('click');
+    }, 800);
+  }
+
 </script>
  -->
   
@@ -914,7 +928,7 @@
     var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
 
     LogoAndMenuMotion();
-    sidebatToggleMotion();
+    sidebarToggleMotion();
     postsListMotion();
     backToTopMotion();    
 
@@ -990,7 +1004,7 @@
       $('.post').velocity('transition.slideDownIn', postMotionOptions);
     }
 
-    function sidebatToggleMotion () {
+    function sidebarToggleMotion () {
       sidebarToggle.on('click', function () {
         isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
         isSidebarVisible = !isSidebarVisible;
@@ -1328,17 +1342,23 @@
       });
 
       // Expand sidebar on post detail page by default, when post has a toc.
-      var $tocContent = $('.post-toc-content');
-      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
-        setTimeout(function () {
-          $('.sidebar-toggle').trigger('click');
-        }, 800);
+      if (isDesktop() && HEXO_SIDEBAR_CONFIGURATION === 'post') {
+        displaySidebar();
       }
     });
   </script>
 
 
 
+
+   <script type="text/javascript">
+    var HEXO_SIDEBAR_CONFIGURATION = 'hide';
+    $(document).ready(function () {
+      if (HEXO_SIDEBAR_CONFIGURATION === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
 
   
 
