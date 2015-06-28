@@ -363,14 +363,13 @@
 
       
         
-          <p>hbase 提供很方便的shell脚本，可以对数据表进行 CURD 操作，但是毕竟是有一定的学习成本的，基本上对于开发来讲，sql 语句都是看家本领，那么，有没有一种方法可以把 sql 语句转换成 hbase的原生API呢？ 这样就可以通过普通平常的 sql 来对hbase 进行数据的管理，使用成本大大降低。Apache Phoenix 组件就完成了这种需求，官方注解为 “Phoenix - we put the SQL back in NoSql”，通过官方说明，Phoenix 的性能很高，相对于 hbase 原生的scan 并不会差多少，而对于类似的组件 hive、Impala等，性能有着显著的提升，详细请阅读 <a href="https://phoenix.apache.org/performance.html。">https://phoenix.apache.org/performance.html。</a></p>
-<p>Apache Phoenix 官方站点：<a href="https://phoenix.apache.org/">https://phoenix.apache.org/</a><br>Phoenix支持的sql语句： <a href="https://phoenix.apache.org/language/index.html">https://phoenix.apache.org/language/index.html</a><br>Phoenix 支持的DataTypes：<a href="https://phoenix.apache.org/language/datatypes.html">https://phoenix.apache.org/language/datatypes.html</a><br>Phoenix 支持的函数：<a href="https://phoenix.apache.org/language/functions.html">https://phoenix.apache.org/language/functions.html</a></p>
+          hbase 提供很方便的shell脚本，可以对数据表进行 CURD 操作，但是毕竟是有一定的学习成本的，基本上对于开发来讲，sql 语句都是看家本领，那么，有没有一种方法可以把 sql 语句转换成 hbase的原生API呢？ 这样就可以通过普通平常的 sql 来对hbase 进行数据的管理，使用成本大大降低。Apache Phoenix 组件就完成了这种需求，官方注解为 “Phoenix - we put the SQL back in NoSql”，通过官方说明，Phoenix 的性能很高，相对于 hbase 原生的scan 并不会差多少，而对于类似的组件 hive、Impala等，性能有着显著的提升，详细请阅读 https://phoenix.apache.org/performance.html。
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/06/24/how-hbase-use-apache-phoenix/#more">
+            <a class="btn" href="/2015/06/24/how-hbase-use-apache-phoenix/">
               阅读全文 &raquo;
             </a>
           </div>
-        
+          
       
     </div>
 
@@ -566,14 +565,13 @@
 
       
         
-          <p>《硬派健身》一书的作者<code>斌卡</code>成名于知乎、微信，写了一系列的关于健身减肥相关的文章，得知作者出版了本书，遂买来支持，书本中对网络上的文章进行了整理排版，还是比较适合初级健身者阅读的，豆瓣图书地址：<a href="http://book.douban.com/subject/26359758/。">http://book.douban.com/subject/26359758/。</a></p>
-<p>下面的思维导图是 xirong 阅读完后进行的回顾总结，也在博客中贴出来，方便给其他喜欢的人查看。<br>说明：最初版的导图由豆瓣网友<a href="http://book.douban.com/people/58301523/">@秦川不知</a>分享笔记，<a href="http://book.douban.com/people/58301523/annotation/26359758/">原版豆瓣地址</a>，内容不够全面，没有图片说明，当然有些人可能不喜欢图片，我在网盘中也列出了非图片版本的导图，大家可以去下载，地址本文最后</p>
+          《硬派健身》一书的作者`斌卡`成名于知乎、微信，写了一系列的关于健身减肥相关的文章，得知作者出版了本书，遂买来支持，书本中对网络上的文章进行了整理排版，并整理成思维导图xmind和mmp格式，还是比较适合初级健身者阅读的，豆瓣图书地址：http://book.douban.com/subject/26359758/。
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/06/20/reading-notes-tough-workout/#more">
+            <a class="btn" href="/2015/06/20/reading-notes-tough-workout/">
               阅读全文 &raquo;
             </a>
           </div>
-        
+          
       
     </div>
 
@@ -666,21 +664,13 @@
 
       
         
-          <p>个人在学习git工作流的过程中，从原有的 SVN 模式很难完全理解git的协作模式，直到有一天我看到了下面的文章，好多遗留在心中的困惑迎刃而解。于是我将这部分资料进行整理放到了github上，欢迎star查看最新更新内容： <a href="https://github.com/xirong/my-git/blob/master/git-workflow-tutorial.md">https://github.com/xirong/my-git/blob/master/git-workflow-tutorial.md</a></p>
-<ul>
-<li>我们以使用SVN的工作流来使用git有什么不妥？</li>
-<li>git 方便的branch在哪里，团队多人如何协作？冲突了怎么办？如何进行发布控制？</li>
-<li>经典的master-发布、develop-主开发、hotfix-不过修复如何避免代码不经过验证上线？</li>
-<li>如何在github上面与他人一起协作，star-fork-pull request是怎样的流程？</li>
-</ul>
-<p>我个人很感激这篇文章，所以进行了整理，希望能帮到更多的人。整篇文章由 <a href="https://github.com/xirong">xirong</a> 整理自 <a href="https://github.com/oldratlee">oldratlee</a> 的github，方便统一的学习回顾，在此感谢下面两位的贡献。</p>
-<p>原文链接：<a href="https://www.atlassian.com/git/workflows">Git Workflows and Tutorials</a><br>简体中文：由 <a href="https://github.com/oldratlee">oldratlee</a> 翻译在 github 上 <a href="https://github.com/oldratlee/translations/tree/master/git-workflows-and-tutorials">git-workflows-and-tutorials</a><br>
+          什么是推荐的工作流？git合理的分支管理是怎么样子的？从原有的 SVN 模式怎么过度到git的协作模式？企业为什么要改用git版本管理？如何在github上面与他人一起协作，star-fork-pull request是怎样的流程？
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/06/14/git-workflow-tutorial/#more">
+            <a class="btn" href="/2015/06/14/git-workflow-tutorial/">
               阅读全文 &raquo;
             </a>
           </div>
-        
+          
       
     </div>
 
@@ -963,17 +953,13 @@
 
       
         
-          <h1 id="一、hbase简介">一、hbase简介</h1><blockquote>
-<p>HBase是一个开源的非关系型分布式数据库（NoSQL），它参考了谷歌的BigTable建模，实现的编程语言为 Java。它是Apache软件基金会的Hadoop项目的一部分，运行于HDFS文件系统之上，为 Hadoop 提供类似于BigTable 规模的服务。因此，它可以容错地存储海量稀疏的数据。<br>HBase在列上实现了BigTable论文提到的压缩算法、内存操作和布隆过滤器。HBase的表能够作为MapReduce任务的输入和输出，可以通过Java API来存取数据，也可以通过REST、Avro或者Thrift的API来访问。</p>
-</blockquote>
-<p>以上来自 维基百科 。</p>
-<p>参考文档<br><a href="http://hbase.apache.org/book.html">Apache HBase ™ Reference Guide</a><br><a href="http://abloz.com/hbase/book.html">HBase 官方文档中文版</a></p>
+          hbase是什么？hbase集群分布式环境搭建怎么弄？hbase shell脚本怎么用？
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/05/25/how-to-install-hbase-cluster/#more">
+            <a class="btn" href="/2015/05/25/how-to-install-hbase-cluster/">
               阅读全文 &raquo;
             </a>
           </div>
-        
+          
       
     </div>
 
@@ -1068,13 +1054,13 @@
 
       
         
-          <p>目前微信公众号(需要开发)、微博、简书（部分文章）都有了“赏”的功能，说白了，就是你的文章对阅读者有一定的帮助，阅读者愿意支付一定的费用来支持作者继续写作，写出好文章，这也代表着内容付费时代的慢慢到来，当然这对于作者来说也是一定的鼓励，同样也是要求，你必须写出靠谱的文章，让人感到值得付出金钱的文章，读者才会心甘情愿的给你打赏。<br>下面就说一说，hexo 框架下的文章如何来支持此功能，我使用的主题 <a href="https://github.com/xirong/hexo-theme-next">NexT</a> ，当然是xirong 定制过的版本，已经支持了此功能，如果你也是用 hexo ，并且感觉 next 主题还不错，你可以直接fork下来，直接使用即可。那么这个功能是怎么开发出来的呢，如果我是其他的博客，我该怎么样做才可以支持打赏的功能？<br>其实只需要在你文章的你想要出现赏功能的位置，添加如下代码即可：<br>
+          个人独立博客如何开发赏的功能？目前微信公众号(需要开发)、微博、简书（部分文章）都有了“赏”的功能，说白了，就是你的文章对阅读者有一定的帮助，阅读者愿意支付一定的费用来支持作者继续写作，写出好文章，这也代表着内容付费时代的慢慢到来，当然这对于作者来说也是一定的鼓励，同样也是要求，你必须写出靠谱的文章，让人感到值得付出金钱的文章，读者才会心甘情愿的给你打赏。
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/05/24/hexo-blog-donate/#more">
+            <a class="btn" href="/2015/05/24/hexo-blog-donate/">
               阅读全文 &raquo;
             </a>
           </div>
-        
+          
       
     </div>
 
