@@ -219,6 +219,106 @@
           
           
             
+              <a class="post-title-link" href="/2015/05/18/how-to-install-flume-ng/">
+                分布式实时日志系统（二） 环境搭建之 flume 集群搭建/flume ng资料
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-05-18
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/大数据/">大数据</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/05/18/how-to-install-flume-ng/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/18/how-to-install-flume-ng/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>最近公司业务数据量越来越大，以前的基于消息队列的日志系统越来越难以满足目前的业务量，表现为消息积压，日志延迟，日志存储日期过短，所以，我们开始着手要重新设计这块，业界已经有了比较成熟的流程，即基于流式处理，采用 flume 收集日志，发送到 kafka 队列做缓冲，storm 分布式实时框架进行消费处理，短期数据落地到 hbase、mongo中，长期数据进入 hadoop 中存储。 接下来打算将这其间所遇到的问题、学习到的知识记录整理下，作为备忘，作为分享，带给需要的人。</p>
+<p>学习flume ng的过程中还是遇到一些障碍的，可是在搜索引擎搜到的所有的flume的资料都是以前的<code>flume og</code>（flume orign generation），而这个不是我们要用的，我们要使用 <code>flume ng</code>（flume next generation），所以你要搜资料最好搜索 <code>flume ng</code> 来查找，详细看一下这两个版本的区别：
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/05/18/how-to-install-flume-ng/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+    
+    <! -- 添加捐赠图标 -->
+    
+<! -- 添加捐赠图标 -->
+
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/分布式/"> #分布式 </a>
+          
+            <a href="/tags/大数据/"> #大数据 </a>
+          
+            <a href="/tags/存储/"> #存储 </a>
+          
+            <a href="/tags/实时日志/"> #实时日志 </a>
+          
+        </div>
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/05/17/how-to-build-ixirong-blog/">
                 使用 github Pages 服务建立 ixirong.com 独立博客全过程
               </a>
@@ -1085,103 +1185,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/03/19/the-beginner-of-mac/">
-                mac新手入门指南及常用工具及java编程环境搭建
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-03-19
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/mac/">mac</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/03/19/the-beginner-of-mac/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/19/the-beginner-of-mac/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          还记得刚买 mac book pro 的时候，啥都不会用，网上到处找资料，去查看怎么使用，mac常用快捷键、mac常用软件、mac java 环境搭建等等，中间走了不少弯路，也积累了不少资料，特此分享给大家，方便新手最好的mac入门指南！
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/03/19/the-beginner-of-mac/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          
-      
-    </div>
-
-    <div class="post-footer">
-    
-    <! -- 添加捐赠图标 -->
-    
-<! -- 添加捐赠图标 -->
-
-
-      
-        <div class="post-tags">
-          
-            <a href="/tags/Java/"> #Java </a>
-          
-            <a href="/tags/mac/"> #mac </a>
-          
-            <a href="/tags/工具/"> #工具 </a>
-          
-        </div>
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1221,21 +1224,21 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">28</span>
+              <span class="site-state-item-count">29</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
 
           <div class="site-state-item site-state-categories">
             <a href="/categories">
-              <span class="site-state-item-count">14</span>
+              <span class="site-state-item-count">15</span>
               <span class="site-state-item-name">分类</span>
               </a>
           </div>
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">48</span>
+              <span class="site-state-item-count">51</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
@@ -1304,6 +1307,10 @@
             
               <span class="links-of-author-item">
               <a href="http://www.mifengtd.cn/" target="_blank">褪墨</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://mindhacks.cn/" target="_blank">刘未鹏</a>
               </span>
             
           </div>
