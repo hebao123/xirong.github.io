@@ -6,6 +6,8 @@
 <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta http-equiv=”Cache-Control” content=”no-transform” />
+<meta http-equiv=”Cache-Control” content=”no-siteapp” />
 
 
     <meta name="description" content="使用Phoenix通过sql语句更新操作hbase数据,hbase 提供很方便的shell脚本，可以对数据表进行 CURD 操作，但是毕竟是有一定的学习成本的，基本上对于开发来讲，sql 语句都是看家本领，那么，有没有一种方法可以把 sql 语句转换成 hbase的原生API呢？ 这样就可以通过普通平常的 sql 来对hbase 进行数据的管理，使用成本大大降低。Apache Phoenix 组件就完成了这种需求，官方注解为 “Phoenix - we put the SQL back in NoSql”，通过官方说明，Phoenix 的性能很高，相对于 hbase 原生的scan 并不会差多少，而对于类似的组件 hive、Impala等，性能有着显著的提升，详细请阅读 https://phoenix.apache.org/performance.html。 有故事、有担当、有思考" />
