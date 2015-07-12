@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.ixirong.com/"/>
-  <updated>2015-07-11T01:11:47.000Z</updated>
+  <updated>2015-07-11T02:07:04.000Z</updated>
   <id>http://www.ixirong.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://www.ixirong.com/2015/07/11/presentation-about-git/"/>
     <id>http://www.ixirong.com/2015/07/11/presentation-about-git/</id>
     <published>2015-07-11T00:42:55.000Z</published>
-    <updated>2015-07-11T01:11:47.000Z</updated>
+    <updated>2015-07-11T02:07:04.000Z</updated>
     <content type="html"><![CDATA[<p>&#x516C;&#x53F8;&#x6700;&#x8FD1;&#x5404;&#x4E2A;&#x56E2;&#x961F;&#x8981;&#x8F6C;&#x79FB;&#x7248;&#x672C;&#x63A7;&#x5236;&#x5230;git&#x4E0A;&#x6765;&#xFF0C;&#x7531;&#x6B64;&#x6211;&#x4EEC;&#x7EC4;&#x7EC7;&#x4E86;&#x51E0;&#x8282;&#x8BFE;&#x6765;&#x8DDF;&#x5927;&#x5BB6;&#x5206;&#x4EAB;git&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#xFF0C;&#x7B2C;&#x4E00;&#x8282;&#x8BFE;&#x7531;&#x6211;&#x8DDF;&#x5927;&#x5BB6;&#x5206;&#x4EAB;&#x65E5;&#x5E38;&#x5F00;&#x53D1;&#x4E2D;&#x5982;&#x4F55;&#x4F7F;&#x7528;git&#xFF0C;&#x5305;&#x62EC;&#x57FA;&#x7840;&#x547D;&#x4EE4;&#x7684;&#x4F7F;&#x7528;&#xFF0C;&#x5206;&#x652F;&#x7684;&#x5207;&#x6362;&#x5F00;&#x53D1;&#xFF0C;gitlab&#x7684;&#x4F7F;&#x7528;&#xFF0C;&#x56E2;&#x961F;&#x6210;&#x5458;&#x95F4;&#x7684;&#x534F;&#x540C;&#x5F00;&#x53D1;&#x7B49;&#xFF0C;PPT &#x5982;&#x4E0B;&#xFF0C;&#x611F;&#x5174;&#x8DA3;&#x7684;&#x670B;&#x53CB;&#x53EF;&#x4EE5;&#x9605;&#x8BFB;&#x4E0B;&#xFF1A;</p>
 <p>ps&#xFF1A; &#x5982;&#x679C;&#x60F3;&#x8981;&#x66F4;&#x5168;&#x9762;&#x7CFB;&#x7EDF;&#x7684;&#x5B66;&#x4E60;git&#xFF0C;&#x6211;&#x6574;&#x7406;&#x4E86;&#x4E2A;repo&#x5728;github&#x4E0A;&#x9762;&#xFF0C;&#x6B22;&#x8FCE;star&#x9605;&#x8BFB;&#xFF0C;&#x5730;&#x5740;&#x4E3A;&#xFF1A;<a href="https://github.com/xirong/my-git" target="_blank" rel="external">https://github.com/xirong/my-git</a> </p>
 <p>&#xFF08;slideshare PPT &#x5206;&#x4EAB;&#x670D;&#x52A1;&#x5728;&#x5927;&#x9646;&#x662F;&#x88AB;&#x5899;&#x7684;&#xFF0C;&#x4E0D;&#x80FD;&#x79D1;&#x5B66;&#x4E0A;&#x7F51;&#xFF1F;&#x67E5;&#x770B;<a href="http://ixirong.com/2015/01/19/shadowsocks-md/" target="_blank" rel="external">&#x4F7F;&#x7528;shadowsocks&#x670D;&#x52A1;&#x4EAB;&#x53D7;&#x81EA;&#x7531;&#x7F51;&#x7EDC;</a>&#x5B66;&#x4E60;&#x65B9;&#x6CD5;&#xFF09;</p>
@@ -28,7 +28,9 @@
 <p>&#x5982;&#x679C;&#x5B9E;&#x5728;&#x9605;&#x8BFB;&#x4E0D;&#x4E86;&#xFF0C;&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#x65B0;&#x6D6A;&#x5FAE;&#x76D8;&#x7684;&#x7248;&#x672C;&#xFF1A;<a href="http://vdisk.weibo.com/s/A0CRup8a223C" target="_blank" rel="external">http://vdisk.weibo.com/s/A0CRup8a223C</a></p>
 ]]></content>
     <summary type="html">
-    <![CDATA[git常用命令,git版本控制,git日常开发,git使用指南]]>
+    <![CDATA[<p>公司最近各个团队要转移版本控制到git上来，由此我们组织了几节课来跟大家分享git的使用方法，第一节课由我跟大家分享日常开发中如何使用git，包括基础命令的使用，分支的切换开发，gitlab的使用，团队成员间的协同开发等，PPT 如下，感兴趣的朋友可以阅读下：</p>
+<p>ps： 如果想要更全面系统的学习git，我整理了个repo在github上面，欢迎star阅读，地址为：<a href="https://github.com/xirong/my-git">https://github.com/xirong/my-git</a> </p>
+<p>（slideshare PPT 分享服务在大陆是被墙的，不能科学上网？查看<a href="http://ixirong.com/2015/01/19/shadowsocks-md/">使用shadowsocks服务享受自由网络</a>学习方法）</p>]]>
     
     </summary>
     
