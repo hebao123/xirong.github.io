@@ -220,6 +220,201 @@
           
           
             
+              <a class="post-title-link" href="/2015/05/13/how-to-decide-to-bye-mac-economicaly/">
+                购买苹果设备如何更经济实惠？
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-05-13
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/mac/">mac</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/05/13/how-to-decide-to-bye-mac-economicaly/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/13/how-to-decide-to-bye-mac-economicaly/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>如今自己周围越来越多的人开始使用 mac 设备，xirong 的设备为 <code>macbook pro 13 英寸: 2.7 GHz Retina 显示屏</code>，自己使用了将近9个月的时间，的确从效率上讲要比 windows 高效些，移动办公时间长、无线网络随时连接，盖上盖子就可以拿着走，这都是比较平常的，还有就是对于程序员来讲，UNIX 内核的系统天生接近服务器端的王者 linux ，bash 命令基本上也是通用的，在 Linux 下尝试的很多开发工具在 MAC 下都可以很酷的完成，MAC 的界面比 windows 帅气，命令行终端又比 linux 更好用，最为一名开发者，使用 mac 来作为自己的利器，是很推荐的。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/05/13/how-to-decide-to-bye-mac-economicaly/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+    
+    <! -- 添加捐赠图标 -->
+    
+<! -- 添加捐赠图标 -->
+
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/mac/"> #mac </a>
+          
+        </div>
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/05/12/how-to-install-jstorm-cluster/">
+                分布式实时日志系统（一）环境搭建之 Jstorm 集群搭建过程/Jstorm集群一键安装部署
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-05-12
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/大数据/">大数据</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/05/12/how-to-install-jstorm-cluster/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/12/how-to-install-jstorm-cluster/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>最近公司业务数据量越来越大，以前的基于消息队列的日志系统越来越难以满足目前的业务量，表现为消息积压，日志延迟，日志存储日期过短，所以，我们开始着手要重新设计这块，业界已经有了比较成熟的流程，即基于流式处理，采用 flume 收集日志，发送到 kafka 队列做缓冲，storm 分布式实时框架进行消费处理，短期数据落地到 hbase、mongo中，长期数据进入 hadoop 中存储。 接下来打算将这其间所遇到的问题、学习到的知识记录整理下，作为备忘，作为分享，带给需要的人。</p>
+<p>淘宝开源了许多产品组件，其中包括这鼎鼎有名的 jstorm ，也就是我们采用的分布式实时处理框架，至于为什么，请看《<a href="https://github.com/alibaba/jstorm/wiki/JStorm-vs-Storm-vs-flume-vs-S4-%E9%80%89%E5%9E%8B">为什么选择Jstorm</a>》。这篇文章只介绍 Jstorm 整个集群的搭建过程，并提供一键安装部署脚本，方便其它使用的人员（搭建环境是一件头疼的事情，费时、费力）。</p>
+<p>这是 Jstorm 的介绍PPT：（slideshare PPT 分享服务在大陆是被墙的，不能科学上网？查看<a href="http://ixirong.com/2015/01/19/shadowsocks-md/">使用shadowsocks服务享受自由网络</a>学习方法）</p>
+<p><iframe src="//www.slideshare.net/slideshow/embed_code/key/6NiKs9odzHXrZK" width="510" height="420" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/hustjackie/jstorm-introduction096" title="Jstorm introduction-0.9.6" target="_blank">Jstorm introduction-0.9.6</a> </strong> from <strong><a href="//www.slideshare.net/hustjackie" target="_blank">longda feng</a></strong> </div></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/05/12/how-to-install-jstorm-cluster/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+    
+    <! -- 添加捐赠图标 -->
+    
+<! -- 添加捐赠图标 -->
+
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/jstorm/"> #jstorm </a>
+          
+            <a href="/tags/storm/"> #storm </a>
+          
+            <a href="/tags/大数据/"> #大数据 </a>
+          
+            <a href="/tags/实时日志/"> #实时日志 </a>
+          
+        </div>
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/05/11/plan-lately/">
                 最近计划中的几篇文章
               </a>
@@ -985,203 +1180,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/01/31/storage-lib/">
-                数据存储解决方案汇总
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-01-31
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/存储/">存储</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/01/31/storage-lib/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/31/storage-lib/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <h3 id="nosql">Nosql</h3><p>&#x51E0;&#x7BC7;&#x6BD4;&#x8F83;&#x7EC6;&#x81F4;&#x7684;&#x6587;&#x7AE0;</p>
-<ol>
-<li><a href="http://blog.nosqlfan.com/html/332.html" target="_blank" rel="external">NoSQL&#x6570;&#x636E;&#x5E93;&#x7B14;&#x8C08;v2</a></li>
-<li><a href="http://blog.nosqlfan.com/html/2171.html" target="_blank" rel="external">NoSQL&#x751F;&#x6001;&#x7CFB;&#x7EDF;</a></li>
-</ol>
-<ul>
-<li>hbase </li>
-<li>mongodb</li>
-<li>redis</li>
-<li>memorycached</li>
-<li>fastdfs</li>
-</ul>
-
-        
-      
-    </div>
-
-    <div class="post-footer">
-    
-    <! -- 添加捐赠图标 -->
-    
-<! -- 添加捐赠图标 -->
-
-
-      
-        <div class="post-tags">
-          
-            <a href="/tags/分布式/"> #分布式 </a>
-          
-            <a href="/tags/存储/"> #存储 </a>
-          
-        </div>
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/01/31/mongodb-librarys/">
-                一步步学习mongodb资料汇总
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-01-31
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/存储/">存储</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/01/31/mongodb-librarys/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/31/mongodb-librarys/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          初步学习mongodb收集了一些学习资料，均来自网络上的文章，方便以后回顾！
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/01/31/mongodb-librarys/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          
-      
-    </div>
-
-    <div class="post-footer">
-    
-    <! -- 添加捐赠图标 -->
-    
-<! -- 添加捐赠图标 -->
-
-
-      
-        <div class="post-tags">
-          
-            <a href="/tags/分布式/"> #分布式 </a>
-          
-            <a href="/tags/存储/"> #存储 </a>
-          
-        </div>
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1221,7 +1219,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">35</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1235,7 +1233,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">60</span>
+              <span class="site-state-item-count">61</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

@@ -10,11 +10,9 @@
 <meta http-equiv=”Cache-Control” content=”no-siteapp” />
 
 
-    <meta name="description" content="idea/eclipse远程调试服务器方法,怎么样利用intellij idea远程调试tomcat服务器？用到服务器调试的起因是在项目中遇到了**乱码问题**部分内容乱码，可是本地环境是好的，无法复现，所以排除不了问题在哪里，不知道到底是什么原因，不知道配置在哪里，配置了好多地方都不生效，最后咨询亚洲，远程调试，查看在action中返回的字符集中文下就是乱码的; 定位在编译时候的问题； 有故事、有担当、有思考" />
+    <meta name="description" content="Hello World, 有故事、有担当、有思考" />
 
 
-
-  <meta name="keywords" content="idea,java,工具, 远程调试,idea,调试tomcat,idea远程调试" />
 
 
 
@@ -51,7 +49,7 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.2" />
 
 
-  <title> idea/eclipse远程调试服务器方法 - 自由 </title>
+  <title> Hello World - 自由 </title>
 </head>
 
 <body>
@@ -220,7 +218,7 @@
           
           
             
-              idea/eclipse远程调试服务器方法
+              Hello World
             
           
         </h1>
@@ -228,28 +226,17 @@
 
       <div class="post-meta">
         <span class="post-time">
-          发表于 2014-11-15
+          发表于 2015-07-18
         </span>
 
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/java/">java</a>
-
-              
-              
-
-            
-          </span>
         
 
         
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2014/11/15/idea-eclipse-remote-debug/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2014/11/15/idea-eclipse-remote-debug/"></span>
+            <a href="/2015/07/18/hello-world/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/18/hello-world/"></span>
             </a>
           </span>
           
@@ -263,22 +250,44 @@
       
 
       
-        <p>&#x7528;&#x5230;&#x670D;&#x52A1;&#x5668;&#x8C03;&#x8BD5;&#x7684;&#x8D77;&#x56E0;&#x662F;&#x5728;&#x9879;&#x76EE;&#x4E2D;&#x9047;&#x5230;&#x4E86;<strong>&#x4E71;&#x7801;&#x95EE;&#x9898;</strong>&#x90E8;&#x5206;&#x5185;&#x5BB9;&#x4E71;&#x7801;&#xFF0C;&#x53EF;&#x662F;&#x672C;&#x5730;&#x73AF;&#x5883;&#x662F;&#x597D;&#x7684;&#xFF0C;&#x65E0;&#x6CD5;&#x590D;&#x73B0;&#xFF0C;&#x6240;&#x4EE5;&#x6392;&#x9664;&#x4E0D;&#x4E86;&#x95EE;&#x9898;&#x5728;&#x54EA;&#x91CC;&#xFF0C;&#x4E0D;&#x77E5;&#x9053;&#x5230;&#x5E95;&#x662F;&#x4EC0;&#x4E48;&#x539F;&#x56E0;&#xFF0C;&#x4E0D;&#x77E5;&#x9053;&#x914D;&#x7F6E;&#x5728;&#x54EA;&#x91CC;&#xFF0C;&#x914D;&#x7F6E;&#x4E86;&#x597D;&#x591A;&#x5730;&#x65B9;&#x90FD;&#x4E0D;&#x751F;&#x6548;&#xFF0C;&#x6700;&#x540E;&#x54A8;&#x8BE2;&#x4E9A;&#x6D32;&#xFF0C;&#x8FDC;&#x7A0B;&#x8C03;&#x8BD5;&#xFF0C;&#x67E5;&#x770B;&#x5728;action&#x4E2D;&#x8FD4;&#x56DE;&#x7684;&#x5B57;&#x7B26;&#x96C6;&#x4E2D;&#x6587;&#x4E0B;&#x5C31;&#x662F;&#x4E71;&#x7801;&#x7684;; &#x5B9A;&#x4F4D;&#x5728;&#x7F16;&#x8BD1;&#x65F6;&#x5019;&#x7684;&#x95EE;&#x9898;&#xFF1B;</p>
-<p>&#x8C03;&#x8BD5;&#x8FC7;&#x7A0B;&#xFF1A;</p>
-<ol>
-<li>&#x670D;&#x52A1;&#x5668;tocat&#x505C;&#x6B62; <strong> sh stop_tomcat.sh </strong> &#x5373;&#x53EF;&#xFF0C;&#x6CE8;&#x610F;&#x4E00;&#x5B9A;&#x8981;&#x662F;&#x5168;&#x8DEF;&#x5F84;&#x624D;&#x884C;&#xFF1B;</li>
-<li><p><strong> tomcat/bin/catalina.sh </strong> &#x4E2D;&#x5728;&#x5934;&#x90E8;&#x52A0;&#x5165;&#x4E0B;&#x9762;&#x4EE3;&#x7801;&#xFF0C;&#x8FDE;&#x63A5;&#x65B9;&#x5F0F;&#x6709;&#x4E24;&#x79CD;&#xFF0C;&#x4E3A;dt_shmem&#x548C;dt_socket&#xFF0C;&#x5206;&#x522B;&#x8868;&#x793A;&#x672C;&#x673A;&#x8C03;&#x8BD5;&#x548C;&#x8FDC;&#x7A0B;&#x8C03;&#x8BD5;&#x3002;</p>
-<figure class="highlight aspectj"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">declare</span> -x CATALINA_OPTS=<span class="string">&quot;-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000&quot;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>&#x542F;&#x52A8;tomcat <strong> sh start_tomcat.sh </strong> ,&#x7EC8;&#x7AEF;&#x4E2D;&#x67E5;&#x770B;&#x72B6;&#x6001; <code>tail -fn 200 catalina.out.2014-11-05.out</code><br>&#x51FA;&#x73B0; <strong> Listening for transport dt_socket at address: 8000 </strong> &#x5373;&#x8868;&#x793A;ok&#x7684;&#xFF1B;</p>
-</li>
-<li>idea&#x8BBE;&#x7F6E;&#xFF0C;&#x8C03;&#x8BD5;&#x4E3A;&#x8FDC;&#x7A0B;&#xFF0C;&#x7AEF;&#x53E3;&#x53F7;&#x4FEE;&#x6539;8000&#xFF0C;host&#x4E3A;&#x8FDC;&#x7A0B;&#x673A;&#x5668;ip&#xFF0C;&#x542F;&#x52A8;&#x8C03;&#x8BD5;&#xFF0C;&#x9009;&#x62E9;remote&#x5373;&#x53EF;&#xFF1B;</li>
-<li>&#x8BBF;&#x95EE;efc.corp.elong.com &#xFF0C;&#x672C;&#x673A;idea&#x52A0;&#x65AD;&#x70B9;&#xFF0C;&#x5373;&#x53EF;&#x4E86;&#x3002;</li>
-</ol>
-<p>eclipse &#x540C;&#x7406;&#xFF0C;&#x53EF;&#x4EE5;&#x67E5;&#x770B; <a href="http://www.ibm.com/developerworks/cn/opensource/os-eclipse-javadebug/" target="_blank" rel="external">&#x4F7F;&#x7528;eclispe&#x8FDC;&#x7A0B;&#x8C03;&#x8BD5;Java&#x7A0B;&#x5E8F;</a></p>
-<p><img src="http://static.ixirong.com/pic/java/intelljidea-remote-debug.png" alt="&#x8C03;&#x8BD5;&#x56FE;&#x7247;&#x5982;&#x4E0B;"></p>
-<p>&#x672C;&#x6587;&#x7528;&#x5230;&#x7684;&#x53C2;&#x6570;&#x542B;&#x4E49;&#xFF1A;<br><strong>-Xdebug</strong><br>&#x542F;&#x7528;&#x8C03;&#x8BD5;&#x7279;&#x6027;&#x3002;<br><strong>-Xrunjdwp:<sub-options></sub-options></strong><br>&#x5728;&#x76EE;&#x6807; VM &#x4E2D;&#x52A0;&#x8F7D; JDWP &#x5B9E;&#x73B0;&#x3002;&#x5B83;&#x901A;&#x8FC7;&#x4F20;&#x8F93;&#x548C; JDWP &#x534F;&#x8BAE;&#x4E0E;&#x72EC;&#x7ACB;&#x7684;&#x8C03;&#x8BD5;&#x5668;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x901A;&#x4FE1;&#x3002;&#x4E0B;&#x9762;&#x4ECB;&#x7ECD;&#x4E00;&#x4E9B;&#x7279;&#x5B9A;&#x7684;&#x5B50;&#x9009;&#x9879;&#x3002;<br>&#x4ECE; Java V5 &#x5F00;&#x59CB;&#xFF0C;&#x60A8;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; -agentlib:jdwp &#x9009;&#x9879;&#xFF0C;&#x800C;&#x4E0D;&#x662F; -Xdebug &#x548C; -Xrunjdwp&#x3002;&#x4F46;&#x5982;&#x679C;&#x8FDE;&#x63A5;&#x5230; V5 &#x4EE5;&#x524D;&#x7684; VM&#xFF0C;&#x53EA;&#x80FD;&#x9009;&#x62E9; -Xdebug &#x548C; <strong>-Xrunjdwp</strong><br>&#x4E0B;&#x9762;&#x7B80;&#x5355;&#x63CF;&#x8FF0; -Xrunjdwp &#x5B50;&#x9009;&#x9879;&#x3002;<br><strong>transport</strong><br>&#x8FD9;&#x91CC;&#x901A;&#x5E38;&#x4F7F;&#x7528;&#x5957;&#x63A5;&#x5B57;&#x4F20;&#x8F93;&#x3002;&#x4F46;&#x662F;&#x5728; Windows &#x5E73;&#x53F0;&#x4E0A;&#x4E5F;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5171;&#x4EAB;&#x5185;&#x5B58;&#x4F20;&#x8F93;&#x3002;<br><strong>server</strong><br>&#x5982;&#x679C;&#x503C;&#x4E3A; y&#xFF0C;&#x76EE;&#x6807;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x76D1;&#x542C;&#x5C06;&#x8981;&#x8FDE;&#x63A5;&#x7684;&#x8C03;&#x8BD5;&#x5668;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x3002;&#x5426;&#x5219;&#xFF0C;&#x5B83;&#x5C06;&#x8FDE;&#x63A5;&#x5230;&#x7279;&#x5B9A;&#x5730;&#x5740;&#x4E0A;&#x7684;&#x8C03;&#x8BD5;&#x5668;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x3002;<br><strong>address</strong><br>&#x8FD9;&#x662F;&#x8FDE;&#x63A5;&#x7684;&#x4F20;&#x8F93;&#x5730;&#x5740;&#x3002;&#x5982;&#x679C;&#x670D;&#x52A1;&#x5668;&#x4E3A; n&#xFF0C;&#x5C06;&#x5C1D;&#x8BD5;&#x8FDE;&#x63A5;&#x5230;&#x8BE5;&#x5730;&#x5740;&#x4E0A;&#x7684;&#x8C03;&#x8BD5;&#x5668;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x3002;&#x5426;&#x5219;&#xFF0C;&#x5C06;&#x5728;&#x8FD9;&#x4E2A;&#x7AEF;&#x53E3;&#x76D1;&#x542C;&#x8FDE;&#x63A5;&#x3002;<br><strong>suspend</strong><br>&#x5982;&#x679C;&#x503C;&#x4E3A; y&#xFF0C;&#x76EE;&#x6807; VM &#x5C06;&#x6682;&#x505C;&#xFF0C;&#x76F4;&#x5230;&#x8C03;&#x8BD5;&#x5668;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x8FDB;&#x884C;&#x8FDE;&#x63A5;&#x3002;</p>
-
+        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
+<h2 id="quick-start">Quick Start</h2><h3 id="create-a-new-post">Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
+ <a id="more"></a>
+<h3 id="run-server">Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
+<h3 id="generate-static-files">Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
+<h3 id="deploy-to-remote-sites">Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+<h2 id="slide-share-&#x5206;&#x4EAB;ppt&#x6587;&#x7AE0;-&#x65B9;&#x5F0F;&#x5982;&#x4E0B;">slide share &#x5206;&#x4EAB;ppt&#x6587;&#x7AE0; &#xFF0C;&#x65B9;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;</h2><p><iframe src="//www.slideshare.net/slideshow/embed_code/key/e4wEkRJuatBp7w" width="425" height="355" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/kaiyannju/hbase-11999745" title="Hbase&#x4ECB;&#x7ECD;" target="_blank">Hbase&#x4ECB;&#x7ECD;</a> </strong> from <strong><a href="//www.slideshare.net/kaiyannju" target="_blank">kaiyannju</a></strong> </div></p>
+<h2 id="table-&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;">table &#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">Tables</th>
+<th style="text-align:center">Are</th>
+<th style="text-align:center">Cool</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">col 3 is</td>
+<td style="text-align:center">right-aligned</td>
+<td style="text-align:center">1600</td>
+</tr>
+<tr>
+<td style="text-align:center">col2is</td>
+<td style="text-align:center">centered</td>
+<td style="text-align:center">12</td>
+</tr>
+<tr>
+<td style="text-align:center">zebra stripes</td>
+<td style="text-align:center">are neat</td>
+<td style="text-align:center">$1</td>
+</tr>
+</tbody>
+</table>
+<h2 id="&#x624B;&#x5199;html-&#x7684;table">&#x624B;&#x5199;html &#x7684;table</h2><table><br><thead><br><tr><br><th style="text-align:right">vpn</th><br><th style="text-align:center">shadowsocks</th><br></tr><br></thead><br><tbody><br><tr><br><td style="text-align:right">&#x7B80;&#x5355;&#xFF0C;&#x4E00;&#x952E;&#x7FFB;&#x5899;</td><br><td style="text-align:center">&#x7B80;&#x5355;&#xFF0C;&#x4E00;&#x952E;&#x7FFB;&#x5899;</td><br></tr><br><tr><br><td style="text-align:right">&#x5168;&#x5C40;&#xFF0C;&#x4EE3;&#x7406;&#x6D4F;&#x89C8;&#x5668;&#x3001;&#x5404;&#x79CD;app&#x3001;&#x6240;&#x6709;&#x8D70;&#x7F51;&#x7EDC;&#x7684;&#x90FD;&#x7ECF;&#x8FC7;vpn&#x670D;&#x52A1;&#x5668;</td><br><td style="text-align:center">&#x53EA;&#x6709;&#x6D4F;&#x89C8;&#x5668;&#xFF08;&#x53EF;&#x4EE5;&#x624B;&#x52A8;&#x8BBE;&#x7F6E;&#x4EE3;&#x7406;&#x5176;&#x4ED6;app&#xFF09;</td><br></tr><br><tr><br><td style="text-align:right">&#x514D;&#x8D39;&#x3001;&#x6536;&#x8D39;&#x670D;&#x52A1;&#x5546;&#x5F88;&#x591A;</td><br><td style="text-align:center">&#x514D;&#x8D39;&#x3001;&#x6536;&#x8D39;&#x670D;&#x52A1;&#x5546;&#x5F88;&#x591A;</td><br></tr><br><tr><br><td style="text-align:right">&#x901F;&#x5EA6;&#x53EF;&#x4EE5;</td><br><td style="text-align:center">&#x901F;&#x5EA6;&#x5F88;&#x5FEB;&#xFF0C;&#x9999;&#x6E2F;&#x3001;&#x65B0;&#x52A0;&#x5761;&#x51E0;&#x5341;&#x6BEB;&#x79D2;</td><br></tr><br><tr><br><td style="text-align:right">&#x5E73;&#x53F0;&#x6027;&#x7A0D;&#x5DEE;&#xFF0C;&#x6709;&#x4E9B;&#x505A;&#x7684;&#x4E5F;&#x4E0D;&#x9519;&#x4E86;&#xFF0C;&#x603B;&#x4F53;&#x8DE8;&#x5E73;&#x53F0;&#x6027;&#x5DEE;</td><br><td style="text-align:center">&#x652F;&#x6301;&#x5404;&#x5E73;&#x53F0;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x8DE8;&#x5E73;&#x53F0;&#x6027;&#x5F3A;</td><br></tr><br></tbody><br></table>
       
     </div>
 
@@ -290,26 +299,18 @@
 
 
       
-        <div class="post-tags">
-          
-            <a href="/tags/idea/"> #idea </a>
-          
-            <a href="/tags/java/"> #java </a>
-          
-            <a href="/tags/工具/"> #工具 </a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2014/11/19/the-way-to-learn-git/">git入门指南使用资料汇总及文章推荐</a>
+              <a href="/2015/07/18/develop-the-first-jstorm-demo/">jstorm开发指南-写个简单的jstorm应用</a>
             
           </div>
 
           <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/17/the-multi-storage/">常见不同存储类型比较</a>
             
           </div>
         </div>
@@ -326,7 +327,7 @@
       <div class="comments" id="comments">
         
 
-<div class="ds-share" data-thread-key="2014/11/15/idea-eclipse-remote-debug/" data-title="idea/eclipse远程调试服务器方法" data-images="http://www.ixirong.com/2014/11/15/idea-eclipse-remote-debug/" data-content="一篇不错的文章，推荐给大家！" data-url="http://www.ixirong.com/2014/11/15/idea-eclipse-remote-debug/">
+<div class="ds-share" data-thread-key="2015/07/18/hello-world/" data-title="Hello World" data-images="http://www.ixirong.com/2015/07/18/hello-world/" data-content="一篇不错的文章，推荐给大家！" data-url="http://www.ixirong.com/2015/07/18/hello-world/">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">        
         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
@@ -341,8 +342,8 @@
  </div>
 
           <!-- 评论框 -->
-          <div class="ds-thread" data-thread-key="2014/11/15/idea-eclipse-remote-debug/"
-               data-title="idea/eclipse远程调试服务器方法" data-url="http://www.ixirong.com/2014/11/15/idea-eclipse-remote-debug/">
+          <div class="ds-thread" data-thread-key="2015/07/18/hello-world/"
+               data-title="Hello World" data-url="http://www.ixirong.com/2015/07/18/hello-world/">
           </div>
         
       </div>
@@ -496,7 +497,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#quick-start"><span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#create-a-new-post"><span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#run-server"><span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#generate-static-files"><span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#deploy-to-remote-sites"><span class="nav-text">Deploy to remote sites</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#slide-share-分享ppt文章-方式如下"><span class="nav-text">slide share 分享ppt文章 ，方式如下：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#table-的使用方法"><span class="nav-text">table 的使用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手写html-的table"><span class="nav-text">手写html 的table</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
