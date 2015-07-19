@@ -220,6 +220,208 @@
           
           
             
+              <a class="post-title-link" href="/2015/06/24/how-hbase-use-apache-phoenix/">
+                使用Phoenix通过sql语句更新操作hbase数据
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-06-24
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/大数据/">大数据</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/06/24/how-hbase-use-apache-phoenix/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/24/how-hbase-use-apache-phoenix/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          hbase 提供很方便的shell脚本，可以对数据表进行 CURD 操作，但是毕竟是有一定的学习成本的，基本上对于开发来讲，sql 语句都是看家本领，那么，有没有一种方法可以把 sql 语句转换成 hbase的原生API呢？ 这样就可以通过普通平常的 sql 来对hbase 进行数据的管理，使用成本大大降低。Apache Phoenix 组件就完成了这种需求，官方注解为 “Phoenix - we put the SQL back in NoSql”，通过官方说明，Phoenix 的性能很高，相对于 hbase 原生的scan 并不会差多少，而对于类似的组件 hive、Impala等，性能有着显著的提升，详细请阅读 https://phoenix.apache.org/performance.html。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/06/24/how-hbase-use-apache-phoenix/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          
+      
+    </div>
+
+    <div class="post-footer">
+    
+    <! -- 添加捐赠图标 -->
+    
+<! -- 添加捐赠图标 -->
+
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/hbase/"> #hbase </a>
+          
+            <a href="/tags/phoenix/"> #phoenix </a>
+          
+            <a href="/tags/中间件/"> #中间件 </a>
+          
+            <a href="/tags/大数据/"> #大数据 </a>
+          
+        </div>
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              <a class="post-title-link" href="/2015/06/20/materials-about-sql/">
+                sql语句基础复习及资料推荐
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-06-20
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/DB/">DB</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/06/20/materials-about-sql/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/20/materials-about-sql/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>这篇文章的内容来自4年前的个人博客园上的博客，这里将这些内容迁移过来，正好顺便也是复习一遍。真是感慨时光飞逝啊，还记得当时认认真真的拿着书写这两篇文章的情景，恍如昨日！！ 原文章如下：</p>
+<ul>
+<li><a href="http://www.cnblogs.com/xirongliu/archive/2011/03/24/1993668.html">MS SQLServer 基础知识回顾（一）</a></li>
+<li><a href="http://www.cnblogs.com/xirongliu/archive/2011/03/27/1997329.html">MS sql server 基础知识回顾（二）-表连接和子查询</a></li>
+</ul>
+<h1 id="一、_数据类型">一、 数据类型</h1><p>包括整数类型（可以用来做主键）的如bit，int，smallint，tinyint，bigint，存储的范围个不行同，常用的有int，bigint等；数值类型decimal（p，s）【p为固定精度，s为宽度，使用这种数据类型时必须指定范围和精度】，numeric（decimal的同义词），money（货币型，精确到货币的万分之一），smallmoney（货币型），float（近似数值型，供浮点数使用）等。</p>
+<p>字符类型：固定长度char，nchar，可变长度varchar，国际化可变长度nvarchar。固定长度char类型的，用来保存具有固定长度的字符串，如果字符长度不满所定义的长度，则用空格填充，这样在读取字符串的时候也将空格读取出来，很不方便；可变长度varchar，也需要指定一个最大长度，但是如果数据不足最大长度，数据库不会将剩下的部分用空格填充；固定长度和可变长度只能存储基于ASCII的字符，这样对于中文、日文、韩文等Unicode字符集的程序来说就会造成存储问题，解决办法使用国际化可变长度nvarchar。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/06/20/materials-about-sql/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+    
+    <! -- 添加捐赠图标 -->
+    
+<! -- 添加捐赠图标 -->
+
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/sql/"> #sql </a>
+          
+            <a href="/tags/sqlserver/"> #sqlserver </a>
+          
+            <a href="/tags/数据库/"> #数据库 </a>
+          
+        </div>
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/06/20/reading-notes-tough-workout/">
                 硬派健身思维导图读书笔记(硬派健身.mmp/.xmind思维导图分享)
               </a>
@@ -991,196 +1193,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/05/17/how-to-build-ixirong-blog/">
-                使用 github Pages 服务建立 ixirong.com 独立博客全过程
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-05-17
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/网站建设/">网站建设</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/05/17/how-to-build-ixirong-blog/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/17/how-to-build-ixirong-blog/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          我想写个博客，托管在 github 上面，很cool，怎么操作呢？什么是静态博客？什么是 GitHub Pages服务？为什么使用hexo？hexo怎么建立静态博客站点？完全免费可以搭建个人博客吗？我平常喜欢使用 markdown 来写东西，写博客的时候可以用吗？ wordpress 建立网站功能越来越多，但很麻烦，有没有省事的方法？
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/05/17/how-to-build-ixirong-blog/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          
-      
-    </div>
-
-    <div class="post-footer">
-    
-    <! -- 添加捐赠图标 -->
-    
-<! -- 添加捐赠图标 -->
-
-
-      
-        <div class="post-tags">
-          
-            <a href="/tags/github-pages/"> #github pages </a>
-          
-            <a href="/tags/hexo/"> #hexo </a>
-          
-            <a href="/tags/网站建设/"> #网站建设 </a>
-          
-        </div>
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/05/13/how-to-decide-to-bye-mac-economicaly/">
-                购买苹果设备如何更经济实惠？
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-05-13
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/mac/">mac</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/05/13/how-to-decide-to-bye-mac-economicaly/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/13/how-to-decide-to-bye-mac-economicaly/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>如今自己周围越来越多的人开始使用 mac 设备，xirong 的设备为 <code>macbook pro 13 英寸: 2.7 GHz Retina 显示屏</code>，自己使用了将近9个月的时间，的确从效率上讲要比 windows 高效些，移动办公时间长、无线网络随时连接，盖上盖子就可以拿着走，这都是比较平常的，还有就是对于程序员来讲，UNIX 内核的系统天生接近服务器端的王者 linux ，bash 命令基本上也是通用的，在 Linux 下尝试的很多开发工具在 MAC 下都可以很酷的完成，MAC 的界面比 windows 帅气，命令行终端又比 linux 更好用，最为一名开发者，使用 mac 来作为自己的利器，是很推荐的。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/05/13/how-to-decide-to-bye-mac-economicaly/#more">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div class="post-footer">
-    
-    <! -- 添加捐赠图标 -->
-    
-<! -- 添加捐赠图标 -->
-
-
-      
-        <div class="post-tags">
-          
-            <a href="/tags/mac/"> #mac </a>
-          
-        </div>
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1220,7 +1232,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-count">38</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
