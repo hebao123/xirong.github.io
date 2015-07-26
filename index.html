@@ -271,29 +271,8 @@
 </blockquote>
 <p><img src="http://static.ixirong.com/pic/tcp/OSI7model.png" alt="osi7model"></p>
 <ul>
-<li><p>第7层 应用层(Application Layer)<br>提供为应用软件而设的界面，以设置与另一应用软件之间的通信。例如: HTTP，HTTPS，FTP，TELNET，SSH，SMTP，POP3等。</p>
-</li>
-<li><p>第6层 表示层(Presentation Layer)<br>把数据转换为能与接收者的系统格式兼容并适合传输的格式。</p>
-</li>
-<li><p>第5层 会话层(Session Layer)<br>负责在数据传输中设置和维护电脑网络中两台电脑之间的通信连接。</p>
-</li>
-<li><p>第4层 传输层(Transport Layer)<br>把传输表头(TH)加至数据以形成数据报。传输表头包含了所使用的协议等发送信息。例如:传输控制协议义(TCP) 等。</p>
-</li>
-<li><p>第3层 网络层(Network Layer)<br>决定数据的路径选择和转寄，它网络表头(NH)加至数据报，以形成分组。网络表头包含了网络数据。例如:互联网协议(IP) 等。</p>
-</li>
-<li><p>第2层 数据链路层(Data Link Layer)<br>负责网络寻址、错误侦测和改错。当表头和表尾被加至数据包时，会形成了帧。数据链表头(DLH)是包含了物理地址和错误侦测及改错的方法。数据链表尾(DLT)是一串指示数据包末端的字符串。例如以太网、无线局域网(Wi-Fi)和通用分组无线服务(GPRS)等。</p>
-</li>
-<li><p>第1层 物理层(Physical Layer)<br>在局部局域网络上传送帧，它负责管理电脑通信设备和网络媒体之间的互通。包括了针脚、电压、线缆规范、集线器、中继器、网卡、主机适配器等</p>
-</li>
+<li>第7层 应用层(Application Layer)<br>提供为应用软件而设的界面，以设置与另一应用软件之间的通信。例如: HTTP，HTTPS，FTP，TELNET，SSH，SMTP，POP3等。</li>
 </ul>
-<h1 id="一、TCP/IP_协议族">一、TCP/IP 协议族</h1><p>TCP/IP是一个协议族，通常分不同层次进行开发，每个层次负责不同的通信功能。包含以下四个层次，与OSI7层关系如下：</p>
-<p><img src="http://static.ixirong.com/pic/tcp/osi7-tcp4model.png" alt="tcp ip protocol"></p>
-<ol>
-<li>网络接口层，通常包括操作系统中的设备驱动程序和计算机中对应的网络接口卡。它们一起处理与电缆（或其他任何传输媒介）的物理接口细节，对应的网络协议主要是：Ethernet、FDDI和能传输IP数据包的任何协议。</li>
-<li>网际层，处理分组在网络中的活动，例如分组的选路。网络层协议包括IP协议（网际协议）、ICMP协议（Internet互联网控制报文协议），以及IGMP协议（Internet组管理协议）。</li>
-<li>传输层主要为两台主机上的应用程序提供端到端的通信。在TCP/IP协议族中，有两个互不相同的传输协议：TCP（传输控制协议）和UDP（用户数据报协议）。TCP为两台主机提供高可靠性的数据通信。他所作的工作包括把应用程序交给它的数据分成合适的小块交给下面的网络层，确认接收到的分组，设置发送最后确认分组的超时时钟等。由于运输层提供了高可靠性的端到端通信，因此应用层可以忽略所有这些细节。而另一方面，UDP则为应用层提供一种非常简单的服务。它只是把称作数据报的分组从一台主机发送到另一台主机，但并不保证该数据报能到达另一端。任何必须的可靠性必须由应用层来提供。</li>
-<li>应用层负责处理特定的应用程序细节。包括Telnet（远程登录）、FTP（文件传输协议）、SMTP（简单邮件传送协议）以及SNMP（简单网络管理协议）等。</li>
-</ol>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/07/24/tcp-3connect-4disconect/#more">
               阅读全文 &raquo;
