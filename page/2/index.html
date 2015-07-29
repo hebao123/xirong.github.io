@@ -224,6 +224,111 @@
           
           
             
+              <a class="post-title-link" href="/2015/07/10/presentation-about-sealog-system/">
+                分布式实时日志系统（五）系统整体架构介绍
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-07-10
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/大数据/">大数据</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/10/presentation-about-sealog-system/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/10/presentation-about-sealog-system/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>最近公司业务数据量越来越大，以前的基于消息队列的日志系统越来越难以满足目前的业务量，表现为消息积压，日志延迟，日志存储日期过短，所以，我们开始着手要重新设计这块，业界已经有了比较成熟的流程，即基于流式处理，采用 flume 收集日志，发送到 kafka 队列做缓冲，storm 分布式实时框架进行消费处理，短期数据落地到 hbase、mongo中，长期数据进入 hadoop 中存储。 接下来打算将这其间所遇到的问题、学习到的知识记录整理下，作为备忘，作为分享，带给需要的人。</p>
+<p>目前整个系统已经上线了，这篇文章跟大家分享下，整个系统使用到的技术及架构设计，遇到的问题等，已经整理成 PPT，并在公司组内组织分享。欢迎提出建议及问题 ~ </p>
+<p>（slideshare PPT 分享服务在大陆是被墙的，不能科学上网？查看<a href="http://ixirong.com/2015/01/19/shadowsocks-md/">使用shadowsocks服务享受自由网络</a>学习方法）</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/10/presentation-about-sealog-system/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+    
+    <! -- 添加捐赠图标 -->
+    
+<! -- 添加捐赠图标 -->
+
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Jstorm/"> #Jstorm </a>
+          
+            <a href="/tags/flume/"> #flume </a>
+          
+            <a href="/tags/hbase/"> #hbase </a>
+          
+            <a href="/tags/分布式/"> #分布式 </a>
+          
+            <a href="/tags/大数据/"> #大数据 </a>
+          
+            <a href="/tags/日志/"> #日志 </a>
+          
+        </div>
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/06/28/the-things-i-thought-of-kaifuli/">
                 我所敬佩的开复老师
               </a>
@@ -1096,105 +1201,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/05/22/how-to-install-hadoop-cluster/">
-                分布式实时日志系统（三） 环境搭建之centos 6.4下hadoop 2.5.2完全分布式集群搭建最全资料
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-05-22
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/大数据/">大数据</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/05/22/how-to-install-hadoop-cluster/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/22/how-to-install-hadoop-cluster/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          本文详细讲解Centos 6.4 下hadoop 2.5.2 完全分布式集群搭建全过程，hadoop 2.5.2 配置文件详细解读。简单那介绍下，Hadoop 实现了一个分布式文件系统（Hadoop Distributed File System），简称HDFS。HDFS有高容错性的特点，并且设计用来部署在低廉的（low-cost）硬件上；而且它提供高吞吐量（high throughput）来访问应用程序的数据，适合那些有着超大数据集（large data set）的应用程序。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/05/22/how-to-install-hadoop-cluster/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          
-      
-    </div>
-
-    <div class="post-footer">
-    
-    <! -- 添加捐赠图标 -->
-    
-<! -- 添加捐赠图标 -->
-
-
-      
-        <div class="post-tags">
-          
-            <a href="/tags/hadoop/"> #hadoop </a>
-          
-            <a href="/tags/大数据/"> #大数据 </a>
-          
-            <a href="/tags/存储/"> #存储 </a>
-          
-            <a href="/tags/日志/"> #日志 </a>
-          
-        </div>
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1234,7 +1240,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-count">40</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1248,7 +1254,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">64</span>
+              <span class="site-state-item-count">66</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
