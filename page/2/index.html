@@ -224,6 +224,106 @@
           
           
             
+              <a class="post-title-link" href="/2015/07/14/java-memory-area/">
+                Java 运行时内存区域
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-07-14
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/java/">java</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/14/java-memory-area/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/14/java-memory-area/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>本文来读书籍《<a href="http://book.douban.com/subject/24722612/">深入理解java虚拟机-JVM高级特性与最佳实践</a>》的阅读笔记，通过学习本书，对Java内存的区域及垃圾回收有了更好的认识，此文先对java运行时内存区域进行介绍。 </p>
+<h2 id="一、运行时数据区域">一、运行时数据区域</h2><h3 id="1-1_程序计数器">1.1 程序计数器</h3><p> 程序计数器（Program Counter Register），占用内存很小:指的是当前线程所执行字节码的行号指示器。<br>“线程私有“内存:java多线程通过线程轮流切换分配cpu时间,任意一个时刻 ,一个cpu(多核一个内核)上只会执行一条线程指令,为了线程切换后能恢 复到正确的执行位置,每个线程独立一个程序计数器,各条线程互不影响, 独立存储。是虚拟机规范中唯一一个没有OutOfMemoryError的区域 </p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/14/java-memory-area/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+    
+    <! -- 添加捐赠图标 -->
+    
+<! -- 添加捐赠图标 -->
+
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/"> #Java </a>
+          
+            <a href="/tags/内存溢出/"> #内存溢出 </a>
+          
+            <a href="/tags/内存管理/"> #内存管理 </a>
+          
+            <a href="/tags/读书笔记/"> #读书笔记 </a>
+          
+        </div>
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/07/11/presentation-about-git/">
                 git日常开发指南
               </a>
@@ -1106,107 +1206,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/05/25/how-to-install-hbase-cluster/">
-                分布式实时日志系统（四） 环境搭建之centos 6.4下hbase 1.0.1 分布式集群搭建
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-05-25
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/大数据/">大数据</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/05/25/how-to-install-hbase-cluster/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/25/how-to-install-hbase-cluster/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          hbase是什么？hbase集群分布式环境搭建怎么弄？hbase shell脚本怎么用？
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/05/25/how-to-install-hbase-cluster/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          
-      
-    </div>
-
-    <div class="post-footer">
-    
-    <! -- 添加捐赠图标 -->
-    
-<! -- 添加捐赠图标 -->
-
-
-      
-        <div class="post-tags">
-          
-            <a href="/tags/hbase/"> #hbase </a>
-          
-            <a href="/tags/nosql/"> #nosql </a>
-          
-            <a href="/tags/分布式/"> #分布式 </a>
-          
-            <a href="/tags/大数据/"> #大数据 </a>
-          
-            <a href="/tags/日志/"> #日志 </a>
-          
-        </div>
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1246,7 +1245,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-count">42</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1260,7 +1259,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">68</span>
+              <span class="site-state-item-count">69</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
