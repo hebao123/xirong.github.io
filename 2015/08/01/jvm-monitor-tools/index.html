@@ -10,7 +10,7 @@
 <meta http-equiv=”Cache-Control” content=”no-siteapp” />
 
 
-  <meta name="keywords" content=" jvm故障排查,jvm性能排查,visualvm工具使用,visualvm介绍,java,jvm,性能监控,故障排查,读书笔记, " />
+  <meta name="keywords" content=" 使用VisualVm监控远程centos Linux服务器java进程,visualvm远程监控tomcat服务器,jvm故障排查,jvm性能排查,visualvm工具使用,visualvm介绍,java,jvm,性能监控,故障排查,读书笔记, " />
 
 
 
@@ -271,10 +271,44 @@
 <p><img src="http://static.ixirong.com/pic/java-memory/jvm-monitor.png" alt="jvm-monitor"></p>
 <p>&#x5173;&#x4E8E;&#x5BFC;&#x56FE;&#x4E2D;&#x7684;&#x4E24;&#x90E8;&#x5206;&#x5185;&#x5BB9;&#x8FD8;&#x662F;&#x5E0C;&#x671B;&#x5927;&#x5BB6;&#x80FD;&#x591F;&#x4EB2;&#x81EA;&#x6D4B;&#x8BD5;&#x4F53;&#x9A8C;&#x4E0B;&#xFF0C;&#x5728;&#x7F51;&#x4E0A;&#x4E5F;&#x6709;&#x4E0D;&#x5C11;&#x7684;&#x6587;&#x7AE0;&#x4ECB;&#x7ECD;&#xFF0C;&#x8FD9;&#x91CC;&#x6458;&#x5F55;&#x51E0;&#x7BC7;&#x4E2A;&#x4EBA;&#x8BA4;&#x4E3A;&#x4E0D;&#x9519;&#x7684;&#x6587;&#x7AE0;&#xFF0C;&#x4F9B;&#x53C2;&#x8003;&#xFF1A;</p>
 <ul>
-<li><a href="http://my.oschina.net/xianggao/blog/401595" target="_blank" rel="external">&#x547D;&#x4EE4;&#x884C;&#x5DE5;&#x5177;&#x4F7F;&#x7528; - &#x7B2C;4&#x7AE0; &#x865A;&#x62DF;&#x673A;&#x6027;&#x80FD;&#x76D1;&#x63A7;&#x4E0E;&#x6545;&#x969C;&#x5904;&#x7406;&#x5DE5;&#x5177;</a></li>
-<li><a href="http://visualvm.java.net/features.html" target="_blank" rel="external">VisualVM &#x5B98;&#x7F51;&#x4ECB;&#x7ECD;&#x53CA;&#x4F7F;&#x7528;</a></li>
-<li><a href="http://www.ibm.com/developerworks/cn/java/j-lo-visualvm/" target="_blank" rel="external">&#x6848;&#x4F8B; - &#x4F7F;&#x7528; VisualVM &#x8FDB;&#x884C;&#x6027;&#x80FD;&#x5206;&#x6790;&#x53CA;&#x8C03;&#x4F18;</a></li>
+<li><a href="http://my.oschina.net/xianggao/blog/401595" target="_blank" rel="external">jstat/jinfo/jstack/jmap&#x547D;&#x4EE4;&#x884C;&#x5DE5;&#x5177;&#x4F7F;&#x7528;&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;</a></li>
+<li><a href="http://visualvm.java.net/features.html" target="_blank" rel="external">VisualVM &#x5B98;&#x7F51;&#x4ECB;&#x7ECD;&#x53CA;&#x4F7F;&#x7528;&#x8BF4;&#x660E;</a></li>
+<li><a href="http://www.ibm.com/developerworks/cn/java/j-lo-visualvm/" target="_blank" rel="external">&#x4F7F;&#x7528; VisualVM &#x8FDB;&#x884C;&#x6027;&#x80FD;&#x5206;&#x6790;&#x53CA;&#x8C03;&#x4F18;</a></li>
 </ul>
+<a id="more"></a>
+<h2 id="&#x4F7F;&#x7528;visualvm&#x76D1;&#x63A7;&#x8FDC;&#x7A0B;linux&#x670D;&#x52A1;&#x5668;java&#x8FDB;&#x7A0B;">&#x4F7F;&#x7528;VisualVm&#x76D1;&#x63A7;&#x8FDC;&#x7A0B;Linux&#x670D;&#x52A1;&#x5668;java&#x8FDB;&#x7A0B;</h2><p>&#x7531;&#x4E8E;&#x5728; linux &#x670D;&#x52A1;&#x5668;&#x4E0A;&#x9762;&#xFF0C;&#x4F7F;&#x7528;&#x8FDC;&#x7A0B;&#x7684;&#x7EC8;&#x7AEF;&#x547D;&#x4EE4;&#x770B;&#x9F50;&#x6765;&#x6CA1;&#x6709;&#x90A3;&#x4E48;&#x76F4;&#x89C2;&#xFF0C;&#x800C;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x9762;&#x6709;&#x6CA1;&#x6709;&#x684C;&#x9762;&#x663E;&#x793A;&#x7A0B;&#x5E8F;&#xFF0C;&#x53EF;&#x4EE5;&#x91C7;&#x7528;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#xFF08;mac/windows/linux)&#x4E0A;&#x9762;&#x8FDB;&#x884C;&#x4F7F;&#x7528;&#x56FE;&#x5F62;&#x5316;&#x7684;&#x76D1;&#x63A7;&#x5DE5;&#x5177;&#xFF0C;&#x5728;&#x4F7F;&#x7528; visualVM &#x4E4B;&#x524D;&#xFF0C;&#x5FC5;&#x987B;&#x5148;&#x914D;&#x7F6E;&#x8FDC;&#x7A0B;&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x9762;&#x7684; <code>jstatd</code> &#x8FDB;&#x7A0B;&#x542F;&#x52A8;&#x624D;&#x884C;&#xFF0C;&#x5173;&#x4E8E; <code>jstatd</code> &#x8BF7;&#x53C2;&#x8003;&#xFF1A;<br>&#x542F;&#x52A8;&#x65B9;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p>1&#x3001;&#x5728;&#x542F;&#x52A8;&#x7684;&#x76EE;&#x5F55;&#x521B;&#x5EFA;&#x6587;&#x4EF6; <code>jstatd.all.policy</code> &#xFF0C;&#x52A0;&#x5165;&#x4E0B;&#x9762;&#x7684;&#x6743;&#x9650;&#x63A7;&#x5236;&#xFF0C;&#x5426;&#x5219;&#x4F1A;&#x62A5;&#x9519; <code>Could not create remote object
+access denied (&quot;java.util.PropertyPermission&quot; &quot;java.rmi.server.ignoreSubClasses&quot; &quot;write&quot;)
+java.security.AccessControlException: access denied (&quot;java.util.PropertyPermission&quot; &quot;java.rmi.server.ignoreSubClasses&quot; &quot;write&quot;)
+    at java.security.AccessControlContext.checkPermission(AccessControlContext.java:372)
+    at java.security.AccessController.checkPermission(AccessController.java:559)
+    at java.lang.SecurityManager.checkPermission(SecurityManager.java:549)
+    at java.lang.System.setProperty(System.java:783)
+    at sun.tools.jstatd.Jstatd.main(Jstatd.java:139)</code></p>
+<p>&#x6DFB;&#x52A0;&#x4EE3;&#x7801;&#x5185;&#x5BB9;&#x5982;&#x4E0B;&#xFF0C;<code>${java.home}/../lib/tools.jar</code> &#x6700;&#x597D;&#x66FF;&#x6362;&#x6210;&#x673A;&#x5668;&#x4E0A;&#x7684;&#x5730;&#x5740;&#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">grant codebase <span class="string">&quot;file:<span class="variable">${java.home}</span>/../lib/tools.jar&quot;</span> {</span><br><span class="line">    permission java.security.AllPermission;</span><br><span class="line">  };</span><br></pre></td></tr></table></figure>
+<p>2&#x3001;&#x540E;&#x53F0;&#x542F;&#x52A8; <code>jstatd</code> &#x8FDB;&#x7A0B; &#xFF1A;</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup <span class="variable">$JAVA_HOME</span>/bin/jstatd -J-Djava.rmi.server.hostname=<span class="number">192.168</span>.<span class="number">9.92</span> -J-Djava.security.policy=jstatd.all.policy -J-Dcom.sun.management.jmxremote.authenticate=<span class="literal">false</span> -J-Dcom.sun.management.jmxremote.ssl=<span class="literal">false</span> -J-Dcom.sun.management.jmxremote.port=<span class="number">8888</span> &amp;</span><br></pre></td></tr></table></figure>
+<p>&#x53C2;&#x6570;&#x8BF4;&#x660E;&#x5982;&#x4E0B;&#xFF1A;</p>
+<ul>
+<li>Djava.rmi.server.hostname=xxx.xxx.xxx.xxx &#x4E3B;&#x673A;&#x5730;&#x5740;&#xFF0C;&#x6211;&#x914D;&#x7F6E;&#x7684;&#x662F;&#x5916;&#x7F51;&#x5730;&#x5740;</li>
+<li>Dcom.sun.management.jmxremote.port=xxx  &#x7AEF;&#x53E3;&#x53F7;&#x3001;&#x914D;&#x7F6E;&#x5B8C;&#x7AEF;&#x53E3;&#x53F7;&#x4E4B;&#x540E;&#x9700;&#x8981;&#x5C06;&#x6B64;&#x7AEF;&#x53E3;&#x5F00;&#x653E;&#x51FA;&#x6765;  &#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#xFF1A;iptables -A INPUT -p tcp &#x2014;d port  &#x7AEF;&#x53E3;&#x53F7; -j ACCEPT</li>
+<li>Dcom.sun.management.jmxremote.authenticate=false &#x662F;&#x5426;&#x5F00;&#x542F;&#x8BA4;&#x8BC1;&#x3001;false&#x7684;&#x65F6;&#x5019;&#x53EF;&#x4EE5;&#x4E0D;&#x4F7F;&#x7528;&#x5BC6;&#x7801;&#x8BBF;&#x95EE;</li>
+</ul>
+<p>3 &#x3001;&#x9A8C;&#x8BC1;&#x53EF;&#x7528;&#x6027;</p>
+<p>&#x4F7F;&#x7528; <code>ps -ef|grep -i 8888</code> &#x6765;&#x9A8C;&#x8BC1;&#x8BE5;&#x8FDB;&#x7A0B;&#x662F;&#x5426;&#x5B58;&#x5728;&#xFF0C;&#x5B58;&#x5728;&#x540E;&#xFF0C;&#x5728;&#x4F60;&#x7684;&#x5BA2;&#x6237;&#x7AEF;&#x4F7F;&#x7528; <code>jps &lt;ip&gt;</code> &#x6765;&#x67E5;&#x770B;&#x662F;&#x5426;&#x80FD;&#x591F;&#x770B;&#x5230;&#x8FDC;&#x7A0B;&#x673A;&#x5668;&#x7684;&#x865A;&#x62DF;&#x673A;&#x8FDB;&#x7A0B;&#xFF0C;&#x80FD;&#x770B;&#x5230;&#x8BF4;&#x660E;&#x5C31;&#x662F;OK&#x7684;&#x3002;</p>
+<p>&#x8FD9;&#x6837;&#x7ECF;&#x8FC7;&#x8FD9;&#x4E09;&#x90E8;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x5728;&#x5BA2;&#x6237;&#x7AEF;&#x7684;VisualVM&#x4E0A;&#x67E5;&#x770B;&#x8FDC;&#x7A0B;&#x673A;&#x5668;&#x7684;&#x5185;&#x5BB9;&#x4E86;&#xFF0C;&#x5177;&#x4F53;&#x6253;&#x5F00; VisualVm &#x7A0B;&#x5E8F;&#xFF0C;&#x5728; Remote &#x4E2D;&#x53F3;&#x952E;&#x65B0;&#x5EFA;&#x8FDE;&#x63A5;&#xFF0C;&#x8F93;&#x5165;&#x8FDC;&#x7A0B;&#x670D;&#x52A1;&#x5668;&#x7684;&#x5730;&#x5740;&#x5373;&#x53EF;&#xFF0C;&#x5982;&#x4E0B;&#x56FE;&#x4E00;&#xFF0C;&#x70B9;&#x51FB;&#x67D0;&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;&#xFF0C;&#x53F3;&#x952E;&#x6253;&#x5F00;&#x5373;&#x53EF;&#x67E5;&#x770B;&#x67D0;&#x4E2A;&#x8FDB;&#x7A0B;&#x7684;&#x60C5;&#x51B5;&#xFF1A;&#x76D1;&#x63A7;Linux&#x670D;&#x52A1;&#x5668;&#x4E0A;&#x9762;&#x7684;tomcat&#x8FDB;&#x7A0B; &#x5982;&#x56FE;&#x4E8C; &#xFF1A;</p>
+<p><img src="http://static.ixirong.com/pic/java-memory/visaualvm-all.png" alt="visualvm remtote"></p>
+<p><img src="http://static.ixirong.com/pic/java-memory/VisualVm-tomcat.png" alt="visualvm tomcat">    </p>
+<h2 id="visualvm-&#x63D2;&#x4EF6;&#x4ECB;&#x7ECD;">VisualVm &#x63D2;&#x4EF6;&#x4ECB;&#x7ECD;</h2><p>&#x901A;&#x8FC7;&#x4F7F;&#x7528;&#x201C;&#x63D2;&#x4EF6;&#x201D;&#x7BA1;&#x7406;&#x5668;&#x5B89;&#x88C5;&#x7531;&#x201C;VisualVM &#x63D2;&#x4EF6;&#x4E2D;&#x5FC3;&#x201D;&#x63D0;&#x4F9B;&#x7684;&#x63D2;&#x4EF6;&#xFF0C;&#x53EF;&#x4EE5;&#x5411; VisualVM &#x6DFB;&#x52A0;&#x529F;&#x80FD;&#x3002;&#x60A8;&#x4E5F;&#x53EF;&#x4EE5;&#x5F00;&#x53D1;&#x81EA;&#x5DF1;&#x7684;&#x63D2;&#x4EF6;&#xFF0C;&#x7136;&#x540E;&#x5C06;&#x5176;&#x6DFB;&#x52A0;&#x5230;&#x66F4;&#x65B0;&#x4E2D;&#x5FC3;&#x6765;&#x6269;&#x5C55; VisualVM &#x7684;&#x529F;&#x80FD;&#x3002;</p>
+<p>&#x4F8B;&#x5982;&#xFF0C;&#x5B89;&#x88C5; VisualVM-MBeans &#x63D2;&#x4EF6;&#x53EF;&#x4EE5;&#x5411;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x6807;&#x7B7E;&#x4E2D;&#x6DFB;&#x52A0; &#x201C;MBeans&#x201D; &#x6807;&#x7B7E;&#xFF0C;&#x901A;&#x8FC7;&#x6B64;&#x6807;&#x7B7E;&#xFF0C;&#x53EF;&#x4EE5;&#x5728; VisualVM &#x5185;&#x76D1;&#x89C6;&#x548C;&#x7BA1;&#x7406; MBeans&#x3002;</p>
+<p>&#x5B89;&#x88C5; VisualVM &#x63D2;&#x4EF6;&#xFF1A;</p>
+<ol>
+<li>&#x4ECE;&#x4E3B;&#x83DC;&#x5355;&#x4E2D;&#x9009;&#x62E9;&#x201C;&#x5DE5;&#x5177;&#x201D;&gt;&#x201C;&#x63D2;&#x4EF6;&#x201D;&#x3002;</li>
+<li>&#x5728;&#x201C;&#x53EF;&#x7528;&#x63D2;&#x4EF6;&#x201D;&#x6807;&#x7B7E;&#x4E2D;&#xFF0C;&#x9009;&#x4E2D;&#x8BE5;&#x63D2;&#x4EF6;&#x7684;&#x201C;&#x5B89;&#x88C5;&#x201D;&#x590D;&#x9009;&#x6846;&#x3002;&#x5355;&#x51FB;&#x201C;&#x5B89;&#x88C5;&#x201D;&#x3002;</li>
+<li>&#x9010;&#x6B65;&#x5B8C;&#x6210;&#x63D2;&#x4EF6;&#x5B89;&#x88C5;&#x7A0B;&#x5E8F;&#x3002;</li>
+</ol>
+<p><img src="http://static.ixirong.com/pic/java-memory/visualvm-plugins.png" alt="visualvm plugins"></p>
 
       
     </div>
@@ -497,7 +531,7 @@
           <div class="post-toc">
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#使用visualvm监控远程linux服务器java进程"><span class="nav-text">使用VisualVm监控远程Linux服务器java进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#visualvm-插件介绍"><span class="nav-text">VisualVm 插件介绍</span></a></li></ol></div>
             
           </div>
           <div class="post-toc-indicator-bottom post-toc-indicator"></div>
