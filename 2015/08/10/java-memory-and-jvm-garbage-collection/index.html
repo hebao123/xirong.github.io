@@ -10,9 +10,11 @@
 <meta http-equiv=”Cache-Control” content=”no-siteapp” />
 
 
+  <meta name="keywords" content=" ,gc,java,jvm,读书笔记, " />
 
 
-    <meta name="description" content=", 有故事、有担当、有思考" />
+
+    <meta name="description" content="深入理解Java虚拟机读书笔记之Java内存管理之道, 有故事、有担当、有思考" />
 
 
 
@@ -53,12 +55,12 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.2" />
 
 
-  <title> 分类: git / 自由 </title>
+  <title> 深入理解Java虚拟机读书笔记之Java内存管理之道 - 自由 </title>
 </head>
 
 <body>
 <!--[if lte IE 8]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://static.ixirong.com/picouterie.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari." style='margin-left:auto;margin-right:auto;display: block;'/></a></div> <![endif]-->
-  <div class="container one-column ">
+  <div class="container one-column page-post-detail">
     <div class="headband"></div>
 
     <div id="header" class="header">
@@ -210,131 +212,147 @@
         <div id="content" class="content">
           
 
-  <div id="posts" class="posts-collapse">
-    <div class="collection-title">
-      <h2 >
-        git
-        <small>分类</small>
-      </h2>
-    </div>
-
+  <div id="posts" class="posts-expand">
     
-      
 
-  <div class="post post-type-normal">
+  <div class="post post-type-normal ">
     <div class="post-header">
 
-      <div class="post-title">
-        
-            <a class="post-title-link" href="/2015/07/29/how-to-use-github-gitlab-together/">
-              一台机器上Github/Gitlab多账户管理SSH Key切换解决push冲突
-            </a>
-        
-      </div>
-
-      <div class="post-meta">
-        <span class="post-time"> 07-29 </span>
-      </div>
-
-    </div>
-  </div>
-
-
-    
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              深入理解Java虚拟机读书笔记之Java内存管理之道
+            
+          
+        </h1>
       
 
-  <div class="post post-type-normal">
-    <div class="post-header">
-
-      <div class="post-title">
-        
-            <a class="post-title-link" href="/2015/07/11/presentation-about-git/">
-              git日常开发指南
-            </a>
-        
-      </div>
-
       <div class="post-meta">
-        <span class="post-time"> 07-11 </span>
+        <span class="post-time">
+          发表于 2015-08-10
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/java/">java</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/08/10/java-memory-and-jvm-garbage-collection/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/10/java-memory-and-jvm-garbage-collection/"></span>
+            </a>
+          </span>
+          
+        
       </div>
-
     </div>
-  </div>
 
+    <div class="post-body">
 
-    
+      
       
 
-  <div class="post post-type-normal">
-    <div class="post-header">
+      
+        <p>&#x300A;<a href="http://book.douban.com/subject/24722612/" target="_blank" rel="external">&#x6DF1;&#x5165;&#x7406;&#x89E3; Java &#x865A;&#x62DF;&#x673A;-Jvm &#x9AD8;&#x7EA7;&#x7279;&#x6027;&#x4E0E;&#x6700;&#x4F73;&#x5B9E;&#x8DF5;</a>&#x300B; &#x662F;&#x5B66;&#x4E60;&#x638C;&#x63E1; Jvm &#x7684;&#x5185;&#x5B58;&#x7BA1;&#x7406;&#x90E8;&#x5206;&#x7684;&#x5165;&#x95E8;&#x4E66;&#x7C4D;&#xFF0C;&#x60F3;&#x8981;&#x5728; Java &#x7684;&#x9053;&#x8DEF;&#x4E0A;&#x594B;&#x6597;&#x7684;&#x540C;&#x5B66;&#x4EEC;&#xFF0C;&#x8FD9;&#x672C;&#x4E66;&#x7C4D;&#x8FD8;&#x662F;&#x9700;&#x8981;&#x597D;&#x597D;&#x770B;&#x4E00;&#x770B;&#x7684;&#xFF0C;&#x8FD9;&#x6BB5;&#x65F6;&#x95F4;&#x6B63;&#x597D;&#x6709;&#x7A7A;&#x5BF9;&#x4E66;&#x7C4D;&#x8FDB;&#x884C;&#x4E86;&#x9605;&#x8BFB;&#x6574;&#x7406;&#xFF0C;&#x6574;&#x4E2A;&#x8BFB;&#x4E66;&#x7B14;&#x8BB0;&#x73B0;&#x5728;&#x5171;&#x4EAB;&#x7ED9;&#x5927;&#x5BB6;&#xFF0C;&#x5E0C;&#x671B;&#x6709;&#x6240;&#x5E2E;&#x52A9;&#x3002;</p>
+<p>&#x8FD9;&#x90E8;&#x5206;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x67E5;&#x770B;&#x6211;&#x5728; Github &#x4E0A;&#x6574;&#x7406;&#x7684;&#x4E00;&#x4E2A; Repo &#xFF0C;&#x4E0A;&#x9762;&#x6536;&#x96C6;&#x4E86;&#x8FD9;&#x90E8;&#x5206;&#x76F8;&#x5173;&#x7684;&#x5B66;&#x4E60;&#x5185;&#x5BB9;&#xFF0C;&#x611F;&#x5174;&#x8DA3;&#x7684;&#x53EF;&#x4EE5;&#x4E00;&#x8D77;&#x641E;&#x8D77;&#x6765;&#xFF0C;&#x5730;&#x5740;&#x4E3A;&#xFF1A;<a href="https://github.com/xirong/my-java#jvm-&#x865A;&#x62DF;&#x673A;" target="_blank" rel="external">https://github.com/xirong/my-java#jvm-&#x865A;&#x62DF;&#x673A;</a></p>
+<p>&#x683C;&#x5F0F;&#x4E3A; <code>xmind</code> &#x601D;&#x7EF4;&#x5BFC;&#x56FE;&#x683C;&#x5F0F;&#xFF0C;&#x7F29;&#x7565;&#x56FE;&#x5982;&#x4E0B;&#xFF1A;</p>
+<a id="more"></a>
+<p><img src="http://static.ixirong.com/pic/java-memory/deep-learning-of-jvm.png" alt="jvmlearning book"></p>
 
-      <div class="post-title">
-        
-            <a class="post-title-link" href="/2015/06/14/git-workflow-tutorial/">
-              深入学习Git工作流（git-workflow-tutorial）
-            </a>
-        
-      </div>
-
-      <div class="post-meta">
-        <span class="post-time"> 06-14 </span>
-      </div>
-
+      
     </div>
-  </div>
 
-
+    <div class="post-footer">
     
+    <! -- 添加捐赠图标 -->
+    
+<! -- 添加捐赠图标 -->
+
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/gc/"> #gc </a>
+          
+            <a href="/tags/java/"> #java </a>
+          
+            <a href="/tags/jvm/"> #jvm </a>
+          
+            <a href="/tags/读书笔记/"> #读书笔记 </a>
+          
+        </div>
       
 
-  <div class="post post-type-normal">
-    <div class="post-header">
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
 
-      <div class="post-title">
-        
-            <a class="post-title-link" href="/2015/06/07/git-and-github-repo/">
-              如何高效的使用github
-            </a>
-        
-      </div>
-
-      <div class="post-meta">
-        <span class="post-time"> 06-07 </span>
-      </div>
-
-    </div>
-  </div>
-
-
-    
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/09/jvm-tuning-summary/">Jvm 参数优化指南</a>
+            
+          </div>
+        </div>
       
 
-  <div class="post post-type-normal">
-    <div class="post-header">
-
-      <div class="post-title">
-        
-            <a class="post-title-link" href="/2014/11/19/the-way-to-learn-git/">
-              git入门指南使用资料汇总及文章推荐
-            </a>
-        
-      </div>
-
-      <div class="post-meta">
-        <span class="post-time"> 11-19 </span>
-      </div>
-
+      
+      
     </div>
   </div>
 
 
+
+    
+      <div class="comments" id="comments">
+        
+
+<div class="ds-share" data-thread-key="2015/08/10/java-memory-and-jvm-garbage-collection/" data-title="深入理解Java虚拟机读书笔记之Java内存管理之道" data-images="http://www.ixirong.com/2015/08/10/java-memory-and-jvm-garbage-collection/" data-content="一篇不错的文章，推荐给大家！" data-url="http://www.ixirong.com/2015/08/10/java-memory-and-jvm-garbage-collection/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">        
+        <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>  
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>              
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+
+          <!-- 评论框 -->
+          <div class="ds-thread" data-thread-key="2015/08/10/java-memory-and-jvm-garbage-collection/"
+               data-title="深入理解Java虚拟机读书笔记之Java内存管理之道" data-url="http://www.ixirong.com/2015/08/10/java-memory-and-jvm-garbage-collection/">
+          </div>
+        
+      </div>
     
   </div>
 
-  
 
 
-
+          
+          <!-- 多说热评文章-->
+          <div class="c-duoshuo-hot-artical">
+          <p>热评文章</p>
+          <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
+          <div>
           
          
         </div>        
@@ -354,6 +372,15 @@
   <div id="sidebar" class="sidebar">
     <div class="sidebar-inner">
 
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
       
 
       <div class="site-overview">
@@ -460,6 +487,17 @@
       </div>
 
       
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
     </div>
 
   </div>
@@ -508,12 +546,6 @@
 
   
   
-  
-    <script type="text/javascript">
-      postMotionOptions = {stagger: 100, drag: true};
-    </script>
-  
-
 
   
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
@@ -721,6 +753,325 @@ $(function(){
 
 
   
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      if (isDesktop() && HEXO_SIDEBAR_CONFIGURATION === 'post') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+
+
 
    <script type="text/javascript">
     var HEXO_SIDEBAR_CONFIGURATION = 'hide';
@@ -734,6 +1085,26 @@ $(function(){
   
 
   
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xirong"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
 
   
   
