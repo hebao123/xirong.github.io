@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.ixirong.com/2015/08/22/java-memory-model/</loc>
+    <lastmod>2015-08-22T09:22:55.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.ixirong.com/2015/08/22/java-volatile/</loc>
     <lastmod>2015-08-22T08:55:14.000Z</lastmod>
   </url>
