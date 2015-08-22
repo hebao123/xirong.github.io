@@ -224,6 +224,104 @@
           
           
             
+              <a class="post-title-link" href="/2015/08/22/java-volatile/">
+                java中volatile关键字的理解
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-08-22
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/java/">java</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/08/22/java-volatile/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/22/java-volatile/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>此文来自书籍《<a href="http://book.douban.com/subject/24722612/">深入理解Java虚拟机-Jvm高级特性与最佳实践</a>》的第五部分：高效并发，详细 xmind 读书笔记参考<a href="https://github.com/xirong/my-java/blob/master/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0.xmind">读书笔记</a>。</p>
+<h1 id="volatile_修饰符的理解">volatile 修饰符的理解</h1><p>关键字 volatile 可以是 Java 虚拟机提供的轻量级同步机制，但并不容易被正确、完整的理解，不知道如何、什么场景该使用，以至于在处理多线程数据竞争问题的时候一律用synchronized同步，损失了一些性能。<br>当一个变量被定义为volatile后，将具备两种特性：一是保证此变量对所有线程的可见性，二是禁止指令重排序优化。</p>
+<h2 id="可见性">可见性</h2><p>这里的“可见性”是指当一条线程修改了变量的值，新值对于其他线程来说可以立即知道，而普通变量做不到。（Java内存模型是通过在变量修改后同步回住内存，在变量读取前从主内存刷新变量值这种依赖主内存作为传递媒介的方式来实现可见性，普通变量和volatile的区别是：volatile的特殊规则保证了新的值能立即同步到主内存，以及每次使用前立即从主内存刷新。）因此，volatile保证了多线程操作变量时的可见性，普通变量不能。</p>
+<p>注意：<strong>不能因为对多线程操作变量的可见性而认为 volatile 修饰的变量时多线程安全的</strong>，举例说明：</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/08/22/java-volatile/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+    
+    <! -- 添加捐赠图标 -->
+    
+<! -- 添加捐赠图标 -->
+
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/"> #java </a>
+          
+            <a href="/tags/多线程/"> #多线程 </a>
+          
+        </div>
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/08/10/java-memory-and-jvm-garbage-collection/">
                 深入理解Java虚拟机读书笔记之Java内存管理之道
               </a>
@@ -1131,109 +1229,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/18/develop-the-first-jstorm-demo/">
-                jstorm开发指南-写个简单的jstorm应用
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-07-18
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/大数据/">大数据</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/18/develop-the-first-jstorm-demo/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/18/develop-the-first-jstorm-demo/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>jstorm 是阿里巴巴开源的基于storm采用Java重写的一套分布式实时流计算框架，使用简单，特点如下：</p>
-<ul>
-<li>开发非常迅速: 接口简单，容易上手，只要遵守Topology，Spout， Bolt的编程规范即可开发出一个扩展性极好的应用，底层rpc，worker之间冗余，数据分流之类的动作完全不用考虑。</li>
-<li>扩展性极好:当一级处理单元速度，直接配置一下并发数，即可线性扩展性能</li>
-<li>健壮:当worker失效或机器出现故障时， 自动分配新的worker替换失效worker</li>
-<li>数据准确性: 可以采用Acker机制，保证数据不丢失。 如果对精度有更多一步要求，采用事务机制，保证数据准确。</li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/07/18/develop-the-first-jstorm-demo/#more">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div class="post-footer">
-    
-    <! -- 添加捐赠图标 -->
-    
-<! -- 添加捐赠图标 -->
-
-
-      
-        <div class="post-tags">
-          
-            <a href="/tags/jstorm/"> #jstorm </a>
-          
-            <a href="/tags/分布式/"> #分布式 </a>
-          
-            <a href="/tags/流处理/"> #流处理 </a>
-          
-        </div>
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1273,7 +1268,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-count">46</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1287,7 +1282,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">73</span>
+              <span class="site-state-item-count">74</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

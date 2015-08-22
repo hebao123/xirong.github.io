@@ -224,6 +224,109 @@
           
           
             
+              <a class="post-title-link" href="/2015/07/18/develop-the-first-jstorm-demo/">
+                jstorm开发指南-写个简单的jstorm应用
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-07-18
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/大数据/">大数据</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/18/develop-the-first-jstorm-demo/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/18/develop-the-first-jstorm-demo/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>jstorm 是阿里巴巴开源的基于storm采用Java重写的一套分布式实时流计算框架，使用简单，特点如下：</p>
+<ul>
+<li>开发非常迅速: 接口简单，容易上手，只要遵守Topology，Spout， Bolt的编程规范即可开发出一个扩展性极好的应用，底层rpc，worker之间冗余，数据分流之类的动作完全不用考虑。</li>
+<li>扩展性极好:当一级处理单元速度，直接配置一下并发数，即可线性扩展性能</li>
+<li>健壮:当worker失效或机器出现故障时， 自动分配新的worker替换失效worker</li>
+<li>数据准确性: 可以采用Acker机制，保证数据不丢失。 如果对精度有更多一步要求，采用事务机制，保证数据准确。</li>
+</ul>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/18/develop-the-first-jstorm-demo/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+    
+    <! -- 添加捐赠图标 -->
+    
+<! -- 添加捐赠图标 -->
+
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/jstorm/"> #jstorm </a>
+          
+            <a href="/tags/分布式/"> #分布式 </a>
+          
+            <a href="/tags/流处理/"> #流处理 </a>
+          
+        </div>
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/07/17/the-multi-storage/">
                 常见不同存储类型比较
               </a>
@@ -574,7 +677,7 @@
 
       
         
-          <p>本文来读书籍《<a href="http://book.douban.com/subject/24722612/">深入理解java虚拟机-JVM高级特性与最佳实践</a>》的阅读笔记，通过学习本书，对Java内存的区域及垃圾回收有了更好的认识，此文先对java运行时内存区域进行介绍。 </p>
+          <p>本文来读书籍《<a href="http://book.douban.com/subject/24722612/">深入理解java虚拟机-JVM高级特性与最佳实践</a>》的阅读笔记，通过学习本书，对Java内存的区域及垃圾回收有了更好的认识，此文先对java运行时内存区域进行介绍，详细 xmind 读书笔记参考<a href="https://github.com/xirong/my-java/blob/master/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0.xmind">读书笔记</a>。</p>
 <h2 id="一、运行时数据区域">一、运行时数据区域</h2><h3 id="1-1_程序计数器">1.1 程序计数器</h3><p> 程序计数器（Program Counter Register），占用内存很小:指的是当前线程所执行字节码的行号指示器。<br>“线程私有“内存:java多线程通过线程轮流切换分配cpu时间,任意一个时刻 ,一个cpu(多核一个内核)上只会执行一条线程指令,为了线程切换后能恢 复到正确的执行位置,每个线程独立一个程序计数器,各条线程互不影响, 独立存储。是虚拟机规范中唯一一个没有OutOfMemoryError的区域 </p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2015/07/14/java-memory-area/#more">
@@ -1122,105 +1225,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/06/20/reading-notes-tough-workout/">
-                硬派健身思维导图读书笔记(硬派健身.mmp/.xmind思维导图分享)
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-06-20
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/读书笔记/">读书笔记</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/06/20/reading-notes-tough-workout/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/20/reading-notes-tough-workout/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          《硬派健身》一书的作者`斌卡`成名于知乎、微信，写了一系列的关于健身减肥相关的文章，得知作者出版了本书，遂买来支持，书本中对网络上的文章进行了整理排版，并整理成思维导图xmind和mmp格式，还是比较适合初级健身者阅读的，豆瓣图书地址：http://book.douban.com/subject/26359758/。
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/06/20/reading-notes-tough-workout/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          
-      
-    </div>
-
-    <div class="post-footer">
-    
-    <! -- 添加捐赠图标 -->
-    
-<! -- 添加捐赠图标 -->
-
-
-      
-        <div class="post-tags">
-          
-            <a href="/tags/健康/"> #健康 </a>
-          
-            <a href="/tags/健身/"> #健身 </a>
-          
-            <a href="/tags/思维导图/"> #思维导图 </a>
-          
-            <a href="/tags/读书笔记/"> #读书笔记 </a>
-          
-        </div>
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1260,7 +1264,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">45</span>
+              <span class="site-state-item-count">46</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1274,7 +1278,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">73</span>
+              <span class="site-state-item-count">74</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
