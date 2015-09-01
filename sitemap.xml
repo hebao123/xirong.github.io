@@ -2,8 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.ixirong.com/2015/06/08/how-to-use-mac-efficiently/</loc>
+    <lastmod>2015-09-01T01:30:12.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.ixirong.com/2015/08/22/java-memory-model/</loc>
-    <lastmod>2015-08-22T09:22:55.000Z</lastmod>
+    <lastmod>2015-08-22T09:31:18.000Z</lastmod>
   </url>
   
   <url>
@@ -34,11 +39,6 @@
   <url>
     <loc>http://www.ixirong.com/about/index.html</loc>
     <lastmod>2015-08-08T09:19:15.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.ixirong.com/2015/06/08/how-to-use-mac-efficiently/</loc>
-    <lastmod>2015-08-04T06:07:46.000Z</lastmod>
   </url>
   
   <url>
