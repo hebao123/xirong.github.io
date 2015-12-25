@@ -218,6 +218,107 @@
           
           
             
+              <a class="post-title-link" href="/2015/07/31/learn-reading-gc-log/">
+                学习理解GC日志
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-07-31
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/java/">java</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/07/31/learn-reading-gc-log/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/31/learn-reading-gc-log/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>在日常开发中遇到分析Java虚拟机内存相关的问题时，阅读理解GC日志是前提，但由于每一种收集器的日志形式不一样，阅读起来也费尽，在这里结合实例进行简单的介绍。</p>
+<p>下面的代码为发生 Minor GC 的实例，分析起结果如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MinorGC</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="number">_1</span>MB = <span class="number">1024</span>*<span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span><br><span class="line">    vm :-verbose:gc -Xmx20M -Xms20M -Xmn10M -XX:+PrintGCDetails -XX:SurvivorRatio=8</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">byte</span>[] a1,a2,a3,a4;</span><br><span class="line">        a1 =<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2</span>*<span class="number">_1</span>MB];</span><br><span class="line">        a2 =<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2</span>*<span class="number">_1</span>MB];</span><br><span class="line">        a3 =<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2</span>*<span class="number">_1</span>MB];</span><br><span class="line"></span><br><span class="line">        a4 =<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">4</span>*<span class="number">_1</span>MB]; <span class="comment">//eden 区无法分配足够的空间，需要进行一次 Minor GC</span></span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"main is over!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/07/31/learn-reading-gc-log/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+    
+    <! -- 添加捐赠图标 -->
+    
+<! -- 添加捐赠图标 -->
+
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/"> #java </a>
+          
+            <a href="/tags/jvm/"> #jvm </a>
+          
+            <a href="/tags/垃圾回收/"> #垃圾回收 </a>
+          
+            <a href="/tags/读书笔记/"> #读书笔记 </a>
+          
+        </div>
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/07/30/java-gc-collectors/">
                 java垃圾收集器介绍
               </a>
@@ -1113,106 +1214,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/14/java-memory-area/">
-                Java 运行时内存区域
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-07-14
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/java/">java</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/14/java-memory-area/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/14/java-memory-area/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>本文来读书籍《<a href="http://book.douban.com/subject/24722612/">深入理解java虚拟机-JVM高级特性与最佳实践</a>》的阅读笔记，通过学习本书，对Java内存的区域及垃圾回收有了更好的认识，此文先对java运行时内存区域进行介绍，详细 xmind 读书笔记参考<a href="https://github.com/xirong/my-java/blob/master/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0.xmind">读书笔记</a>。</p>
-<h2 id="一、运行时数据区域">一、运行时数据区域</h2><h3 id="1-1_程序计数器">1.1 程序计数器</h3><p> 程序计数器（Program Counter Register），占用内存很小:指的是当前线程所执行字节码的行号指示器。<br>“线程私有“内存:java多线程通过线程轮流切换分配cpu时间,任意一个时刻 ,一个cpu(多核一个内核)上只会执行一条线程指令,为了线程切换后能恢 复到正确的执行位置,每个线程独立一个程序计数器,各条线程互不影响, 独立存储。是虚拟机规范中唯一一个没有OutOfMemoryError的区域 </p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/07/14/java-memory-area/#more">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div class="post-footer">
-    
-    <! -- 添加捐赠图标 -->
-    
-<! -- 添加捐赠图标 -->
-
-
-      
-        <div class="post-tags">
-          
-            <a href="/tags/java/"> #java </a>
-          
-            <a href="/tags/内存溢出/"> #内存溢出 </a>
-          
-            <a href="/tags/内存管理/"> #内存管理 </a>
-          
-            <a href="/tags/读书笔记/"> #读书笔记 </a>
-          
-        </div>
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1252,7 +1253,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">52</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1266,7 +1267,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">81</span>
+              <span class="site-state-item-count">82</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>

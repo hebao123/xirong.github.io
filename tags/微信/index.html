@@ -10,11 +10,9 @@
 <meta http-equiv=”Cache-Control” content=”no-siteapp” />
 
 
-  <meta name="keywords" content=" java垃圾回收器,Java内存分配,java垃圾回收,java,jvm,虚拟机, " />
 
 
-
-    <meta name="description" content="java垃圾收集器介绍, 有故事、有担当、有思考" />
+    <meta name="description" content=", 有故事、有担当、有思考" />
 
 
 
@@ -55,12 +53,12 @@
   <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.2" />
 
 
-  <title> java垃圾收集器介绍 - 自由 </title>
+  <title> 标签: 微信 / 自由 </title>
 </head>
 
 <body>
 <!--[if lte IE 8]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://static.ixirong.com/picouterie.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari." style='margin-left:auto;margin-right:auto;display: block;'/></a></div> <![endif]-->
-  <div class="container one-column page-post-detail">
+  <div class="container one-column ">
     <div class="headband"></div>
 
     <div id="header" class="header">
@@ -206,155 +204,42 @@
         <div id="content" class="content">
           
 
-  <div id="posts" class="posts-expand">
-    
+  <div id="posts" class="posts-collapse">
+    <div class="collection-title">
+      <h2 >
+        微信
+        <small>标签</small>
+      </h2>
+    </div>
 
-  <div class="post post-type-normal ">
+    
+      
+
+  <div class="post post-type-normal">
     <div class="post-header">
 
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              java垃圾收集器介绍
-            
-          
-        </h1>
-      
+      <div class="post-title">
+        
+            <a class="post-title-link" href="/2015/12/25/what-else-can-wechat-do/">
+              微信力量
+            </a>
+        
+      </div>
 
       <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-07-30
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/java/">java</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/30/java-gc-collectors/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/30/java-gc-collectors/"></span>
-            </a>
-          </span>
-          
-        
+        <span class="post-time"> 12-25 </span>
       </div>
-    </div>
 
-    <div class="post-body">
-
-      
-      
-
-      
-        <p>java&#x6536;&#x96C6;&#x5668;&#x662F;&#x5185;&#x5B58;&#x56DE;&#x6536;&#x7684;&#x5177;&#x4F53;&#x5B9E;&#x73B0;&#xFF0C;&#x4EE5;&#x4E0B;&#x6536;&#x96C6;&#x5668;&#x5747;&#x57FA;&#x4E8E; JDK1.7 Update 14&#x4E4B;&#x540E;&#x7684;HotSpot&#x865A;&#x62DF;&#x673A;&#x7248;&#x672C;&#xFF0C;&#x63D0;&#x4F9B;&#x4E86;&#x6B63;&#x5F0F;&#x5546;&#x7528;&#x7684;G1&#x6536;&#x96C6;&#x5668;&#xFF0C;&#x6574;&#x4F53;&#x5982;&#x56FE;&#xFF1A;</p>
-<p><img src="http://static.ixirong.com/pic/java-memory/all-gc-collector.png" alt="&#x6240;&#x6709;&#x6536;&#x96C6;&#x5668;&#x56FE;&#x7247;"></p>
-<p>&#x8BF4;&#x660E;&#xFF1A;&#x5982;&#x679C;&#x4E24;&#x4E2A;&#x6536;&#x96C6;&#x5668;&#x4E4B;&#x95F4;&#x5B58;&#x5728;&#x8FDE;&#x7EBF;&#xFF0C;&#x8BF4;&#x660E;&#x53EF;&#x4EE5;&#x642D;&#x914D;&#x4F7F;&#x7528;&#xFF0C;&#x865A;&#x62DF;&#x673A;&#x6240;&#x5904;&#x7684;&#x533A;&#x57DF;&#xFF0C;&#x8868;&#x793A;&#x5C5E;&#x4E8E;&#x65B0;&#x751F;&#x4EE3;&#x6536;&#x96C6;&#x5668;&#x8FD8;&#x662F;&#x8001;&#x5E74;&#x4EE3;&#x6536;&#x96C6;&#x5668;&#x3002; &#x5BF9;&#x5404;&#x4E2A;&#x6536;&#x96C6;&#x5668;&#x8FDB;&#x884C;&#x5206;&#x6790;&#x5BF9;&#x6BD4;&#x7684;&#x76EE;&#x7684;&#x4E0D;&#x662F;&#x4E3A;&#x4E86;&#x6311;&#x9009;&#x4E00;&#x4E2A;&#x4E07;&#x80FD;&#x7684;&#xFF0C;&#x800C;&#x662F;&#x5728;&#x7279;&#x5B9A;&#x573A;&#x5408;&#x9009;&#x62E9;&#x6700;&#x5408;&#x9002;&#x7684;&#x6536;&#x96C6;&#x5668;&#x3002;</p>
-<a id="more"></a>
-<p>&#x8FD9;&#x90E8;&#x5206;&#x5185;&#x5BB9;&#xFF0C;&#x5B8C;&#x6574;&#x63CF;&#x8FF0;&#x53EF;&#x4EE5;&#x67E5;&#x770B; &#xFF0C;&#x5199;&#x7684;&#x5F88;&#x8BE6;&#x7EC6;&#x4E86;&#xFF0C;&#x800C;&#x6211;&#x505A;&#x7684;&#x5BFC;&#x56FE;&#x5BFC;&#x51FA;&#x6587;&#x5B57;&#x7684;&#x8BDD;&#x8854;&#x63A5;&#x4E0D;&#x662F;&#x5F88;&#x597D;&#xFF0C;&#x76F4;&#x63A5;&#x770B;&#x8FD9;&#x90E8;&#x5206;&#x5427;&#xFF1A;<a href="http://my.oschina.net/xianggao/blog/396616" target="_blank" rel="external">http://my.oschina.net/xianggao/blog/396616</a> </p>
-<p>&#x51E0;&#x7BC7;&#x8BB2;&#x89E3;&#x900F;&#x5F7B;&#x6BD4;&#x8F83;&#x597D;&#x7684;&#x6587;&#x7AE0;&#xFF1A;</p>
-<ul>
-<li><a href="http://www.cubrid.org/blog/dev-platform/understanding-java-garbage-collection/" target="_blank" rel="external">Understanding Java Garbage Collection</a></li>
-<li><a href="http://www.cubrid.org/blog/dev-platform/how-to-monitor-java-garbage-collection/" target="_blank" rel="external">How to Monitor Java Garbage Collection</a></li>
-<li><a href="http://www.cubrid.org/blog/dev-platform/how-to-tune-java-garbage-collection/" target="_blank" rel="external">How to Tune Java Garbage Collection</a></li>
-</ul>
-<p>&#x81EA;&#x5DF1;&#x505A;&#x7684;&#x601D;&#x7EF4;&#x5BFC;&#x56FE;&#x5982;&#x4E0B;&#xFF0C;&#x6709;&#x9700;&#x8981;&#x7684;&#x53EF;&#x4EE5;&#x4E0B;&#x8F7D;&#xFF0C;<a href="http://pan.baidu.com/s/1c00M7DI" target="_blank" rel="external">http://pan.baidu.com/s/1c00M7DI</a> </p>
-<p><img src="http://static.ixirong.com/pic/java-memory/gc-xmind.png" alt="&#x5BFC;&#x56FE;&#x9884;&#x89C8;"></p>
-
-      
-    </div>
-
-    <div class="post-footer">
-    
-    <! -- 添加捐赠图标 -->
-    
-<! -- 添加捐赠图标 -->
-
-
-      
-        <div class="post-tags">
-          
-            <a href="/tags/java/"> #java </a>
-          
-            <a href="/tags/jvm/"> #jvm </a>
-          
-            <a href="/tags/虚拟机/"> #虚拟机 </a>
-          
-        </div>
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2015/07/31/learn-reading-gc-log/">学习理解GC日志</a>
-            
-          </div>
-
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2015/07/29/how-to-use-github-gitlab-together/">一台机器上Github/Gitlab多账户管理SSH Key切换解决push冲突</a>
-            
-          </div>
-        </div>
-      
-
-      
-      
     </div>
   </div>
 
 
-
-    
-      <div class="comments" id="comments">
-        
-
-<div class="ds-share" data-thread-key="2015/07/30/java-gc-collectors/" data-title="java垃圾收集器介绍" data-images="http://www.ixirong.com/2015/07/30/java-gc-collectors/" data-content="一篇不错的文章，推荐给大家！" data-url="http://www.ixirong.com/2015/07/30/java-gc-collectors/">
-    <div class="ds-share-inline">
-      <ul  class="ds-share-icons-16">        
-        <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>  
-        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
-        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>              
-      </ul>
-      <div class="ds-share-icons-more">
-      </div>
-    </div>
- </div>
-
-          <!-- 评论框 -->
-          <div class="ds-thread" data-thread-key="2015/07/30/java-gc-collectors/"
-               data-title="java垃圾收集器介绍" data-url="http://www.ixirong.com/2015/07/30/java-gc-collectors/">
-          </div>
-        
-      </div>
     
   </div>
 
+  
 
 
-          
-          <!-- 多说热评文章-->
-          <div class="c-duoshuo-hot-artical">
-          <p>热评文章</p>
-          <div class="ds-top-threads" data-range="weekly" data-num-items="4"></div>
-          <div>
           
          
         </div>        
@@ -374,15 +259,6 @@
   <div id="sidebar" class="sidebar">
     <div class="sidebar-inner">
 
-      
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
       
 
       <div class="site-overview">
@@ -489,17 +365,6 @@
       </div>
 
       
-        <div class="post-toc-wrap sidebar-panel-active">
-          <div class="post-toc-indicator-top post-toc-indicator"></div>
-          <div class="post-toc">
-            
-            
-              <p class="post-toc-empty">此文章未包含目录</p>
-            
-          </div>
-          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
-        </div>
-      
     </div>
 
   </div>
@@ -548,6 +413,12 @@
 
   
   
+  
+    <script type="text/javascript">
+      postMotionOptions = {stagger: 100, drag: true};
+    </script>
+  
+
 
   
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
@@ -755,325 +626,6 @@ $(function(){
 
 
   
-  
-<script type="text/javascript" id="bootstrap.scrollspy.custom">
-  /* ========================================================================
-  * Bootstrap: scrollspy.js v3.3.2
-  * http://getbootstrap.com/javascript/#scrollspy
-  * ========================================================================
-  * Copyright 2011-2015 Twitter, Inc.
-  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
-  * ======================================================================== */
-
-  /**
-   * Custom by iissnan
-   *
-   * - Add a `clear.bs.scrollspy` event.
-   * - Esacpe targets selector.
-   */
-
-
-  +function ($) {
-    'use strict';
-
-    // SCROLLSPY CLASS DEFINITION
-    // ==========================
-
-    function ScrollSpy(element, options) {
-      this.$body          = $(document.body)
-      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
-      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
-      this.selector       = (this.options.target || '') + ' .nav li > a'
-      this.offsets        = []
-      this.targets        = []
-      this.activeTarget   = null
-      this.scrollHeight   = 0
-
-      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
-      this.refresh()
-      this.process()
-    }
-
-    ScrollSpy.VERSION  = '3.3.2'
-
-    ScrollSpy.DEFAULTS = {
-      offset: 10
-    }
-
-    ScrollSpy.prototype.getScrollHeight = function () {
-      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
-    }
-
-    ScrollSpy.prototype.refresh = function () {
-      var that          = this
-      var offsetMethod  = 'offset'
-      var offsetBase    = 0
-
-      this.offsets      = []
-      this.targets      = []
-      this.scrollHeight = this.getScrollHeight()
-
-      if (!$.isWindow(this.$scrollElement[0])) {
-        offsetMethod = 'position'
-        offsetBase   = this.$scrollElement.scrollTop()
-      }
-
-      this.$body
-        .find(this.selector)
-        .map(function () {
-          var $el   = $(this)
-          var href  = $el.data('target') || $el.attr('href')
-          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
-
-          return ($href
-            && $href.length
-            && $href.is(':visible')
-            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
-        })
-        .sort(function (a, b) { return a[0] - b[0] })
-        .each(function () {
-          that.offsets.push(this[0])
-          that.targets.push(this[1])
-        })
-
-
-    }
-
-    ScrollSpy.prototype.process = function () {
-      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
-      var scrollHeight = this.getScrollHeight()
-      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
-      var offsets      = this.offsets
-      var targets      = this.targets
-      var activeTarget = this.activeTarget
-      var i
-
-      if (this.scrollHeight != scrollHeight) {
-        this.refresh()
-      }
-
-      if (scrollTop >= maxScroll) {
-        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
-      }
-
-      if (activeTarget && scrollTop < offsets[0]) {
-        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
-        this.activeTarget = null
-        return this.clear()
-      }
-
-      for (i = offsets.length; i--;) {
-        activeTarget != targets[i]
-          && scrollTop >= offsets[i]
-          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
-          && this.activate(targets[i])
-      }
-    }
-
-    ScrollSpy.prototype.activate = function (target) {
-      this.activeTarget = target
-
-      this.clear()
-
-      var selector = this.selector +
-        '[data-target="' + target + '"],' +
-        this.selector + '[href="' + target + '"]'
-
-      var active = $(selector)
-        .parents('li')
-        .addClass('active')
-
-      if (active.parent('.dropdown-menu').length) {
-        active = active
-          .closest('li.dropdown')
-          .addClass('active')
-      }
-
-      active.trigger('activate.bs.scrollspy')
-    }
-
-    ScrollSpy.prototype.clear = function () {
-      $(this.selector)
-        .parentsUntil(this.options.target, '.active')
-        .removeClass('active')
-    }
-
-
-    // SCROLLSPY PLUGIN DEFINITION
-    // ===========================
-
-    function Plugin(option) {
-      return this.each(function () {
-        var $this   = $(this)
-        var data    = $this.data('bs.scrollspy')
-        var options = typeof option == 'object' && option
-
-        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
-        if (typeof option == 'string') data[option]()
-      })
-    }
-
-    var old = $.fn.scrollspy
-
-    $.fn.scrollspy             = Plugin
-    $.fn.scrollspy.Constructor = ScrollSpy
-
-
-    // SCROLLSPY NO CONFLICT
-    // =====================
-
-    $.fn.scrollspy.noConflict = function () {
-      $.fn.scrollspy = old
-      return this
-    }
-
-
-    // SCROLLSPY DATA-API
-    // ==================
-
-    $(window).on('load.bs.scrollspy.data-api', function () {
-      $('[data-spy="scroll"]').each(function () {
-        var $spy = $(this)
-        Plugin.call($spy, $spy.data())
-      })
-    })
-
-  }(jQuery);
-</script>
-
-
-<script type="text/javascript" id="sidebar.toc.highlight">
-  $(document).ready(function () {
-    var tocSelector = '.post-toc';
-    var $tocSelector = $(tocSelector);
-    var activeCurrentSelector = '.active-current';
-
-    $tocSelector
-      .on('activate.bs.scrollspy', function () {
-        var $currentActiveElement = $(tocSelector + ' .active').last();
-
-        removeCurrentActiveClass();
-        $currentActiveElement.addClass('active-current');
-
-        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
-      })
-      .on('clear.bs.scrollspy', function () {
-        removeCurrentActiveClass();
-      });
-
-    function removeCurrentActiveClass () {
-      $(tocSelector + ' ' + activeCurrentSelector)
-        .removeClass(activeCurrentSelector.substring(1));
-    }
-
-    function processTOC () {
-      getTOCMaxHeight();
-      toggleTOCOverflowIndicators();
-    }
-
-    function getTOCMaxHeight () {
-      var $sidebarInner = $('.sidebar-inner');
-      var height = $('.sidebar').height() -
-                   $tocSelector.position().top -
-                   $('.post-toc-indicator-bottom').height();
-
-      $tocSelector.css('height', height);
-
-      return height;
-    }
-
-    function toggleTOCOverflowIndicators () {
-      tocOverflowIndicator(
-        '.post-toc-indicator-top',
-        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
-      );
-
-      tocOverflowIndicator(
-        '.post-toc-indicator-bottom',
-        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
-      )
-    }
-
-    $(document).on('sidebar.didShow', function () {
-      processTOC();
-    });
-
-    $('body').scrollspy({ target: tocSelector });
-    $(window).on('resize', function () {
-      if ( $('.sidebar').hasClass('sidebar-active') ) {
-        processTOC();
-      }
-    });
-
-    onScroll($tocSelector);
-
-    function onScroll (element) {
-      element.on('mousewheel DOMMouseScroll', function (event) {
-          var oe = event.originalEvent;
-          var delta = oe.wheelDelta || -oe.detail;
-          var self = this;
-
-          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
-          event.preventDefault();
-
-          toggleTOCOverflowIndicators();
-      });
-    }
-
-    function tocOverflowIndicator (indicator, action) {
-      $(indicator).velocity('stop').velocity({
-        opacity: action === 'show' ? 0.4 : 0
-      }, { duration: 100 });
-    }
-
-  });
-</script>
-
-
-  <script type="text/javascript" id="sidebar.nav">
-    $(document).ready(function () {
-      var html = $('html');
-
-      $('.sidebar-nav li').on('click', function () {
-        var item = $(this);
-        var activeTabClassName = 'sidebar-nav-active';
-        var activePanelClassName = 'sidebar-panel-active';
-        if (item.hasClass(activeTabClassName)) {
-          return;
-        }
-
-        var currentTarget = $('.' + activePanelClassName);
-        var target = $('.' + item.data('target'));
-
-        currentTarget.velocity('transition.slideUpOut', 200, function () {
-          target
-            .velocity('stop')
-            .velocity('transition.slideDownIn', 200)
-            .addClass(activePanelClassName);
-        });
-
-        item.siblings().removeClass(activeTabClassName);
-        item.addClass(activeTabClassName);
-      });
-
-      $('.post-toc a').on('click', function (e) {
-        e.preventDefault();
-        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
-        html.velocity('stop').velocity('scroll', {
-          offset: offset  + 'px',
-          mobileHA: false
-        });
-      });
-
-      // Expand sidebar on post detail page by default, when post has a toc.
-      if (isDesktop() && HEXO_SIDEBAR_CONFIGURATION === 'post') {
-        displaySidebar();
-      }
-    });
-  </script>
-
-
-
 
    <script type="text/javascript">
     var HEXO_SIDEBAR_CONFIGURATION = 'hide';
@@ -1087,26 +639,6 @@ $(function(){
   
 
   
-  
-
-  
-    
-  
-
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"xirong"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
-
-  
-
 
   
   

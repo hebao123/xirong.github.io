@@ -218,6 +218,102 @@
           
           
             
+              <a class="post-title-link" href="/2015/12/25/what-else-can-wechat-do/">
+                微信力量
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-12-25
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/读书笔记/">读书笔记</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/12/25/what-else-can-wechat-do/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/25/what-else-can-wechat-do/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p><img src="http://img3.douban.com/lpic/s28326980.jpg" alt="微信力量"></p>
+<p>从书中可以看到，微信团队为微信勾勒出一个庞大的版图，订阅号、服务号、企业号、微信支付、智能硬件、摇一摇（周边、电视、音乐等），每一块都极具颠覆性，可又面临很大的困难，就拿微信支付来说，太缺少场景了，仅仅靠餐饮店、超时、水果店远远是不够的，信用卡、水电煤气、公积金、银行合作等等已经被支付宝垄断了，总的来说「前途很光明，道路很曲折」，还有很长远的路要走。<br>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/12/25/what-else-can-wechat-do/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+    
+    <! -- 添加捐赠图标 -->
+    
+<! -- 添加捐赠图标 -->
+
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/微信/"> #微信 </a>
+          
+            <a href="/tags/读书笔记/"> #读书笔记 </a>
+          
+        </div>
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/12/22/how-to-make-office-mac-thinner/">
                 Office Thinner 瘦身你的 Office 2016 for mac
               </a>
@@ -1129,107 +1225,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/07/31/learn-reading-gc-log/">
-                学习理解GC日志
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-07-31
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/java/">java</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/07/31/learn-reading-gc-log/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/31/learn-reading-gc-log/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>在日常开发中遇到分析Java虚拟机内存相关的问题时，阅读理解GC日志是前提，但由于每一种收集器的日志形式不一样，阅读起来也费尽，在这里结合实例进行简单的介绍。</p>
-<p>下面的代码为发生 Minor GC 的实例，分析起结果如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MinorGC</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="number">_1</span>MB = <span class="number">1024</span>*<span class="number">1024</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span><br><span class="line">    vm :-verbose:gc -Xmx20M -Xms20M -Xmn10M -XX:+PrintGCDetails -XX:SurvivorRatio=8</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span></span>&#123;</span><br><span class="line">        <span class="keyword">byte</span>[] a1,a2,a3,a4;</span><br><span class="line">        a1 =<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2</span>*<span class="number">_1</span>MB];</span><br><span class="line">        a2 =<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2</span>*<span class="number">_1</span>MB];</span><br><span class="line">        a3 =<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">2</span>*<span class="number">_1</span>MB];</span><br><span class="line"></span><br><span class="line">        a4 =<span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">4</span>*<span class="number">_1</span>MB]; <span class="comment">//eden 区无法分配足够的空间，需要进行一次 Minor GC</span></span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"main is over!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/07/31/learn-reading-gc-log/#more">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div class="post-footer">
-    
-    <! -- 添加捐赠图标 -->
-    
-<! -- 添加捐赠图标 -->
-
-
-      
-        <div class="post-tags">
-          
-            <a href="/tags/java/"> #java </a>
-          
-            <a href="/tags/jvm/"> #jvm </a>
-          
-            <a href="/tags/垃圾回收/"> #垃圾回收 </a>
-          
-            <a href="/tags/读书笔记/"> #读书笔记 </a>
-          
-        </div>
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1269,7 +1264,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">52</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1283,7 +1278,7 @@
 
           <div class="site-state-item site-state-tags">
             <a href="/tags">
-              <span class="site-state-item-count">81</span>
+              <span class="site-state-item-count">82</span>
               <span class="site-state-item-name">标签</span>
               </a>
           </div>
