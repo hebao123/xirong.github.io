@@ -74,7 +74,7 @@
   function hasMobileUA () {
     var nav = window.navigator;
     var ua = nav.userAgent;
-    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|UCBrowser|MQQBrowser|Blazer|PSP|IEMobile|Symbian|Mobile|samsung|htc/g;
 
     return pa.test(ua);
   }
@@ -94,7 +94,7 @@
   function escapeSelector (selector) {
     return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
   }
-  
+
   function displaySidebar () {
     setTimeout(function () {
       $('.sidebar-toggle').trigger('click');
@@ -466,7 +466,7 @@
   function hasMobileUA () {
     var nav = window.navigator;
     var ua = nav.userAgent;
-    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|UCBrowser|MQQBrowser|Blazer|PSP|IEMobile|Symbian|Mobile|samsung|htc/g;
 
     return pa.test(ua);
   }
@@ -486,7 +486,7 @@
   function escapeSelector (selector) {
     return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
   }
-  
+
   function displaySidebar () {
     setTimeout(function () {
       $('.sidebar-toggle').trigger('click');
