@@ -218,6 +218,106 @@
           
           
             
+              <a class="post-title-link" href="/2016/01/05/how-to-config-squid-acl/">
+                squid 访问控制
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2016-01-05
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/网络/">网络</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/01/05/how-to-config-squid-acl/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/05/how-to-config-squid-acl/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p><img src="http://static.ixirong.com/picnetwork/1452004636653.png" alt="Alt text"></p>
+<p>使用 squid 访问控制特性，可以控制其在访问时根据特定的时间间隔进行缓存、访问特定站点或一组站点等，Squid访问控制有两个要素：ACL元素和访问列表。</p>
+<h2 id="访问控制元素">访问控制元素</h2><p>ACL 元素是 Squid 的访问控制的基础。每个ACL元素有个名字，在编写访问控制规则时需要引用它们。 基本的 ACL 元素语法如下：</p>
+<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">acl <span class="keyword">name</span> <span class="keyword">type</span> value1 value2 ...</span><br></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/05/how-to-config-squid-acl/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+    
+    <! -- 添加捐赠图标 -->
+    
+<! -- 添加捐赠图标 -->
+
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/squid/"> #squid </a>
+          
+            <a href="/tags/代理/"> #代理 </a>
+          
+            <a href="/tags/网络/"> #网络 </a>
+          
+        </div>
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2016/01/04/intro-squid-proxy-server/">
                 squid正向代理
               </a>
@@ -1109,104 +1209,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/22/java-volatile/">
-                java中volatile关键字的理解
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-08-22
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/java/">java</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/08/22/java-volatile/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/22/java-volatile/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>此文来自书籍《<a href="http://book.douban.com/subject/24722612/">深入理解Java虚拟机-Jvm高级特性与最佳实践</a>》的第五部分：高效并发，详细 xmind 读书笔记参考<a href="https://github.com/xirong/my-java/blob/master/jvm/%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3java%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%AC%94%E8%AE%B0.xmind">读书笔记</a>。</p>
-<h1 id="volatile_修饰符的理解">volatile 修饰符的理解</h1><p>关键字 volatile 可以是 Java 虚拟机提供的轻量级同步机制，但并不容易被正确、完整的理解，不知道如何、什么场景该使用，以至于在处理多线程数据竞争问题的时候一律用synchronized同步，损失了一些性能。<br>当一个变量被定义为volatile后，将具备两种特性：一是保证此变量对所有线程的可见性，二是禁止指令重排序优化。</p>
-<h2 id="可见性">可见性</h2><p>这里的“可见性”是指当一条线程修改了变量的值，新值对于其他线程来说可以立即知道，而普通变量做不到。（Java内存模型是通过在变量修改后同步回住内存，在变量读取前从主内存刷新变量值这种依赖主内存作为传递媒介的方式来实现可见性，普通变量和volatile的区别是：volatile的特殊规则保证了新的值能立即同步到主内存，以及每次使用前立即从主内存刷新。）因此，volatile保证了多线程操作变量时的可见性，普通变量不能。</p>
-<p>注意：<strong>不能因为对多线程操作变量的可见性而认为 volatile 修饰的变量时多线程安全的</strong>，举例说明：</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/08/22/java-volatile/#more">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div class="post-footer">
-    
-    <! -- 添加捐赠图标 -->
-    
-<! -- 添加捐赠图标 -->
-
-
-      
-        <div class="post-tags">
-          
-            <a href="/tags/java/"> #java </a>
-          
-            <a href="/tags/多线程/"> #多线程 </a>
-          
-        </div>
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1247,7 +1249,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">56</span>
+              <span class="site-state-item-count">57</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -218,6 +218,105 @@
           
           
             
+              <a class="post-title-link" href="/2015/06/20/reading-notes-tough-workout/">
+                《硬派健身》笔记
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2015-06-20
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/读书笔记/">读书笔记</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/06/20/reading-notes-tough-workout/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/20/reading-notes-tough-workout/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          《硬派健身》一书的作者`斌卡`成名于知乎、微信，写了一系列的关于健身减肥相关的文章，得知作者出版了本书，遂买来支持，书本中对网络上的文章进行了整理排版，并整理成思维导图xmind和mmp格式，还是比较适合初级健身者阅读的，豆瓣图书地址：http://book.douban.com/subject/26359758/。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/06/20/reading-notes-tough-workout/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          
+      
+    </div>
+
+    <div class="post-footer">
+    
+    <! -- 添加捐赠图标 -->
+    
+<! -- 添加捐赠图标 -->
+
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/健康/"> #健康 </a>
+          
+            <a href="/tags/健身/"> #健身 </a>
+          
+            <a href="/tags/思维导图/"> #思维导图 </a>
+          
+            <a href="/tags/读书笔记/"> #读书笔记 </a>
+          
+        </div>
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/06/14/git-workflow-tutorial/">
                 深入学习Git工作流（git-workflow-tutorial）
               </a>
@@ -1080,108 +1179,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/05/12/how-to-install-jstorm-cluster/">
-                分布式实时日志系统（一）环境搭建之 Jstorm 集群搭建过程/Jstorm集群一键安装部署
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-05-12
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/大数据/">大数据</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/05/12/how-to-install-jstorm-cluster/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/12/how-to-install-jstorm-cluster/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>最近公司业务数据量越来越大，以前的基于消息队列的日志系统越来越难以满足目前的业务量，表现为消息积压，日志延迟，日志存储日期过短，所以，我们开始着手要重新设计这块，业界已经有了比较成熟的流程，即基于流式处理，采用 flume 收集日志，发送到 kafka 队列做缓冲，storm 分布式实时框架进行消费处理，短期数据落地到 hbase、mongo中，长期数据进入 hadoop 中存储。 接下来打算将这其间所遇到的问题、学习到的知识记录整理下，作为备忘，作为分享，带给需要的人。</p>
-<p>淘宝开源了许多产品组件，其中包括这鼎鼎有名的 jstorm ，也就是我们采用的分布式实时处理框架，至于为什么，请看《<a href="https://github.com/alibaba/jstorm/wiki/JStorm-vs-Storm-vs-flume-vs-S4-%E9%80%89%E5%9E%8B">为什么选择Jstorm</a>》。这篇文章只介绍 Jstorm 整个集群的搭建过程，并提供一键安装部署脚本，方便其它使用的人员（搭建环境是一件头疼的事情，费时、费力）。</p>
-<p>这是 Jstorm 的介绍PPT：（slideshare PPT 分享服务在大陆是被墙的，不能科学上网？查看<a href="http://ixirong.com/2015/01/19/shadowsocks-md/">使用shadowsocks服务享受自由网络</a>学习方法）</p>
-<p><iframe src="//www.slideshare.net/slideshow/embed_code/key/6NiKs9odzHXrZK" width="510" height="420" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/hustjackie/jstorm-introduction096" title="Jstorm introduction-0.9.6" target="_blank">Jstorm introduction-0.9.6</a> </strong> from <strong><a href="//www.slideshare.net/hustjackie" target="_blank">longda feng</a></strong> </div></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/05/12/how-to-install-jstorm-cluster/#more">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div class="post-footer">
-    
-    <! -- 添加捐赠图标 -->
-    
-<! -- 添加捐赠图标 -->
-
-
-      
-        <div class="post-tags">
-          
-            <a href="/tags/jstorm/"> #jstorm </a>
-          
-            <a href="/tags/storm/"> #storm </a>
-          
-            <a href="/tags/大数据/"> #大数据 </a>
-          
-            <a href="/tags/实时日志/"> #实时日志 </a>
-          
-        </div>
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1222,7 +1219,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">56</span>
+              <span class="site-state-item-count">57</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
