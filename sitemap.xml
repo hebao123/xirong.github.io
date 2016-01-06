@@ -2,8 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://www.ixirong.com/2016/01/06/how-squid-hide-http-header/</loc>
+    <lastmod>2016-01-06T03:41:33.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://www.ixirong.com/2016/01/05/how-to-config-squid-acl/</loc>
-    <lastmod>2016-01-05T15:04:30.000Z</lastmod>
+    <lastmod>2016-01-06T03:41:21.000Z</lastmod>
   </url>
   
   <url>

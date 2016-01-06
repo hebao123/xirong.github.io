@@ -218,6 +218,108 @@
           
           
             
+              <a class="post-title-link" href="/2016/01/06/how-squid-hide-http-header/">
+                squid 设置高度匿名代理
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2016-01-06
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/网络/">网络</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/01/06/how-squid-hide-http-header/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/06/how-squid-hide-http-header/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        
+          <p>代理服务器根据匿名程度可以区分为以下几种：</p>
+<ol>
+<li>高度匿名代理<br> 高度匿名代理会将我们的数据包原封不动的转发，在服务端看来就好像真的是一个普通客户端在访问，而记录的IP是代理服务器的IP。</li>
+<li>普通匿名代理<br> 普通匿名代理会在数据包上做一些改动，服务端上有可能发现这是个代理服务器，也有一定几率追查到你的真实IP。代理服务器通常会加入的HTTP头有 <code>HTTP_VIA</code> 和 <code>HTTP_X_FORWARDED_FOR</code> 。</li>
+<li>透明代理<br> 透明代理不但改动了我们的数据包，还会告诉服务器你的真实IP。这种代理除了能用缓存技术帮你提高浏览速度，能用内容过滤提高你的安全性之外，并无其他显著作用。（最常见的例子是：内网中的硬件防火墙）</li>
+<li>间谍代理<br> 间谍代理指组织或个人建立的，用于记录使用者传输的数据，然后进行研究、监控等目的代理服务器。
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/01/06/how-squid-hide-http-header/#more">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div class="post-footer">
+    
+    <! -- 添加捐赠图标 -->
+    
+<! -- 添加捐赠图标 -->
+
+
+      
+        <div class="post-tags">
+          
+            <a href="/tags/squid/"> #squid </a>
+          
+            <a href="/tags/代理/"> #代理 </a>
+          
+            <a href="/tags/网络/"> #网络 </a>
+          
+        </div>
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </div>
+  </div>
+
+
+    
+      
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2016/01/05/how-to-config-squid-acl/">
                 squid 访问控制
               </a>
@@ -1105,110 +1207,6 @@
 
 
     
-      
-
-  <div class="post post-type-normal ">
-    <div class="post-header">
-
-      
-      
-        <h1 class="post-title">
-          
-          
-            
-              <a class="post-title-link" href="/2015/08/22/java-memory-model/">
-                理解Java内存模型
-              </a>
-            
-          
-        </h1>
-      
-
-      <div class="post-meta">
-        <span class="post-time">
-          发表于 2015-08-22
-        </span>
-
-        
-          <span class="post-category">
-            &nbsp; | &nbsp; 分类于
-            
-              <a href="/categories/java/">java</a>
-
-              
-              
-
-            
-          </span>
-        
-
-        
-          
-            <span class="post-comments-count">
-            &nbsp; | &nbsp;
-            <a href="/2015/08/22/java-memory-model/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/22/java-memory-model/"></span>
-            </a>
-          </span>
-          
-        
-      </div>
-    </div>
-
-    <div class="post-body">
-
-      
-      
-
-      
-        
-          <p>接上篇文章，infoq 上有几篇文章对java 内存讲解的比较透彻，这里转载过来，感兴趣的可以下载看看 ~</p>
-<hr>
-<p>Java线程之间的通信对程序员完全透明，内存可见性问题很容易困扰java程序员，本文试图揭开java内存模型神秘的面纱。本文大致分三部分：</p>
-<ul>
-<li>重排序与顺序一致性；</li>
-<li>三个同步原语（lock，volatile，final）的内存语义，重排序规则及在处理器中的实现；</li>
-<li>java内存模型的设计，及其与处理器内存模型和顺序一致性内存模型的关系。</li>
-</ul>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2015/08/22/java-memory-model/#more">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div class="post-footer">
-    
-    <! -- 添加捐赠图标 -->
-    
-<! -- 添加捐赠图标 -->
-
-
-      
-        <div class="post-tags">
-          
-            <a href="/tags/java/"> #java </a>
-          
-            <a href="/tags/jvm/"> #jvm </a>
-          
-            <a href="/tags/多线程/"> #多线程 </a>
-          
-        </div>
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </div>
-  </div>
-
-
-    
   </div>
 
   
@@ -1249,7 +1247,7 @@
         <div class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">57</span>
+              <span class="site-state-item-count">58</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
