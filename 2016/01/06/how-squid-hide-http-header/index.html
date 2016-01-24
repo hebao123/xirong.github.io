@@ -271,19 +271,56 @@
 </ol>
 <p>squid &#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5728;&#x914D;&#x7F6E;&#x6587;&#x4EF6;<code>/etc/squid/squid.conf</code> &#x6587;&#x4EF6;&#x4E2D;&#x6DFB;&#x52A0;&#x51E0;&#x884C;&#x4EE3;&#x7801;&#x6765;&#x5B9E;&#x73B0; <strong>&#x9AD8;&#x5EA6;&#x533F;&#x540D;&#x4EE3;&#x7406;</strong>&#x7684;&#x6A21;&#x5F0F;&#xFF0C;&#x5177;&#x4F53;&#x65B9;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Squid 2.x</span></span><br><span class="line">header_access Via deny all</span><br><span class="line">header_access X-Forwarded-For deny all</span><br><span class="line"></span><br><span class="line"><span class="comment">#Squid 3.0</span></span><br><span class="line">reply_header_access Via deny all</span><br><span class="line">reply_header_access X-Forwarded-For deny all</span><br><span class="line"></span><br><span class="line"><span class="comment">#Squid 3.1</span></span><br><span class="line">via off</span><br><span class="line">forwarded_<span class="keyword">for</span> delete</span><br></pre></td></tr></table></figure>
-<p>&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>squid -version</code>&#x6765;&#x67E5;&#x770B;&#x81EA;&#x5DF1;&#x7684;&#x7248;&#x672C;&#xFF0C;&#x4FEE;&#x6539;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x91CD;&#x65B0;&#x52A0;&#x8F7D;&#x4E0B;&#x914D;&#x7F6E;&#x5373;&#x53EF;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x91CD;&#x542F;<code>squid -k reconfigure</code>&#x3002; &#x68C0;&#x6D4B;&#x5DE5;&#x5177; <a href="http://www.iprivacytools.com/proxy-checker-anonymity-test/" target="_blank" rel="external">http://www.iprivacytools.com/proxy-checker-anonymity-test/</a> &#xFF0C;&#x901A;&#x8FC7;&#x6B64;&#x9875;&#x9762;&#x5728;&#x8BBE;&#x7F6E;&#x524D;&#x540E;&#x8BBF;&#x95EE;&#x5373;&#x80FD;&#x770B;&#x5230;&#x6548;&#x679C;&#x3002;</p>
+<p>&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>squid -version</code> &#x6765;&#x67E5;&#x770B;&#x81EA;&#x5DF1;&#x7684;&#x7248;&#x672C;&#xFF0C;&#x4FEE;&#x6539;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x91CD;&#x65B0;&#x52A0;&#x8F7D;&#x4E0B;&#x914D;&#x7F6E;&#x5373;&#x53EF;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x91CD;&#x542F;<code>squid -k reconfigure</code>&#x3002; &#x68C0;&#x6D4B;&#x5DE5;&#x5177; <a href="http://www.iprivacytools.com/proxy-checker-anonymity-test/" target="_blank" rel="external">http://www.iprivacytools.com/proxy-checker-anonymity-test/</a> &#xFF0C;&#x901A;&#x8FC7;&#x6B64;&#x9875;&#x9762;&#x5728;&#x8BBE;&#x7F6E;&#x524D;&#x540E;&#x8BBF;&#x95EE;&#x5373;&#x80FD;&#x770B;&#x5230;&#x6548;&#x679C;&#x3002;</p>
 <p><img src="http://static.ixirong.com/picnetwork/1452047997596.png" alt="Alt text"></p>
 
       
     </div>
 
     <div class="post-footer">
-    
-    <! -- 添加捐赠图标 -->
-    
+
 <! -- 添加捐赠图标 -->
+    
+    
 
+    <div class ="post-donate">
+      <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="Donate 打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+           
+            赏杯咖啡，持续写作
+           
+        </span>
+        <br>
+      </div>
 
+      <div id="donate_guide" class="donate_bar center hidden">
+        
+          <a href="http://static.ixirong.com/pic/donate/alipay2.png" title="支付宝打赏" class="fancybox" rel="article0"       style="float:left;margin-left:25%;margin-right:2px;">
+          <img src="http://static.ixirong.com/pic/donate/alipay2.png" title="支付宝打赏" height="164px" width="164px">
+          </a>
+        
+
+      
+       <a href="http://static.ixirong.com/pic/donate/wechat1.png" title="微信打赏" class="fancybox" rel="article0">
+         <img src="http://static.ixirong.com/pic/donate/wechat1.png" title="微信打赏" height="164px" width="164px">
+       </a>
+      
+
+      </div>
+
+      <script type="text/javascript">
+        document.getElementById('btn_donate').onclick = function(){
+          $('#donate_board').addClass('hidden');
+          $('#donate_guide').removeClass('hidden');
+        }
+      </script>
+    </div>
+
+    
+
+<! -- end 添加捐赠图标 -->
       
         <div class="post-tags">
           
@@ -323,12 +360,12 @@
 
 <div class="ds-share" data-thread-key="2016/01/06/how-squid-hide-http-header/" data-title="squid 设置高度匿名代理" data-images="http://www.ixirong.com/2016/01/06/how-squid-hide-http-header/" data-content="一篇不错的文章，推荐给大家！" data-url="http://www.ixirong.com/2016/01/06/how-squid-hide-http-header/">
     <div class="ds-share-inline">
-      <ul  class="ds-share-icons-16">        
+      <ul  class="ds-share-icons-16">
         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>  
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
         <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
         <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
-        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>              
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
       </ul>
       <div class="ds-share-icons-more">
       </div>

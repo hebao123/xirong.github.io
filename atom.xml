@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://www.ixirong.com/"/>
-  <updated>2016-01-06T11:43:12.000Z</updated>
+  <updated>2016-01-24T10:39:16.000Z</updated>
   <id>http://www.ixirong.com/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://www.ixirong.com/2016/01/06/how-squid-hide-http-header/"/>
     <id>http://www.ixirong.com/2016/01/06/how-squid-hide-http-header/</id>
     <published>2016-01-06T03:36:18.000Z</published>
-    <updated>2016-01-06T11:43:12.000Z</updated>
+    <updated>2016-01-24T10:39:16.000Z</updated>
     <content type="html"><![CDATA[<p>&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x6839;&#x636E;&#x533F;&#x540D;&#x7A0B;&#x5EA6;&#x53EF;&#x4EE5;&#x533A;&#x5206;&#x4E3A;&#x4EE5;&#x4E0B;&#x51E0;&#x79CD;&#xFF1A;</p>
 <ol>
 <li>&#x9AD8;&#x5EA6;&#x533F;&#x540D;&#x4EE3;&#x7406;<br> &#x9AD8;&#x5EA6;&#x533F;&#x540D;&#x4EE3;&#x7406;&#x4F1A;&#x5C06;&#x6211;&#x4EEC;&#x7684;&#x6570;&#x636E;&#x5305;&#x539F;&#x5C01;&#x4E0D;&#x52A8;&#x7684;&#x8F6C;&#x53D1;&#xFF0C;&#x5728;&#x670D;&#x52A1;&#x7AEF;&#x770B;&#x6765;&#x5C31;&#x597D;&#x50CF;&#x771F;&#x7684;&#x662F;&#x4E00;&#x4E2A;&#x666E;&#x901A;&#x5BA2;&#x6237;&#x7AEF;&#x5728;&#x8BBF;&#x95EE;&#xFF0C;&#x800C;&#x8BB0;&#x5F55;&#x7684;IP&#x662F;&#x4EE3;&#x7406;&#x670D;&#x52A1;&#x5668;&#x7684;IP&#x3002;</li>
@@ -30,7 +30,7 @@
 </ol>
 <p>squid &#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5728;&#x914D;&#x7F6E;&#x6587;&#x4EF6;<code>/etc/squid/squid.conf</code> &#x6587;&#x4EF6;&#x4E2D;&#x6DFB;&#x52A0;&#x51E0;&#x884C;&#x4EE3;&#x7801;&#x6765;&#x5B9E;&#x73B0; <strong>&#x9AD8;&#x5EA6;&#x533F;&#x540D;&#x4EE3;&#x7406;</strong>&#x7684;&#x6A21;&#x5F0F;&#xFF0C;&#x5177;&#x4F53;&#x65B9;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A;</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Squid 2.x</span></span><br><span class="line">header_access Via deny all</span><br><span class="line">header_access X-Forwarded-For deny all</span><br><span class="line"></span><br><span class="line"><span class="comment">#Squid 3.0</span></span><br><span class="line">reply_header_access Via deny all</span><br><span class="line">reply_header_access X-Forwarded-For deny all</span><br><span class="line"></span><br><span class="line"><span class="comment">#Squid 3.1</span></span><br><span class="line">via off</span><br><span class="line">forwarded_<span class="keyword">for</span> delete</span><br></pre></td></tr></table></figure>
-<p>&#x53EF;&#x4EE5;&#x901A;&#x8FC7;<code>squid -version</code>&#x6765;&#x67E5;&#x770B;&#x81EA;&#x5DF1;&#x7684;&#x7248;&#x672C;&#xFF0C;&#x4FEE;&#x6539;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x91CD;&#x65B0;&#x52A0;&#x8F7D;&#x4E0B;&#x914D;&#x7F6E;&#x5373;&#x53EF;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x91CD;&#x542F;<code>squid -k reconfigure</code>&#x3002; &#x68C0;&#x6D4B;&#x5DE5;&#x5177; <a href="http://www.iprivacytools.com/proxy-checker-anonymity-test/" target="_blank" rel="external">http://www.iprivacytools.com/proxy-checker-anonymity-test/</a> &#xFF0C;&#x901A;&#x8FC7;&#x6B64;&#x9875;&#x9762;&#x5728;&#x8BBE;&#x7F6E;&#x524D;&#x540E;&#x8BBF;&#x95EE;&#x5373;&#x80FD;&#x770B;&#x5230;&#x6548;&#x679C;&#x3002;</p>
+<p>&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <code>squid -version</code> &#x6765;&#x67E5;&#x770B;&#x81EA;&#x5DF1;&#x7684;&#x7248;&#x672C;&#xFF0C;&#x4FEE;&#x6539;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x91CD;&#x65B0;&#x52A0;&#x8F7D;&#x4E0B;&#x914D;&#x7F6E;&#x5373;&#x53EF;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x91CD;&#x542F;<code>squid -k reconfigure</code>&#x3002; &#x68C0;&#x6D4B;&#x5DE5;&#x5177; <a href="http://www.iprivacytools.com/proxy-checker-anonymity-test/" target="_blank" rel="external">http://www.iprivacytools.com/proxy-checker-anonymity-test/</a> &#xFF0C;&#x901A;&#x8FC7;&#x6B64;&#x9875;&#x9762;&#x5728;&#x8BBE;&#x7F6E;&#x524D;&#x540E;&#x8BBF;&#x95EE;&#x5373;&#x80FD;&#x770B;&#x5230;&#x6548;&#x679C;&#x3002;</p>
 <p><img src="http://static.ixirong.com/picnetwork/1452047997596.png" alt="Alt text"></p>
 ]]></content>
     <summary type="html">

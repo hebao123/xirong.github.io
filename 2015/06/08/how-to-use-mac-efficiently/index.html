@@ -332,12 +332,49 @@
     </div>
 
     <div class="post-footer">
-    
-    <! -- 添加捐赠图标 -->
-    
+
 <! -- 添加捐赠图标 -->
+    
+    
 
+    <div class ="post-donate">
+      <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="Donate 打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+           
+            赏杯咖啡，持续写作
+           
+        </span>
+        <br>
+      </div>
 
+      <div id="donate_guide" class="donate_bar center hidden">
+        
+          <a href="http://static.ixirong.com/pic/donate/alipay2.png" title="支付宝打赏" class="fancybox" rel="article0"       style="float:left;margin-left:25%;margin-right:2px;">
+          <img src="http://static.ixirong.com/pic/donate/alipay2.png" title="支付宝打赏" height="164px" width="164px">
+          </a>
+        
+
+      
+       <a href="http://static.ixirong.com/pic/donate/wechat1.png" title="微信打赏" class="fancybox" rel="article0">
+         <img src="http://static.ixirong.com/pic/donate/wechat1.png" title="微信打赏" height="164px" width="164px">
+       </a>
+      
+
+      </div>
+
+      <script type="text/javascript">
+        document.getElementById('btn_donate').onclick = function(){
+          $('#donate_board').addClass('hidden');
+          $('#donate_guide').removeClass('hidden');
+        }
+      </script>
+    </div>
+
+    
+
+<! -- end 添加捐赠图标 -->
       
         <div class="post-tags">
           
@@ -379,12 +416,12 @@
 
 <div class="ds-share" data-thread-key="2015/06/08/how-to-use-mac-efficiently/" data-title="如何优雅的高效使用MAC OSX系统？" data-images="http://www.ixirong.com/2015/06/08/how-to-use-mac-efficiently/" data-content="一篇不错的文章，推荐给大家！" data-url="http://www.ixirong.com/2015/06/08/how-to-use-mac-efficiently/">
     <div class="ds-share-inline">
-      <ul  class="ds-share-icons-16">        
+      <ul  class="ds-share-icons-16">
         <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>  
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
         <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
         <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
-        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>              
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
       </ul>
       <div class="ds-share-icons-more">
       </div>
