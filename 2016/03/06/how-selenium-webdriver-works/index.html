@@ -1,0 +1,1196 @@
+<!doctype html>
+<html class="theme-next use-motion theme-next-mist">
+<head>
+  
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta http-equiv=”Cache-Control” content=”no-transform” />
+<meta http-equiv=”Cache-Control” content=”no-siteapp” />
+
+
+  <meta name="keywords" content=" SeleniumHQ教程,SeleniumHQ自动化测试,selenium webdriver使用教程,selenium webdriver使用方法,selenium webdriver入门教程,开源组件,测试,自动化, " />
+
+
+
+    <meta name="description" content="Selenium Webdriver 基于浏览器的自动化测试, 有故事、有担当、有思考" />
+
+
+
+
+
+  <meta name="360-site-verification" content="2ebfa6bfe0988ac65c00405e3012ab01" />
+
+
+
+<meta name="sogou_site_verification" content="Oee7425dyn"/>
+
+
+
+<meta name="msvalidate.01" content="16983C5FAB6FB5156312E0E67F77A0AE"/>
+
+
+
+
+
+
+
+
+<meta name="wumiiVerification" content="f62923dc-f9d9-4e36-a7bb-979feed068eb" />
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.2"/>
+
+
+
+  <link rel="alternate" href="/atom.xml" title="自由" type="application/atom+xml" />
+
+
+
+  <link rel="shorticon icon" type="image/x-icon" href="/favicon.ico?v=0.4.2" />
+
+
+  <title> Selenium Webdriver 基于浏览器的自动化测试 - 自由 </title>
+</head>
+
+<body>
+<!--[if lte IE 8]> <div style=' clear: both; height: 59px; padding:0 0 0 15px; position: relative;margin:0 auto;'> <a href="http://windows.microsoft.com/en-US/internet-explorer/products/ie/home?ocid=ie6_countdown_bannercode"><img src="http://static.ixirong.com/picouterie.jpg" border="0" height="42" width="820" alt="You are using an outdated browser. For a faster, safer browsing experience, upgrade for free today or use other browser ,like chrome firefox safari." style='margin-left:auto;margin-right:auto;display: block;'/></a></div> <![endif]-->
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+
+    <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+    <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|micromessenger|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|UCBrowser|MQQBrowser|Blazer|PSP|IEMobile|Symbian|Mobile|samsung|htc/g;
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+
+  function displaySidebar () {
+    setTimeout(function () {
+      $('.sidebar-toggle').trigger('click');
+    }, 800);
+  }
+
+</script>
+
+
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">自由</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    <div class="c-search-form-div" style="display:none;">
+      
+      <form class="menu-item" >
+        <input type="text" id="ts-search-input" class="menu-search-input st-default-search-input"  />
+      </form>
+      
+        <script type="text/javascript">
+         (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+        (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+        e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+         })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','CMcqT-2yt1yatw_zFhNC','2.0.0');
+        </script>  
+      
+      
+    </div>
+    <script type="text/javascript">
+      if(isDesktop() || isTablet()){        
+        $('.c-search-form-div').css("display","inline");
+      }    
+    </script>
+
+    
+      
+      
+        <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+        </a>
+      </li>
+      
+    
+      
+      
+        <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+      
+    
+      
+      
+        <li class="menu-item menu-item-categories">
+        <a href="/categories">
+          <i class="menu-item-icon icon-categories"></i> <br />
+          分类
+        </a>
+      </li>
+      
+    
+      
+      
+        <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+      
+    
+      
+      
+        <li class="menu-item menu-item-commonweal" style="display:none;">
+        <a href="/404.html">
+          <i class="menu-item-icon icon-commonweal"></i> <br />
+          公益404
+        </a>
+      </li>
+      
+    
+
+    <script type="text/javascript">
+      if(!isMobile()){
+         $('.menu-item-commonweal').css("display","");
+      }
+    </script>
+
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+
+  <div id="posts" class="posts-expand">
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              Selenium Webdriver 基于浏览器的自动化测试
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          发表于 2016-03-06
+        </span>
+
+        
+          <span class="post-category">
+            &nbsp; | &nbsp; 分类于
+            
+              <a href="/categories/测试/">测试</a>
+
+              
+              
+
+            
+          </span>
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2016/03/06/how-selenium-webdriver-works/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/06/how-selenium-webdriver-works/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    <div class="post-body">
+
+      
+      
+
+      
+        <p><img src="http://static.ixirong.com/selenium%2F1457265240273.png" alt="Selenium HQ"></p>
+<p>SeleniumHQ &#x662F;&#x4E00;&#x6B3E;&#x57FA;&#x4E8E;&#x6D4F;&#x89C8;&#x5668;&#x5F00;&#x6E90;&#x7684;&#x81EA;&#x52A8;&#x5316;&#x6D4B;&#x8BD5;&#x7EC4;&#x4EF6;&#xFF0C;&#x652F;&#x6301; win&#x3001;linux&#x3001;Mac &#x3001;Android&#x3001;Ios &#x51E0;&#x5927;&#x5E73;&#x53F0;&#x4E0A;&#x7684; IE&#x3001;Firefox&#x3001;Chrome &#x7B49;&#x6D4F;&#x89C8;&#x5668;&#xFF0C;&#x4E5F;&#x652F;&#x6301;&#x6A21;&#x62DF;&#x5B89;&#x5353;&#x3001;ios&#x3001;winphone&#x8BBE;&#x7F6E;&#x4E0A;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#xFF0C;&#x300C;&#x4E00;&#x5207;&#x91CD;&#x590D;&#x64CD;&#x4F5C;&#x7684;&#x6D41;&#x7A0B;&#x5747;&#x53EF;&#x81EA;&#x52A8;&#x5316;&#x300D;&#xFF0C;&#x5BF9;&#x6D4B;&#x8BD5;&#x6765;&#x8BB2;&#xFF0C;&#x5927;&#x5927;&#x63D0;&#x9AD8;&#x6D4B;&#x8BD5;&#x7A0B;&#x5E8F;&#x5BF9;&#x4E0D;&#x540C;&#x5E73;&#x53F0;&#x4E0D;&#x540C;&#x6D4F;&#x89C8;&#x5668;&#x517C;&#x5BB9;&#x6027;&#x7684;&#x6548;&#x7387;&#x3002;</p>
+<p>SeleniumHQ  2.0 &#x7EC4;&#x4EF6;&#x5305;&#x62EC; Selenium webdriver&#x3001;Selenium IDE &#x4E24;&#x5927;&#x7EC4;&#x4EF6;&#xFF0C;&#x4E0E;&#x4E4B;&#x524D;&#x7684;1.0&#x7248;&#x672C;&#x6709;&#x6240;&#x533A;&#x522B;&#xFF08;&#x5177;&#x4F53;&#x533A;&#x522B;&#x53EF;&#x4EE5;&#x53C2;&#x8003;<a href="https://wizardforcel.gitbooks.io/selenium-doc/content/official-site/introduction.html" target="_blank" rel="external">Selenium &#x53D1;&#x5C55;&#x5386;&#x53F2;</a>&#xFF09;&#x3002;&#x4F7F;&#x7528;Selenium IDE&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5B89;&#x88C5;Firefox&#x6D4F;&#x89C8;&#x5668;&#x63D2;&#x4EF6;&#xFF0C;&#x5F55;&#x5236;&#x4F60;&#x6240;&#x6709;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#xFF0C;&#x4F60;&#x64CD;&#x4F5C;&#x4E00;&#x904D;&#x4E1A;&#x52A1;&#x6D41;&#x7A0B;&#xFF0C;&#x540E;&#x7EED;&#x7684;&#x6D4B;&#x8BD5;&#x56DE;&#x5F52;&#x5747;&#x53EF;&#x4EE5;&#x4EA4;&#x7ED9; Selenium IDE &#x5F55;&#x5236;&#x4E0B;&#x6765;&#x7684;&#x7A0B;&#x5E8F;&#x53BB;&#x6D4B;&#x8BD5;&#x3002;&#x4F18;&#x70B9;&#x5C31;&#x662F;&#x7B80;&#x5355;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x7F16;&#x5199;&#x4EE3;&#x7801;&#xFF0C;&#x7F3A;&#x9677;&#x662F;&#x5982;&#x679C;&#x4E1A;&#x52A1;&#x6D41;&#x7A0B;&#x53D1;&#x751F;&#x4E86;&#x6539;&#x53D8;&#xFF0C;&#x9700;&#x8981;&#x91CD;&#x65B0;&#x5F55;&#x5236;&#x811A;&#x672C;&#x3002;&#x4F7F;&#x7528;Selenium Webdriver &#x53EF;&#x4EE5;&#x7F16;&#x5199;&#x4EE3;&#x7801;&#xFF0C;&#x6307;&#x5B9A;&#x7A0B;&#x5E8F;&#x5904;&#x7406;&#x903B;&#x8F91;&#xFF0C;&#x6BD4;&#x5982; form &#x8868;&#x5355;&#x9A8C;&#x8BC1;&#x767B;&#x5F55;&#x3001;&#x63D0;&#x4EA4;&#x8FD4;&#x56DE;&#x7ED3;&#x679C;&#x9A8C;&#x8BC1;&#x7B49;&#xFF0C;&#x529F;&#x80FD;&#x5F3A;&#x5927;&#xFF0C;&#x53EF;&#x4EE5;&#x8BF4;&#x80FD;&#x6EE1;&#x8DB3;&#x6240;&#x6709;&#x7684;&#x573A;&#x666F;&#x3002;<br><a id="more"></a></p>
+<h1 id="&#x4E00;&#x57FA;&#x7840;&#x4F7F;&#x7528;">&#x4E00;&#x3001;&#x57FA;&#x7840;&#x4F7F;&#x7528;</h1><p>Selenium Webdriver &#x652F;&#x6301; Java&#x3001;C#&#x3001;Python&#x3001;Ruby&#x3001;Php&#x3001;Perl&#x3001;Javascript &#x7B49;&#x51E0;&#x79CD;&#x8BED;&#x8A00;&#xFF0C;&#x4E0D;&#x8FC7;&#x4E0D;&#x540C;&#x7684;&#x8BED;&#x8A00;&#x5B9E;&#x73B0;&#x529F;&#x80FD;&#x7684;&#x5B8C;&#x6574;&#x6027;&#x7565;&#x6709;&#x533A;&#x522B;&#xFF0C;&#x4E0B;&#x6587;&#x4ECB;&#x7ECD;&#x4E0B; Java &#x5BA2;&#x6237;&#x7AEF;&#x7684;&#x4F7F;&#x7528;&#x65B9;&#x6CD5;&#x3002;</p>
+<h2 id="11-&#x5B8C;&#x6574;-demo">1.1 &#x5B8C;&#x6574; demo</h2><p>&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x57FA;&#x4E8E; maven &#x7684; java &#x9879;&#x76EE; &#xFF0C;&#x4F7F;&#x7528; Selenium Webdriver &#x53EA;&#x9700;&#x8981;&#x5F15;&#x7528;&#x76F8;&#x4F9D;&#x7684;&#x4F9D;&#x8D56;&#x5373;&#x53EF;&#xFF1A;<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.seleniumhq.selenium<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>selenium-java<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- &#x76EE;&#x524D;&#x6700;&#x65B0;&#x7248;&#x672C; --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">version</span>&gt;</span>2.49.1<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x4F7F;&#x7528;&#x4F8B;&#x5B50;&#xFF1A;&#x901A;&#x8FC7;&#x7A0B;&#x5E8F;&#x6253;&#x5F00;&#x767E;&#x5EA6;&#x9996;&#x9875;&#xFF0C;&#x6536;&#x5165;&#x641C;&#x7D22;&#x5173;&#x952E;&#x5B57;&#x300C;&#x4E24;&#x4F1A;&#x300D;&#xFF0C;&#x641C;&#x7D22;&#x76F8;&#x5E94;&#x7684;&#x7ED3;&#x679C;&#x5185;&#x5BB9;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>{</span><br><span class="line">       <span class="comment">// &#x5982;&#x679C;&#x4F60;&#x7684; FireFox &#x6CA1;&#x6709;&#x5B89;&#x88C5;&#x5728;&#x9ED8;&#x8BA4;&#x76EE;&#x5F55;&#xFF0C;&#x90A3;&#x4E48;&#x5FC5;&#x987B;&#x5728;&#x7A0B;&#x5E8F;&#x4E2D;&#x8BBE;&#x7F6E;</span></span><br><span class="line">	<span class="comment">// System.setProperty(&quot;webdriver.firefox.bin&quot;, &quot;D:\\Program Files\\Mozilla Firefox\\firefox.exe&quot;);</span></span><br><span class="line">       <span class="comment">// &#x521B;&#x5EFA;&#x4E00;&#x4E2A; FireFox &#x7684;&#x6D4F;&#x89C8;&#x5668;&#x5B9E;&#x4F8B;</span></span><br><span class="line">       WebDriver driver = <span class="keyword">new</span> FirefoxDriver();</span><br><span class="line"></span><br><span class="line">       <span class="comment">// &#x8BA9;&#x6D4F;&#x89C8;&#x5668;&#x8BBF;&#x95EE; Baidu</span></span><br><span class="line">       driver.get(<span class="string">&quot;http://www.baidu.com&quot;</span>);</span><br><span class="line">       <span class="comment">// &#x7528;&#x4E0B;&#x9762;&#x4EE3;&#x7801;&#x4E5F;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;</span></span><br><span class="line">       <span class="comment">// driver.navigate().to(&quot;http://www.baidu.com&quot;);</span></span><br><span class="line"></span><br><span class="line">       <span class="comment">// &#x83B7;&#x53D6; &#x7F51;&#x9875;&#x7684; title</span></span><br><span class="line">       System.out.println(<span class="string">&quot;1 Page title is: &quot;</span> + driver.getTitle());</span><br><span class="line"></span><br><span class="line">       <span class="comment">// &#x901A;&#x8FC7; id &#x627E;&#x5230; input &#x7684; DOM</span></span><br><span class="line">       WebElement element = driver.findElement(By.id(<span class="string">&quot;kw&quot;</span>));</span><br><span class="line"></span><br><span class="line">       <span class="comment">// &#x8F93;&#x5165;&#x5173;&#x952E;&#x5B57;</span></span><br><span class="line">       element.sendKeys(<span class="string">&quot;&#x4E24;&#x4F1A;&quot;</span>);</span><br><span class="line"></span><br><span class="line">       <span class="comment">// &#x63D0;&#x4EA4; input &#x6240;&#x5728;&#x7684;  form</span></span><br><span class="line">       element.submit();</span><br><span class="line"></span><br><span class="line">       <span class="comment">// &#x901A;&#x8FC7;&#x5224;&#x65AD; title &#x5185;&#x5BB9;&#x7B49;&#x5F85;&#x641C;&#x7D22;&#x9875;&#x9762;&#x52A0;&#x8F7D;&#x5B8C;&#x6BD5;&#xFF0C;&#x95F4;&#x9694;10&#x79D2;</span></span><br><span class="line">       (<span class="keyword">new</span> WebDriverWait(driver, <span class="number">10</span>)).until(<span class="keyword">new</span> ExpectedCondition&lt;Boolean&gt;() {</span><br><span class="line">           <span class="function"><span class="keyword">public</span> Boolean <span class="title">apply</span><span class="params">(WebDriver d)</span> </span>{</span><br><span class="line">               <span class="keyword">return</span> d.getTitle().toLowerCase().endsWith(<span class="string">&quot;&#x4E24;&#x4F1A;&quot;</span>);</span><br><span class="line">           }</span><br><span class="line">       });</span><br><span class="line"></span><br><span class="line">       <span class="comment">// &#x663E;&#x793A;&#x641C;&#x7D22;&#x7ED3;&#x679C;&#x9875;&#x9762;&#x7684; title</span></span><br><span class="line">       System.out.println(<span class="string">&quot;2 Page title is: &quot;</span> + driver.getTitle());</span><br><span class="line"></span><br><span class="line">       <span class="comment">//&#x5173;&#x95ED;&#x6D4F;&#x89C8;&#x5668;</span></span><br><span class="line">       driver.quit();</span><br><span class="line">   }</span><br></pre></td></tr></table></figure>
+<h2 id="12-&#x652F;&#x6301;&#x6D4F;&#x89C8;&#x5668;">1.2 &#x652F;&#x6301;&#x6D4F;&#x89C8;&#x5668;</h2><p>Selenium WebDriver &#x652F;&#x6301;&#x5982;&#x4E0B;&#x6D4F;&#x89C8;&#x5668;&#xFF0C;&#x5728;&#x6240;&#x6709;&#x652F;&#x6301;&#x8FD9;&#x4E9B;&#x6D4F;&#x89C8;&#x5668;&#x7684;&#x64CD;&#x4F5C;&#x7CFB;&#x7EDF;&#x4E2D;&#x80FD;&#x90FD;&#x8FD0;&#x884C;&#x826F;&#x597D;&#x3002;</p>
+<ul>
+<li>Google Chrome</li>
+<li>Internet Explorer 6, 7, 8, 9, 10 - 32 and 64-bit where applicable</li>
+<li>Firefox: latest ESR, previous ESR, current release, one previous release</li>
+<li>Safari</li>
+<li>Opera</li>
+<li>HtmlUnit</li>
+<li>phantomjs</li>
+<li>Android (with Selendroid or appium)</li>
+<li>iOS (with ios-driver or appium)</li>
+</ul>
+<p>Selenium WebDriver &#x76F4;&#x63A5;&#x901A;&#x8FC7;&#x6D4F;&#x89C8;&#x5668;&#x81EA;&#x52A8;&#x5316;&#x7684;&#x672C;&#x5730;&#x63A5;&#x53E3;&#x6765;&#x8C03;&#x7528;&#x6D4F;&#x89C8;&#x5668;&#x3002;&#x5982;&#x4F55;&#x76F4;&#x63A5;&#x8C03;&#x7528;&#xFF0C;&#x548C;&#x8C03;&#x7528;&#x7684;&#x7EC6;&#x8282;&#x53D6;&#x51B3;&#x4E8E;&#x4F60;&#x4F7F;&#x7528;&#x4EC0;&#x4E48;&#x6D4F;&#x89C8;&#x5668;&#xFF0C;&#x6240;&#x4EE5;&#x9700;&#x8981;&#x76F8;&#x5E94;&#x5E73;&#x53F0;&#x76F8;&#x5E94;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x300C;&#x9A71;&#x52A8;&#x300D;&#xFF0C;&#x4F7F;&#x7528;&#x65B9;&#x5F0F;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// firefox &#x6D4F;&#x89C8;&#x5668;</span></span><br><span class="line"><span class="comment">// firexfox &#x662F;&#x539F;&#x751F;&#x652F;&#x6301;&#x7684;&#xFF0C;&#x4E0D;&#x9700;&#x8981;&#x7279;&#x6B8A;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x9A71;&#x52A8;&#x3002;&#x5982;&#x679C;&#x5B89;&#x88C5;&#x76EE;&#x5F55;&#x4E0D;&#x662F;&#x9ED8;&#x8BA4;&#x7684;&#xFF0C;&#x9700;&#x8981;&#x6307;&#x5B9A;&#x76F8;&#x5E94;&#x7684;&#x73AF;&#x5883;&#x53D8;&#x91CF;</span></span><br><span class="line"><span class="comment">// System.setProperty(&quot;webdriver.firefox.bin&quot;, &quot;D:\\Program Files\\Mozilla Firefox\\firefox.exe&quot;);</span></span><br><span class="line">WebDriver driver = <span class="keyword">new</span> FirefoxDriver();</span><br><span class="line"></span><br><span class="line"><span class="comment">// chrome &#x6D4F;&#x89C8;&#x5668;</span></span><br><span class="line"><span class="comment">// ChromeDriver is maintained / supported by the Chromium project iteslf. https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver</span></span><br><span class="line"><span class="comment">// &#x4E0B;&#x8F7D; ChromeDriver&#xFF1A;https://sites.google.com/a/chromium.org/chromedriver/downloads</span></span><br><span class="line"><span class="comment">// Optional, if not specified, WebDriver will search your path for chromedriver.</span></span><br><span class="line"><span class="comment">// System.setProperty(&quot;webdriver.chrome.driver&quot;, &quot;/path/to/chromedriver&quot;);</span></span><br><span class="line">WebDriver driver = <span class="keyword">new</span> ChromeDriver();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Safari&#x3001;opera&#x3001;Android&#x3001;ios &#x7B49;&#x6D4F;&#x89C8;&#x5668;&#x4F7F;&#x7528;&#x540C;&#x7406;&#xFF0C;&#x4E0B;&#x8F7D;&#x5B89;&#x88C5;&#x76F8;&#x5E94;&#x7684;&#x9A71;&#x52A8;&#xFF0C;&#x975E;&#x9ED8;&#x8BA4;&#x76EE;&#x5F55;&#x9700;&#x8981;&#x8BBE;&#x7F6E; System.setProperty &#x5C5E;&#x6027;</span></span><br><span class="line"><span class="comment">// &#x4E0B;&#x8F7D;&#x5730;&#x5740;&#x53CA;&#x53C2;&#x8003;&#xFF1A;https://github.com/SeleniumHQ/selenium/wiki</span></span><br></pre></td></tr></table></figure>
+<h2 id="13-&#x652F;&#x6301;-api">1.3 &#x652F;&#x6301; Api</h2><p>Selenium Webdriver &#x6709;&#x5F88;&#x591A;&#x7684; Api&#x53EF;&#x4EE5;&#x8C03;&#x7528;&#xFF0C;&#x8FDB;&#x884C;&#x6D4F;&#x89C8;&#x5668;&#x64CD;&#x4F5C;&#xFF0C;&#x4E3E;&#x4F8B;&#x5982;&#x4E0B;&#xFF1A;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//&#x83B7;&#x53D6;&#x4E00;&#x4E2A;&#x9875;&#x9762; get &#x548C; navigate &#x7ED3;&#x679C;&#x662F;&#x4E00;&#x6837;&#x7684;</span></span><br><span class="line"><span class="comment">// driver.navigate().to(&quot;http://www.baidu.com&quot;);</span></span><br><span class="line">driver.get(<span class="string">&quot;http://www.baidu.com&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x67E5;&#x627E; UI &#x5143;&#x7D20;&#xFF08;web &#x5143;&#x7D20;&#xFF09;</span></span><br><span class="line"><span class="comment">// &#x6839;&#x636E;&#x5143;&#x7D20; id &#x83B7;&#x53D6; &#xFF0C;&#x5BF9;&#x5E94; js &#x4E2D; document.getElementById</span></span><br><span class="line">WebElement element = driver.findElement(By.id(<span class="string">&quot;element_id&quot;</span>));</span><br><span class="line"><span class="comment">// &#x6839;&#x636E;&#x5143;&#x7D20; class &#x5C5E;&#x6027;&#x83B7;&#x53D6;&#xFF0C;&#x5BF9;&#x5E94; js &#x4E2D;&#x7684; document.getElementsByClassName</span></span><br><span class="line">List&lt;WebElement&gt; elementList = driver.findElements(By.className(<span class="string">&quot;element_class&quot;</span>));</span><br><span class="line"><span class="comment">// &#x6839;&#x636E;&#x5143;&#x7D20;&#x6807;&#x7B7E;&#x540D;&#x67E5;&#x627E; &#xFF0C;&#x5BF9;&#x5E94; js &#x4E2D;&#x7684;  document.getElementsByName</span></span><br><span class="line">WebElement iframe = driver.findElement(By.tagName(<span class="string">&quot;iframe&quot;</span>));</span><br><span class="line"><span class="comment">// &#x6839;&#x636E;&#x5143;&#x7D20; css &#x5C5E;&#x6027;</span></span><br><span class="line"><span class="comment">// &#x4E3E;&#x4F8B; html&#xFF1A; &lt;div id=&quot;food&quot;&gt;&lt;span class=&quot;dairy&quot;&gt;milk&lt;/span&gt;&lt;span class=&quot;dairy aged&quot;&gt;cheese&lt;/span&gt;&lt;/div&gt;</span></span><br><span class="line">WebElement cheese = driver.findElement(By.cssSelector(<span class="string">&quot;#food span.dairy.aged&quot;</span>));</span><br><span class="line"><span class="comment">// &#x7B5B;&#x9009;&#x8868;&#x5355;&#x5143;&#x7D20;&#xFF0C;&#x5BF9;&#x8868;&#x5355;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#x7B49;&#xFF0C;&#x66F4;&#x591A;&#x4F8B;&#x5B50;&#x8BF7;&#x53C2;&#x8003;&#xFF1A;http://www.seleniumhq.org/docs/03_webdriver.jsp#selenium-webdriver-api-commands-and-operations</span></span><br></pre></td></tr></table></figure>
+<p>&#x6709;&#x65F6;&#x5019;&#x9875;&#x9762;&#x6CA1;&#x52A0;&#x8F7D;&#x5B8C;&#x6210;&#xFF0C;&#x76F8;&#x5E94;&#x7684;&#x5143;&#x7D20;&#x5E76;&#x6CA1;&#x6709;&#x89E3;&#x6790;&#x5B8C;&#x6210;&#xFF0C;&#x901A;&#x8FC7; driver.findElement &#x7684;&#x65F6;&#x5019;&#x4F1A;&#x62A5;&#x627E;&#x4E0D;&#x5230;<code>Element not found</code>&#x7684;&#x5F02;&#x5E38;&#xFF0C;&#x8FD9;&#x65F6;&#x5019;&#x5C31;&#x9700;&#x8981;&#x8FDB;&#x884C;&#x7B49;&#x5F85;&#x4E00;&#x65AD;&#x65F6;&#x95F4;&#x540E;&#x518D;&#x83B7;&#x53D6;&#x8BE5;&#x5143;&#x7D20;&#xFF0C;&#x5B9E;&#x73B0;&#x6B64;&#x529F;&#x80FD;&#x6709;&#x4E24;&#x79CD;&#x65B9;&#x5F0F;<code>Explicit Waits</code> &#x548C; <code>Implicit Waits</code>&#xFF0C;&#x533A;&#x522B;&#x5728;&#x4E8E;&#x524D;&#x8005;&#x6BCF;&#x9694;500ms&#x90FD;&#x4F1A;&#x53BB;&#x5C1D;&#x8BD5;&#x83B7;&#x53D6;&#x8BE5;&#x5143;&#x7D20;&#xFF0C;&#x76F4;&#x5230;&#x8BBE;&#x5B9A;&#x7684;&#x65F6;&#x95F4;&#x5230;&#x540E;&#x4ECD;&#x627E;&#x4E0D;&#x5230;&#xFF0C;&#x629B;&#x51FA;<code>TimeoutException</code>&#xFF0C;&#x800C;&#x540E;&#x8005;&#x4F1A;&#x4E00;&#x76F4;&#x7B49;&#x5F85;&#x5230;&#x6307;&#x5B9A;&#x7684;&#x65F6;&#x95F4;&#xFF0C;&#x624D;&#x4F1A;&#x5C1D;&#x8BD5;&#x83B7;&#x53D6;&#x8BE5;&#x5143;&#x7D20;&#xFF0C;&#x627E;&#x4E0D;&#x5230;&#x629B;&#x51FA;<code>Element not found</code>&#x7684;&#x5F02;&#x5E38;&#xFF0C;&#x4EE3;&#x7801;&#x4E0A;&#x76F8;&#x5F53;&#x4E8E;<code>Thread.sleep()</code>&#xFF0C;&#x6240;&#x4EE5;&#x63A8;&#x8350;&#x4F7F;&#x7528;<code>Explicit Waits</code> &#x7684;&#x65B9;&#x5F0F;&#x624D;&#x64CD;&#x4F5C;&#x3002;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. Explicit Waits</span></span><br><span class="line"><span class="comment">// This waits up to 10 seconds before throwing a TimeoutException or if it finds the element will return it in 0 - 10 seconds. WebDriverWait by default calls the ExpectedCondition every 500 milliseconds until it returns successfully. A successful return is for ExpectedCondition type is Boolean return true or not null return value for all other ExpectedCondition types.</span></span><br><span class="line"></span><br><span class="line">WebDriver driver = <span class="keyword">new</span> FirefoxDriver();</span><br><span class="line">driver.get(<span class="string">&quot;http://somedomain/url_that_delays_loading&quot;</span>);</span><br><span class="line">WebElement myDynamicElement = (<span class="keyword">new</span> WebDriverWait(driver, <span class="number">10</span>))</span><br><span class="line">  .until(ExpectedConditions.presenceOfElementLocated(By.id(<span class="string">&quot;myDynamicElement&quot;</span>)));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. Implicit Waits</span></span><br><span class="line"><span class="comment">// An implicit wait is to tell WebDriver to poll the DOM for a certain amount of time when trying to find an element or elements if they are not immediately available. The default setting is 0. Once set, the implicit wait is set for the life of the WebDriver object instance.</span></span><br><span class="line"></span><br><span class="line">WebDriver driver = <span class="keyword">new</span> FirefoxDriver();</span><br><span class="line">driver.manage().timeouts().implicitlyWait(<span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line">driver.get(<span class="string">&quot;http://somedomain/url_that_delays_loading&quot;</span>);</span><br><span class="line">WebElement myDynamicElement = driver.findElement(By.id(<span class="string">&quot;myDynamicElement&quot;</span>));</span><br></pre></td></tr></table></figure>
+<h2 id="14-&#x64CD;&#x4F5C;-cookie">1.4 &#x64CD;&#x4F5C; cookie</h2><p>Selenium Webdriver &#x5982;&#x4F55;&#x64CD;&#x4F5C; cookie &#xFF1F; &#x9996;&#x5148;&#xFF0C;&#x4F60;&#x5FC5;&#x987B;&#x5728; cookie &#x6240;&#x5728;&#x7684;&#x57DF;&#x3002;&#x5982;&#x679C;&#x4F60;&#x5E0C;&#x671B;&#x5728;&#x52A0;&#x8F7D;&#x4E00;&#x4E2A;&#x5927;&#x9875;&#x9762;&#x4E4B;&#x524D;&#x91CD;&#x8BBE; cookie&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x5148;&#x8BBF;&#x95EE;&#x7AD9;&#x70B9;&#x4E2D;&#x4E00;&#x4E2A;&#x8F83;&#x5C0F;&#x7684;&#x9875;&#x9762;&#xFF0C;&#x5178;&#x578B;&#x7684;&#x662F; 404 &#x9875;&#x9762; (<a href="http://example.com/some404page)&#x3002;" target="_blank" rel="external">http://example.com/some404page)&#x3002;</a></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x8FDB;&#x5230;&#x6B63;&#x786E;&#x7684;&#x57DF;</span></span><br><span class="line">driver.get(<span class="string">&quot;http://www.example.com&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x8BBE;&#x7F6E; cookie&#xFF0C;&#x8FD9;&#x4E2A;cookie &#x5BF9;&#x6574;&#x4E2A;&#x57DF;&#x90FD;&#x6709;&#x6548;</span></span><br><span class="line">Cookie cookie = <span class="keyword">new</span> Cookie(<span class="string">&quot;key&quot;</span>, <span class="string">&quot;value&quot;</span>);</span><br><span class="line">driver.manage().addCookie(cookie);</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x8F93;&#x51FA;&#x5F53;&#x524D; url &#x6240;&#x6709;&#x53EF;&#x7528;&#x7684; cookie</span></span><br><span class="line">Set&lt;Cookie&gt; allCookies = driver.manage().getCookies();</span><br><span class="line"><span class="keyword">for</span> (Cookie loadedCookie : allCookies) {</span><br><span class="line">    System.out.println(String.format(<span class="string">&quot;%s -&gt; %s&quot;</span>, loadedCookie.getName(), loadedCookie.getValue()));</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="comment">// &#x4F60;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;3&#x4E2D;&#x65B9;&#x5F0F;&#x5220;&#x9664; cookie</span></span><br><span class="line"><span class="comment">// By name</span></span><br><span class="line">driver.manage().deleteCookieNamed(<span class="string">&quot;CookieName&quot;</span>);</span><br><span class="line"><span class="comment">// By Cookie</span></span><br><span class="line">driver.manage().deleteCookie(loadedCookie);</span><br><span class="line"><span class="comment">// Or all of them</span></span><br><span class="line">driver.manage().deleteAllCookies();</span><br></pre></td></tr></table></figure>
+<p>&#x771F;&#x5B9E;&#x6D4B;&#x8BD5;&#x73AF;&#x5883;&#x4E2D;&#xFF0C;&#x6709;&#x4E9B;&#x7F51;&#x7AD9;&#x662F;&#x9700;&#x8981;&#x767B;&#x5F55;&#x7684;&#xFF0C;&#x5982;&#x679C;&#x60F3;&#x8981;&#x514D;&#x767B;&#x9646;&#x76F4;&#x63A5;&#x8BBF;&#x95EE;&#x6D4B;&#x8BD5;&#x67D0;&#x4E9B;&#x9875;&#x9762;&#xFF0C;&#x5C31;&#x9700;&#x8981;&#x4FDD;&#x6301;&#x7528;&#x6237;&#x7684;&#x767B;&#x5F55;&#x6001;&#xFF0C;&#x4E5F;&#x5C31;&#x662F;&#x8BF4;&#x9700;&#x8981;&#x4F20;&#x9012;cookie&#x5230;&#x670D;&#x52A1;&#x7AEF;&#xFF0C;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;&#x5C31;&#x662F;&#x83B7;&#x53D6;&#x5230;&#x7F51;&#x7AD9;&#x9700;&#x8981;&#x7684;cookie&#xFF0C;&#x901A;&#x8FC7;&#x4E0A;&#x9762;&#x7684;&#x65B9;&#x6CD5;&#x4E00;&#x4E2A; key &#x4E00;&#x4E2A; key &#x7684;&#x8BBE;&#x7F6E;&#xFF0C;&#x53E6;&#x5916;&#x4E00;&#x79CD;&#x65B9;&#x6CD5;&#x76F4;&#x63A5;&#x5728; http request header &#x8BF7;&#x6C42;&#x5934;&#x4E2D;&#x8BBE;&#x7F6E; cookie&#x7684;&#x503C;&#xFF0C;&#x6BD4;&#x5982;&#x8FD9;&#x79CD;&#xFF1A;<br><img src="http://static.ixirong.com/selenium%2F1457264017455.png" alt="Alt text"></p>
+<p>&#x8FD9;&#x4F9D;&#x8D56;&#x7B2C;&#x4E09;&#x65B9;&#x5F00;&#x6E90;&#x7EC4;&#x4EF6;<a href="https://github.com/lightbody/browsermob-proxy" target="_blank" rel="external">BrowserMobProxy</a> &#x6765;&#x5B9E;&#x73B0;&#xFF0C;&#x5B83;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x66F4;&#x6539;&#x8BF7;&#x6C42;&#x7684; HTTP requests and responses&#xFF0C;&#x8BE6;&#x60C5;&#x53EF;&#x4EE5;&#x53C2;&#x8003;&#x5B98;&#x7F51;&#xFF1A;<a href="https://bmp.lightbody.net/" target="_blank" rel="external">https://bmp.lightbody.net/</a> &#x3002;&#x4F7F;&#x7528;&#x9996;&#x9009;&#x9700;&#x8981;&#x4F9D;&#x8D56;&#x76F8;&#x5E94;&#x7684; jar &#x5305;&#xFF1A;</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>net.lightbody.bmp<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- To use the legacy, Jetty-based implementation,  change the artifactId to browsermob-core --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>browsermob-core-littleproxy<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>2.1.0-beta-4<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="title">scope</span>&gt;</span> <span class="comment">&lt;!-- test&#x7C7B;&#x4E2D;&#x4F7F;&#x7528;&#xFF0C;&#x975E;test&#x53BB;&#x6389;&#x5373;&#x53EF; --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>&#x4EE3;&#x7801;&#x4F7F;&#x7528;&#x5982;&#x4E0B;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">testHttpHeader</span><span class="params">()</span> </span>{</span><br><span class="line">        <span class="comment">// start the proxy</span></span><br><span class="line">        BrowserMobProxy proxy = <span class="keyword">new</span> BrowserMobProxyServer();</span><br><span class="line">        proxy.start(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// get the Selenium proxy object</span></span><br><span class="line">        Proxy seleniumProxy = ClientUtil.createSeleniumProxy(proxy);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// configure it as a desired capability</span></span><br><span class="line">        DesiredCapabilities capabilities = <span class="keyword">new</span> DesiredCapabilities();</span><br><span class="line">        capabilities.setCapability(CapabilityType.PROXY, seleniumProxy);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// start the browser up</span></span><br><span class="line">        WebDriver driver = <span class="keyword">new</span> FirefoxDriver(capabilities);</span><br><span class="line"></span><br><span class="line">		<span class="comment">// &#x4E3E;&#x4F8B;&#x83B7;&#x53D6;12306&#x672A;&#x5B8C;&#x6210;&#x8BA2;&#x5355;</span></span><br><span class="line">        String url12306 = <span class="string">&quot;https://kyfw.12306.cn/otn/queryOrder/initNoComplete&quot;</span>;</span><br><span class="line">        <span class="keyword">final</span> String cookieValue = <span class="string">&quot;&quot;</span>; <span class="comment">//&#x767B;&#x5F55;&#x540E;&#x83B7;&#x53D6;&#x8BF7;&#x6C42;&#x4E2D;cookie&#x7684;&#x90A3;&#x957F;&#x4E32;&#x5185;&#x5BB9;</span></span><br><span class="line">        proxy.addRequestFilter(<span class="keyword">new</span> RequestFilter() {</span><br><span class="line">            <span class="annotation">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> HttpResponse <span class="title">filterRequest</span><span class="params">(HttpRequest request, HttpMessageContents contents, HttpMessageInfo messageInfo)</span> </span>{</span><br><span class="line">                request.headers().add(<span class="string">&quot;Cookie&quot;</span>, cookieValue);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            }</span><br><span class="line">        });</span><br><span class="line">        driver.get(url12306);</span><br></pre></td></tr></table></figure></p>
+<h1 id="&#x4E8C;&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;">&#x4E8C;&#x3001;&#x9AD8;&#x7EA7;&#x7528;&#x6CD5;</h1><p>&#x9AD8;&#x7EA7;&#x7528;&#x6237;&#x4EA4;&#x4E92;API&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x4E2A;&#x66F4;&#x65B0;&#x66F4;&#x5B8C;&#x5584;&#x7684;&#x673A;&#x5236;&#x6765;&#x5B9A;&#x4E49;&#x5E76;&#x63CF;&#x8FF0;&#x7528;&#x6237;&#x5728;&#x4E00;&#x4E2A;&#x7F51;&#x9875;&#x4E0A;&#x7684;&#x5404;&#x79CD;&#x64CD;&#x4F5C;&#x3002;&#x8FD9;&#x4E9B;&#x64CD;&#x4F5C;&#x5305;&#x62EC;&#xFF1A;&#x66F4;&#x6539;UA&#x3001;&#x62D6;&#x62FD;&#x3001;&#x6309;&#x4F4F;CTRL&#x952E;&#x9009;&#x62E9;&#x591A;&#x4E2A;&#x5143;&#x7D20;&#x7B49;&#x7B49;&#x3002;</p>
+<h2 id="21-&#x66F4;&#x6539;ua">2.1 &#x66F4;&#x6539;UA</h2><p>&#x6539;&#x53D8;&#x6D4F;&#x89C8;&#x5668;&#x7684; User Agent &#xFF0C;&#x5F53;&#x4F7F;&#x7528; Firefox Driver &#x7684;&#x65F6;&#x5019;&#x8FD9;&#x5F88;&#x5BB9;&#x6613;&#xFF1A;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FirefoxProfile profile = <span class="keyword">new</span> FirefoxProfile();</span><br><span class="line">profile.addAdditionalPreference(<span class="string">&quot;general.useragent.override&quot;</span>, <span class="string">&quot;some UA string&quot;</span>);</span><br><span class="line">WebDriver driver = <span class="keyword">new</span> FirefoxDriver(profile);</span><br></pre></td></tr></table></figure></p>
+<p>&#x4E3A;&#x4E86;&#x751F;&#x6210;&#x4E00;&#x8FDE;&#x4E32;&#x7684;&#x52A8;&#x4F5C;&#xFF0C;&#x6211;&#x4EEC;&#x4F7F;&#x7528;Actions&#x6765;&#x5EFA;&#x7ACB;&#x3002;&#x8FD9;&#x4E00;&#x7CFB;&#x5217;&#x7684;&#x52A8;&#x4F5C;&#x5E94;&#x8BE5;&#x5C3D;&#x91CF;&#x7684;&#x77ED;&#x3002;&#x5728;&#x4F7F;&#x7528;&#x4E2D;&#x6700;&#x597D;&#x5728;&#x6267;&#x884C;&#x4E00;&#x4E2A;&#x7B80;&#x77ED;&#x7684;&#x52A8;&#x4F5C;&#x540E;&#x9A8C;&#x8BC1;&#x9875;&#x9762;&#x662F;&#x5426;&#x5904;&#x4E8E;&#x6B63;&#x786E;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x6267;&#x884C;&#x4E0B;&#x9762;&#x7684;&#x52A8;&#x4F5C;&#x3002;<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// &#x5B9A;&#x4E49;&#x52A8;&#x4F5C;</span></span><br><span class="line">Actions builder = <span class="keyword">new</span> Actions(driver);</span><br><span class="line">builder.keyDown(Keys.CONTROL)</span><br><span class="line">.click(someElement)</span><br><span class="line">.click(someOtherElement)</span><br><span class="line">.keyUp(Keys.CONTROL);</span><br><span class="line"><span class="comment">// &#x83B7;&#x53D6;&#x52A8;&#x4F5C;</span></span><br><span class="line">Action selectMultiple = builder.build();</span><br><span class="line"><span class="comment">// &#x6267;&#x884C;&#x52A8;&#x4F5C;</span></span><br><span class="line">selectMultiple.perform();</span><br></pre></td></tr></table></figure></p>
+<h2 id="22-&#x952E;&#x76D8;&#x4EA4;&#x4E92;keyboard-interactions">2.2 &#x952E;&#x76D8;&#x4EA4;&#x4E92;&#xFF08;Keyboard interactions&#xFF09;</h2><p>&#x952E;&#x76D8;&#x4EA4;&#x4E92;&#x662F;&#x53D1;&#x751F;&#x5728;&#x4E00;&#x4E2A;&#x7279;&#x5B9A;&#x7684;&#x9875;&#x9762;&#x5143;&#x7D20;&#x7684;&#xFF0C;&#x800C;webdriver&#x4F1A;&#x786E;&#x4FDD;&#x8FD9;&#x4E2A;&#x9875;&#x9762;&#x5143;&#x7D20;&#x5728;&#x6267;&#x884C;&#x952E;&#x76D8;&#x52A8;&#x4F5C;&#x65F6;&#x5904;&#x4E8E;&#x6B63;&#x786E;&#x7684;&#x72B6;&#x6001;&#x3002;&#x8FD9;&#x4E2A;&#x6B63;&#x786E;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x5305;&#x62EC;&#x9875;&#x9762;&#x5143;&#x7D20;&#x6EDA;&#x52A8;&#x5230;&#x53EF;&#x89C6;&#x533A;&#x57DF;&#x5E76;&#x5B9A;&#x4F4D;&#x5230;&#x8FD9;&#x4E2A;&#x9875;&#x9762;&#x5143;&#x7D20;&#x3002;<br>&#x65E2;&#x7136;&#x8FD9;&#x4E2A;&#x65B0;&#x7684;API&#x662F;&#x9762;&#x5411;&#x7528;&#x6237;&#xFF08;user-oriental&#xFF09;&#x7684;&#x63A5;&#x53E3;&#xFF0C;&#x90A3;&#x4E48;&#x5BF9;&#x4E8E;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#xFF0C;&#x5728;&#x5BF9;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x8F93;&#x5165;&#x6587;&#x672C;&#x524D;&#x505A;&#x663E;&#x5F0F;&#x7684;&#x4EA4;&#x4E92;&#x5C31;&#x66F4;&#x52A0;&#x7684;&#x7B26;&#x5408;&#x903B;&#x8F91;&#x3002;&#x8FD9;&#x610F;&#x5473;&#x7740;&#xFF0C;&#x5F53;&#x60F3;&#x5B9A;&#x4F4D;&#x5230;&#x76F8;&#x90BB;&#x7684;&#x9875;&#x9762;&#x5143;&#x7D20;&#x65F6;&#xFF0C;&#x53EF;&#x80FD;&#x9700;&#x8981;&#x70B9;&#x51FB;&#x4E00;&#x4E0B;&#x5143;&#x7D20;&#x6216;&#x6309;&#x4E0B;Tab&#xFF08;Keys.TAB&#xFF09;&#x952E;&#x3002;<br>The new interactions API will (first) support keyboard actions without a provided element. The additional work to focus on an element before sending it keyboard events will be added later on.</p>
+<p>&#x8FD9;&#x5757;&#x5177;&#x4F53;&#x7684;&#x5185;&#x5BB9;&#x53CA;&#x6848;&#x4F8B;&#x53EF;&#x4EE5;&#x53C2;&#x8003;&#xFF1A;<a href="http://docs.seleniumhq.org/docs/04_webdriver_advanced.jsp#advanceduserinteractions" target="_blank" rel="external">http://docs.seleniumhq.org/docs/04_webdriver_advanced.jsp#advanceduserinteractions</a> &#xFF0C;&#x4E2D;&#x6587;&#x7FFB;&#x8BD1;&#x5728;&#xFF1A;<a href="https://wizardforcel.gitbooks.io/selenium-doc/content/official-site/selenium-web-driver.html" target="_blank" rel="external">https://wizardforcel.gitbooks.io/selenium-doc/content/official-site/selenium-web-driver.html</a></p>
+<p>&#x53C2;&#x8003;&#x8D44;&#x6599;&#xFF1A;</p>
+<ul>
+<li>&#x5B98;&#x7F51;&#xFF1A;<a href="http://www.seleniumhq.org/" target="_blank" rel="external">http://www.seleniumhq.org/</a></li>
+<li>selenium document &#xFF1A;<a href="http://www.seleniumhq.org/docs/" target="_blank" rel="external">http://www.seleniumhq.org/docs/</a> &#xFF0C;&#x4E2D;&#x6587;&#x7FFB;&#x8BD1;&#xFF1A;<a href="https://wizardforcel.gitbooks.io/selenium-doc/content/official-site/selenium-web-driver.html" target="_blank" rel="external">https://wizardforcel.gitbooks.io/selenium-doc/content/official-site/selenium-web-driver.html</a></li>
+</ul>
+
+      
+    </div>
+
+    <div class="post-footer">
+
+<! -- 添加捐赠图标 -->
+    
+    
+
+    <div class ="post-donate">
+      <div id="donate_board" class="donate_bar center">
+        <a id="btn_donate" class="btn_donate" href="javascript:;" title="Donate 打赏"></a>
+        <span class="donate_txt">
+           &uarr;<br>
+           
+            赏杯咖啡，持续写作
+           
+        </span>
+        <br>
+      </div>
+
+      <div id="donate_guide" class="donate_bar center hidden">
+        
+          <a href="http://static.ixirong.com/pic/donate/alipay2.png" title="支付宝打赏" class="fancybox" rel="article0"       style="float:left;margin-left:25%;margin-right:2px;">
+          <img src="http://static.ixirong.com/pic/donate/alipay2.png" title="支付宝打赏" height="164px" width="164px">
+          </a>
+        
+
+      
+       <a href="http://static.ixirong.com/pic/donate/wechat1.png" title="微信打赏" class="fancybox" rel="article0">
+         <img src="http://static.ixirong.com/pic/donate/wechat1.png" title="微信打赏" height="164px" width="164px">
+       </a>
+      
+
+      </div>
+
+      <script type="text/javascript">
+        document.getElementById('btn_donate').onclick = function(){
+          $('#donate_board').addClass('hidden');
+          $('#donate_guide').removeClass('hidden');
+        }
+      </script>
+    </div>
+
+    
+
+<! -- end 添加捐赠图标 -->
+      
+        <div class="post-tags">
+          
+            <a href="/tags/开源组件/"> #开源组件 </a>
+          
+            <a href="/tags/测试/"> #测试 </a>
+          
+            <a href="/tags/自动化/"> #自动化 </a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/01/24/notes-of-family-ship-jinanhaoxiangyin/">「童年追忆」-李逍遥</a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </div>
+  </div>
+
+
+
+    
+      <div class="comments" id="comments">
+        
+
+<div class="ds-share" data-thread-key="2016/03/06/how-selenium-webdriver-works/" data-title="Selenium Webdriver 基于浏览器的自动化测试" data-images="http://www.ixirong.com/2016/03/06/how-selenium-webdriver-works/" data-content="http://www.ixirong.com/2016/03/06/how-selenium-webdriver-works/" data-url="http://www.ixirong.com/2016/03/06/how-selenium-webdriver-works/">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+        <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+
+          <!-- 评论框 -->
+          <div class="ds-thread" data-thread-key="2016/03/06/how-selenium-webdriver-works/"
+               data-title="Selenium Webdriver 基于浏览器的自动化测试" data-url="http://www.ixirong.com/2016/03/06/how-selenium-webdriver-works/">
+          </div>
+        
+      </div>
+    
+  </div>
+
+
+
+          
+
+          
+          <div class="c-duoshuo-hot-artical">
+            <script type="text/javascript" id="wumiiRelatedItems"></script>
+
+            <script type="text/javascript">
+            var wumiiPermaLink = ""; //请用代码生成文章永久的链接
+            var wumiiTitle = ""; //请用代码生成文章标题
+            var wumiiTags = ""; //请用代码生成文章标签，以英文逗号分隔，如："标签1,标签2"
+            var wumiiCategories = []; //请用代码生成文章分类，分类名放在 JSONArray 中，如: ["分类1", "分类2"]
+            var wumiiSitePrefix = "http://www.ixirong.com/";
+            var wumiiParams = "&num=5&mode=1&pf=JAVASCRIPT";
+            </script>
+
+            <script type="text/javascript" src="http://widget.wumii.cn/ext/relatedItemsWidget"></script>
+              <a href="http://www.wumii.com/widget/relatedItems" style="border:0;">
+                <img src="http://static.wumii.cn/images/pixel.png" alt="无觅关联推荐，快速提升流量" style="border:0;padding:0;margin:0;" />
+              </a>
+            </div>
+          
+        </div>
+      </div>
+
+
+      
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview">
+        <div class="site-author motion-element">
+          <img class="site-author-image" src="/xirong.jpg" alt="xirong" />
+          <p class="site-author-name">xirong</p>
+        </div>
+        <p class="site-description motion-element">有故事、有担当、有思考</p>
+        <div class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">60</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          <div class="site-state-item site-state-categories">
+            <a href="/categories">
+              <span class="site-state-item-count">19</span>
+              <span class="site-state-item-name">分类</span>
+              </a>
+          </div>
+
+          <div class="site-state-item site-state-tags">
+            <a href="/tags">
+              <span class="site-state-item-count">91</span>
+              <span class="site-state-item-name">标签</span>
+              </a>
+          </div>
+        </div>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml">
+              <i class="menu-item-icon icon-feed"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        
+          <div class="links-of-author motion-element">
+            
+              <span class="links-of-author-item">
+              <a href="http://weixin.sogou.com/weixin?type=1&query=Geek_Notes&ie=utf8&w=01019900&sut=4856&sst0=1451527213494&lkt=1%2C1451527211738%2C1451527211738" target="_blank">Wechat</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://weibo.com/jackieliuxirong" target="_blank">微博</a>
+            </span>
+            
+              <span class="links-of-author-item">
+              <a href="https://github.com/xirong/" target="_blank">GitHub</a>
+            </span>
+                      
+           </div>
+        
+
+        
+        
+          <div class="cc-license motion-element">
+            <a href="http://creativecommons.org/licenses/by-nc-sa/4.0" class="cc-opacity" target="_blank" rel="external nofollow"> 
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+     
+        
+          <div class="links-of-author motion-element">        
+          <p class="site-author-name">Links</p>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.zhoujingen.cn/blog/" target="_blank">敏捷个人</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://macshuo.com/" target="_blank">MacTalk</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.ruanyifeng.com/blog/" target="_blank">阮一峰</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://coolshell.cn/" target="_blank">酷壳</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.read.org.cn/" target="_blank">战隼</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://www.mifengtd.cn/" target="_blank">褪墨</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://mindhacks.cn/" target="_blank">刘未鹏</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://ddimples.github.io/" target="_blank">程小黑</a>
+              </span>
+            
+              <span class="links-of-author-item">
+              <a href="http://blog.javachen.com/" target="_blank">JavaChen</a>
+              </span>
+            
+          </div>
+        
+        
+      </div>
+
+      
+        <div class="post-toc-wrap sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator"></div>
+          <div class="post-toc">
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一基础使用"><span class="nav-text">一、基础使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#11-完整-demo"><span class="nav-text">1.1 完整 demo</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12-支持浏览器"><span class="nav-text">1.2 支持浏览器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13-支持-api"><span class="nav-text">1.3 支持 Api</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14-操作-cookie"><span class="nav-text">1.4 操作 cookie</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二高级用法"><span class="nav-text">二、高级用法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#21-更改ua"><span class="nav-text">2.1 更改UA</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#22-键盘交互keyboard-interactions"><span class="nav-text">2.2 键盘交互（Keyboard interactions）</span></a></li></ol></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+        </div>
+      
+    </div>
+
+  </div>
+
+
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy; &nbsp;  2014 - 
+  2016
+  
+  <span class="author"> xirong</span>
+</div>
+
+<div class="powered-by">
+  <div style="float:left;margin-top:7px;margin-right:10px;">
+  <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1254711542'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/z_stat.php%3Fid%3D1254711542%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+  </div>
+   鲁ICP备15013969号
+</div>
+<div class="powered-by">
+  Powered by <a class="theme-link" href="http://hexo.io" rel="external nofollow">Hexo</a> 
+</div>
+
+<div class="theme-info">
+  Clone theme 
+  <a class="theme-link" href="https://github.com/xirong/hexo-theme-next" rel="external nofollow">
+    NexT
+  </a>
+</div>
+
+
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <!-- <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script> -->
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $('.content img').each(function () {
+        var $image = $(this);
+        var $imageWrapLink = $image.parent('a');
+
+        if ($imageWrapLink.size() < 1) {
+          $imageWrapLink = $image.wrap('<a href="' + this.getAttribute('src') + '"></a>').parent('a');
+        }
+        $imageWrapLink.addClass('fancybox');
+      });
+    });
+    $('.fancybox').fancybox({
+      helpers: {
+        overlay: {
+          locked: false
+        }
+      }
+    });
+  </script>
+
+
+  <!-- <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|micromessenger|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|UCBrowser|MQQBrowser|Blazer|PSP|IEMobile|Symbian|Mobile|samsung|htc/g;
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+
+  function displaySidebar () {
+    setTimeout(function () {
+      $('.sidebar-toggle').trigger('click');
+    }, 800);
+  }
+
+</script>
+ -->
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    LogoAndMenuMotion();
+    sidebarToggleMotion();
+    postsListMotion();
+    backToTopMotion();    
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+//search animate
+$(function(){
+   $('#ts-search-input').focus(function() {  //设置获得焦点时的方法，让文本框变长
+    $(this).animate({width: "150"}, 300 );  
+    $(this).val(''); //用于清空内容，可选操作
+   });
+ 
+   $('#ts-search-input').blur(function() {  //设置失去焦点时的方法，让文本框变短
+    $(this).animate({width: "70"}, 300 );
+   });
+});
+
+    function LogoAndMenuMotion() {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    }
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = window.postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebarToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      if (isDesktop() && HEXO_SIDEBAR_CONFIGURATION === 'post') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+
+
+
+   <script type="text/javascript">
+    var HEXO_SIDEBAR_CONFIGURATION = 'hide';
+    $(document).ready(function () {
+      if (HEXO_SIDEBAR_CONFIGURATION === 'always') {
+        displaySidebar();
+      }
+    });
+  </script>
+
+  
+
+  
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"xirong"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+
+
+  
+  
+  
+</body>
+</html>
