@@ -2,13 +2,18 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://www.ixirong.com/2016/03/13/intro-to-java-log/</loc>
-    <lastmod>2016-03-13T10:53:22.000Z</lastmod>
+    <loc>http://www.ixirong.com/about/resume_cn.html</loc>
+    <lastmod>2016-03-24T12:48:29.000Z</lastmod>
   </url>
   
   <url>
     <loc>http://www.ixirong.com/2016/03/06/how-selenium-webdriver-works/</loc>
-    <lastmod>2016-03-13T08:38:08.000Z</lastmod>
+    <lastmod>2016-03-21T03:44:52.000Z</lastmod>
+  </url>
+  
+  <url>
+    <loc>http://www.ixirong.com/2016/03/13/intro-to-java-log/</loc>
+    <lastmod>2016-03-13T10:53:22.000Z</lastmod>
   </url>
   
   <url>
@@ -209,11 +214,6 @@
   <url>
     <loc>http://www.ixirong.com/2015/05/12/how-to-install-jstorm-cluster/</loc>
     <lastmod>2015-07-13T08:17:47.000Z</lastmod>
-  </url>
-  
-  <url>
-    <loc>http://www.ixirong.com/about/resume_cn.html</loc>
-    <lastmod>2015-07-12T15:13:44.000Z</lastmod>
   </url>
   
   <url>
