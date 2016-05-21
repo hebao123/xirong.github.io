@@ -74,10 +74,7 @@
 					<div class="signature">- xirong</div>
 				</div>
 			</div>
-            <audio autoplay loop>        
-             <source src="http://static.ixirong.com/huanhuan/yici.mp3" type="audio/mpeg">
-            </audio>
-            
+            <audio id="Jaudio" class="media-audio" src="hhttp://static.ixirong.com/huanhuan/yici.mp3" preload loop="loop"></audio>             
 		</div>
 	</div>
 </div>
@@ -114,6 +111,15 @@ if (!document.createElement('canvas').getContext) {
 	adjustCodePosition();
 	$("#code").typewriter();
 }
+
+function audioAutoPlay(id){
+    var audio = document.getElementById(id);
+    audio.play();
+    document.addEventListener("WeixinJSBridgeReady", function () {
+            audio.play();
+    }, false);
+}
+audioAutoPlay('Jaudio');
 </script>
 </body>
 </html>
