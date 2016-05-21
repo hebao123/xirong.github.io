@@ -74,7 +74,8 @@
 					<div class="signature">- xirong</div>
 				</div>
 			</div>
-            <audio id="Jaudio" class="media-audio" src="hhttp://static.ixirong.com/huanhuan/yici.mp3" preload loop="loop"></audio>             
+
+            <audio id="Jaudio" class="media-audio" type="audio/mpeg" src="http://static.ixirong.com/huanhuan/yici.mp3" autoplay preload loop="loop"></audio >            
 		</div>
 	</div>
 </div>
@@ -111,7 +112,6 @@ if (!document.createElement('canvas').getContext) {
 	adjustCodePosition();
 	$("#code").typewriter();
 }
-
 function audioAutoPlay(id){
     var audio = document.getElementById(id);
     audio.play();
