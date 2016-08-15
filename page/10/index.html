@@ -175,6 +175,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-tags">
           <a href="/tags" rel="section">
             
@@ -191,16 +201,6 @@
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
             关于
-          </a>
-        </li>
-      
-        
-        <li class="menu-item menu-item-archives">
-          <a href="/archives" rel="section">
-            
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
-            
-            归档
           </a>
         </li>
       
@@ -283,8 +283,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/05/12/how-to-install-jstorm-cluster/" itemprop="url">
-                  分布式实时日志系统（一）环境搭建之 Jstorm 集群搭建过程/Jstorm集群一键安装部署
+                <a class="post-title-link" href="/2015/03/16/something-about-fastdfs/" itemprop="url">
+                  fastdfs 环境搭建使用及最佳实践
                 </a>
               
             
@@ -297,8 +297,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-05-12T18:43:38+08:00" content="2015-05-12">
-              2015-05-12
+            <time itemprop="dateCreated" datetime="2015-03-16T13:49:16+08:00" content="2015-03-16">
+              2015-03-16
             </time>
           </span>
 
@@ -311,8 +311,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/大数据/" itemprop="url" rel="index">
-                    <span itemprop="name">大数据</span>
+                  <a href="/categories/存储/" itemprop="url" rel="index">
+                    <span itemprop="name">存储</span>
                   </a>
                 </span>
 
@@ -327,8 +327,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/05/12/how-to-install-jstorm-cluster/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/12/how-to-install-jstorm-cluster/" itemprop="commentsCount"></span>
+                <a href="/2015/03/16/something-about-fastdfs/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/16/something-about-fastdfs/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -338,7 +338,7 @@
 
           
           
-             <span id="/2015/05/12/how-to-install-jstorm-cluster/" class="leancloud_visitors" data-flag-title="分布式实时日志系统（一）环境搭建之 Jstorm 集群搭建过程/Jstorm集群一键安装部署">
+             <span id="/2015/03/16/something-about-fastdfs/" class="leancloud_visitors" data-flag-title="fastdfs 环境搭建使用及最佳实践">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -361,12 +361,12 @@
 
       
         
-          <p>最近公司业务数据量越来越大，以前的基于消息队列的日志系统越来越难以满足目前的业务量，表现为消息积压，日志延迟，日志存储日期过短，所以，我们开始着手要重新设计这块，业界已经有了比较成熟的流程，即基于流式处理，采用 flume 收集日志，发送到 kafka 队列做缓冲，storm 分布式实时框架进行消费处理，短期数据落地到 hbase、mongo中，长期数据进入 hadoop 中存储。 接下来打算将这其间所遇到的问题、学习到的知识记录整理下，作为备忘，作为分享，带给需要的人。</p>
-<p>淘宝开源了许多产品组件，其中包括这鼎鼎有名的 jstorm ，也就是我们采用的分布式实时处理框架，至于为什么，请看《<a href="https://github.com/alibaba/jstorm/wiki/JStorm-vs-Storm-vs-flume-vs-S4-%E9%80%89%E5%9E%8B">为什么选择Jstorm</a>》。这篇文章只介绍 Jstorm 整个集群的搭建过程，并提供一键安装部署脚本，方便其它使用的人员（搭建环境是一件头疼的事情，费时、费力）。</p>
-<p>这是 Jstorm 的介绍PPT：（slideshare PPT 分享服务在大陆是被墙的，不能科学上网？查看<a href="http://ixirong.com/2015/01/19/shadowsocks-md/">使用shadowsocks服务享受自由网络</a>学习方法）</p>
-<p><iframe src="//www.slideshare.net/slideshow/embed_code/key/6NiKs9odzHXrZK" width="510" height="420" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/hustjackie/jstorm-introduction096" title="Jstorm introduction-0.9.6" target="_blank">Jstorm introduction-0.9.6</a> </strong> from <strong><a href="//www.slideshare.net/hustjackie" target="_blank">longda feng</a></strong> </div></p>
+          <h1 id="一、分布式文件系统_FastDFS_架构解析">一、分布式文件系统 FastDFS 架构解析</h1><p>FastDFS是为互联网应用量身定做的一套分布式文件存储系统，非常适合用来存储用户图片、视频、文档等文件，许多大型互联网公司包括几个大的云网盘都在使用，感兴趣的可以了解下。</p>
+<p>FastDFS 项目地址 ：<a href="http://code.google.com/p/fastdfs/">http://code.google.com/p/fastdfs/</a><br>分布式文件系统FastDFS架构剖析 : <a href="http://blog.csdn.net/MONKEY_D_MENG/article/details/6038133">http://blog.csdn.net/MONKEY_D_MENG/article/details/6038133</a><br>作者余庆对 fdfs 做的介绍PPT <a href="http://static.ixirong.com/doc/FastDFS介绍_余庆.ppt">FastDFS介绍_余庆.ppt</a></p>
+<h1 id="二、安装配置过程">二、安装配置过程</h1><h2 id="1-_概述">1. 概述</h2><p>包位置：/home/tester/fdfs/FastDFS/</p>
+<p>192.168.9.92  nginx模块 ，tracker ，storage<br>192.168.9.93  storage<br>192.168.9.94  storage</p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/05/12/how-to-install-jstorm-cluster/#more" rel="contents">
+            <a class="btn" href="/2015/03/16/something-about-fastdfs/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -417,8 +417,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/05/11/plan-lately/" itemprop="url">
-                  最近计划中的几篇文章
+                <a class="post-title-link" href="/2015/01/31/storage-lib/" itemprop="url">
+                  数据存储解决方案汇总
                 </a>
               
             
@@ -431,8 +431,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-05-11T22:41:46+08:00" content="2015-05-11">
-              2015-05-11
+            <time itemprop="dateCreated" datetime="2015-01-31T16:23:59+08:00" content="2015-01-31">
+              2015-01-31
             </time>
           </span>
 
@@ -445,8 +445,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/计划/" itemprop="url" rel="index">
-                    <span itemprop="name">计划</span>
+                  <a href="/categories/存储/" itemprop="url" rel="index">
+                    <span itemprop="name">存储</span>
                   </a>
                 </span>
 
@@ -461,8 +461,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/05/11/plan-lately/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/11/plan-lately/" itemprop="commentsCount"></span>
+                <a href="/2015/01/31/storage-lib/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/31/storage-lib/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -472,7 +472,7 @@
 
           
           
-             <span id="/2015/05/11/plan-lately/" class="leancloud_visitors" data-flag-title="最近计划中的几篇文章">
+             <span id="/2015/01/31/storage-lib/" class="leancloud_visitors" data-flag-title="数据存储解决方案汇总">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -496,13 +496,17 @@
       
         
           
-            <p>&#x8FD1;&#x671F;&#x65F6;&#x95F4;&#x5B89;&#x6392;&#x7684;&#x4E0D;&#x662F;&#x592A;&#x5408;&#x7406;&#xFF0C;&#x5BFC;&#x81F4;&#x5168;&#x7EBF;&#x5F00;&#x5DE5;&#x5F88;&#x591A;&#x4E8B;&#x60C5;&#xFF0C;&#x6709;&#x4E9B;&#x5FD9;&#x4E0D;&#x8FC7;&#x6765;&#xFF0C;&#x672C;&#x6253;&#x7B97;&#x597D;&#x8981;&#x5199;&#x7684;&#x51E0;&#x7BC7;&#x6587;&#x7AE0;&#x4E5F;&#x4E00;&#x76F4;&#x6CA1;&#x6709;&#x52A8;&#x7B14;&#xFF0C;&#x5148;&#x628A;&#x8FD9;&#x51E0;&#x7BC7;&#x6587;&#x7AE0;&#x8BB0;&#x5F55;&#x4E0B;&#x6765;&#xFF0C;&#x540E;&#x7EED;&#x5C3D;&#x91CF;&#x6BCF;&#x5929;&#x4E00;&#x7BC7;&#x53D1;&#x4E0A;&#x6765;&#x3002;</p>
+            <h3 id="nosql">Nosql</h3><p>&#x51E0;&#x7BC7;&#x6BD4;&#x8F83;&#x7EC6;&#x81F4;&#x7684;&#x6587;&#x7AE0;</p>
+<ol>
+<li><a href="http://blog.nosqlfan.com/html/332.html" target="_blank" rel="external">NoSQL&#x6570;&#x636E;&#x5E93;&#x7B14;&#x8C08;v2</a></li>
+<li><a href="http://blog.nosqlfan.com/html/2171.html" target="_blank" rel="external">NoSQL&#x751F;&#x6001;&#x7CFB;&#x7EDF;</a></li>
+</ol>
 <ul>
-<li>ixirong.com &#x7684;&#x5EFA;&#x7AD9;&#x6D41;&#x7A0B;&#xFF0C;&#x5305;&#x62EC;&#x4F7F;&#x7528;&#x7684;&#x65B9;&#x6848;&#x3001;&#x7F51;&#x7AD9;&#x7684;&#x76D1;&#x63A7;&#x3001;&#x57DF;&#x540D;&#x7533;&#x8BF7;&#x673A;&#x5907;&#x6848;&#x7B49;  2015-05-17 &#x5DF2;&#x7ECF;&#x5B8C;&#x6210;&#xFF0C;&#x8BE6;&#x7EC6;&#x8BF7;&#x770B;<a href="http://www.ixirong.com/2015/05/17/how-to-build-ixirong-blog/" target="_blank" rel="external">&#x4F7F;&#x7528; github Pages &#x670D;&#x52A1;&#x5EFA;&#x7ACB; ixirong.com &#x72EC;&#x7ACB;&#x535A;&#x5BA2;&#x5168;&#x8FC7;&#x7A0B;</a></li>
-<li>&#x5927;&#x578B;&#x7F51;&#x7AD9;&#x7684;&#x8FDB;&#x5316;&#x6D41;&#x7A0B;&#x7684; xmind &#x5206;&#x4EAB;&#xFF0C;&#x9605;&#x8BFB;&#x5B8C;&#x6BD5;&#x540E;&#xFF0C;&#x6211;&#x8FDB;&#x884C;&#x4E86;&#x601D;&#x7EF4;&#x5BFC;&#x56FE;&#x7684;&#x6574;&#x7406;&#xFF0C;&#x89C9;&#x5F97;&#x5BF9;&#x4EBA;&#x5E94;&#x8BE5;&#x662F;&#x6709;&#x4E9B;&#x5E2E;&#x52A9;&#x7684;&#xFF0C;&#x53EF;&#x4EE5;&#x770B;&#x770B;</li>
-<li>intellig idea &#x5F00;&#x53D1;&#x5DE5;&#x5177;&#x4F7F;&#x7528;&#x6280;&#x5DE7;&#xFF0C;&#x81EA;&#x4ECE;&#x8F6C;&#x5230;Java&#x5E73;&#x53F0;&#xFF0C;&#x4ECE;&#x4F7F;&#x7528;&#x4E0A;&#x4E5F;&#x6709;&#x4E86;&#x4E9B;&#x5FC3;&#x5F97;&#xFF0C;&#x5206;&#x4EAB;&#x51FA;&#x6765;</li>
-<li>&#x6700;&#x8FD1;&#x5728;&#x505A;&#x7684;&#x5B9E;&#x65F6;&#x65E5;&#x5FD7;&#x7EDF;&#x8BA1;&#xFF0C;&#x6253;&#x7B97;&#x5199;&#x4E2A;&#x7CFB;&#x5217;&#xFF0C;&#x4F5C;&#x4E3A;&#x81EA;&#x5DF1;&#x5DE5;&#x4F5C;&#x7684;&#x603B;&#x7ED3;&#xFF0C;&#x4E5F;&#x7ED9;&#x9700;&#x8981;&#x7684;&#x670B;&#x53CB;&#x4EEC;&#x4E00;&#x4E2A;&#x53EF;&#x4EE5;&#x9605;&#x8BFB;&#x5B66;&#x4E60;&#x7684;&#x4E1C;&#x897F;  2015-05-12 &#x5DF2;&#x7ECF;&#x5F00;&#x59CB;&#x6574;&#x7406;&#xFF0C;&#x67E5;&#x770B;&#x8BF7;&#x641C;&#x7D22;<strong>&#x5206;&#x5E03;&#x5F0F;&#x5B9E;&#x65F6;&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;&#x73AF;&#x5883;&#x642D;&#x5EFA;</strong></li>
-<li>mac iosx &#x7CFB;&#x7EDF;&#x6548;&#x7387;&#x63D0;&#x5347;&#x5DE5;&#x5177;&#x96C6;&#x5408;&#xFF0C;&#x4E00;&#x4E9B;&#x81EA;&#x5DF1;&#x6B63;&#x5728;&#x4F7F;&#x7528;&#x7684;&#xFF0C;&#x7684;&#x786E;&#x6709;&#x660E;&#x663E;&#x6548;&#x7387;&#x63D0;&#x5347;&#x7684;&#x5DE5;&#x5177;&#x96C6;&#x5408;</li>
+<li>hbase </li>
+<li>mongodb</li>
+<li>redis</li>
+<li>memorycached</li>
+<li>fastdfs</li>
 </ul>
 
           
@@ -553,8 +557,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/05/05/yxj2015/" itemprop="url">
-                  邀请众好友参与2015腾讯益行家古长城公益挑战赛
+                <a class="post-title-link" href="/2015/01/31/mongodb-librarys/" itemprop="url">
+                  一步步学习mongodb资料汇总
                 </a>
               
             
@@ -567,8 +571,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-05-05T23:13:07+08:00" content="2015-05-05">
-              2015-05-05
+            <time itemprop="dateCreated" datetime="2015-01-31T14:49:08+08:00" content="2015-01-31">
+              2015-01-31
             </time>
           </span>
 
@@ -581,8 +585,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/公益/" itemprop="url" rel="index">
-                    <span itemprop="name">公益</span>
+                  <a href="/categories/存储/" itemprop="url" rel="index">
+                    <span itemprop="name">存储</span>
                   </a>
                 </span>
 
@@ -597,8 +601,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/05/05/yxj2015/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/05/yxj2015/" itemprop="commentsCount"></span>
+                <a href="/2015/01/31/mongodb-librarys/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/31/mongodb-librarys/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -608,7 +612,7 @@
 
           
           
-             <span id="/2015/05/05/yxj2015/" class="leancloud_visitors" data-flag-title="邀请众好友参与2015腾讯益行家古长城公益挑战赛">
+             <span id="/2015/01/31/mongodb-librarys/" class="leancloud_visitors" data-flag-title="一步步学习mongodb资料汇总">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -631,9 +635,9 @@
 
       
         
-          <p>最近开始慢慢去尝试自己想到的东西，比如 <code>公益</code> 就是其中的一件，这两天在挑选月捐活动的时候看到了“<strong>2015腾讯益行家古长城公益挑战塞</strong>”的活动，感觉挺好，号召大家一起来做公益这件事，虽然1元钱在你的手中是那么的渺小，不值得一提，可这些小小的资金汇聚起来就是巨大的力量，能帮助那些需要帮助的人，可以参见我的一篇文章《<a href="http://ixirong.com/2015/04/30/why-paticipate-in-commonweal/">为什么要参与公益事业？</a>》<br>
+          初步学习mongodb收集了一些学习资料，均来自网络上的文章，方便以后回顾！
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/05/05/yxj2015/#more" rel="contents">
+            <a class="btn" href="/2015/01/31/mongodb-librarys/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -684,8 +688,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/04/30/why-paticipate-in-commonweal/" itemprop="url">
-                  我为什么开始参与公益活动？
+                <a class="post-title-link" href="/2015/01/30/web-arch-pages/" itemprop="url">
+                  大型网站架构方案系列文章
                 </a>
               
             
@@ -698,8 +702,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-04-30T22:24:43+08:00" content="2015-04-30">
-              2015-04-30
+            <time itemprop="dateCreated" datetime="2015-01-30T10:25:45+08:00" content="2015-01-30">
+              2015-01-30
             </time>
           </span>
 
@@ -712,8 +716,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/公益/" itemprop="url" rel="index">
-                    <span itemprop="name">公益</span>
+                  <a href="/categories/网络资料/" itemprop="url" rel="index">
+                    <span itemprop="name">网络资料</span>
                   </a>
                 </span>
 
@@ -728,8 +732,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/04/30/why-paticipate-in-commonweal/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/30/why-paticipate-in-commonweal/" itemprop="commentsCount"></span>
+                <a href="/2015/01/30/web-arch-pages/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/30/web-arch-pages/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -739,7 +743,7 @@
 
           
           
-             <span id="/2015/04/30/why-paticipate-in-commonweal/" class="leancloud_visitors" data-flag-title="我为什么开始参与公益活动？">
+             <span id="/2015/01/30/web-arch-pages/" class="leancloud_visitors" data-flag-title="大型网站架构方案系列文章">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -762,13 +766,19 @@
 
       
         
-          <h2 id="公益是什么">公益是什么</h2><blockquote>
-<p>公益是个人或组织自愿通过做好事、行善举而提供给社会公众的公共产品。在这里，做好事、行善举是对个人或组织行为的价值判断；行动的结果是向非特定的社会成员提供公益产品。</p>
-<p>公益活动是现代社会条件下的产物，是公民参与精神的表征。公益活动要生产出有利于提升公共安全、有利于增加社会福利的公共产品。在组织公益活动时，要遵循公德、符合公意，努力形成参与者多赢共益的良好氛围。因而，公益活动至少应包含公民、公共、公德、公意和共益等五个要素。</p>
-</blockquote>
-<h2 id="为什么参与">为什么参与</h2><p>在我长大的过程中，有无数的人帮助过我，那个时候我就想着将来一定要回报他人，帮助更多需要帮助的人，这可以说是我想法的雏形。以前，在电视上看到哪个明星又捐钱了，我嗤之以鼻，总感觉是在作秀，是在为自己名声宣传，随着年龄的增长，慢慢的理解了成龙的那句话 “一开始做慈善真的有宣传的成分，别人都在做，自己不做不好，可是做着做着就发现这是一个值得一生做下去的使命，尽力帮助那些需要帮助的人”，人的思想是在成长的，有些东西真的只有在一些经历后才能理解体会。<br>
+          <p>最近在网络上面研读了许多网站架构相关的文章，整理了些资料，汇总在下面，有这方面需要的可以看看：</p>
+<ul>
+<li><p>关于大型网站技术演进的思考 </p>
+<ul>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4237704.html">大型网站技术演进-存储的瓶颈（1）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4240419.html">大型网站技术演进-存储的瓶颈（2）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4251714.html">大型网站技术演进-存储的瓶颈（3）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4262983.html">大型网站技术演进-存储的瓶颈（4）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4265853.html">大型网站技术演进-存储的瓶颈（5）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4271353.html">大型网站技术演进-存储的瓶颈（6）</a></li>
+<li><a href="http://www.cnblogs.com/sharpxiajun/p/4279946.html">大型网站技术演进-存储的瓶颈（7）</a>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/04/30/why-paticipate-in-commonweal/#more" rel="contents">
+            <a class="btn" href="/2015/01/30/web-arch-pages/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -819,8 +829,8 @@
             
               
                 
-                <a class="post-title-link" href="/2015/04/27/strong-bash-use-oh-my-zsh/" itemprop="url">
-                  增强你的bash，提高命令效率之终极利器oh-my-zsh
+                <a class="post-title-link" href="/2015/01/19/shadowsocks-md/" itemprop="url">
+                  科学上网工具shadowsocks翻墙工具使用方法及资料汇总
                 </a>
               
             
@@ -833,8 +843,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2015-04-27T18:28:55+08:00" content="2015-04-27">
-              2015-04-27
+            <time itemprop="dateCreated" datetime="2015-01-19T22:44:54+08:00" content="2015-01-19">
+              2015-01-19
             </time>
           </span>
 
@@ -863,8 +873,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2015/04/27/strong-bash-use-oh-my-zsh/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/27/strong-bash-use-oh-my-zsh/" itemprop="commentsCount"></span>
+                <a href="/2015/01/19/shadowsocks-md/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/19/shadowsocks-md/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -874,7 +884,7 @@
 
           
           
-             <span id="/2015/04/27/strong-bash-use-oh-my-zsh/" class="leancloud_visitors" data-flag-title="增强你的bash，提高命令效率之终极利器oh-my-zsh">
+             <span id="/2015/01/19/shadowsocks-md/" class="leancloud_visitors" data-flag-title="科学上网工具shadowsocks翻墙工具使用方法及资料汇总">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -897,11 +907,140 @@
 
       
         
-          <p>当我知道了zsh，并体验了5分钟的时候，我决定将<code>zsh</code>作为我的默认 shell 终端。为什么？效率提高实在是太简单啦！<br>从这里你可能也就知道了<code>zsh</code>是 shell 的一种，当然还包括目前估计是你默认的<code>bash</code> ，输入下面的命令，就能看到你的系统中提供了多少的 shell  ：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/shells</span><br></pre></td></tr></table></figure>
-<p>前人已经有好多使用<code>zsh</code>的，所以这类的文章也很多，包括怎么安装、使用技巧等等，请看：<br>
+          shadowsocks是另一种翻墙工具，如何翻墙？速度快，安全高，跨平台包括 mac OSX shadowsocks、windows shadowsocks、android shadowsocks、ios shadowsocks等，众多服务提供商，包括shadowsocks免费账号、shadowsocks付费账号，shadowsocks的使用方法是怎么样的呢？Mac下怎么使用shadowsocks？shadowsocks windows下怎么安装使用？安卓平台怎么使用shadowsocks？shadowsocks的原理是什么？为什么shadowsocks能翻墙？shadowsocks翻墙的原理是什么？shadowsocks安全吗？shadowsocks稳定吗？ 本文将详细为您解读，欢迎留言。
           <div class="post-more-link text-center">
-            <a class="btn" href="/2015/04/27/strong-bash-use-oh-my-zsh/#more" rel="contents">
+            <a class="btn" href="/2015/01/19/shadowsocks-md/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2014/12/08/what-to-do-with-PrlSF/" itemprop="url">
+                  PrlSF文件系统格式化
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2014-12-08T22:09:14+08:00" content="2014-12-08">
+              2014-12-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/系统/" itemprop="url" rel="index">
+                    <span itemprop="name">系统</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2014/12/08/what-to-do-with-PrlSF/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2014/12/08/what-to-do-with-PrlSF/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2014/12/08/what-to-do-with-PrlSF/" class="leancloud_visitors" data-flag-title="PrlSF文件系统格式化">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          什么是 prlsf 文件系统？prlsf系统怎么格式化？你的U盘是不是不晓得怎么回事就变成了 prlsf 系统，还不知所措？
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2014/12/08/what-to-do-with-PrlSF/">
               阅读全文 &raquo;
             </a>
           </div>
@@ -935,7 +1074,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/">13</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/9/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><span class="page-number current">10</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/11/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -968,7 +1107,7 @@
       <section class="site-overview sidebar-panel  sidebar-panel-active ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
-               src="/images/xirong.jpg"
+               src="/uploads/xirong.jpg"
                alt="xirong" />
           <p class="site-author-name" itemprop="name">xirong</p>
           <p class="site-description motion-element" itemprop="description">思考生活，分享故事</p>
@@ -1238,6 +1377,26 @@
   
   
   
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+  <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
 
   
 
