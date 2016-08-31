@@ -93,9 +93,11 @@
 <meta property="og:site_name" content="自由">
 <meta property="og:description" content="排序算法是程序员日常生活中不怎么使用，但必须了解、熟读、记住的内容，这也是区分一个菜鸟和高级的一道坎，虽然我们日常使用的语言，比如Java、c#都对这些算法进行了封装，我们只需要拿来用就ok，但了解、熟悉算法的实现，有助于我们在现实生活中去解决复杂灵活的各种问题。">
 <meta property="og:image" content="http://static.ixirong.com/pic/sort/sort-algorithm.png">
+<meta property="og:updated_time" content="2015-07-27T06:51:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="常见排序算法之直接插入排序">
 <meta name="twitter:description" content="排序算法是程序员日常生活中不怎么使用，但必须了解、熟读、记住的内容，这也是区分一个菜鸟和高级的一道坎，虽然我们日常使用的语言，比如Java、c#都对这些算法进行了封装，我们只需要拿来用就ok，但了解、熟悉算法的实现，有助于我们在现实生活中去解决复杂灵活的各种问题。">
+<meta name="twitter:image" content="http://static.ixirong.com/pic/sort/sort-algorithm.png">
 
 
 
@@ -358,24 +360,24 @@
       
 
       
-        <p>&#x6392;&#x5E8F;&#x7B97;&#x6CD5;&#x662F;&#x7A0B;&#x5E8F;&#x5458;&#x65E5;&#x5E38;&#x751F;&#x6D3B;&#x4E2D;&#x4E0D;&#x600E;&#x4E48;&#x4F7F;&#x7528;&#xFF0C;&#x4F46;&#x5FC5;&#x987B;&#x4E86;&#x89E3;&#x3001;&#x719F;&#x8BFB;&#x3001;&#x8BB0;&#x4F4F;&#x7684;&#x5185;&#x5BB9;&#xFF0C;&#x8FD9;&#x4E5F;&#x662F;&#x533A;&#x5206;&#x4E00;&#x4E2A;&#x83DC;&#x9E1F;&#x548C;&#x9AD8;&#x7EA7;&#x7684;&#x4E00;&#x9053;&#x574E;&#xFF0C;&#x867D;&#x7136;&#x6211;&#x4EEC;&#x65E5;&#x5E38;&#x4F7F;&#x7528;&#x7684;&#x8BED;&#x8A00;&#xFF0C;&#x6BD4;&#x5982;Java&#x3001;c#&#x90FD;&#x5BF9;&#x8FD9;&#x4E9B;&#x7B97;&#x6CD5;&#x8FDB;&#x884C;&#x4E86;&#x5C01;&#x88C5;&#xFF0C;&#x6211;&#x4EEC;&#x53EA;&#x9700;&#x8981;&#x62FF;&#x6765;&#x7528;&#x5C31;ok&#xFF0C;&#x4F46;&#x4E86;&#x89E3;&#x3001;&#x719F;&#x6089;&#x7B97;&#x6CD5;&#x7684;&#x5B9E;&#x73B0;&#xFF0C;&#x6709;&#x52A9;&#x4E8E;&#x6211;&#x4EEC;&#x5728;&#x73B0;&#x5B9E;&#x751F;&#x6D3B;&#x4E2D;&#x53BB;&#x89E3;&#x51B3;&#x590D;&#x6742;&#x7075;&#x6D3B;&#x7684;&#x5404;&#x79CD;&#x95EE;&#x9898;&#x3002;<br><a id="more"></a></p>
+        <p>排序算法是程序员日常生活中不怎么使用，但必须了解、熟读、记住的内容，这也是区分一个菜鸟和高级的一道坎，虽然我们日常使用的语言，比如Java、c#都对这些算法进行了封装，我们只需要拿来用就ok，但了解、熟悉算法的实现，有助于我们在现实生活中去解决复杂灵活的各种问题。<br><a id="more"></a></p>
 <p><img src="http://static.ixirong.com/pic/sort/sort-algorithm.png" alt="sort-algorithm"></p>
-<h2 id="&#x63D2;&#x5165;&#x6392;&#x5E8F;&#x7B97;&#x6CD5;">&#x63D2;&#x5165;&#x6392;&#x5E8F;&#x7B97;&#x6CD5;</h2><blockquote>
-<p>&#x63D2;&#x5165;&#x6392;&#x5E8F;&#xFF08;Insertion Sort&#xFF09;&#x662F;&#x4E00;&#x79CD;&#x7B80;&#x5355;&#x76F4;&#x89C2;&#x7684;&#x6392;&#x5E8F;&#x7B97;&#x6CD5;&#x3002;&#x5B83;&#x7684;&#x5DE5;&#x4F5C;&#x539F;&#x7406;&#x662F;&#x901A;&#x8FC7;&#x6784;&#x5EFA;&#x6709;&#x5E8F;&#x5E8F;&#x5217;&#xFF0C;&#x5BF9;&#x4E8E;&#x672A;&#x6392;&#x5E8F;&#x6570;&#x636E;&#xFF0C;&#x5728;&#x5DF2;&#x6392;&#x5E8F;&#x5E8F;&#x5217;&#x4E2D;&#x4ECE;&#x540E;&#x5411;&#x524D;&#x626B;&#x63CF;&#xFF0C;&#x627E;&#x5230;&#x76F8;&#x5E94;&#x4F4D;&#x7F6E;&#x5E76;&#x63D2;&#x5165;&#x3002;&#x63D2;&#x5165;&#x6392;&#x5E8F;&#x5728;&#x5B9E;&#x73B0;&#x4E0A;&#xFF0C;&#x901A;&#x5E38;&#x91C7;&#x7528;in-place&#x6392;&#x5E8F;&#xFF08;&#x5373;&#x53EA;&#x9700;&#x7528;&#x5230;O(1)&#x7684;&#x989D;&#x5916;&#x7A7A;&#x95F4;&#x7684;&#x6392;&#x5E8F;&#xFF09;&#xFF0C;&#x56E0;&#x800C;&#x5728;&#x4ECE;&#x540E;&#x5411;&#x524D;&#x626B;&#x63CF;&#x8FC7;&#x7A0B;&#x4E2D;&#xFF0C;&#x9700;&#x8981;&#x53CD;&#x590D;&#x628A;&#x5DF2;&#x6392;&#x5E8F;&#x5143;&#x7D20;&#x9010;&#x6B65;&#x5411;&#x540E;&#x632A;&#x4F4D;&#xFF0C;&#x4E3A;&#x6700;&#x65B0;&#x5143;&#x7D20;&#x63D0;&#x4F9B;&#x63D2;&#x5165;&#x7A7A;&#x95F4;&#x3002; &#x2014; &#x7EF4;&#x57FA;&#x767E;&#x79D1;</p>
+<h2 id="插入排序算法"><a href="#插入排序算法" class="headerlink" title="插入排序算法"></a>插入排序算法</h2><blockquote>
+<p>插入排序（Insertion Sort）是一种简单直观的排序算法。它的工作原理是通过构建有序序列，对于未排序数据，在已排序序列中从后向前扫描，找到相应位置并插入。插入排序在实现上，通常采用in-place排序（即只需用到O(1)的额外空间的排序），因而在从后向前扫描过程中，需要反复把已排序元素逐步向后挪位，为最新元素提供插入空间。 – 维基百科</p>
 </blockquote>
-<p>&#x4E00;&#x822C;&#x6765;&#x8BF4;&#xFF0C;&#x63D2;&#x5165;&#x6392;&#x5E8F;&#x90FD;&#x91C7;&#x7528;in-place&#x5728;&#x6570;&#x7EC4;&#x4E0A;&#x5B9E;&#x73B0;&#x3002;&#x5177;&#x4F53;&#x7B97;&#x6CD5;&#x63CF;&#x8FF0;&#x5982;&#x4E0B;&#xFF1A;</p>
+<p>一般来说，插入排序都采用in-place在数组上实现。具体算法描述如下：</p>
 <ol>
-<li>&#x4ECE;&#x7B2C;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x5F00;&#x59CB;&#xFF0C;&#x8BE5;&#x5143;&#x7D20;&#x53EF;&#x4EE5;&#x8BA4;&#x4E3A;&#x5DF2;&#x7ECF;&#x88AB;&#x6392;&#x5E8F;</li>
-<li>&#x53D6;&#x51FA;&#x4E0B;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#xFF0C;&#x5728;&#x5DF2;&#x7ECF;&#x6392;&#x5E8F;&#x7684;&#x5143;&#x7D20;&#x5E8F;&#x5217;&#x4E2D;&#x4ECE;&#x540E;&#x5411;&#x524D;&#x626B;&#x63CF;</li>
-<li>&#x5982;&#x679C;&#x8BE5;&#x5143;&#x7D20;&#xFF08;&#x5DF2;&#x6392;&#x5E8F;&#xFF09;&#x5927;&#x4E8E;&#x65B0;&#x5143;&#x7D20;&#xFF0C;&#x5C06;&#x8BE5;&#x5143;&#x7D20;&#x79FB;&#x5230;&#x4E0B;&#x4E00;&#x4F4D;&#x7F6E;</li>
-<li>&#x91CD;&#x590D;&#x6B65;&#x9AA4;3&#xFF0C;&#x76F4;&#x5230;&#x627E;&#x5230;&#x5DF2;&#x6392;&#x5E8F;&#x7684;&#x5143;&#x7D20;&#x5C0F;&#x4E8E;&#x6216;&#x8005;&#x7B49;&#x4E8E;&#x65B0;&#x5143;&#x7D20;&#x7684;&#x4F4D;&#x7F6E;</li>
-<li>&#x5C06;&#x65B0;&#x5143;&#x7D20;&#x63D2;&#x5165;&#x5230;&#x8BE5;&#x4F4D;&#x7F6E;&#x540E;</li>
-<li>&#x91CD;&#x590D;&#x6B65;&#x9AA4;2~5</li>
+<li>从第一个元素开始，该元素可以认为已经被排序</li>
+<li>取出下一个元素，在已经排序的元素序列中从后向前扫描</li>
+<li>如果该元素（已排序）大于新元素，将该元素移到下一位置</li>
+<li>重复步骤3，直到找到已排序的元素小于或者等于新元素的位置</li>
+<li>将新元素插入到该位置后</li>
+<li>重复步骤2~5</li>
 </ol>
-<p>java &#x4EE3;&#x7801;&#x5982;&#x4E0B;&#xFF1A;</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="javadoc">/**</span><br><span class="line">     * &#x76F4;&#x63A5;&#x63D2;&#x5165;&#x6392;&#x5E8F;</span><br><span class="line">     * &#x5728;&#x5F85;&#x6392;&#x5E8F;&#x7684;&#x5217;&#x8868;&#x4E2D;</span><br><span class="line">     *<span class="javadoctag"> @param</span> array</span><br><span class="line">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">InsertionSort</span><span class="params">(<span class="keyword">int</span>[] array)</span></span>{</span><br><span class="line">        <span class="keyword">int</span> temp,j;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;array.length;i++){</span><br><span class="line">            temp=array[i];</span><br><span class="line">            j=i-<span class="number">1</span>;</span><br><span class="line">            <span class="comment">// &#x6709;&#x5E8F;&#x5217;&#x8868;&#x8BB0;&#x5F55;&#x540E;&#x79FB;&#xFF0C;&#x5E76;&#x627E;&#x5230;&#x8981;&#x63D2;&#x5165;&#x7684;&#x4F4D;&#x7F6E;j&#x5904;</span></span><br><span class="line">            <span class="keyword">while</span> (j&gt;= <span class="number">0</span> &amp;&amp; temp &lt; array[j]){</span><br><span class="line">                array[j+<span class="number">1</span>]=array[j];</span><br><span class="line">                j--;</span><br><span class="line">            }</span><br><span class="line">            <span class="comment">// &#x5728;&#x63D2;&#x5165;&#x4F4D;&#x7F6E;&#x63D2;&#x5165;&#x6570;&#x636E;</span></span><br><span class="line">            array[j+<span class="number">1</span>]=temp;</span><br><span class="line">        }</span><br><span class="line">    }</span><br></pre></td></tr></table></figure>
-<p><strong>&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x5206;&#x6790;</strong><br>&#x76F4;&#x63A5;&#x63D2;&#x5165;&#x6392;&#x5E8F;&#x7684;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x4E3A; O(n&#xB2;)&#x3002;</p>
-<p>&#x6E90;&#x7801;&#x53C2;&#x89C1;github&#xFF1A;<a href="https://github.com/xirong/my-java/blob/master/sort-algorithm/SelectionSort.java" target="_blank" rel="external">https://github.com/xirong/my-java/blob/master/sort-algorithm/SelectionSort.java</a></p>
+<p>java 代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line">     * 直接插入排序</div><div class="line">     * 在待排序的列表中</div><div class="line">     * <span class="doctag">@param</span> array</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">InsertionSort</span><span class="params">(<span class="keyword">int</span>[] array)</span></span>&#123;</div><div class="line">        <span class="keyword">int</span> temp,j;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;array.length;i++)&#123;</div><div class="line">            temp=array[i];</div><div class="line">            j=i-<span class="number">1</span>;</div><div class="line">            <span class="comment">// 有序列表记录后移，并找到要插入的位置j处</span></div><div class="line">            <span class="keyword">while</span> (j&gt;= <span class="number">0</span> &amp;&amp; temp &lt; array[j])&#123;</div><div class="line">                array[j+<span class="number">1</span>]=array[j];</div><div class="line">                j--;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">// 在插入位置插入数据</span></div><div class="line">            array[j+<span class="number">1</span>]=temp;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p><strong>时间复杂度分析</strong><br>直接插入排序的时间复杂度为 O(n²)。</p>
+<p>源码参见github：<a href="https://github.com/xirong/my-java/blob/master/sort-algorithm/SelectionSort.java" target="_blank" rel="external">https://github.com/xirong/my-java/blob/master/sort-algorithm/SelectionSort.java</a></p>
 
       
     </div>
@@ -402,13 +404,13 @@
       
         <div class="post-tags">
           
+            <a href="/tags/算法/" rel="tag">#算法</a>
+          
             <a href="/tags/冒泡/" rel="tag">#冒泡</a>
           
             <a href="/tags/排序/" rel="tag">#排序</a>
           
             <a href="/tags/数据结构/" rel="tag">#数据结构</a>
-          
-            <a href="/tags/算法/" rel="tag">#算法</a>
           
         </div>
       
@@ -499,7 +501,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">64</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -507,7 +509,7 @@
           
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>
@@ -516,7 +518,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">93</span>
+                <span class="site-state-item-count">94</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -666,7 +668,7 @@
 
 <div class="theme-info">
   Clone theme -
-  <a class="theme-link" href="https://github.com/xirong/hexo-theme-next">
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next/">
     NexT.Mist
   </a>
 </div>

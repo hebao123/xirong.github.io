@@ -92,6 +92,7 @@
 <meta property="og:url" content="http://www.ixirong.com/2015/03/19/install-java-on-mac/index.html">
 <meta property="og:site_name" content="自由">
 <meta property="og:description" content="还记得刚买 mac book pro 的时候，啥都不会用，网上到处找资料，去查看怎么使用，mac常用快捷键、mac常用软件、mac java 环境搭建等等，中间走了不少弯路，也积累了不少资料，特此分享给大家，方便新手最好的mac入门指南！">
+<meta property="og:updated_time" content="2015-12-12T15:14:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mac下java环境搭建">
 <meta name="twitter:description" content="还记得刚买 mac book pro 的时候，啥都不会用，网上到处找资料，去查看怎么使用，mac常用快捷键、mac常用软件、mac java 环境搭建等等，中间走了不少弯路，也积累了不少资料，特此分享给大家，方便新手最好的mac入门指南！">
@@ -357,42 +358,42 @@
       
 
       
-        <h1 id="mac-&#x4E0B;&#x7F16;&#x7A0B;-java-&#x73AF;&#x5883;&#x642D;&#x5EFA;-jdk17-sdk17maven-tomcat">mac &#x4E0B;&#x7F16;&#x7A0B; Java &#x73AF;&#x5883;&#x642D;&#x5EFA; jdk1.7 +sdk1.7+maven +tomcat</h1><p>&#xFF08;&#x6587;&#x7AE0;&#x4E3B;&#x8981;&#x76EE;&#x7684;&#x662F;&#x65B0;&#x5165;&#x624B;mac&#x7684;&#x4EBA;&#x5BF9;mac&#x4E0B;&#x7684;&#x76EE;&#x5F55;&#x7ED3;&#x679C;&#x4E0D;&#x4E86;&#x89E3;&#xFF0C;&#x7F51;&#x7EDC;&#x4E0A;&#x4E5F;&#x5F88;&#x5C11;&#x6709;&#x8FD9;&#x6837;&#x5B50;&#x7684;&#x6587;&#x7AE0;&#xFF0C;&#x65B0;&#x4EBA;&#x5BF9;mac&#x4E0B;Java&#x73AF;&#x5883;&#x7684;&#x642D;&#x5EFA;&#x4F1A;&#x6D6A;&#x8D39;&#x5F88;&#x591A;&#x65F6;&#x95F4;&#x3002;&#x5982;&#x6709;&#x4E0D;&#x5F53;&#x7684;&#x5730;&#x65B9;&#xFF0C;&#x8BF7;&#x6307;&#x6B63;&#x6216;&#x8005;&#x4FEE;&#x6539;&#x4E0B;&#xFF09;</p>
-<h2 id="&#x73AF;&#x5883;&#x4F9D;&#x8D56;">&#x73AF;&#x5883;&#x4F9D;&#x8D56;&#xFF1A;</h2><ol>
-<li>&#x5F00;&#x53D1;&#x5DE5;&#x5177; <a href="https://www.jetbrains.com/idea/" target="_blank" rel="external">idea 14</a> &#x7834;&#x89E3;&#x5DE5;&#x5177;&#x89C1;<a href="http://pan.baidu.com/s/1sjDeLvn" target="_blank" rel="external">&#x767E;&#x5EA6;&#x7F51;&#x76D8;</a>&#x6216;&#x8005; <a href="https://www.eclipse.org/downloads/" target="_blank" rel="external">eclipes</a></li>
-<li>&#x4E0B;&#x8F7D;mac&#x7248;&#x4E13;&#x7528;&#x7684;jdk*.dmg&#x6587;&#x4EF6;&#x53CC;&#x51FB;&#x5373;&#x53EF;&#x5B89;&#x88C5;&#xFF0C;&#x5730;&#x5740;&#x5982;&#x4E0B;&#xFF1A;jdk7 <a href="https://jdk7.java.net/download.html" target="_blank" rel="external">https://jdk7.java.net/download.html</a> (<a href="https://jdk8.java.net/download.html" target="_blank" rel="external">jdk8&#x4E0B;&#x8F7D;&#x5730;&#x5740;</a>&#xFF09;&#xFF0C;&#x6216;&#x8005;&#x4E0B;&#x8F7D;se&#x7684;&#x7248;&#x672C;&#xFF1A;<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html" target="_blank" rel="external">http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html</a> &#x6216;&#x8005;<a href="http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-macosx-x64.dmg?AuthParam=1441361125_8e58e45b15a83db7fcd304ce71bf14d0" target="_blank" rel="external">&#x76F4;&#x63A5;&#x4E0B;&#x8F7D;&#x5730;&#x5740;-jdk-7u79-macosx-x64.dmg</a></li>
-<li>&#x4E0B;&#x8F7D;sdk7  java-ee-sdk7 <a href="http://www.oracle.com/technetwork/java/javaee/downloads/index.html" target="_blank" rel="external">http://www.oracle.com/technetwork/java/javaee/downloads/index.html</a> (<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="external">java-se-sdk8</a>)</li>
+        <h1 id="mac-下编程-Java-环境搭建-jdk1-7-sdk1-7-maven-tomcat"><a href="#mac-下编程-Java-环境搭建-jdk1-7-sdk1-7-maven-tomcat" class="headerlink" title="mac 下编程 Java 环境搭建 jdk1.7 +sdk1.7+maven +tomcat"></a>mac 下编程 Java 环境搭建 jdk1.7 +sdk1.7+maven +tomcat</h1><p>（文章主要目的是新入手mac的人对mac下的目录结果不了解，网络上也很少有这样子的文章，新人对mac下Java环境的搭建会浪费很多时间。如有不当的地方，请指正或者修改下）</p>
+<h2 id="环境依赖："><a href="#环境依赖：" class="headerlink" title="环境依赖："></a>环境依赖：</h2><ol>
+<li>开发工具 <a href="https://www.jetbrains.com/idea/" target="_blank" rel="external">idea 14</a> 破解工具见<a href="http://pan.baidu.com/s/1sjDeLvn" target="_blank" rel="external">百度网盘</a>或者 <a href="https://www.eclipse.org/downloads/" target="_blank" rel="external">eclipes</a></li>
+<li>下载mac版专用的jdk*.dmg文件双击即可安装，地址如下：jdk7 <a href="https://jdk7.java.net/download.html" target="_blank" rel="external">https://jdk7.java.net/download.html</a> (<a href="https://jdk8.java.net/download.html" target="_blank" rel="external">jdk8下载地址</a>），或者下载se的版本：<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html" target="_blank" rel="external">http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html</a> 或者<a href="http://download.oracle.com/otn-pub/java/jdk/7u79-b15/jdk-7u79-macosx-x64.dmg?AuthParam=1441361125_8e58e45b15a83db7fcd304ce71bf14d0" target="_blank" rel="external">直接下载地址-jdk-7u79-macosx-x64.dmg</a></li>
+<li>下载sdk7  java-ee-sdk7 <a href="http://www.oracle.com/technetwork/java/javaee/downloads/index.html" target="_blank" rel="external">http://www.oracle.com/technetwork/java/javaee/downloads/index.html</a> (<a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html" target="_blank" rel="external">java-se-sdk8</a>)</li>
 </ol>
 <ul>
-<li>&#x5907;&#x6CE8;&#xFF1A;<a href="http://blog.csdn.net/dreamcatchergo/article/details/8108467" target="_blank" rel="external">SDK&#x3001;JDK&#x3001;JRE&#x3001;JVM&#x7B49;&#x4E4B;&#x95F4;&#x7684;&#x533A;&#x522B;&#x4E0E;&#x8054;&#x7CFB;</a></li>
+<li>备注：<a href="http://blog.csdn.net/dreamcatchergo/article/details/8108467" target="_blank" rel="external">SDK、JDK、JRE、JVM等之间的区别与联系</a></li>
 </ul>
 <ol>
-<li>&#x4E0B;&#x8F7D; maven <a href="http://maven.apache.org/download.cgi" target="_blank" rel="external">http://maven.apache.org/download.cgi</a> &#x548C; tomcat <a href="http://tomcat.apache.org/" target="_blank" rel="external">http://tomcat.apache.org/</a> &#xFF08;&#x6CE8;&#x610F;&#x7248;&#x672C;&#x5BF9;&#x5E94;jdk7&#x5BF9;&#x5E94;tomcat7&#xFF0C;jdk8&#x5BF9;&#x5E94;tomcat8&#xFF09;  </li>
+<li>下载 maven <a href="http://maven.apache.org/download.cgi" target="_blank" rel="external">http://maven.apache.org/download.cgi</a> 和 tomcat <a href="http://tomcat.apache.org/" target="_blank" rel="external">http://tomcat.apache.org/</a> （注意版本对应jdk7对应tomcat7，jdk8对应tomcat8）  </li>
 </ol>
-<h2 id="&#x5B89;&#x88C5;&#x8FC7;&#x7A0B;">&#x5B89;&#x88C5;&#x8FC7;&#x7A0B;&#xFF1A;</h2><ol>
-<li>&#x5148;&#x5B89;&#x88C5; jdk (&#x81EA;&#x5E26;&#x4E86;jre &#x5C31;&#x6CA1;&#x6709;&#x5FC5;&#x8981;&#x5B89;&#x88C5;&#x4E86;),&#x624D;&#x80FD;&#x5B89;&#x88C5; sdk&#xFF0C;mac &#x4E2D; jdk1.7 &#x7684;&#x9ED8;&#x8BA4;&#x4F4D;&#x7F6E;&#xFF1A;/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x5728;&#x8FD9;&#x91CC;&#x4F7F;&#x7528; which java &#x547D;&#x4EE4;&#x67E5;&#x770B;&#x4E0B;&#x5B89;&#x88C5;&#x5230;&#x4E86;&#x54EA;&#x91CC;</li>
-<li>&#x5B89;&#x88C5; sdk7</li>
+<h2 id="安装过程："><a href="#安装过程：" class="headerlink" title="安装过程："></a>安装过程：</h2><ol>
+<li>先安装 jdk (自带了jre 就没有必要安装了),才能安装 sdk，mac 中 jdk1.7 的默认位置：/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home，如果不在这里使用 which java 命令查看下安装到了哪里</li>
+<li>安装 sdk7</li>
 </ol>
-<p>&#x9519;&#x8BEF;&#x89E3;&#x51B3;<br>&#x5B89;&#x88C5;sdk&#x9519;&#x8BEF;&#xFF1A;This program requires DISPLAY environment variable<br>&#x89E3;&#x51B3;&#xFF1A; vim ~/.bash_profile  &#x6DFB;&#x52A0; export DISPLAY=:0 &#x5373;&#x53EF;</p>
-<h2 id="&#x73AF;&#x5883;&#x914D;&#x7F6E;javamaventomcat&#x73AF;&#x5883;">&#x73AF;&#x5883;&#x914D;&#x7F6E;Java+maven+tomcat&#x73AF;&#x5883;</h2><p>1.&#x914D;&#x7F6E;JAVA_HOME:<br>&#x7528;&#x6237;&#x76EE;&#x5F55;&#x4E0B; vim ~/.bash_profile&#xFF08;&#x5982;&#x679C;&#x6CA1;&#x6709;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x53EF;&#x4EE5;&#x81EA;&#x5DF1;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#xFF09;&#xFF0C;MAVEN_HOME &#x548C; JAVA_HOME &#x90FD;&#x662F;&#x4F60;&#x7684;&#x5B89;&#x88C5;&#x76EE;&#x5F55;&#xFF0C;&#x5982;&#x679C;&#x4E0D;&#x77E5;&#x9053;&#x5B89;&#x88C5;&#x5230;&#x4E86;&#x54EA;&#x91CC;&#xFF0C;&#x4F7F;&#x7528;which&#x547D;&#x4EE4;&#x67E5;&#x770B;&#xFF0C;&#x4F8B;&#x5982; &#x201C;which java &#x201D;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MAVEN_HOME=/Users/taoyutong/Documents/apache-maven-<span class="number">3.0</span>.<span class="number">5</span></span><br><span class="line">JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.<span class="number">7.0</span>_40.jdk/Contents/Home</span><br><span class="line">PATH=<span class="variable">$MAVEN_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line">PAHT=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PAHT</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> MAVEN_HOME</span><br><span class="line"><span class="built_in">export</span> JAVA_HOME</span><br><span class="line"><span class="built_in">export</span> PATH</span><br></pre></td></tr></table></figure>
-<p>&#x4FDD;&#x5B58;&#x9000;&#x51FA;&#x5373;&#x53EF;&#x3002;<br>&#x7ACB;&#x5373;&#x751F;&#x6548;&#x9700;&#x8981;&#x6267;&#x884C;&#xFF1A;$ source .bash_profile&#xFF08;&#x8FD9;&#x662F;&#x6587;&#x4EF6;&#x540D;&#xFF09;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># mac&#x4E0B;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;</span></span><br><span class="line">./etc/profile &#x6587;&#x4EF6;   &#x5168;&#x5C40;&#x5171;&#x6709;&#x914D;&#x7F6E;&#xFF0C;&#x65E0;&#x8BBA;&#x54EA;&#x4E2A;&#x7528;&#x6237;&#x767B;&#x5F55;&#xFF0C;&#x90FD;&#x4F1A;&#x8BFB;&#x53D6;&#x6B64;&#x6587;&#x4EF6;</span><br><span class="line">/etc/bashrc    &#xFF08;&#x4E00;&#x822C;&#x5728;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x4E2D;&#x6DFB;&#x52A0;&#x7CFB;&#x7EDF;&#x7EA7;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#xFF09;&#x5168;&#x5C40;&#xFF08;&#x516C;&#x6709;&#xFF09;&#x914D;&#x7F6E;&#xFF0C;bash shell&#x6267;&#x884C;&#x65F6;&#xFF0C;&#x4E0D;&#x7BA1;&#x662F;&#x4F55;&#x79CD;&#x65B9;&#x5F0F;&#xFF0C;&#x90FD;&#x4F1A;&#x8BFB;&#x53D6;&#x6B64;&#x6587;&#x4EF6;&#x3002;</span><br><span class="line">~/.bash_profile  &#xFF08;&#x4E00;&#x822C;&#x5728;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x4E2D;&#x6DFB;&#x52A0;&#x7528;&#x6237;&#x7EA7;&#x73AF;&#x5883;&#x53D8;&#x91CF;&#xFF09;</span><br></pre></td></tr></table></figure>
-<p>2.&#x914D;&#x7F6E;Tomcat&#xFF1A;<br>&#x8FDB;&#x5165;&#x7528;&#x6237;&#x76EE;&#x5F55;&#xFF0C;&#x7F16;&#x8F91;.bash_profile</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br><span class="line"><span class="comment"># &#x589E;&#x52A0;&#x5982;&#x4E0B;&#xFF1A;</span></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/usr/<span class="built_in">local</span>/apache-tomcat-<span class="number">8.0</span>.<span class="number">9</span>/bin</span><br><span class="line"><span class="comment"># &#x8BBE;&#x7F6E;startup.sh&#x6587;&#x4EF6;&#x7684;&#x6743;&#x9650;</span></span><br><span class="line">chmod <span class="number">755</span> /usr/<span class="built_in">local</span>/apache-tomcat-<span class="number">8.0</span>.<span class="number">9</span>/bin/*.sh</span><br></pre></td></tr></table></figure>
-<p>&#x6D4B;&#x8BD5;&#xFF1A;</p>
+<p>错误解决<br>安装sdk错误：This program requires DISPLAY environment variable<br>解决： vim ~/.bash_profile  添加 export DISPLAY=:0 即可</p>
+<h2 id="环境配置Java-maven-tomcat环境"><a href="#环境配置Java-maven-tomcat环境" class="headerlink" title="环境配置Java+maven+tomcat环境"></a>环境配置Java+maven+tomcat环境</h2><p>1.配置JAVA_HOME:<br>用户目录下 vim ~/.bash_profile（如果没有这个文件可以自己创建一个），MAVEN_HOME 和 JAVA_HOME 都是你的安装目录，如果不知道安装到了哪里，使用which命令查看，例如 “which java ”</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">MAVEN_HOME=/Users/taoyutong/Documents/apache-maven-3.0.5</div><div class="line">JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.7.0_40.jdk/Contents/Home</div><div class="line">PATH=<span class="variable">$MAVEN_HOME</span>/bin:<span class="variable">$PATH</span></div><div class="line">PAHT=<span class="variable">$JAVA_HOME</span>/bin:<span class="variable">$PAHT</span></div><div class="line"></div><div class="line"><span class="built_in">export</span> MAVEN_HOME</div><div class="line"><span class="built_in">export</span> JAVA_HOME</div><div class="line"><span class="built_in">export</span> PATH</div></pre></td></tr></table></figure>
+<p>保存退出即可。<br>立即生效需要执行：$ source .bash_profile（这是文件名）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># mac下的配置文件</span></div><div class="line">./etc/profile 文件   全局共有配置，无论哪个用户登录，都会读取此文件</div><div class="line">/etc/bashrc    （一般在这个文件中添加系统级环境变量）全局（公有）配置，bash shell执行时，不管是何种方式，都会读取此文件。</div><div class="line">~/.bash_profile  （一般在这个文件中添加用户级环境变量）</div></pre></td></tr></table></figure>
+<p>2.配置Tomcat：<br>进入用户目录，编辑.bash_profile</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">vim ~/.bash_profile</div><div class="line"><span class="comment"># 增加如下：</span></div><div class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:/usr/<span class="built_in">local</span>/apache-tomcat-8.0.9/bin</div><div class="line"><span class="comment"># 设置startup.sh文件的权限</span></div><div class="line">chmod 755 /usr/<span class="built_in">local</span>/apache-tomcat-8.0.9/bin/*.sh</div></pre></td></tr></table></figure>
+<p>测试：</p>
 <ul>
-<li>&#x542F;&#x52A8;tomcat<br>sh startup.sh</li>
-<li>&#x6D4B;&#x8BD5;<br>&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#xFF1A;<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a> &#xFF0C;&#x770B;&#x5230;tomcat&#x7684;&#x9ED8;&#x8BA4;&#x9875;&#x9762;&#x5373;&#x53EF;</li>
-<li>&#x505C;&#x6B62;tomcat<br>sh shutdown.sh</li>
+<li>启动tomcat<br>sh startup.sh</li>
+<li>测试<br>可以使用：<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a> ，看到tomcat的默认页面即可</li>
+<li>停止tomcat<br>sh shutdown.sh</li>
 </ul>
-<p>&#x8FD9;&#x6B65;&#x53EF;&#x4EE5;&#x4E0D;&#x7528;&#xFF0C;&#x8FD9;&#x662F;&#x7528;&#x6765;&#x7ED9;tomcat&#x6DFB;&#x52A0;&#x7BA1;&#x7406;&#x5458;&#x4F7F;&#x7528;&#x7684;<br>vim /usr/local/apache-tomcat-7.0.55/conf/tomcat-users.xml</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">role</span> <span class="attribute">rolename</span>=<span class="value">&quot;admin-gui&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">role</span> <span class="attribute">rolename</span>=<span class="value">&quot;admin-script&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">role</span> <span class="attribute">rolename</span>=<span class="value">&quot;manager-gui&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">role</span> <span class="attribute">rolename</span>=<span class="value">&quot;manager-script&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">role</span> <span class="attribute">rolename</span>=<span class="value">&quot;manager-jmx&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">role</span> <span class="attribute">rolename</span>=<span class="value">&quot;manager-status&quot;</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">user</span> <span class="attribute">username</span>=<span class="value">&quot;admin&quot;</span> <span class="attribute">password</span>=<span class="value">&quot;admin&quot;</span> <span class="attribute">roles</span>=<span class="value">&quot;manager-gui,manager-script,manager-jmx,manager-status,admin-script,admin-gui&quot;</span>/&gt;</span></span><br></pre></td></tr></table></figure>
-<p>3.&#x914D;&#x7F6E;maven<br>&#x89E3;&#x538B;&#x4E0B;&#x8F7D;&#x7684;zip&#x5305; apache-maven-3.2.5-bin.tar.gz &#x5230;&#x4E00;&#x4E2A;&#x76EE;&#x5F55;&#xFF0C;&#x6BD4;&#x5982; /usr/local/ &#xFF0C;&#x5C06;&#x91CC;&#x9762;&#x5305;&#x542B;setting.xml&#x5907;&#x4EFD;&#x4E0B;&#xFF0C;&#x4F7F;&#x7528;&#x7F51;&#x7AD9;&#x4E13;&#x7528;&#x7684;setting.xml&#x6765;&#x66FF;&#x6362;&#xFF1B;maven &#x6700;&#x91CD;&#x8981;&#x7684;&#x9700;&#x8981;&#x628A;setting.xml&#x6587;&#x4EF6;&#x914D;&#x7F6E;&#x5BF9;&#xFF0C;&#x6BD4;&#x8F83;&#x5173;&#x952E;&#x7684;&#x662F;&#x4F7F;&#x7528;&#x7684;&#x7528;&#x6237;&#x76EE;&#x5F55;&#xFF0C;mac&#x9ED8;&#x8BA4;&#x662F; ~/.m2 &#x6587;&#x4EF6;&#xFF0C;&#x5BF9;&#x5E94;&#x7684;&#x9700;&#x8981;&#x5C06; &#x7F51;&#x7AD9;&#x4E13;&#x7528;setting.xml&#x6587;&#x4EF6;&#x590D;&#x5236;&#x5230; ~/.m2/&#x4E0B;&#xFF1B;<br>&#x5173;&#x4E8E;maven&#x7684;setting.xml&#x6587;&#x4EF6;&#x6709;&#x4E24;&#x4E2A;&#xFF0C;&#x4E00;&#x4E2A;&#x662F;maven&#x5B89;&#x88C5;&#x76EE;&#x5F55;&#x4E0B;&#x7684;&#xFF0C;&#x662F;&#x5168;&#x5C40;&#x7684;&#x914D;&#x7F6E;&#xFF0C;&#x8FD9;&#x53F0;&#x673A;&#x5668;&#x4E0A;&#x7684;&#x6240;&#x6709;&#x7528;&#x6237;&#x90FD;&#x4F7F;&#x7528;&#xFF0C;&#x53E6;&#x4E00;&#x4E2A;&#x662F; ~/.m2/&#x4E0B;&#x7684;&#xFF0C;&#x8FD9;&#x4E2A;&#x662F;&#x7528;&#x6237;&#x7EA7;&#x522B;&#x7684;&#x914D;&#x7F6E;&#xFF1A;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bash_profile</span><br><span class="line">MAVEN_HOME=/Users/taoyutong/Documents/apache-maven-<span class="number">3.0</span>.<span class="number">5</span></span><br><span class="line">PATH=<span class="variable">$MAVEN_HOME</span>/bin:<span class="variable">$PATH</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> MAVEN_HOME</span><br><span class="line"><span class="built_in">export</span> PATH</span><br></pre></td></tr></table></figure>
-<p>&#x4FDD;&#x5B58;&#x9000;&#x51FA;&#x5373;&#x53EF;&#x3002;<br>&#x7ACB;&#x5373;&#x751F;&#x6548;&#x9700;&#x8981;&#x6267;&#x884C;&#xFF1A;$ source ~/.bash_profile&#xFF08;&#x8FD9;&#x662F;&#x6587;&#x4EF6;&#x540D;&#xFF09;</p>
-<p>IDE&#x4E2D;setting&#x4E2D;&#x5173;&#x4E8E;tomcat&#x548C;maven&#x7684;&#x8BBE;&#x7F6E;&#xFF0C;&#x53BB;&#x5173;&#x6CE8;&#x4E0B;&#xFF0C;&#x5982;&#x679C;&#x9700;&#x8981;&#x4FEE;&#x6539;&#x5C31;&#x4FEE;&#x6539;&#x4E0B;&#xFF0C;&#x5426;&#x5219;&#x53EF;&#x80FD;&#x4F1A;&#x6709;&#x95EE;&#x9898;&#xFF1B;</p>
-<p>&#x5230;&#x8FD9;&#x91CC;&#xFF0C;&#x6574;&#x4E2A;Java&#x73AF;&#x5883;&#x5C31;&#x914D;&#x7F6E;&#x95EE;&#x4E86;&#xFF0C;&#x53EF;&#x4EE5;&#x5EFA;&#x7ACB;&#x9879;&#x76EE;&#x6765;&#x6D4B;&#x8BD5;&#x4E0B;&#xFF0C;&#x53C2;&#x8003;&#x4E0B;&#xFF1A;<br>IntelliJ IDEA 12 &#x521B;&#x5EFA; Maven &#x7BA1;&#x7406;&#x7684; Java Web&#x9879;&#x76EE;  <a href="http://blog.csdn.net/zht666/article/details/8673609" target="_blank" rel="external">http://blog.csdn.net/zht666/article/details/8673609</a></p>
+<p>这步可以不用，这是用来给tomcat添加管理员使用的<br>vim /usr/local/apache-tomcat-7.0.55/conf/tomcat-users.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">role</span> <span class="attr">rolename</span>=<span class="string">"admin-gui"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">role</span> <span class="attr">rolename</span>=<span class="string">"admin-script"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">role</span> <span class="attr">rolename</span>=<span class="string">"manager-gui"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">role</span> <span class="attr">rolename</span>=<span class="string">"manager-script"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">role</span> <span class="attr">rolename</span>=<span class="string">"manager-jmx"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">role</span> <span class="attr">rolename</span>=<span class="string">"manager-status"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">user</span> <span class="attr">username</span>=<span class="string">"admin"</span> <span class="attr">password</span>=<span class="string">"admin"</span> <span class="attr">roles</span>=<span class="string">"manager-gui,manager-script,manager-jmx,manager-status,admin-script,admin-gui"</span>/&gt;</span></div></pre></td></tr></table></figure>
+<p>3.配置maven<br>解压下载的zip包 apache-maven-3.2.5-bin.tar.gz 到一个目录，比如 /usr/local/ ，将里面包含setting.xml备份下，使用网站专用的setting.xml来替换；maven 最重要的需要把setting.xml文件配置对，比较关键的是使用的用户目录，mac默认是 ~/.m2 文件，对应的需要将 网站专用setting.xml文件复制到 ~/.m2/下；<br>关于maven的setting.xml文件有两个，一个是maven安装目录下的，是全局的配置，这台机器上的所有用户都使用，另一个是 ~/.m2/下的，这个是用户级别的配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">vim ~/.bash_profile</div><div class="line">MAVEN_HOME=/Users/taoyutong/Documents/apache-maven-3.0.5</div><div class="line">PATH=<span class="variable">$MAVEN_HOME</span>/bin:<span class="variable">$PATH</span></div><div class="line"></div><div class="line"><span class="built_in">export</span> MAVEN_HOME</div><div class="line"><span class="built_in">export</span> PATH</div></pre></td></tr></table></figure>
+<p>保存退出即可。<br>立即生效需要执行：$ source ~/.bash_profile（这是文件名）</p>
+<p>IDE中setting中关于tomcat和maven的设置，去关注下，如果需要修改就修改下，否则可能会有问题；</p>
+<p>到这里，整个Java环境就配置问了，可以建立项目来测试下，参考下：<br>IntelliJ IDEA 12 创建 Maven 管理的 Java Web项目  <a href="http://blog.csdn.net/zht666/article/details/8673609" target="_blank" rel="external">http://blog.csdn.net/zht666/article/details/8673609</a></p>
 
       
     </div>
@@ -419,11 +420,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Java/" rel="tag">#Java</a>
-          
             <a href="/tags/mac/" rel="tag">#mac</a>
           
             <a href="/tags/工具/" rel="tag">#工具</a>
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
           
         </div>
       
@@ -514,7 +515,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">64</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -522,7 +523,7 @@
           
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>
@@ -531,7 +532,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">93</span>
+                <span class="site-state-item-count">94</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -642,7 +643,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mac-下编程-java-环境搭建-jdk17-sdk17maven-tomcat"><span class="nav-number">1.</span> <span class="nav-text">mac 下编程 Java 环境搭建 jdk1.7 +sdk1.7+maven +tomcat</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境依赖"><span class="nav-number">1.1.</span> <span class="nav-text">环境依赖：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装过程"><span class="nav-number">1.2.</span> <span class="nav-text">安装过程：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境配置javamaventomcat环境"><span class="nav-number">1.3.</span> <span class="nav-text">环境配置Java+maven+tomcat环境</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#mac-下编程-Java-环境搭建-jdk1-7-sdk1-7-maven-tomcat"><span class="nav-number">1.</span> <span class="nav-text">mac 下编程 Java 环境搭建 jdk1.7 +sdk1.7+maven +tomcat</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#环境依赖："><span class="nav-number">1.1.</span> <span class="nav-text">环境依赖：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装过程："><span class="nav-number">1.2.</span> <span class="nav-text">安装过程：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#环境配置Java-maven-tomcat环境"><span class="nav-number">1.3.</span> <span class="nav-text">环境配置Java+maven+tomcat环境</span></a></li></ol></li></ol></div>
             
           </div>
         </section>
@@ -681,7 +682,7 @@
 
 <div class="theme-info">
   Clone theme -
-  <a class="theme-link" href="https://github.com/xirong/hexo-theme-next">
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next/">
     NexT.Mist
   </a>
 </div>

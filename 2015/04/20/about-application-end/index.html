@@ -88,19 +88,20 @@
 
 <meta name="description" content="Application_End事件在HttpApplication 类的最后一个实例被销毁时被触发，在一个应用程序的生命周期内它只被触发一次，那么在什么情况下会导致该事件的触发呢？
 一、Application_End 事件触发时间/机制1、回收应用程序池会导致站点重启，记录的原因是如下：
-1&amp;#12288; HostingEnvironment initiated shutdown Hosting">
+1　 HostingEnvironment initiated shutdown HostingEnviron">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Application_end事件触发机制及全局global.asax文件说明">
 <meta property="og:url" content="http://www.ixirong.com/2015/04/20/about-application-end/index.html">
 <meta property="og:site_name" content="自由">
 <meta property="og:description" content="Application_End事件在HttpApplication 类的最后一个实例被销毁时被触发，在一个应用程序的生命周期内它只被触发一次，那么在什么情况下会导致该事件的触发呢？
 一、Application_End 事件触发时间/机制1、回收应用程序池会导致站点重启，记录的原因是如下：
-1&amp;#12288; HostingEnvironment initiated shutdown Hosting">
+1　 HostingEnvironment initiated shutdown HostingEnviron">
+<meta property="og:updated_time" content="2015-06-28T15:30:33.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Application_end事件触发机制及全局global.asax文件说明">
 <meta name="twitter:description" content="Application_End事件在HttpApplication 类的最后一个实例被销毁时被触发，在一个应用程序的生命周期内它只被触发一次，那么在什么情况下会导致该事件的触发呢？
 一、Application_End 事件触发时间/机制1、回收应用程序池会导致站点重启，记录的原因是如下：
-1&amp;#12288; HostingEnvironment initiated shutdown Hosting">
+1　 HostingEnvironment initiated shutdown HostingEnviron">
 
 
 
@@ -363,62 +364,62 @@
       
 
       
-        <p>Application_End&#x4E8B;&#x4EF6;&#x5728;HttpApplication &#x7C7B;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x88AB;&#x9500;&#x6BC1;&#x65F6;&#x88AB;&#x89E6;&#x53D1;&#xFF0C;&#x5728;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x5185;&#x5B83;&#x53EA;&#x88AB;&#x89E6;&#x53D1;&#x4E00;&#x6B21;&#xFF0C;&#x90A3;&#x4E48;&#x5728;&#x4EC0;&#x4E48;&#x60C5;&#x51B5;&#x4E0B;&#x4F1A;&#x5BFC;&#x81F4;&#x8BE5;&#x4E8B;&#x4EF6;&#x7684;&#x89E6;&#x53D1;&#x5462;&#xFF1F;</p>
-<h2 id="&#x4E00;application_end-&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x65F6;&#x95F4;&#x673A;&#x5236;">&#x4E00;&#x3001;Application_End &#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x65F6;&#x95F4;/&#x673A;&#x5236;</h2><p>1&#x3001;&#x56DE;&#x6536;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x6C60;&#x4F1A;&#x5BFC;&#x81F4;&#x7AD9;&#x70B9;&#x91CD;&#x542F;&#xFF0C;&#x8BB0;&#x5F55;&#x7684;&#x539F;&#x56E0;&#x662F;&#x5982;&#x4E0B;&#xFF1A;</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x3000; HostingEnvironment initiated shutdown HostingEnvironment caused shutdown</span><br></pre></td></tr></table></figure>
+        <p>Application_End事件在HttpApplication 类的最后一个实例被销毁时被触发，在一个应用程序的生命周期内它只被触发一次，那么在什么情况下会导致该事件的触发呢？</p>
+<h2 id="一、Application-End-事件触发时间-机制"><a href="#一、Application-End-事件触发时间-机制" class="headerlink" title="一、Application_End 事件触发时间/机制"></a>一、Application_End 事件触发时间/机制</h2><p>1、回收应用程序池会导致站点重启，记录的原因是如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">　 HostingEnvironment initiated shutdown HostingEnvironment caused shutdown</div></pre></td></tr></table></figure>
 <a id="more"></a>
-<p>2&#x3001;&#x4FEE;&#x6539;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x6C60;&#x56DE;&#x6536;&#x89C4;&#x5219;&#x4F1A;&#x5BFC;&#x81F4;&#x91CD;&#x542F;&#xFF0C;&#x8BB0;&#x5F55;&#x7684;&#x91CD;&#x542F;&#x539F;&#x56E0;&#x5982;&#x4E0B;&#xFF1A;</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">HostingEnvironment initiated shutdown HostingEnvironment caused shutdown</span><br></pre></td></tr></table></figure>
-<p>3&#x3001;&#x5728;IIS&#x4E2D;&#x4FEE;&#x6539;&#x7AD9;&#x70B9;&#x7684;&#x540D;&#x5B57;&#xFF0C;&#x4E0D;&#x4F1A;&#x5BFC;&#x81F4;&#x91CD;&#x542F;&#x3002;<br>4&#x3001;&#x4FEE;&#x6539;&#x7AD9;&#x70B9;&#x6839;&#x76EE;&#x5F55;&#x7684;&#x914D;&#x7F6E;&#x6587;&#x4EF6;web.config&#xFF0C;&#x5728;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x6CE8;&#x91CA;&#x4E2D;&#x6DFB;&#x52A0;&#x51E0;&#x4E2A;&#x7A7A;&#x683C;&#x4F1A;&#x5BFC;&#x81F4;&#x91CD;&#x542F;&#xFF0C;&#x8BB0;&#x5F55;&#x7684;&#x91CD;&#x542F;&#x539F;&#x56E0;&#x5982;&#x4E0B;&#xFF0C;&#x4F46;&#x662F;&#x4FEE;&#x6539;&#x5B50;&#x76EE;&#x5F55;&#x7684;web.config&#x6587;&#x4EF6;&#x4E0D;&#x4E00;&#x5B9A;&#x4F1A;&#x5BFC;&#x81F4;&#x9A6C;&#x4E0A;&#x91CD;&#x542F;&#x3002;</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CONFIG change HostingEnvironment initiated shutdown</span><br></pre></td></tr></table></figure>
-<p>5&#x3001;&#x4FEE;&#x6539;aspx&#x3001;master&#x6587;&#x4EF6;&#x4E0D;&#x4E00;&#x5B9A;&#x4F1A;&#x5BFC;&#x81F4;&#x91CD;&#x542F;&#xFF1B;&#x4F46;&#x662F;&#x6BCF;&#x4FEE;&#x6539;&#x4E00;&#x6B21;&#x90FD;&#x4F1A;&#x5BFC;&#x81F4;&#x4E00;&#x6B21;&#x91CD;&#x65B0;&#x7F16;&#x8BD1;&#xFF0C;&#x91CD;&#x65B0;&#x7F16;&#x8BD1;&#x6B21;&#x6570;&#x8FBE;&#x5230;15&#x6B21;&#x4E4B;&#x540E;&#x4F1A;&#x5BFC;&#x81F4;&#x7AD9;&#x70B9;&#x91CD;&#x542F;&#xFF0C;&#x91CD;&#x542F;&#x539F;&#x56E0;&#x5982;&#x4E0B;&#xFF1A;</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Recompilation limit of 15 reached HostingEnvironment initiated shutdown</span><br></pre></td></tr></table></figure>
-<p>15&#x6B21;&#x540E;&#x91CD;&#x542F;&#x8FD9;&#x4E2A;&#x6570;&#x5B57;&#x53EF;&#x4EE5;&#x5728;web.config&#x4E2D;&#x505A;&#x914D;&#x7F6E;&#xFF0C;&#x4FEE;&#x6539;compilation&#x7684;numRecompilesBeforeAppRestart&#x5C5E;&#x6027;&#x503C;&#x5373;&#x53EF;&#x3002;</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">compilation</span> <span class="attribute">debug</span>=<span class="value">&quot;false&quot;</span> <span class="attribute">numRecompilesBeforeAppRestart</span>=<span class="value">&quot;15&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>6&#x3001;&#x5220;&#x9664;bin&#x76EE;&#x5F55;&#x4E0B;&#x7684;pdb&#x6587;&#x4EF6;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x91CD;&#x542F;&#xFF0C;&#x8BB0;&#x5F55;&#x7684;&#x91CD;&#x542F;&#x539F;&#x56E0;&#x662F;&#xFF1A;</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Change Notification for critical directories.</span><br></pre></td></tr></table></figure>
-<p>&#x5728;bin&#x76EE;&#x5F55;&#x4E0B;&#x65B0;&#x5EFA;&#x4E00;&#x4E2A;&#x7A7A;&#x7684;&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x7AD9;&#x70B9;&#x91CD;&#x542F;&#xFF0C;&#x91CD;&#x542F;&#x539F;&#x56E0;&#x662F;&#xFF1A;</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Directory rename change notification for &apos;D:\projects\TestWebApp\TestWeb&apos;.T estWeb dir change or directory rename</span><br></pre></td></tr></table></figure>
-<p>&#x5728;bin&#x76EE;&#x5F55;&#x4E0B;&#x5220;&#x9664;&#x7A7A;&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x7AD9;&#x70B9;&#x91CD;&#x542F;&#xFF0C;&#x8BB0;&#x5F55;&#x539F;&#x56E0;&#x662F;&#xFF1A;</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Directory rename change notification for &apos;D:\projects\TestWebApp\TestWeb&apos;.T estWeb dir change or directory rename</span><br></pre></td></tr></table></figure>
-<p>7&#x3001;&#x4FEE;&#x6539;Global.asax&#x6587;&#x4EF6;&#x4F1A;&#x5BFC;&#x81F4;&#x7AD9;&#x70B9;&#x91CD;&#x542F;&#xFF0C;&#x5373;&#x4F7F;&#x52A0;&#x51E0;&#x4E2A;&#x7A7A;&#x683C;&#x4E5F;&#x4F1A;&#x91CD;&#x542F;&#xFF0C;&#x8BB0;&#x5F55;&#x7684;&#x91CD;&#x542F;&#x539F;&#x56E0;&#x662F;&#xFF1A;</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Change in GLOBAL.ASAX HostingEnvironment initiated shutdown</span><br></pre></td></tr></table></figure>
-<p>8&#x3001;&#x5BF9;App_Code&#x76EE;&#x5F55;&#x505A;&#x4FEE;&#x6539;&#x4F1A;&#x5BFC;&#x81F4;&#x7AD9;&#x70B9;&#x91CD;&#x542F;&#xFF0C;&#x5728;&#x7AD9;&#x70B9;&#x6839;&#x76EE;&#x5F55;&#x4E0B;&#x6DFB;&#x52A0;&#x4E00;&#x4E2A;&#x540D;&#x5B57;&#x4E3A;App_Code&#x7684;&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x91CD;&#x542F;&#xFF0C;&#x8BB0;&#x5F55;&#x7684;&#x91CD;&#x542F;&#x539F;&#x56E0;&#x662F;&#xFF1A;</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Change Notification for critical directories. App_Code dir change or directory rename</span><br></pre></td></tr></table></figure>
-<p>&#x5220;&#x9664;App_Code&#x6587;&#x4EF6;&#x5939;&#x4F1A;&#x5BFC;&#x81F4;&#x7AD9;&#x70B9;&#x91CD;&#x542F;&#xFF0C;&#x8BB0;&#x5F55;&#x7684;&#x91CD;&#x542F;&#x539F;&#x56E0;&#x662F;&#xFF1A;</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x3000;&#x3000;File Change Notification Error in D:\projects\TestWebApp\TestWeb\app_code Change Notification for critical directories.App_Code dir change or directory rename</span><br></pre></td></tr></table></figure>
-<p>&#x5728;App_Code&#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x9762;&#x65B0;&#x5EFA;&#x6216;&#x8005;&#x5220;&#x9664;&#x4E00;&#x4E2A;cs&#x6587;&#x4EF6;&#xFF0C;&#x4F1A;&#x5BFC;&#x81F4;&#x7AD9;&#x70B9;&#x91CD;&#x542F;&#xFF0C;&#x8BB0;&#x5F55;&#x7684;&#x539F;&#x56E0;&#x662F;&#xFF1A;</p>
-<pre><code>Change Notification <span class="keyword">for</span> critical <span class="built_in">directories</span>. App_Code dir change <span class="operator">or</span> <span class="built_in">directory</span> <span class="built_in">rename</span>
-</code></pre><p>9&#x3001;&#x5BF9;&#x5173;&#x952E;&#x8DEF;&#x5F84;&#x7684;&#x4FEE;&#x6539;&#x90FD;&#x4F1A;&#x5BFC;&#x81F4;&#x7AD9;&#x70B9;&#x91CD;&#x542F;&#xFF0C;&#x5173;&#x952E;&#x8DEF;&#x5F84;&#x5305;&#x62EC;&#xFF1A;<br>&#x3000; bin, App_Code, Web References,App_Browsers,App_GlobalResources,App_LocalResources</p>
-<p>&#x603B;&#x7ED3;&#x4E09;&#x65B9;&#x9762;&#xFF1A;&#x4E00;&#x65B9;&#x9762;&#x662F;IIS&#x914D;&#x7F6E;&#x53D1;&#x751F;&#x53D8;&#x5316;&#xFF1B;&#x53E6;&#x4E00;&#x65B9;&#x9762;&#x662F;asp.net&#x76F8;&#x5173;&#x6587;&#x4EF6;&#x914D;&#x7F6E;&#x6587;&#x4EF6;,global&#x6587;&#x4EF6;&#xFF0C;aspx&#xFF0C;ascx,master&#x7B49;&#x7C7B;&#x578B;&#x7684;&#x6587;&#x4EF6;&#x53D1;&#x751F;&#x53D8;&#x6CD5;&#xFF1B;&#x7B2C;&#x4E09;&#x4E2A;&#x65B9;&#x9762;&#x662F;&#x5173;&#x952E;&#x8DEF;&#x5F84;bin&#xFF0C;app_Code, Web References,App_Browsers,App_GlobalResources,App_LocalResources&#x53D1;&#x751F;&#x53D8;&#x5316;&#x3002;&#xFF08;<a href="http://www.51testing.com/html/97/n-243197.html" target="_blank" rel="external">&#x53C2;&#x8003;</a>&#xFF09;</p>
-<h3 id="11-&#x5728;&#x4E8B;&#x4EF6;&#x4E2D;&#x8BB0;&#x5F55;&#x7AD9;&#x70B9;&#x91CD;&#x542F;&#x7684;&#x539F;&#x56E0;">1.1 &#x5728;&#x4E8B;&#x4EF6;&#x4E2D;&#x8BB0;&#x5F55;&#x7AD9;&#x70B9;&#x91CD;&#x542F;&#x7684;&#x539F;&#x56E0;</h3><p>&#x5728;&#x7AD9;&#x70B9;&#x6267;&#x884C;Application_End&#x4E8B;&#x4EF6;&#x4E2D;&#x6DFB;&#x52A0;&#x8BB0;&#x5F55;&#x65B9;&#x6CD5;&#x3002;&#x5728;Global.asax.cs&#x6587;&#x4EF6;&#x4E2D;&#x6DFB;&#x52A0;&#x5982;&#x4E0B;&#x4EE3;&#x7801;&#x5373;&#x53EF;&#xFF1A;</p>
-<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">Application_End</span><span class="params">()</span></span><br><span class="line">   </span>{</span><br><span class="line">      <span class="keyword">try</span>{</span><br><span class="line">           HttpRuntime runtime = (HttpRuntime)<span class="keyword">typeof</span>(System.Web.HttpRuntime).InvokeMember(<span class="string">&quot;_theRuntime&quot;</span>,</span><br><span class="line">                                    BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.GetField, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">           <span class="keyword">if</span> (runtime == <span class="keyword">null</span>)</span><br><span class="line">                       <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">           <span class="keyword">string</span> shutDownMessage = (<span class="keyword">string</span>)runtime.GetType().InvokeMember(<span class="string">&quot;_shutDownMessage&quot;</span>,</span><br><span class="line">                       BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField, <span class="keyword">null</span>, runtime, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">string</span> shutDownStack = (<span class="keyword">string</span>)runtime.GetType().InvokeMember(<span class="string">&quot;_shutDownStack&quot;</span>,</span><br><span class="line">                       BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField, <span class="keyword">null</span>, runtime, <span class="keyword">null</span>);</span><br><span class="line"></span><br><span class="line">           <span class="comment">// &#x8BB0;&#x5F55;&#x65E5;&#x5FD7;&#x5230;&#x672C;&#x5730;&#x6587;&#x4EF6;</span></span><br><span class="line">           WebLog.ChannelLog.ApplicationLogger.Error(<span class="string">&quot;MvcApplicationEnd&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#xFF1A;&quot;</span> + shutDownMessage, <span class="keyword">new</span> Exception(shutDownStack));</span><br><span class="line">       }</span><br><span class="line">       <span class="keyword">catch</span> (Exception ex)</span><br><span class="line">       {</span><br><span class="line">           WebLog.ChannelLog.ApplicationLogger.Error(<span class="string">&quot;MvcApplicationEnd&#x4E8B;&#x4EF6;&#x89E6;&#x53D1;&#x5F02;&#x5E38;&quot;</span>, ex);</span><br><span class="line">       }</span><br><span class="line">   }</span><br></pre></td></tr></table></figure>
-<h2 id="&#x4E8C;globalasax-&#x6587;&#x4EF6;&#x4ECB;&#x7ECD;">&#x4E8C;&#x3001;Global.asax &#x6587;&#x4EF6;&#x4ECB;&#x7ECD;</h2><p>&#x6709;&#x65F6;&#x5019;&#x53EB;&#x505A; ASP.NET &#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x6587;&#x4EF6;&#xFF0C;&#x63D0;&#x4F9B;&#x4E86;&#x4E00;&#x79CD;&#x5728;&#x4E00;&#x4E2A;&#x4E2D;&#x5FC3;&#x4F4D;&#x7F6E;&#x54CD;&#x5E94;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7EA7;&#x6216;&#x6A21;&#x5757;&#x7EA7;&#x4E8B;&#x4EF6;&#x7684;&#x65B9;&#x6CD5;&#x3002;&#x4F60;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x5B9E;&#x73B0;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x5B89;&#x5168;&#x6027;&#x4EE5;&#x53CA;&#x5176;&#x5B83;&#x4E00;&#x4E9B;&#x4EFB;&#x52A1;&#x3002;</p>
-<p>Global.asax &#x4F4D;&#x4E8E;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x6839;&#x76EE;&#x5F55;&#x4E0B;&#x3002;&#x867D;&#x7136; Visual Studio .NET &#x4F1A;&#x81EA;&#x52A8;&#x63D2;&#x5165;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#x5230;&#x6240;&#x6709;&#x7684; ASP.NET &#x9879;&#x76EE;&#x4E2D;&#xFF0C;&#x4F46;&#x662F;&#x5B83;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x4E00;&#x4E2A;&#x53EF;&#x9009;&#x6587;&#x4EF6;&#x3002;&#x5220;&#x9664;&#x5B83;&#x4E0D;&#x4F1A;&#x51FA;&#x95EE;&#x9898;&#x2014;&#x2014;&#x5F53;&#x7136;&#x662F;&#x5728;&#x4F60;&#x6CA1;&#x6709;&#x4F7F;&#x7528;&#x5B83;&#x7684;&#x60C5;&#x51B5;&#x4E0B;&#x3002;.asax &#x6587;&#x4EF6;&#x6269;&#x5C55;&#x540D;&#x6307;&#x51FA;&#x5B83;&#x662F;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x6587;&#x4EF6;&#xFF0C;&#x800C;&#x4E0D;&#x662F;&#x4E00;&#x4E2A;&#x4F7F;&#x7528; aspx &#x7684; ASP.NET &#x6587;&#x4EF6;&#x3002;</p>
-<p>Global.asax &#x6587;&#x4EF6;&#x88AB;&#x914D;&#x7F6E;&#x4E3A;&#x4EFB;&#x4F55;&#xFF08;&#x901A;&#x8FC7; URL &#x7684;&#xFF09;&#x76F4;&#x63A5; HTTP &#x8BF7;&#x6C42;&#x90FD;&#x88AB;&#x81EA;&#x52A8;&#x62D2;&#x7EDD;&#xFF0C;&#x6240;&#x4EE5;&#x7528;&#x6237;&#x4E0D;&#x80FD;&#x4E0B;&#x8F7D;&#x6216;&#x67E5;&#x770B;&#x5176;&#x5185;&#x5BB9;&#x3002;ASP.NET &#x9875;&#x9762;&#x6846;&#x67B6;&#x80FD;&#x591F;&#x81EA;&#x52A8;&#x8BC6;&#x522B;&#x51FA;&#x5BF9;Global.asax &#x6587;&#x4EF6;&#x6240;&#x505A;&#x7684;&#x4EFB;&#x4F55;&#x66F4;&#x6539;&#x3002;&#x5728; Global.asax &#x88AB;&#x66F4;&#x6539;&#x540E;ASP.NET &#x9875;&#x9762;&#x6846;&#x67B6;&#x4F1A;&#x91CD;&#x65B0;&#x542F;&#x52A8;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#xFF0C;&#x5305;&#x62EC;&#x5173;&#x95ED;&#x6240;&#x6709;&#x7684;&#x6D4F;&#x89C8;&#x5668;&#x4F1A;&#x8BDD;&#xFF0C;&#x53BB;&#x9664;&#x6240;&#x6709;&#x72B6;&#x6001;&#x4FE1;&#x606F;&#xFF0C;&#x5E76;&#x91CD;&#x65B0;&#x542F;&#x52A8;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x57DF;&#x3002;</p>
-<p>Global.asax &#x6587;&#x4EF6;&#x7EE7;&#x627F;&#x81EA;HttpApplication &#x7C7B;&#xFF0C;&#x5B83;&#x7EF4;&#x62A4;&#x4E00;&#x4E2A;HttpApplication &#x5BF9;&#x8C61;&#x6C60;&#xFF0C;&#x5E76;&#x5728;&#x9700;&#x8981;&#x65F6;&#x5C06;&#x5BF9;&#x8C61;&#x6C60;&#x4E2D;&#x7684;&#x5BF9;&#x8C61;&#x5206;&#x914D;&#x7ED9;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x3002;Global.asax &#x6587;&#x4EF6;&#x5305;&#x542B;&#x4EE5;&#x4E0B;&#x4E8B;&#x4EF6;&#xFF1A;</p>
+<p>2、修改应用程序池回收规则会导致重启，记录的重启原因如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">HostingEnvironment initiated shutdown HostingEnvironment caused shutdown</div></pre></td></tr></table></figure>
+<p>3、在IIS中修改站点的名字，不会导致重启。<br>4、修改站点根目录的配置文件web.config，在配置文件注释中添加几个空格会导致重启，记录的重启原因如下，但是修改子目录的web.config文件不一定会导致马上重启。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">CONFIG change HostingEnvironment initiated shutdown</div></pre></td></tr></table></figure>
+<p>5、修改aspx、master文件不一定会导致重启；但是每修改一次都会导致一次重新编译，重新编译次数达到15次之后会导致站点重启，重启原因如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Recompilation limit of 15 reached HostingEnvironment initiated shutdown</div></pre></td></tr></table></figure>
+<p>15次后重启这个数字可以在web.config中做配置，修改compilation的numRecompilesBeforeAppRestart属性值即可。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">compilation</span> <span class="attr">debug</span>=<span class="string">"false"</span> <span class="attr">numRecompilesBeforeAppRestart</span>=<span class="string">"15"</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>6、删除bin目录下的pdb文件，会导致重启，记录的重启原因是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Change Notification for critical directories.</div></pre></td></tr></table></figure>
+<p>在bin目录下新建一个空的文件夹，会导致站点重启，重启原因是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Directory rename change notification for &apos;D:\projects\TestWebApp\TestWeb&apos;.T estWeb dir change or directory rename</div></pre></td></tr></table></figure>
+<p>在bin目录下删除空文件夹，会导致站点重启，记录原因是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Directory rename change notification for &apos;D:\projects\TestWebApp\TestWeb&apos;.T estWeb dir change or directory rename</div></pre></td></tr></table></figure>
+<p>7、修改Global.asax文件会导致站点重启，即使加几个空格也会重启，记录的重启原因是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Change in GLOBAL.ASAX HostingEnvironment initiated shutdown</div></pre></td></tr></table></figure>
+<p>8、对App_Code目录做修改会导致站点重启，在站点根目录下添加一个名字为App_Code的文件夹，会导致重启，记录的重启原因是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Change Notification for critical directories. App_Code dir change or directory rename</div></pre></td></tr></table></figure>
+<p>删除App_Code文件夹会导致站点重启，记录的重启原因是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">　　File Change Notification Error in D:\projects\TestWebApp\TestWeb\app_code Change Notification for critical directories.App_Code dir change or directory rename</div></pre></td></tr></table></figure>
+<p>在App_Code文件夹下面新建或者删除一个cs文件，会导致站点重启，记录的原因是：</p>
+<pre><code>Change Notification for critical directories. App_Code dir change or directory rename
+</code></pre><p>9、对关键路径的修改都会导致站点重启，关键路径包括：<br>　 bin, App_Code, Web References,App_Browsers,App_GlobalResources,App_LocalResources</p>
+<p>总结三方面：一方面是IIS配置发生变化；另一方面是asp.net相关文件配置文件,global文件，aspx，ascx,master等类型的文件发生变法；第三个方面是关键路径bin，app_Code, Web References,App_Browsers,App_GlobalResources,App_LocalResources发生变化。（<a href="http://www.51testing.com/html/97/n-243197.html" target="_blank" rel="external">参考</a>）</p>
+<h3 id="1-1-在事件中记录站点重启的原因"><a href="#1-1-在事件中记录站点重启的原因" class="headerlink" title="1.1 在事件中记录站点重启的原因"></a>1.1 在事件中记录站点重启的原因</h3><p>在站点执行Application_End事件中添加记录方法。在Global.asax.cs文件中添加如下代码即可：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">Application_End</span>(<span class="params"></span>)</span></div><div class="line">   &#123;</div><div class="line">      <span class="keyword">try</span>&#123;</div><div class="line">           HttpRuntime runtime = (HttpRuntime)<span class="keyword">typeof</span>(System.Web.HttpRuntime).InvokeMember(<span class="string">"_theRuntime"</span>,</div><div class="line">                                    BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.GetField, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>);</div><div class="line"></div><div class="line">           <span class="keyword">if</span> (runtime == <span class="literal">null</span>)</div><div class="line">                       <span class="keyword">return</span>;</div><div class="line"></div><div class="line">           <span class="keyword">string</span> shutDownMessage = (<span class="keyword">string</span>)runtime.GetType().InvokeMember(<span class="string">"_shutDownMessage"</span>,</div><div class="line">                       BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField, <span class="literal">null</span>, runtime, <span class="literal">null</span>);</div><div class="line"></div><div class="line">            <span class="keyword">string</span> shutDownStack = (<span class="keyword">string</span>)runtime.GetType().InvokeMember(<span class="string">"_shutDownStack"</span>,</div><div class="line">                       BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField, <span class="literal">null</span>, runtime, <span class="literal">null</span>);</div><div class="line"></div><div class="line">           <span class="comment">// 记录日志到本地文件</span></div><div class="line">           WebLog.ChannelLog.ApplicationLogger.Error(<span class="string">"MvcApplicationEnd事件触发："</span> + shutDownMessage, <span class="keyword">new</span> Exception(shutDownStack));</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">catch</span> (Exception ex)</div><div class="line">       &#123;</div><div class="line">           WebLog.ChannelLog.ApplicationLogger.Error(<span class="string">"MvcApplicationEnd事件触发异常"</span>, ex);</div><div class="line">       &#125;</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<h2 id="二、Global-asax-文件介绍"><a href="#二、Global-asax-文件介绍" class="headerlink" title="二、Global.asax 文件介绍"></a>二、Global.asax 文件介绍</h2><p>有时候叫做 ASP.NET 应用程序文件，提供了一种在一个中心位置响应应用程序级或模块级事件的方法。你可以使用这个文件实现应用程序安全性以及其它一些任务。</p>
+<p>Global.asax 位于应用程序根目录下。虽然 Visual Studio .NET 会自动插入这个文件到所有的 ASP.NET 项目中，但是它实际上是一个可选文件。删除它不会出问题——当然是在你没有使用它的情况下。.asax 文件扩展名指出它是一个应用程序文件，而不是一个使用 aspx 的 ASP.NET 文件。</p>
+<p>Global.asax 文件被配置为任何（通过 URL 的）直接 HTTP 请求都被自动拒绝，所以用户不能下载或查看其内容。ASP.NET 页面框架能够自动识别出对Global.asax 文件所做的任何更改。在 Global.asax 被更改后ASP.NET 页面框架会重新启动应用程序，包括关闭所有的浏览器会话，去除所有状态信息，并重新启动应用程序域。</p>
+<p>Global.asax 文件继承自HttpApplication 类，它维护一个HttpApplication 对象池，并在需要时将对象池中的对象分配给应用程序。Global.asax 文件包含以下事件：</p>
 <ul>
-<li>Application_Init&#xFF1A;&#x5728;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x88AB;&#x5B9E;&#x4F8B;&#x5316;&#x6216;&#x7B2C;&#x4E00;&#x6B21;&#x88AB;&#x8C03;&#x7528;&#x65F6;&#xFF0C;&#x8BE5;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x3002;&#x5BF9;&#x4E8E;&#x6240;&#x6709;&#x7684;HttpApplication &#x5BF9;&#x8C61;&#x5B9E;&#x4F8B;&#xFF0C;&#x5B83;&#x90FD;&#x4F1A;&#x88AB;&#x8C03;&#x7528;&#x3002;</li>
-<li>Application_Disposed&#xFF1A;&#x5728;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x88AB;&#x9500;&#x6BC1;&#x4E4B;&#x524D;&#x89E6;&#x53D1;&#x3002;&#x8FD9;&#x662F;&#x6E05;&#x9664;&#x4EE5;&#x524D;&#x6240;&#x7528;&#x8D44;&#x6E90;&#x7684;&#x7406;&#x60F3;&#x4F4D;&#x7F6E;&#x3002;</li>
-<li>Application_Error&#xFF1A;&#x5F53;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x4E2D;&#x9047;&#x5230;&#x4E00;&#x4E2A;&#x672A;&#x5904;&#x7406;&#x7684;&#x5F02;&#x5E38;&#x65F6;&#xFF0C;&#x8BE5;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x3002;</li>
-<li>Application_Start&#xFF1A;&#x5728;HttpApplication &#x7C7B;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x88AB;&#x521B;&#x5EFA;&#x65F6;&#xFF0C;&#x8BE5;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x3002;&#x5B83;&#x5141;&#x8BB8;&#x4F60;&#x521B;&#x5EFA;&#x53EF;&#x4EE5;&#x7531;&#x6240;&#x6709;HttpApplication &#x5B9E;&#x4F8B;&#x8BBF;&#x95EE;&#x7684;&#x5BF9;&#x8C61;&#x3002;</li>
-<li>Application_End&#xFF1A;&#x5728;HttpApplication &#x7C7B;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x5B9E;&#x4F8B;&#x88AB;&#x9500;&#x6BC1;&#x65F6;&#xFF0C;&#x8BE5;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x3002;&#x5728;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x751F;&#x547D;&#x5468;&#x671F;&#x5185;&#x5B83;&#x53EA;&#x88AB;&#x89E6;&#x53D1;&#x4E00;&#x6B21;&#x3002;</li>
-<li>Application_BeginRequest&#xFF1A;&#x5728;&#x63A5;&#x6536;&#x5230;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x8BF7;&#x6C42;&#x65F6;&#x89E6;&#x53D1;&#x3002;&#x5BF9;&#x4E8E;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;&#x6765;&#x8BF4;&#xFF0C;&#x5B83;&#x662F;&#x7B2C;&#x4E00;&#x4E2A;&#x88AB;&#x89E6;&#x53D1;&#x7684;&#x4E8B;&#x4EF6;&#xFF0C;&#x8BF7;&#x6C42;&#x4E00;&#x822C;&#x662F;&#x7528;&#x6237;&#x8F93;&#x5165;&#x7684;&#x4E00;&#x4E2A;&#x9875;&#x9762;&#x8BF7;&#x6C42;&#xFF08;URL&#xFF09;&#x3002;</li>
-<li>Application_EndRequest&#xFF1A;&#x9488;&#x5BF9;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x8BF7;&#x6C42;&#x7684;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x4E8B;&#x4EF6;&#x3002;</li>
-<li>Application_PreRequestHandlerExecute&#xFF1A;&#x5728; ASP.NET &#x9875;&#x9762;&#x6846;&#x67B6;&#x5F00;&#x59CB;&#x6267;&#x884C;&#x8BF8;&#x5982;&#x9875;&#x9762;&#x6216; Web &#x670D;&#x52A1;&#x4E4B;&#x7C7B;&#x7684;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x4E4B;&#x524D;&#xFF0C;&#x8BE5;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x3002;</li>
-<li>Application_PostRequestHandlerExecute&#xFF1A;&#x5728; ASP.NET &#x9875;&#x9762;&#x6846;&#x67B6;&#x7ED3;&#x675F;&#x6267;&#x884C;&#x4E00;&#x4E2A;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x65F6;&#xFF0C;&#x8BE5;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x3002;</li>
-<li>Applcation_PreSendRequestHeaders&#xFF1A;&#x5728; ASP.NET &#x9875;&#x9762;&#x6846;&#x67B6;&#x53D1;&#x9001; HTTP &#x5934;&#x7ED9;&#x8BF7;&#x6C42;&#x5BA2;&#x6237;&#xFF08;&#x6D4F;&#x89C8;&#x5668;&#xFF09;&#x65F6;&#xFF0C;&#x8BE5;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x3002;</li>
-<li>Application_PreSendContent&#xFF1A;&#x5728; ASP.NET &#x9875;&#x9762;&#x6846;&#x67B6;&#x53D1;&#x9001;&#x5185;&#x5BB9;&#x7ED9;&#x8BF7;&#x6C42;&#x5BA2;&#x6237;&#xFF08;&#x6D4F;&#x89C8;&#x5668;&#xFF09;&#x65F6;&#xFF0C;&#x8BE5;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x3002;</li>
-<li>Application_AcquireRequestState&#xFF1A;&#x5728; ASP.NET &#x9875;&#x9762;&#x6846;&#x67B6;&#x5F97;&#x5230;&#x4E0E;&#x5F53;&#x524D;&#x8BF7;&#x6C42;&#x76F8;&#x5173;&#x7684;&#x5F53;&#x524D;&#x72B6;&#x6001;&#xFF08;Session &#x72B6;&#x6001;&#xFF09;&#x65F6;&#xFF0C;&#x8BE5;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x3002;</li>
-<li>Application_ReleaseRequestState&#xFF1A;&#x5728; ASP.NET &#x9875;&#x9762;&#x6846;&#x67B6;&#x6267;&#x884C;&#x5B8C;&#x6240;&#x6709;&#x7684;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x65F6;&#xFF0C;&#x8BE5;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x3002;&#x8FD9;&#x5C06;&#x5BFC;&#x81F4;&#x6240;&#x6709;&#x7684;&#x72B6;&#x6001;&#x6A21;&#x5757;&#x4FDD;&#x5B58;&#x5B83;&#x4EEC;&#x5F53;&#x524D;&#x7684;&#x72B6;&#x6001;&#x6570;&#x636E;&#x3002;</li>
-<li>Application_ResolveRequestCache&#xFF1A;&#x5728; ASP.NET &#x9875;&#x9762;&#x6846;&#x67B6;&#x5B8C;&#x6210;&#x4E00;&#x4E2A;&#x6388;&#x6743;&#x8BF7;&#x6C42;&#x65F6;&#xFF0C;&#x8BE5;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x3002;&#x5B83;&#x5141;&#x8BB8;&#x7F13;&#x5B58;&#x6A21;&#x5757;&#x4ECE;&#x7F13;&#x5B58;&#x4E2D;&#x4E3A;&#x8BF7;&#x6C42;&#x63D0;&#x4F9B;&#x670D;&#x52A1;&#xFF0C;&#x4ECE;&#x800C;&#x7ED5;&#x8FC7;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x7684;&#x6267;&#x884C;&#x3002;</li>
-<li>Application_UpdateRequestCache&#xFF1A;&#x5728; ASP.NET &#x9875;&#x9762;&#x6846;&#x67B6;&#x5B8C;&#x6210;&#x4E8B;&#x4EF6;&#x5904;&#x7406;&#x7A0B;&#x5E8F;&#x7684;&#x6267;&#x884C;&#x65F6;&#xFF0C;&#x8BE5;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#xFF0C;&#x4ECE;&#x800C;&#x4F7F;&#x7F13;&#x5B58;&#x6A21;&#x5757;&#x5B58;&#x50A8;&#x54CD;&#x5E94;&#x6570;&#x636E;&#xFF0C;&#x4EE5;&#x4F9B;&#x54CD;&#x5E94;&#x540E;&#x7EED;&#x7684;&#x8BF7;&#x6C42;&#x65F6;&#x4F7F;&#x7528;&#x3002;</li>
-<li>Application_AuthenticateRequest&#xFF1A;&#x5728;&#x5B89;&#x5168;&#x6A21;&#x5757;&#x5EFA;&#x7ACB;&#x8D77;&#x5F53;&#x524D;&#x7528;&#x6237;&#x7684;&#x6709;&#x6548;&#x7684;&#x8EAB;&#x4EFD;&#x65F6;&#xFF0C;&#x8BE5;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x3002;&#x5728;&#x8FD9;&#x4E2A;&#x65F6;&#x5019;&#xFF0C;&#x7528;&#x6237;&#x7684;&#x51ED;&#x636E;&#x5C06;&#x4F1A;&#x88AB;&#x9A8C;&#x8BC1;&#x3002;</li>
-<li>Application_AuthorizeRequest&#xFF1A;&#x5F53;&#x5B89;&#x5168;&#x6A21;&#x5757;&#x786E;&#x8BA4;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x8BBF;&#x95EE;&#x8D44;&#x6E90;&#x4E4B;&#x540E;&#xFF0C;&#x8BE5;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x3002;</li>
-<li>Session_Start&#xFF1A;&#x5728;&#x4E00;&#x4E2A;&#x65B0;&#x7528;&#x6237;&#x8BBF;&#x95EE;&#x5E94;&#x7528;&#x7A0B;&#x5E8F; Web &#x7AD9;&#x70B9;&#x65F6;&#xFF0C;&#x8BE5;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x3002;</li>
-<li>Session_End&#xFF1A;&#x5728;&#x4E00;&#x4E2A;&#x7528;&#x6237;&#x7684;&#x4F1A;&#x8BDD;&#x8D85;&#x65F6;&#x3001;&#x7ED3;&#x675F;&#x6216;&#x4ED6;&#x4EEC;&#x79BB;&#x5F00;&#x5E94;&#x7528;&#x7A0B;&#x5E8F; Web &#x7AD9;&#x70B9;&#x65F6;&#xFF0C;&#x8BE5;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x3002;</li>
+<li>Application_Init：在应用程序被实例化或第一次被调用时，该事件被触发。对于所有的HttpApplication 对象实例，它都会被调用。</li>
+<li>Application_Disposed：在应用程序被销毁之前触发。这是清除以前所用资源的理想位置。</li>
+<li>Application_Error：当应用程序中遇到一个未处理的异常时，该事件被触发。</li>
+<li>Application_Start：在HttpApplication 类的第一个实例被创建时，该事件被触发。它允许你创建可以由所有HttpApplication 实例访问的对象。</li>
+<li>Application_End：在HttpApplication 类的最后一个实例被销毁时，该事件被触发。在一个应用程序的生命周期内它只被触发一次。</li>
+<li>Application_BeginRequest：在接收到一个应用程序请求时触发。对于一个请求来说，它是第一个被触发的事件，请求一般是用户输入的一个页面请求（URL）。</li>
+<li>Application_EndRequest：针对应用程序请求的最后一个事件。</li>
+<li>Application_PreRequestHandlerExecute：在 ASP.NET 页面框架开始执行诸如页面或 Web 服务之类的事件处理程序之前，该事件被触发。</li>
+<li>Application_PostRequestHandlerExecute：在 ASP.NET 页面框架结束执行一个事件处理程序时，该事件被触发。</li>
+<li>Applcation_PreSendRequestHeaders：在 ASP.NET 页面框架发送 HTTP 头给请求客户（浏览器）时，该事件被触发。</li>
+<li>Application_PreSendContent：在 ASP.NET 页面框架发送内容给请求客户（浏览器）时，该事件被触发。</li>
+<li>Application_AcquireRequestState：在 ASP.NET 页面框架得到与当前请求相关的当前状态（Session 状态）时，该事件被触发。</li>
+<li>Application_ReleaseRequestState：在 ASP.NET 页面框架执行完所有的事件处理程序时，该事件被触发。这将导致所有的状态模块保存它们当前的状态数据。</li>
+<li>Application_ResolveRequestCache：在 ASP.NET 页面框架完成一个授权请求时，该事件被触发。它允许缓存模块从缓存中为请求提供服务，从而绕过事件处理程序的执行。</li>
+<li>Application_UpdateRequestCache：在 ASP.NET 页面框架完成事件处理程序的执行时，该事件被触发，从而使缓存模块存储响应数据，以供响应后续的请求时使用。</li>
+<li>Application_AuthenticateRequest：在安全模块建立起当前用户的有效的身份时，该事件被触发。在这个时候，用户的凭据将会被验证。</li>
+<li>Application_AuthorizeRequest：当安全模块确认一个用户可以访问资源之后，该事件被触发。</li>
+<li>Session_Start：在一个新用户访问应用程序 Web 站点时，该事件被触发。</li>
+<li>Session_End：在一个用户的会话超时、结束或他们离开应用程序 Web 站点时，该事件被触发。</li>
 </ul>
-<p>&#x8FD9;&#x4E2A;&#x4E8B;&#x4EF6;&#x5217;&#x8868;&#x770B;&#x8D77;&#x6765;&#x597D;&#x50CF;&#x591A;&#x5F97;&#x5413;&#x4EBA;&#xFF0C;&#x4F46;&#x662F;&#x5728;&#x4E0D;&#x540C;&#x73AF;&#x5883;&#x4E0B;&#x8FD9;&#x4E9B;&#x4E8B;&#x4EF6;&#x53EF;&#x80FD;&#x4F1A;&#x975E;&#x5E38;&#x6709;&#x7528;&#x3002;&#x4F7F;&#x7528;&#x8FD9;&#x4E9B;&#x4E8B;&#x4EF6;&#x7684;&#x4E00;&#x4E2A;&#x5173;&#x952E;&#x95EE;&#x9898;&#x662F;&#x77E5;&#x9053;&#x5B83;&#x4EEC;&#x88AB;&#x89E6;&#x53D1;&#x7684;&#x987A;&#x5E8F;&#x3002;Application_Init &#x548C;Application_Start &#x4E8B;&#x4EF6;&#x5728;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7B2C;&#x4E00;&#x6B21;&#x542F;&#x52A8;&#x65F6;&#x88AB;&#x89E6;&#x53D1;&#x4E00;&#x6B21;&#x3002;&#x76F8;&#x4F3C;&#x5730;&#xFF0C;Application_Disposed &#x548C; Application_End &#x4E8B;&#x4EF6;&#x5728;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7EC8;&#x6B62;&#x65F6;&#x88AB;&#x89E6;&#x53D1;&#x4E00;&#x6B21;&#x3002;&#x6B64;&#x5916;&#xFF0C;&#x57FA;&#x4E8E;&#x4F1A;&#x8BDD;&#x7684;&#x4E8B;&#x4EF6;&#xFF08;Session_Start &#x548C; Session_End&#xFF09;&#x53EA;&#x5728;&#x7528;&#x6237;&#x8FDB;&#x5165;&#x548C;&#x79BB;&#x5F00;&#x7AD9;&#x70B9;&#x65F6;&#x88AB;&#x4F7F;&#x7528;&#x3002;&#x5176;&#x4F59;&#x7684;&#x4E8B;&#x4EF6;&#x5219;&#x5904;&#x7406;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x8BF7;&#x6C42;&#xFF0C;&#x8FD9;&#x4E9B;&#x4E8B;&#x4EF6;&#x88AB;&#x89E6;&#x53D1;&#x7684;&#x987A;&#x5E8F;&#x662F;&#xFF1A;</p>
+<p>这个事件列表看起来好像多得吓人，但是在不同环境下这些事件可能会非常有用。使用这些事件的一个关键问题是知道它们被触发的顺序。Application_Init 和Application_Start 事件在应用程序第一次启动时被触发一次。相似地，Application_Disposed 和 Application_End 事件在应用程序终止时被触发一次。此外，基于会话的事件（Session_Start 和 Session_End）只在用户进入和离开站点时被使用。其余的事件则处理应用程序请求，这些事件被触发的顺序是：</p>
 <ul>
 <li>Application_BeginRequest</li>
 <li>Application_AuthenticateRequest</li>
@@ -428,57 +429,15 @@
 <li>Application_PreRequestHandlerExecute</li>
 <li>Application_PreSendRequestHeaders</li>
 <li>Application_PreSendRequestContent</li>
-<li>&lt;&lt;&#x6267;&#x884C;&#x4EE3;&#x7801;&gt;&gt;</li>
+<li>&lt;&lt;执行代码&gt;&gt;</li>
 <li>Application_PostRequestHandlerExecute</li>
 <li>Application_ReleaseRequestState</li>
 <li>Application_UpdateRequestCache</li>
 <li>Application_EndRequest</li>
 </ul>
-<p>&#x8FD9;&#x4E9B;&#x4E8B;&#x4EF6;&#x5E38;&#x88AB;&#x7528;&#x4E8E;&#x5B89;&#x5168;&#x6027;&#x65B9;&#x9762;&#x3002;&#x4E0B;&#x9762;&#x8FD9;&#x4E2A; C# &#x7684;&#x4F8B;&#x5B50;&#x6F14;&#x793A;&#x4E86;&#x4E0D;&#x540C;&#x7684;Global.asax &#x4E8B;&#x4EF6;&#xFF0C;&#x8BE5;&#x4F8B;&#x4F7F;&#x7528;Application_Authenticate &#x4E8B;&#x4EF6;&#x6765;&#x5B8C;&#x6210;&#x901A;&#x8FC7; cookie &#x7684;&#x57FA;&#x4E8E;&#x8868;&#x5355;&#xFF08;form&#xFF09;&#x7684;&#x8EAB;&#x4EFD;&#x9A8C;&#x8BC1;&#x3002;&#x6B64;&#x5916;&#xFF0C;Application_Start &#x4E8B;&#x4EF6;&#x586B;&#x5145;&#x4E00;&#x4E2A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x53D8;&#x91CF;&#xFF0C;&#x800C;Session_Start &#x586B;&#x5145;&#x4E00;&#x4E2A;&#x4F1A;&#x8BDD;&#x53D8;&#x91CF;&#x3002;Application_Error &#x4E8B;&#x4EF6;&#x663E;&#x793A;&#x4E00;&#x4E2A;&#x7B80;&#x5355;&#x7684;&#x6D88;&#x606F;&#x7528;&#x4EE5;&#x8BF4;&#x660E;&#x53D1;&#x751F;&#x7684;&#x9519;&#x8BEF;&#x3002;</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protected void Application_Start(Object sender, EventArgs e) {
-	Application[&quot;Title&quot;] = &quot;Builder.com Sample&quot;;
-}
-
-protected void Session_Start(Object sender, EventArgs e) {
-	Session[&quot;startValue&quot;] = 0;
-}
-
-protected void Application_AuthenticateRequest(Object sender, EventArgs e) {
-	// Extract the forms authentication cookie
-	string cookieName = FormsAuthentication.FormsCookieName;
-	HttpCookie authCookie = Context.Request.Cookies[cookieName];
-	if(null == authCookie) {
-		// There is no authentication cookie.
-		return;
-	}
-	FormsAuthenticationTicket authTicket = null;
-	try {
-		authTicket = FormsAuthentication.Decrypt(authCookie.Value);
-	} catch(Exception ex) {
-		// Log exception details (omitted for simplicity)
-	return;
-	}
-	if (null == authTicket) {
-		// Cookie failed to decrypt.
-		return;
-	}
-	// When the ticket was created, the UserData property was assigned
-	// a pipe delimited string of role names.
-	string[2] roles
-	roles[0] = &quot;One&quot;
-	roles[1] = &quot;Two&quot;
-	// Create an Identity object
-	FormsIdentity id = new FormsIdentity( authTicket );
-	// This principal will flow throughout the request.
-	GenericPrincipal principal = new GenericPrincipal(id, roles);
-	// Attach the new principal object to the current HttpContext object
-	Context.User = principal;
-}
-
-protected void Application_Error(Object sender, EventArgs e) {
-	Response.Write(&quot;Error encountered.&quot;);
-}</span><br></pre></td></tr></table></figure>
-<p>&#x8FD9;&#x4E2A;&#x4F8B;&#x5B50;&#x53EA;&#x662F;&#x5F88;&#x7B80;&#x5355;&#x5730;&#x4F7F;&#x7528;&#x4E86;&#x4E00;&#x4E9B;Global.asax &#x6587;&#x4EF6;&#x4E2D;&#x7684;&#x4E8B;&#x4EF6;&#xFF1B;&#x91CD;&#x8981;&#x7684;&#x662F;&#x8981;&#x610F;&#x8BC6;&#x5230;&#x8FD9;&#x4E9B;&#x4E8B;&#x4EF6;&#x662F;&#x4E0E;&#x6574;&#x4E2A;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x76F8;&#x5173;&#x7684;&#x3002;&#x8FD9;&#x6837;&#xFF0C;&#x6240;&#x6709;&#x653E;&#x5728;&#x5176;&#x4E2D;&#x7684;&#x65B9;&#x6CD5;&#x90FD;&#x4F1A;&#x901A;&#x8FC7;&#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x7684;&#x4EE3;&#x7801;&#x88AB;&#x63D0;&#x4F9B;&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x5B83;&#x7684;&#x540D;&#x5B57;&#x4E3A;Global &#x7684;&#x539F;&#x56E0;(<a href="http://www.cnblogs.com/I-am-Betty/archive/2010/09/06/1819558.html" target="_blank" rel="external">&#x8BE6;&#x60C5;&#x8BF7;&#x53C2;&#x8003;</a>)</p>
+<p>这些事件常被用于安全性方面。下面这个 C# 的例子演示了不同的Global.asax 事件，该例使用Application_Authenticate 事件来完成通过 cookie 的基于表单（form）的身份验证。此外，Application_Start 事件填充一个应用程序变量，而Session_Start 填充一个会话变量。Application_Error 事件显示一个简单的消息用以说明发生的错误。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">protected void Application_Start(Object sender, EventArgs e) &#123;</div><div class="line">	Application[&quot;Title&quot;] = &quot;Builder.com Sample&quot;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">protected void Session_Start(Object sender, EventArgs e) &#123;</div><div class="line">	Session[&quot;startValue&quot;] = 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">protected void Application_AuthenticateRequest(Object sender, EventArgs e) &#123;</div><div class="line">	// Extract the forms authentication cookie</div><div class="line">	string cookieName = FormsAuthentication.FormsCookieName;</div><div class="line">	HttpCookie authCookie = Context.Request.Cookies[cookieName];</div><div class="line">	if(null == authCookie) &#123;</div><div class="line">		// There is no authentication cookie.</div><div class="line">		return;</div><div class="line">	&#125;</div><div class="line">	FormsAuthenticationTicket authTicket = null;</div><div class="line">	try &#123;</div><div class="line">		authTicket = FormsAuthentication.Decrypt(authCookie.Value);</div><div class="line">	&#125; catch(Exception ex) &#123;</div><div class="line">		// Log exception details (omitted for simplicity)</div><div class="line">	return;</div><div class="line">	&#125;</div><div class="line">	if (null == authTicket) &#123;</div><div class="line">		// Cookie failed to decrypt.</div><div class="line">		return;</div><div class="line">	&#125;</div><div class="line">	// When the ticket was created, the UserData property was assigned</div><div class="line">	// a pipe delimited string of role names.</div><div class="line">	string[2] roles</div><div class="line">	roles[0] = &quot;One&quot;</div><div class="line">	roles[1] = &quot;Two&quot;</div><div class="line">	// Create an Identity object</div><div class="line">	FormsIdentity id = new FormsIdentity( authTicket );</div><div class="line">	// This principal will flow throughout the request.</div><div class="line">	GenericPrincipal principal = new GenericPrincipal(id, roles);</div><div class="line">	// Attach the new principal object to the current HttpContext object</div><div class="line">	Context.User = principal;</div><div class="line">&#125;</div><div class="line"></div><div class="line">protected void Application_Error(Object sender, EventArgs e) &#123;</div><div class="line">	Response.Write(&quot;Error encountered.&quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个例子只是很简单地使用了一些Global.asax 文件中的事件；重要的是要意识到这些事件是与整个应用程序相关的。这样，所有放在其中的方法都会通过应用程序的代码被提供，这就是它的名字为Global 的原因(<a href="http://www.cnblogs.com/I-am-Betty/archive/2010/09/06/1819558.html" target="_blank" rel="external">详情请参考</a>)</p>
 
       
     </div>
@@ -596,7 +555,7 @@ protected void Application_Error(Object sender, EventArgs e) {
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">64</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -604,7 +563,7 @@ protected void Application_Error(Object sender, EventArgs e) {
           
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>
@@ -613,7 +572,7 @@ protected void Application_Error(Object sender, EventArgs e) {
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">93</span>
+                <span class="site-state-item-count">94</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -724,7 +683,7 @@ protected void Application_Error(Object sender, EventArgs e) {
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一application_end-事件触发时间机制"><span class="nav-number">1.</span> <span class="nav-text">一、Application_End 事件触发时间/机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#11-在事件中记录站点重启的原因"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 在事件中记录站点重启的原因</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二globalasax-文件介绍"><span class="nav-number">2.</span> <span class="nav-text">二、Global.asax 文件介绍</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、Application-End-事件触发时间-机制"><span class="nav-number">1.</span> <span class="nav-text">一、Application_End 事件触发时间/机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-在事件中记录站点重启的原因"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 在事件中记录站点重启的原因</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、Global-asax-文件介绍"><span class="nav-number">2.</span> <span class="nav-text">二、Global.asax 文件介绍</span></a></li></ol></div>
             
           </div>
         </section>
@@ -763,7 +722,7 @@ protected void Application_Error(Object sender, EventArgs e) {
 
 <div class="theme-info">
   Clone theme -
-  <a class="theme-link" href="https://github.com/xirong/hexo-theme-next">
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next/">
     NexT.Mist
   </a>
 </div>

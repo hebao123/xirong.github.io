@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Jstorm,flume,hbase,分布式,大数据,日志," />
+  <meta name="keywords" content="分布式,hbase,大数据,日志,Jstorm,flume," />
 
 
 
@@ -92,6 +92,7 @@
 <meta property="og:url" content="http://www.ixirong.com/2015/07/10/presentation-about-sealog-system/index.html">
 <meta property="og:site_name" content="自由">
 <meta property="og:description" content="最近公司业务数据量越来越大，以前的基于消息队列的日志系统越来越难以满足目前的业务量，表现为消息积压，日志延迟，日志存储日期过短，所以，我们开始着手要重新设计这块，业界已经有了比较成熟的流程，即基于流式处理，采用 flume 收集日志，发送到 kafka 队列做缓冲，storm 分布式实时框架进行消费处理，短期数据落地到 hbase、mongo中，长期数据进入 hadoop 中存储。 接下来打算将这">
+<meta property="og:updated_time" content="2015-07-11T00:42:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式实时日志系统（五）系统整体架构介绍">
 <meta name="twitter:description" content="最近公司业务数据量越来越大，以前的基于消息队列的日志系统越来越难以满足目前的业务量，表现为消息积压，日志延迟，日志存储日期过短，所以，我们开始着手要重新设计这块，业界已经有了比较成熟的流程，即基于流式处理，采用 flume 收集日志，发送到 kafka 队列做缓冲，storm 分布式实时框架进行消费处理，短期数据落地到 hbase、mongo中，长期数据进入 hadoop 中存储。 接下来打算将这">
@@ -357,12 +358,12 @@
       
 
       
-        <p>&#x6700;&#x8FD1;&#x516C;&#x53F8;&#x4E1A;&#x52A1;&#x6570;&#x636E;&#x91CF;&#x8D8A;&#x6765;&#x8D8A;&#x5927;&#xFF0C;&#x4EE5;&#x524D;&#x7684;&#x57FA;&#x4E8E;&#x6D88;&#x606F;&#x961F;&#x5217;&#x7684;&#x65E5;&#x5FD7;&#x7CFB;&#x7EDF;&#x8D8A;&#x6765;&#x8D8A;&#x96BE;&#x4EE5;&#x6EE1;&#x8DB3;&#x76EE;&#x524D;&#x7684;&#x4E1A;&#x52A1;&#x91CF;&#xFF0C;&#x8868;&#x73B0;&#x4E3A;&#x6D88;&#x606F;&#x79EF;&#x538B;&#xFF0C;&#x65E5;&#x5FD7;&#x5EF6;&#x8FDF;&#xFF0C;&#x65E5;&#x5FD7;&#x5B58;&#x50A8;&#x65E5;&#x671F;&#x8FC7;&#x77ED;&#xFF0C;&#x6240;&#x4EE5;&#xFF0C;&#x6211;&#x4EEC;&#x5F00;&#x59CB;&#x7740;&#x624B;&#x8981;&#x91CD;&#x65B0;&#x8BBE;&#x8BA1;&#x8FD9;&#x5757;&#xFF0C;&#x4E1A;&#x754C;&#x5DF2;&#x7ECF;&#x6709;&#x4E86;&#x6BD4;&#x8F83;&#x6210;&#x719F;&#x7684;&#x6D41;&#x7A0B;&#xFF0C;&#x5373;&#x57FA;&#x4E8E;&#x6D41;&#x5F0F;&#x5904;&#x7406;&#xFF0C;&#x91C7;&#x7528; flume &#x6536;&#x96C6;&#x65E5;&#x5FD7;&#xFF0C;&#x53D1;&#x9001;&#x5230; kafka &#x961F;&#x5217;&#x505A;&#x7F13;&#x51B2;&#xFF0C;storm &#x5206;&#x5E03;&#x5F0F;&#x5B9E;&#x65F6;&#x6846;&#x67B6;&#x8FDB;&#x884C;&#x6D88;&#x8D39;&#x5904;&#x7406;&#xFF0C;&#x77ED;&#x671F;&#x6570;&#x636E;&#x843D;&#x5730;&#x5230; hbase&#x3001;mongo&#x4E2D;&#xFF0C;&#x957F;&#x671F;&#x6570;&#x636E;&#x8FDB;&#x5165; hadoop &#x4E2D;&#x5B58;&#x50A8;&#x3002; &#x63A5;&#x4E0B;&#x6765;&#x6253;&#x7B97;&#x5C06;&#x8FD9;&#x5176;&#x95F4;&#x6240;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;&#x3001;&#x5B66;&#x4E60;&#x5230;&#x7684;&#x77E5;&#x8BC6;&#x8BB0;&#x5F55;&#x6574;&#x7406;&#x4E0B;&#xFF0C;&#x4F5C;&#x4E3A;&#x5907;&#x5FD8;&#xFF0C;&#x4F5C;&#x4E3A;&#x5206;&#x4EAB;&#xFF0C;&#x5E26;&#x7ED9;&#x9700;&#x8981;&#x7684;&#x4EBA;&#x3002;</p>
-<p>&#x76EE;&#x524D;&#x6574;&#x4E2A;&#x7CFB;&#x7EDF;&#x5DF2;&#x7ECF;&#x4E0A;&#x7EBF;&#x4E86;&#xFF0C;&#x8FD9;&#x7BC7;&#x6587;&#x7AE0;&#x8DDF;&#x5927;&#x5BB6;&#x5206;&#x4EAB;&#x4E0B;&#xFF0C;&#x6574;&#x4E2A;&#x7CFB;&#x7EDF;&#x4F7F;&#x7528;&#x5230;&#x7684;&#x6280;&#x672F;&#x53CA;&#x67B6;&#x6784;&#x8BBE;&#x8BA1;&#xFF0C;&#x9047;&#x5230;&#x7684;&#x95EE;&#x9898;&#x7B49;&#xFF0C;&#x5DF2;&#x7ECF;&#x6574;&#x7406;&#x6210; PPT&#xFF0C;&#x5E76;&#x5728;&#x516C;&#x53F8;&#x7EC4;&#x5185;&#x7EC4;&#x7EC7;&#x5206;&#x4EAB;&#x3002;&#x6B22;&#x8FCE;&#x63D0;&#x51FA;&#x5EFA;&#x8BAE;&#x53CA;&#x95EE;&#x9898; ~ </p>
-<p>&#xFF08;slideshare PPT &#x5206;&#x4EAB;&#x670D;&#x52A1;&#x5728;&#x5927;&#x9646;&#x662F;&#x88AB;&#x5899;&#x7684;&#xFF0C;&#x4E0D;&#x80FD;&#x79D1;&#x5B66;&#x4E0A;&#x7F51;&#xFF1F;&#x67E5;&#x770B;<a href="http://ixirong.com/2015/01/19/shadowsocks-md/" target="_blank" rel="external">&#x4F7F;&#x7528;shadowsocks&#x670D;&#x52A1;&#x4EAB;&#x53D7;&#x81EA;&#x7531;&#x7F51;&#x7EDC;</a>&#x5B66;&#x4E60;&#x65B9;&#x6CD5;&#xFF09;</p>
+        <p>最近公司业务数据量越来越大，以前的基于消息队列的日志系统越来越难以满足目前的业务量，表现为消息积压，日志延迟，日志存储日期过短，所以，我们开始着手要重新设计这块，业界已经有了比较成熟的流程，即基于流式处理，采用 flume 收集日志，发送到 kafka 队列做缓冲，storm 分布式实时框架进行消费处理，短期数据落地到 hbase、mongo中，长期数据进入 hadoop 中存储。 接下来打算将这其间所遇到的问题、学习到的知识记录整理下，作为备忘，作为分享，带给需要的人。</p>
+<p>目前整个系统已经上线了，这篇文章跟大家分享下，整个系统使用到的技术及架构设计，遇到的问题等，已经整理成 PPT，并在公司组内组织分享。欢迎提出建议及问题 ~ </p>
+<p>（slideshare PPT 分享服务在大陆是被墙的，不能科学上网？查看<a href="http://ixirong.com/2015/01/19/shadowsocks-md/" target="_blank" rel="external">使用shadowsocks服务享受自由网络</a>学习方法）</p>
 <a id="more"></a>
 <p><iframe src="//www.slideshare.net/slideshow/embed_code/key/HEhzbKBovRQBIQ" width="510" height="420" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:1px solid #CCC; border-width:1px; margin-bottom:5px; max-width: 100%;" allowfullscreen> </iframe> <div style="margin-bottom:5px"> <strong> <a href="//www.slideshare.net/xirong/realtime-distributed-log-colletct-system" title="realtime distributed log colletct system" target="_blank">realtime distributed log colletct system</a> </strong> from <strong><a href="//www.slideshare.net/xirong" target="_blank">xirong</a></strong> </div></p>
-<p>&#x5982;&#x679C;&#x4E0D;&#x80FD;&#x770B;&#x5230;&#xFF0C;&#x4F60;&#x8FD8;&#x53EF;&#x4EE5;&#x9009;&#x62E9;&#x67E5;&#x770B; &#x65B0;&#x6D6A;&#x5FAE;&#x76D8;&#x7684;&#x7248;&#x672C;&#xFF1A;<a href="http://vdisk.weibo.com/s/A0CRup8a223U" target="_blank" rel="external">http://vdisk.weibo.com/s/A0CRup8a223U</a></p>
+<p>如果不能看到，你还可以选择查看 新浪微盘的版本：<a href="http://vdisk.weibo.com/s/A0CRup8a223U" target="_blank" rel="external">http://vdisk.weibo.com/s/A0CRup8a223U</a></p>
 
       
     </div>
@@ -389,17 +390,17 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Jstorm/" rel="tag">#Jstorm</a>
-          
-            <a href="/tags/flume/" rel="tag">#flume</a>
+            <a href="/tags/分布式/" rel="tag">#分布式</a>
           
             <a href="/tags/hbase/" rel="tag">#hbase</a>
-          
-            <a href="/tags/分布式/" rel="tag">#分布式</a>
           
             <a href="/tags/大数据/" rel="tag">#大数据</a>
           
             <a href="/tags/日志/" rel="tag">#日志</a>
+          
+            <a href="/tags/Jstorm/" rel="tag">#Jstorm</a>
+          
+            <a href="/tags/flume/" rel="tag">#flume</a>
           
         </div>
       
@@ -490,7 +491,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">64</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -498,7 +499,7 @@
           
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>
@@ -507,7 +508,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">93</span>
+                <span class="site-state-item-count">94</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -657,7 +658,7 @@
 
 <div class="theme-info">
   Clone theme -
-  <a class="theme-link" href="https://github.com/xirong/hexo-theme-next">
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next/">
     NexT.Mist
   </a>
 </div>

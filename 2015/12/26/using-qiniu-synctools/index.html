@@ -87,18 +87,20 @@
 
 
 <meta name="description" content="在《ixirong 博客站点建立过程》文章中，说到了七牛的存储服务，每个月都有免费的金额，博客上大部分的图片都是存储在上面的，由于慢慢的图片越来越多，或者上传的文件比较大，想要进行管理单单依靠web 界面进行管理，越来越不方便，七牛的开发者工具就能很好的解决，几行命令就搞定上传下载了，很方面。
-QRSBox 跨平台支持 windows 图形化、mac/linux 命令行，支持配置文件、大文件上传、">
+QRSBox 跨平台支持 windows 图形化、mac/linux 命令行，支持配置文件、大文件上传">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用七牛开发者工具QRSBox上传文件">
 <meta property="og:url" content="http://www.ixirong.com/2015/12/26/using-qiniu-synctools/index.html">
 <meta property="og:site_name" content="自由">
 <meta property="og:description" content="在《ixirong 博客站点建立过程》文章中，说到了七牛的存储服务，每个月都有免费的金额，博客上大部分的图片都是存储在上面的，由于慢慢的图片越来越多，或者上传的文件比较大，想要进行管理单单依靠web 界面进行管理，越来越不方便，七牛的开发者工具就能很好的解决，几行命令就搞定上传下载了，很方面。
-QRSBox 跨平台支持 windows 图形化、mac/linux 命令行，支持配置文件、大文件上传、">
+QRSBox 跨平台支持 windows 图形化、mac/linux 命令行，支持配置文件、大文件上传">
 <meta property="og:image" content="http://static.ixirong.com/blog/qiniu/1451127780570.png">
+<meta property="og:updated_time" content="2016-01-04T15:33:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="使用七牛开发者工具QRSBox上传文件">
 <meta name="twitter:description" content="在《ixirong 博客站点建立过程》文章中，说到了七牛的存储服务，每个月都有免费的金额，博客上大部分的图片都是存储在上面的，由于慢慢的图片越来越多，或者上传的文件比较大，想要进行管理单单依靠web 界面进行管理，越来越不方便，七牛的开发者工具就能很好的解决，几行命令就搞定上传下载了，很方面。
-QRSBox 跨平台支持 windows 图形化、mac/linux 命令行，支持配置文件、大文件上传、">
+QRSBox 跨平台支持 windows 图形化、mac/linux 命令行，支持配置文件、大文件上传">
+<meta name="twitter:image" content="http://static.ixirong.com/blog/qiniu/1451127780570.png">
 
 
 
@@ -361,22 +363,22 @@ QRSBox 跨平台支持 windows 图形化、mac/linux 命令行，支持配置文
       
 
       
-        <p><img src="http://static.ixirong.com/blog/qiniu/1451127780570.png" alt="&#x4E03;&#x725B;&#x4E91;"></p>
-<p>&#x5728;<a href="http://www.ixirong.com/2015/05/17/how-to-build-ixirong-blog/" target="_blank" rel="external">&#x300A;ixirong &#x535A;&#x5BA2;&#x7AD9;&#x70B9;&#x5EFA;&#x7ACB;&#x8FC7;&#x7A0B;&#x300B;</a>&#x6587;&#x7AE0;&#x4E2D;&#xFF0C;&#x8BF4;&#x5230;&#x4E86;&#x4E03;&#x725B;&#x7684;&#x5B58;&#x50A8;&#x670D;&#x52A1;&#xFF0C;&#x6BCF;&#x4E2A;&#x6708;&#x90FD;&#x6709;&#x514D;&#x8D39;&#x7684;&#x91D1;&#x989D;&#xFF0C;&#x535A;&#x5BA2;&#x4E0A;&#x5927;&#x90E8;&#x5206;&#x7684;&#x56FE;&#x7247;&#x90FD;&#x662F;&#x5B58;&#x50A8;&#x5728;&#x4E0A;&#x9762;&#x7684;&#xFF0C;&#x7531;&#x4E8E;&#x6162;&#x6162;&#x7684;&#x56FE;&#x7247;&#x8D8A;&#x6765;&#x8D8A;&#x591A;&#xFF0C;&#x6216;&#x8005;&#x4E0A;&#x4F20;&#x7684;&#x6587;&#x4EF6;&#x6BD4;&#x8F83;&#x5927;&#xFF0C;&#x60F3;&#x8981;&#x8FDB;&#x884C;&#x7BA1;&#x7406;&#x5355;&#x5355;&#x4F9D;&#x9760;web &#x754C;&#x9762;&#x8FDB;&#x884C;&#x7BA1;&#x7406;&#xFF0C;&#x8D8A;&#x6765;&#x8D8A;&#x4E0D;&#x65B9;&#x4FBF;&#xFF0C;&#x4E03;&#x725B;&#x7684;&#x5F00;&#x53D1;&#x8005;&#x5DE5;&#x5177;&#x5C31;&#x80FD;&#x5F88;&#x597D;&#x7684;&#x89E3;&#x51B3;&#xFF0C;&#x51E0;&#x884C;&#x547D;&#x4EE4;&#x5C31;&#x641E;&#x5B9A;&#x4E0A;&#x4F20;&#x4E0B;&#x8F7D;&#x4E86;&#xFF0C;&#x5F88;&#x65B9;&#x9762;&#x3002;</p>
-<p>QRSBox &#x8DE8;&#x5E73;&#x53F0;&#x652F;&#x6301; windows &#x56FE;&#x5F62;&#x5316;&#x3001;mac/linux &#x547D;&#x4EE4;&#x884C;&#xFF0C;&#x652F;&#x6301;&#x914D;&#x7F6E;&#x6587;&#x4EF6;&#x3001;&#x5927;&#x6587;&#x4EF6;&#x4E0A;&#x4F20;&#x3001;&#x589E;&#x91CF;&#x66F4;&#x65B0;&#x3001;&#x540E;&#x53F0;&#x6587;&#x4EF6;&#x76D1;&#x63A7;&#x7B49;&#xFF0C;&#x8BE6;&#x7EC6;&#x4ECB;&#x7ECD;&#x8BF7;&#x53C2;&#x8003;&#xFF1A;<a href="http://developer.qiniu.com/docs/v6/tools/qrsbox.html&#x3002;" target="_blank" rel="external">http://developer.qiniu.com/docs/v6/tools/qrsbox.html&#x3002;</a><br><a id="more"></a><br>1&#x3001;&#x9996;&#x5148;&#x4E0B;&#x8F7D;&#x5BA2;&#x6237;&#x7AEF;&#xFF0C;&#x5DF2; mac &#x4E3A;&#x4F8B;&#xFF0C;&#x4E0B;&#x8F7D; <a href="http://devtools.qiniu.com/qiniu-devtools-darwin_amd64-current.tar.gz" target="_blank" rel="external">qrsboxcli darwin_amd64</a>&#x540E;&#x89E3;&#x538B;&#xFF0C;&#x6BD4;&#x5982;&#x63A5;&#x5230;&#x5230;<code>~/Document/qiniu-devtools-darwin_amd64-v3.1.20151125</code>,&#x6700;&#x65B0;&#x7248;&#x7684;&#x6587;&#x4EF6;&#x540D;&#x53EF;&#x80FD;&#x6709;&#x53D8;&#x5316;&#xFF1B;<br>2&#x3001;&#x9009;&#x62E9;&#x4E00;&#x4E2A;&#x76EE;&#x5F55;&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x4F5C;&#x4E3A;&#x540C;&#x6B65;&#x76EE;&#x5F55;&#xFF0C;&#x91CC;&#x9762;&#x5B58;&#x653E;&#x60F3;&#x8981;&#x4E0A;&#x4F20;&#x7684;&#x6587;&#x4EF6;&#x5373;&#x53EF;&#xFF0C;&#x6BD4;&#x5982;&#x6709;&#x4E2A;<code>abc.txt</code>&#xFF1B;<br>3&#x3001;&#x8FDB;&#x5165;&#x89E3;&#x538B;&#x76EE;&#x5F55;&#xFF0C;&#x521D;&#x59CB;&#x5316;&#x914D;&#x7F6E;&#xFF0C;&#x5E76;&#x4E0A;&#x4F20;&#xFF0C;&#x5177;&#x4F53;&#x5982;&#x4E0B;&#xFF1A;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> ~/Document/qiniu-devtools-darwin_amd64-v3.<span class="number">1.20151125</span></span><br><span class="line"><span class="comment"># &lt;AccessKey&gt; &lt;SecretKey&gt; &#x91CC;&#x7684;&#x5185;&#x5BB9;&#x53EF;&#x4EE5;&#x5728;&#x4E03;&#x725B;&#x7BA1;&#x7406;&#x540E;&#x53F0;&#x67E5;&#x770B; &#xFF0C;</span></span><br><span class="line"><span class="comment"># ./qrsboxcli init &lt;AccessKey&gt; &lt;SecretKey&gt; &lt;SyncDir&gt; &lt;Bucket&gt; [&lt;KeyPrefix&gt;]</span></span><br><span class="line">./qrsboxcli init &lt;AccessKey&gt; &lt;SecretKey&gt; &lt;~/Document/qiniu-devtools-darwin_amd64-v3.<span class="number">1.20151125</span>&gt; &lt;xirong&gt;</span><br><span class="line">&#x2026;&#x2026;</span><br><span class="line">&#x2026;&#x2026;</span><br><span class="line">&#x2026;&#x2026;</span><br><span class="line"><span class="comment"># &#x521D;&#x59CB;&#x5316;&#x7ED3;&#x675F;&#x540E;&#x5373;&#x53EF;&#x8FDB;&#x884C;&#x6587;&#x4EF6;&#x540C;&#x6B65;</span></span><br><span class="line">./qrsboxcli sync &amp;</span><br></pre></td></tr></table></figure>
-<p>&#x8FD9;&#x91CC;&#x4F7F;&#x7528;&#x4E86; &amp; &#x7B26;&#x53F7;&#xFF0C;&#x8BA9;&#x540C;&#x6B65;&#x5BA2;&#x6237;&#x7AEF;&#x8FDB;&#x7A0B;&#x8FD0;&#x884C;&#x5728;&#x540E;&#x53F0;&#x3002;&#x5982;&#x679C;&#x9000;&#x51FA;&#x7EC8;&#x7AEF;&#x540E;&#x7A0B;&#x5E8F;&#x4E2D;&#x65AD;&#xFF0C;&#x8BF7;&#x4F7F;&#x7528;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#x4EE3;&#x66FF;&#xFF1A;</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nohup ./qrsboxcli sync &gt;/dev/null <span class="number">2</span>&gt;&amp;<span class="number">1</span> &amp;</span><br></pre></td></tr></table></figure>
-<p>&#x540C;&#x6B65;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x5728;&#x4E03;&#x725B;&#x7F51;&#x9875;&#x7AEF;&#x5C31;&#x80FD;&#x770B;&#x5230;&#x521A;&#x521A;&#x4E0A;&#x4EA7;&#x7684;<code>abc.txt</code>&#x6587;&#x4EF6;&#x4E86;&#xFF0C;&#x5982;&#x679C;&#x4F60;&#x5BF9;&#x7A7A;&#x95F4;&#x7ED1;&#x5B9A;&#x4E86;&#x4E2A;&#x6027;&#x5316;&#x57DF;&#x540D;&#xFF0C;&#x5C31;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x57DF;&#x540D;&#x8FDB;&#x884C;&#x8BBF;&#x95EE;&#x4E86;&#xFF0C;&#x6BD4;&#x5982; xirong &#x7684;&#x5C31;&#x53EF;&#x4EE5;&#x901A;&#x8FC7; <a href="http://static.ixirong.com/abc.txt" target="_blank" rel="external">http://static.ixirong.com/abc.txt</a> &#x6765;&#x8BBF;&#x95EE;&#x4E86;&#x3002;</p>
-<p>&#x7528;&#x6237;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#x67E5;&#x770B;&#x540C;&#x6B65;&#x8FC7;&#x7A0B;&#xFF1A;</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./qrsboxcli <span class="command">log</span></span><br></pre></td></tr></table></figure>
-<p>&#x5982;&#x679C;&#x9700;&#x8981;&#x505C;&#x6B62;&#x540E;&#x53F0;&#x8FD0;&#x884C;&#x7684;qrsboxcli&#xFF0C;&#x53EF;&#x4EE5;&#x4F7F;&#x7528;&#x5982;&#x4E0B;&#x547D;&#x4EE4;&#xFF1A;</p>
-<figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./qrsboxcli <span class="keyword">stop</span></span><br></pre></td></tr></table></figure>
-<p>&#x5982;&#x679C;&#x5E0C;&#x671B;&#x6539;&#x53D8;&#x540C;&#x6B65;&#x7684;&#x76EE;&#x5F55;&#x3001;bucket&#x7B49;&#x8FD0;&#x884C;&#x53C2;&#x6570;&#xFF0C;&#x9700;&#x8981;&#x5148;&#x7528; stop &#x547D;&#x4EE4;&#x505C;&#x6B62; qrsboxcli &#x7684;&#x540E;&#x53F0;&#x7A0B;&#x5E8F;&#xFF0C;&#x91CD;&#x65B0;&#x7528;&#x65B0;&#x7684;&#x53C2;&#x6570;&#x8FD0;&#x884C;&#x521D;&#x59CB;&#x5316;&#x547D;&#x4EE4;&#xFF0C;&#x7136;&#x540E;&#x518D;&#x6B21;&#x542F;&#x52A8;&#x540C;&#x6B65;&#x7A0B;&#x5E8F;&#xFF0C;qrsboxcli&#x4F1A;&#x7ACB;&#x523B;&#x6309;&#x65B0;&#x7684;&#x914D;&#x7F6E;&#x5C06;&#x65B0;&#x76EE;&#x5F55;&#x7684;&#x6587;&#x4EF6;&#x540C;&#x6B65;&#x81F3;&#x4E03;&#x725B;&#x4E91;&#x5B58;&#x50A8;&#x3002;</p>
-<p><strong>&#x547D;&#x4EE4;&#x4F7F;&#x7528;&#x8BF4;&#x660E;</strong></p>
-<p>&#x6267;&#x884C;&#x4EE5;&#x4E0B;&#x547D;&#x4EE4;&#x53EF;&#x4EE5;&#x83B7;&#x5F97;&#x5404;&#x4E2A;&#x5B50;&#x547D;&#x4EE4;&#x7684;&#x4F7F;&#x7528;&#x8BF4;&#x660E;&#xFF1A;</p>
-<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">./qrsboxcli</span><br><span class="line"></span><br><span class="line">Usage:</span><br><span class="line">  qrsboxcli init <span class="variable">&lt;AccessKey&gt;</span> <span class="variable">&lt;SecretKey&gt;</span> <span class="variable">&lt;SyncDir&gt;</span> <span class="variable">&lt;Bucket&gt;</span>  - Init qrsbox conf</span><br><span class="line">  qrsboxcli sync &amp;                                           - Watch <span class="variable">&lt;SyncDir&gt;</span> and sync files</span><br><span class="line">  qrsboxcli <span class="keyword">log</span>                                              - View sync <span class="keyword">log</span></span><br><span class="line">  qrsboxcli stop                                             - Kill qrsboxcli sync process</span><br><span class="line"></span><br><span class="line">BuildVersion:</span><br><span class="line">  qrsboxcli v2.<span class="number">5.20131013</span></span><br></pre></td></tr></table></figure>
-<p>&#x53E6;&#x5916;&#xFF0C;&#x5982;&#x679C;&#x540C;&#x6B65;&#x76EE;&#x5F55;&#x4E2D;&#x6709;&#x4E9B;&#x4E0D;&#x5E0C;&#x671B;&#x4E0A;&#x4F20;&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x6BD4;&#x5982; mac &#x4E0B;&#x6BCF;&#x4E2A;&#x76EE;&#x5F55;&#x4E2D;&#x7684;<code>.DS_Store</code>&#xFF0C;&#x53EF;&#x4EE5;&#x5728;&#x540C;&#x6B65;&#x76EE;&#x5F55;&#xFF08;~/Document/qiniu-devtools-darwin_amd64-v3.1.20151125&#xFF09;&#x5EFA;&#x7ACB;<code>.qrsignore</code>&#x5FFD;&#x7565;&#x6587;&#x4EF6;&#xFF0C;&#x5C06; <code>.DS_Store</code> &#x6DFB;&#x52A0;&#x5230;&#x6587;&#x4EF6;&#x91CC;&#x9762;&#x5C31; OK&#x3002;&#x5FFD;&#x7565;&#x6587;&#x4EF6;&#x652F;&#x6301;&#x7684;&#x529F;&#x80FD;&#x5F88;&#x5F3A;&#x5927;&#xFF0C;&#x901A;&#x914D;&#x7B26;&#x3001;&#x6B63;&#x5219;&#x8868;&#x8FBE;&#x5F0F;&#x7B49;&#x7B49;&#xFF0C;&#x8BE6;&#x60C5;&#x53C2;&#x8003;&#xFF1A;<a href="http://developer.qiniu.com/docs/v6/tools/ignore-rules.html" target="_blank" rel="external">http://developer.qiniu.com/docs/v6/tools/ignore-rules.html</a></p>
+        <p><img src="http://static.ixirong.com/blog/qiniu/1451127780570.png" alt="七牛云"></p>
+<p>在<a href="http://www.ixirong.com/2015/05/17/how-to-build-ixirong-blog/">《ixirong 博客站点建立过程》</a>文章中，说到了七牛的存储服务，每个月都有免费的金额，博客上大部分的图片都是存储在上面的，由于慢慢的图片越来越多，或者上传的文件比较大，想要进行管理单单依靠web 界面进行管理，越来越不方便，七牛的开发者工具就能很好的解决，几行命令就搞定上传下载了，很方面。</p>
+<p>QRSBox 跨平台支持 windows 图形化、mac/linux 命令行，支持配置文件、大文件上传、增量更新、后台文件监控等，详细介绍请参考：<a href="http://developer.qiniu.com/docs/v6/tools/qrsbox.html。" target="_blank" rel="external">http://developer.qiniu.com/docs/v6/tools/qrsbox.html。</a><br><a id="more"></a><br>1、首先下载客户端，已 mac 为例，下载 <a href="http://devtools.qiniu.com/qiniu-devtools-darwin_amd64-current.tar.gz" target="_blank" rel="external">qrsboxcli darwin_amd64</a>后解压，比如接到到<code>~/Document/qiniu-devtools-darwin_amd64-v3.1.20151125</code>,最新版的文件名可能有变化；<br>2、选择一个目录文件夹，作为同步目录，里面存放想要上传的文件即可，比如有个<code>abc.txt</code>；<br>3、进入解压目录，初始化配置，并上传，具体如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> ~/Document/qiniu-devtools-darwin_amd64-v3.1.20151125</div><div class="line"><span class="comment"># &lt;AccessKey&gt; &lt;SecretKey&gt; 里的内容可以在七牛管理后台查看 ，</span></div><div class="line"><span class="comment"># ./qrsboxcli init &lt;AccessKey&gt; &lt;SecretKey&gt; &lt;SyncDir&gt; &lt;Bucket&gt; [&lt;KeyPrefix&gt;]</span></div><div class="line">./qrsboxcli init &lt;AccessKey&gt; &lt;SecretKey&gt; &lt;~/Document/qiniu-devtools-darwin_amd64-v3.1.20151125&gt; &lt;xirong&gt;</div><div class="line">……</div><div class="line">……</div><div class="line">……</div><div class="line"><span class="comment"># 初始化结束后即可进行文件同步</span></div><div class="line">./qrsboxcli sync &amp;</div></pre></td></tr></table></figure>
+<p>这里使用了 &amp; 符号，让同步客户端进程运行在后台。如果退出终端后程序中断，请使用以下命令代替：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">nohup ./qrsboxcli sync &gt;/dev/null 2&gt;&amp;1 &amp;</div></pre></td></tr></table></figure>
+<p>同步完成后，在七牛网页端就能看到刚刚上产的<code>abc.txt</code>文件了，如果你对空间绑定了个性化域名，就可以通过域名进行访问了，比如 xirong 的就可以通过 <a href="http://static.ixirong.com/abc.txt" target="_blank" rel="external">http://static.ixirong.com/abc.txt</a> 来访问了。</p>
+<p>用户可以通过以下命令查看同步过程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./qrsboxcli log</div></pre></td></tr></table></figure>
+<p>如果需要停止后台运行的qrsboxcli，可以使用如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">./qrsboxcli stop</div></pre></td></tr></table></figure>
+<p>如果希望改变同步的目录、bucket等运行参数，需要先用 stop 命令停止 qrsboxcli 的后台程序，重新用新的参数运行初始化命令，然后再次启动同步程序，qrsboxcli会立刻按新的配置将新目录的文件同步至七牛云存储。</p>
+<p><strong>命令使用说明</strong></p>
+<p>执行以下命令可以获得各个子命令的使用说明：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">./qrsboxcli</div><div class="line"></div><div class="line">Usage:</div><div class="line">  qrsboxcli init &lt;AccessKey&gt; &lt;SecretKey&gt; &lt;SyncDir&gt; &lt;Bucket&gt;  - Init qrsbox conf</div><div class="line">  qrsboxcli sync &amp;                                           - Watch &lt;SyncDir&gt; and sync files</div><div class="line">  qrsboxcli log                                              - View sync log</div><div class="line">  qrsboxcli stop                                             - Kill qrsboxcli sync process</div><div class="line"></div><div class="line">BuildVersion:</div><div class="line">  qrsboxcli v2.5.20131013</div></pre></td></tr></table></figure>
+<p>另外，如果同步目录中有些不希望上传的文件，比如 mac 下每个目录中的<code>.DS_Store</code>，可以在同步目录（~/Document/qiniu-devtools-darwin_amd64-v3.1.20151125）建立<code>.qrsignore</code>忽略文件，将 <code>.DS_Store</code> 添加到文件里面就 OK。忽略文件支持的功能很强大，通配符、正则表达式等等，详情参考：<a href="http://developer.qiniu.com/docs/v6/tools/ignore-rules.html" target="_blank" rel="external">http://developer.qiniu.com/docs/v6/tools/ignore-rules.html</a></p>
 
       
     </div>
@@ -496,7 +498,7 @@ QRSBox 跨平台支持 windows 图形化、mac/linux 命令行，支持配置文
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">64</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -504,7 +506,7 @@ QRSBox 跨平台支持 windows 图形化、mac/linux 命令行，支持配置文
           
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>
@@ -513,7 +515,7 @@ QRSBox 跨平台支持 windows 图形化、mac/linux 命令行，支持配置文
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">93</span>
+                <span class="site-state-item-count">94</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -663,7 +665,7 @@ QRSBox 跨平台支持 windows 图形化、mac/linux 命令行，支持配置文
 
 <div class="theme-info">
   Clone theme -
-  <a class="theme-link" href="https://github.com/xirong/hexo-theme-next">
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next/">
     NexT.Mist
   </a>
 </div>

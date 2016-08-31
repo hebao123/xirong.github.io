@@ -104,6 +104,7 @@ Java线程之间的通信对程序员完全透明，内存可见性问题很容�
 重排序与顺序一致性；
 三个同步原语（lock，volatile，final）的内存语义，重排序规则及在处理器中的实现；
 java内存模型的设计，及其">
+<meta property="og:updated_time" content="2015-08-22T09:31:18.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解Java内存模型">
 <meta name="twitter:description" content="接上篇文章，infoq 上有几篇文章对java 内存讲解的比较透彻，这里转载过来，感兴趣的可以下载看看 ~
@@ -375,64 +376,64 @@ java内存模型的设计，及其">
       
 
       
-        <p>&#x63A5;&#x4E0A;&#x7BC7;&#x6587;&#x7AE0;&#xFF0C;infoq &#x4E0A;&#x6709;&#x51E0;&#x7BC7;&#x6587;&#x7AE0;&#x5BF9;java &#x5185;&#x5B58;&#x8BB2;&#x89E3;&#x7684;&#x6BD4;&#x8F83;&#x900F;&#x5F7B;&#xFF0C;&#x8FD9;&#x91CC;&#x8F6C;&#x8F7D;&#x8FC7;&#x6765;&#xFF0C;&#x611F;&#x5174;&#x8DA3;&#x7684;&#x53EF;&#x4EE5;&#x4E0B;&#x8F7D;&#x770B;&#x770B; ~</p>
+        <p>接上篇文章，infoq 上有几篇文章对java 内存讲解的比较透彻，这里转载过来，感兴趣的可以下载看看 ~</p>
 <hr>
-<p>Java&#x7EBF;&#x7A0B;&#x4E4B;&#x95F4;&#x7684;&#x901A;&#x4FE1;&#x5BF9;&#x7A0B;&#x5E8F;&#x5458;&#x5B8C;&#x5168;&#x900F;&#x660E;&#xFF0C;&#x5185;&#x5B58;&#x53EF;&#x89C1;&#x6027;&#x95EE;&#x9898;&#x5F88;&#x5BB9;&#x6613;&#x56F0;&#x6270;java&#x7A0B;&#x5E8F;&#x5458;&#xFF0C;&#x672C;&#x6587;&#x8BD5;&#x56FE;&#x63ED;&#x5F00;java&#x5185;&#x5B58;&#x6A21;&#x578B;&#x795E;&#x79D8;&#x7684;&#x9762;&#x7EB1;&#x3002;&#x672C;&#x6587;&#x5927;&#x81F4;&#x5206;&#x4E09;&#x90E8;&#x5206;&#xFF1A;</p>
+<p>Java线程之间的通信对程序员完全透明，内存可见性问题很容易困扰java程序员，本文试图揭开java内存模型神秘的面纱。本文大致分三部分：</p>
 <ul>
-<li>&#x91CD;&#x6392;&#x5E8F;&#x4E0E;&#x987A;&#x5E8F;&#x4E00;&#x81F4;&#x6027;&#xFF1B;</li>
-<li>&#x4E09;&#x4E2A;&#x540C;&#x6B65;&#x539F;&#x8BED;&#xFF08;lock&#xFF0C;volatile&#xFF0C;final&#xFF09;&#x7684;&#x5185;&#x5B58;&#x8BED;&#x4E49;&#xFF0C;&#x91CD;&#x6392;&#x5E8F;&#x89C4;&#x5219;&#x53CA;&#x5728;&#x5904;&#x7406;&#x5668;&#x4E2D;&#x7684;&#x5B9E;&#x73B0;&#xFF1B;</li>
-<li>java&#x5185;&#x5B58;&#x6A21;&#x578B;&#x7684;&#x8BBE;&#x8BA1;&#xFF0C;&#x53CA;&#x5176;&#x4E0E;&#x5904;&#x7406;&#x5668;&#x5185;&#x5B58;&#x6A21;&#x578B;&#x548C;&#x987A;&#x5E8F;&#x4E00;&#x81F4;&#x6027;&#x5185;&#x5B58;&#x6A21;&#x578B;&#x7684;&#x5173;&#x7CFB;&#x3002;</li>
+<li>重排序与顺序一致性；</li>
+<li>三个同步原语（lock，volatile，final）的内存语义，重排序规则及在处理器中的实现；</li>
+<li>java内存模型的设计，及其与处理器内存模型和顺序一致性内存模型的关系。</li>
 </ul>
 <a id="more"></a>
-<h2 id="&#x57FA;&#x7840;">&#x57FA;&#x7840;</h2><ul>
-<li>&#x5E76;&#x53D1;&#x7F16;&#x7A0B;&#x6A21;&#x578B;&#x7684;&#x5206;&#x7C7B;</li>
-<li>Java&#x5185;&#x5B58;&#x6A21;&#x578B;&#x7684;&#x62BD;&#x8C61;</li>
-<li>&#x91CD;&#x6392;&#x5E8F;</li>
-<li>&#x5904;&#x7406;&#x5668;&#x91CD;&#x6392;&#x5E8F;&#x4E0E;&#x5185;&#x5B58;&#x5C4F;&#x969C;&#x6307;&#x4EE4;</li>
+<h2 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h2><ul>
+<li>并发编程模型的分类</li>
+<li>Java内存模型的抽象</li>
+<li>重排序</li>
+<li>处理器重排序与内存屏障指令</li>
 <li>happens-before</li>
 </ul>
-<h2 id="&#x91CD;&#x6392;&#x5E8F;">&#x91CD;&#x6392;&#x5E8F;</h2><ul>
-<li>&#x6570;&#x636E;&#x4F9D;&#x8D56;&#x6027;</li>
-<li>as-if-serial &#x8BED;&#x4E49;</li>
-<li>&#x7A0B;&#x5E8F;&#x987A;&#x5E8F;&#x89C4;&#x5219;</li>
-<li>&#x91CD;&#x6392;&#x5E8F;&#x5BF9;&#x591A;&#x7EBF;&#x7A0B;&#x7684;&#x5F71;&#x54CD;</li>
+<h2 id="重排序"><a href="#重排序" class="headerlink" title="重排序"></a>重排序</h2><ul>
+<li>数据依赖性</li>
+<li>as-if-serial 语义</li>
+<li>程序顺序规则</li>
+<li>重排序对多线程的影响</li>
 </ul>
-<h2 id="&#x987A;&#x5E8F;&#x4E00;&#x81F4;&#x6027;">&#x987A;&#x5E8F;&#x4E00;&#x81F4;&#x6027;</h2><ul>
-<li>&#x6570;&#x636E;&#x7ADE;&#x4E89;&#x4E0E;&#x987A;&#x5E8F;&#x4E00;&#x81F4;&#x6027;&#x4FDD;&#x8BC1;</li>
-<li>&#x987A;&#x5E8F;&#x4E00;&#x81F4;&#x6027;&#x5185;&#x5B58;&#x6A21;&#x578B;</li>
-<li>&#x540C;&#x6B65;&#x7A0B;&#x5E8F;&#x7684;&#x987A;&#x5E8F;&#x4E00;&#x81F4;&#x6027;&#x6548;&#x679C;</li>
-<li>&#x672A;&#x540C;&#x6B65;&#x7A0B;&#x5E8F;&#x7684;&#x6267;&#x884C;&#x7279;&#x6027;</li>
+<h2 id="顺序一致性"><a href="#顺序一致性" class="headerlink" title="顺序一致性"></a>顺序一致性</h2><ul>
+<li>数据竞争与顺序一致性保证</li>
+<li>顺序一致性内存模型</li>
+<li>同步程序的顺序一致性效果</li>
+<li>未同步程序的执行特性</li>
 </ul>
-<h2 id="volatile">Volatile</h2><ul>
-<li>volatile&#x7684;&#x7279;&#x6027;</li>
-<li>volatile&#x5199;-&#x8BFB;&#x5EFA;&#x7ACB;&#x7684;happens before&#x5173;&#x7CFB;</li>
-<li>volatile&#x5199;-&#x8BFB;&#x7684;&#x5185;&#x5B58;&#x8BED;&#x4E49;</li>
-<li>volatile&#x5185;&#x5B58;&#x8BED;&#x4E49;&#x7684;&#x5B9E;&#x73B0;</li>
-<li>JSR-133&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x589E;&#x5F3A;volatile&#x7684;&#x5185;&#x5B58;&#x8BED;&#x4E49;</li>
+<h2 id="Volatile"><a href="#Volatile" class="headerlink" title="Volatile"></a>Volatile</h2><ul>
+<li>volatile的特性</li>
+<li>volatile写-读建立的happens before关系</li>
+<li>volatile写-读的内存语义</li>
+<li>volatile内存语义的实现</li>
+<li>JSR-133为什么要增强volatile的内存语义</li>
 </ul>
-<h2 id="&#x9501;">&#x9501;</h2><ul>
-<li>&#x9501;&#x7684;&#x91CA;&#x653E;-&#x83B7;&#x53D6;&#x5EFA;&#x7ACB;&#x7684;happens before &#x5173;&#x7CFB;</li>
-<li>&#x9501;&#x91CA;&#x653E;&#x548C;&#x83B7;&#x53D6;&#x7684;&#x5185;&#x5B58;&#x8BED;&#x4E49;</li>
-<li>&#x9501;&#x5185;&#x5B58;&#x8BED;&#x4E49;&#x7684;&#x5B9E;&#x73B0;</li>
-<li>concurrent&#x5305;&#x7684;&#x5B9E;&#x73B0;</li>
+<h2 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h2><ul>
+<li>锁的释放-获取建立的happens before 关系</li>
+<li>锁释放和获取的内存语义</li>
+<li>锁内存语义的实现</li>
+<li>concurrent包的实现</li>
 </ul>
-<h2 id="final">Final</h2><ul>
-<li>&#x5199;final&#x57DF;&#x7684;&#x91CD;&#x6392;&#x5E8F;&#x89C4;&#x5219;</li>
-<li>&#x8BFB;final&#x57DF;&#x7684;&#x91CD;&#x6392;&#x5E8F;&#x89C4;&#x5219;</li>
-<li>&#x5982;&#x679C;final&#x57DF;&#x662F;&#x5F15;&#x7528;&#x7C7B;&#x578B;</li>
-<li>&#x4E3A;&#x4EC0;&#x4E48;final&#x5F15;&#x7528;&#x4E0D;&#x80FD;&#x4ECE;&#x6784;&#x9020;&#x51FD;&#x6570;&#x5185;&#x201C;&#x9038;&#x51FA;&#x201D;</li>
-<li>final&#x8BED;&#x4E49;&#x5728;&#x5904;&#x7406;&#x5668;&#x4E2D;&#x7684;&#x5B9E;&#x73B0;</li>
-<li>JSR-133&#x4E3A;&#x4EC0;&#x4E48;&#x8981;&#x589E;&#x5F3A;final&#x7684;&#x8BED;&#x4E49;</li>
+<h2 id="Final"><a href="#Final" class="headerlink" title="Final"></a>Final</h2><ul>
+<li>写final域的重排序规则</li>
+<li>读final域的重排序规则</li>
+<li>如果final域是引用类型</li>
+<li>为什么final引用不能从构造函数内“逸出”</li>
+<li>final语义在处理器中的实现</li>
+<li>JSR-133为什么要增强final的语义</li>
 </ul>
-<h2 id="&#x603B;&#x7ED3;">&#x603B;&#x7ED3;</h2><ul>
-<li>&#x5904;&#x7406;&#x5668;&#x5185;&#x5B58;&#x6A21;&#x578B;</li>
-<li>JMM&#xFF0C;&#x5904;&#x7406;&#x5668;&#x5185;&#x5B58;&#x6A21;&#x578B;&#x4E0E;&#x987A;&#x5E8F;&#x4E00;&#x81F4;&#x6027;&#x5185;&#x5B58;&#x6A21;&#x578B;&#x4E4B;&#x95F4;&#x7684;&#x5173;&#x7CFB;</li>
-<li>JMM&#x7684;&#x8BBE;&#x8BA1;JMM&#x7684;&#x5185;&#x5B58;&#x53EF;&#x89C1;&#x6027;&#x4FDD;&#x8BC1;</li>
-<li>JSR-133&#x5BF9;&#x65E7;&#x5185;&#x5B58;&#x6A21;&#x578B;&#x7684;&#x4FEE;&#x8865;</li>
-<li>&#x4E2A;&#x4EBA;&#x7B80;&#x4ECB;</li>
-<li>&#x53C2;&#x8003;&#x6587;&#x732E;  </li>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul>
+<li>处理器内存模型</li>
+<li>JMM，处理器内存模型与顺序一致性内存模型之间的关系</li>
+<li>JMM的设计JMM的内存可见性保证</li>
+<li>JSR-133对旧内存模型的修补</li>
+<li>个人简介</li>
+<li>参考文献  </li>
 </ul>
-<p>&#x56FE;&#x4E66;&#x4E0B;&#x8F7D;&#x5730;&#x5740;&#xFF1A;<a href="http://www.infoq.com/cn/minibooks/java_memory_model" target="_blank" rel="external">http://www.infoq.com/cn/minibooks/java_memory_model</a></p>
+<p>图书下载地址：<a href="http://www.infoq.com/cn/minibooks/java_memory_model" target="_blank" rel="external">http://www.infoq.com/cn/minibooks/java_memory_model</a></p>
 
       
     </div>
@@ -554,7 +555,7 @@ java内存模型的设计，及其">
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">64</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -562,7 +563,7 @@ java内存模型的设计，及其">
           
             <div class="site-state-item site-state-categories">
               
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">21</span>
                 <span class="site-state-item-name">分类</span>
               
             </div>
@@ -571,7 +572,7 @@ java内存模型的设计，及其">
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">93</span>
+                <span class="site-state-item-count">94</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -682,7 +683,7 @@ java内存模型的设计，及其">
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重排序"><span class="nav-number">2.</span> <span class="nav-text">重排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#顺序一致性"><span class="nav-number">3.</span> <span class="nav-text">顺序一致性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#volatile"><span class="nav-number">4.</span> <span class="nav-text">Volatile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁"><span class="nav-number">5.</span> <span class="nav-text">锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#final"><span class="nav-number">6.</span> <span class="nav-text">Final</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础"><span class="nav-number">1.</span> <span class="nav-text">基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重排序"><span class="nav-number">2.</span> <span class="nav-text">重排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#顺序一致性"><span class="nav-number">3.</span> <span class="nav-text">顺序一致性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Volatile"><span class="nav-number">4.</span> <span class="nav-text">Volatile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁"><span class="nav-number">5.</span> <span class="nav-text">锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Final"><span class="nav-number">6.</span> <span class="nav-text">Final</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
           </div>
         </section>
@@ -721,7 +722,7 @@ java内存模型的设计，及其">
 
 <div class="theme-info">
   Clone theme -
-  <a class="theme-link" href="https://github.com/xirong/hexo-theme-next">
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next/">
     NexT.Mist
   </a>
 </div>
